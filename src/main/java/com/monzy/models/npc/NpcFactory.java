@@ -274,15 +274,13 @@ public class NpcFactory {
                                         player.inventory.gold -= 500000000;
                                         PlayerService.gI().sendInfoHpMpMoney(player);
                                         ChangeMapService.gI().goToDBKB(player);
-                                        break;
                                     } else {
                                         Service.getInstance().sendThongBao(player, "Thiếu" + (500000000 - player.inventory.gold) + "Vàng");
-                                        break;
                                     }
                                 } else {
                                     Service.getInstance().sendThongBao(player, "Chưa đến thời gian");
-                                    break;
                                 }
+                                break;
                             case 3:
                                 this.createOtherMenu(player, ConstNpc.MENU_QUAVIP, "Khi các con mở thành viên và nạp đến các mốc sẽ nhận được\n phần quà tương ứng:\n + Mốc Vip 1: 20.000Vnd\n"
                                                 + "+ Mốc Vip 2: 50.000Vnđ\n + Mốc Vip 3 : 100.000vnđ\n + Mốc víp 4: 200.000Vnđ\n + Mốc Vip 5  :500.000Vnđ\n"

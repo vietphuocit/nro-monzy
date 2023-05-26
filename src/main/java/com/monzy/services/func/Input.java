@@ -14,6 +14,7 @@ import com.monzy.utils.Util;
 import com.network.io.Message;
 import com.network.session.ISession;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -168,9 +169,9 @@ public class Input {
                                 e.printStackTrace();
                             }
                         }
-                        int x = Util.nextInt(1, 6);
-                        int y = Util.nextInt(1, 6);
-                        int z = Util.nextInt(1, 6);
+                        int x = diceRoller(true);
+                        int y = diceRoller(true, x);
+                        int z = diceRoller(true, x, y);
                         int tong = (x + y + z);
                         if ((x + y + z) > 10 && (x + y + z) <= 18) {
                             player.inventory.ruby += taiHongNgoc * 1.8;
@@ -209,9 +210,9 @@ public class Input {
                                 e.printStackTrace();
                             }
                         }
-                        int x = Util.nextInt(1, 6);
-                        int y = Util.nextInt(1, 6);
-                        int z = Util.nextInt(1, 6);
+                        int x = diceRoller(false);
+                        int y = diceRoller(false, x);
+                        int z = diceRoller(false, x, y);
                         int tong = (x + y + z);
                         if (3 <= (x + y + z) && (x + y + z) <= 10) {
                             player.inventory.ruby += xiuHongNgoc * 1.8;
@@ -262,9 +263,9 @@ public class Input {
                                 e.printStackTrace();
                             }
                         }
-                        int x = Util.nextInt(1, 6);
-                        int y = Util.nextInt(1, 6);
-                        int z = Util.nextInt(1, 6);
+                        int x = diceRoller(true);
+                        int y = diceRoller(true, x);
+                        int z = diceRoller(true, x, y);
                         int tong = (x + y + z);
                         if (3 <= (x + y + z) && (x + y + z) <= 10) {
                             Service.getInstance().sendThongBaoOK(player, "Kết quả" + "\nSố hệ thống quay ra là :" +
@@ -317,9 +318,9 @@ public class Input {
                                 e.printStackTrace();
                             }
                         }
-                        int x = Util.nextInt(1, 6);
-                        int y = Util.nextInt(1, 6);
-                        int z = Util.nextInt(1, 6);
+                        int x = diceRoller(false);
+                        int y = diceRoller(false, x);
+                        int z = diceRoller(false, x, y);
                         int tong = (x + y + z);
                         if ((x + y + z) > 10 && (x + y + z) <= 18) {
                             Service.getInstance().sendThongBaoOK(player, "Kết quả" + "\nSố hệ thống quay ra là :" +
@@ -529,6 +530,17 @@ public class Input {
 
     public void createFormTradeRuongDongVang(Player pl) {
         createForm(pl, DOI_RUONG_DONG_VANG, "Nhập Số Lượng Muốn Đổi", new SubInput("Số Lượng", NUMERIC));
+    }
+
+    public int diceRoller(boolean selected, int... oldDiceRoller) {
+        int sum = Arrays.stream(oldDiceRoller).sum();
+        if (selected && (sum > 6 && sum < 10)) {
+            return Util.nextInt(1, 4);
+        }
+        if (!selected && (sum > 4 && sum < 8)) {
+            return Util.nextInt(3, 6);
+        }
+        return Util.nextInt(1, 6);
     }
 
     public static class SubInput {
