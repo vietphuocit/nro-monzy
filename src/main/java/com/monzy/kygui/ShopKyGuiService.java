@@ -13,10 +13,7 @@ import com.monzy.services.NpcService;
 import com.monzy.services.Service;
 import com.network.io.Message;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Stole By Arriety
@@ -70,16 +67,14 @@ public class ShopKyGuiService {
     private List<ItemKyGui> getItemKyGui() {
         List<ItemKyGui> its = new ArrayList<>();
         List<ItemKyGui> listSort = new ArrayList<>();
-        ShopKyGuiManager.gI().listItem.stream().filter((it) -> (it != null && !it.isBuy)).forEachOrdered((it) -> {
-            its.add(it);
-        });
-        its.stream().filter(i -> i != null).sorted(Comparator.comparing(i -> i.isUpTop, Comparator.reverseOrder())).forEach(i -> listSort.add(i));
+        ShopKyGuiManager.gI().listItem.stream().filter((it) -> (it != null && !it.isBuy)).forEachOrdered(its::add);
+        its.stream().filter(Objects::nonNull).sorted(Comparator.comparing(i -> i.isUpTop, Comparator.reverseOrder())).forEach(listSort::add);
         return listSort;
     }
 
     public void buyItem(Player pl, int id) {
-        if (pl.nPoint.power < 17000000000L) {
-            Service.gI().sendThongBao(pl, "Yêu cầu sức mạnh lớn hơn 17 tỷ");
+        if (pl.nPoint.power < 40000000000L) {
+            Service.gI().sendThongBao(pl, "Yêu cầu sức mạnh lớn hơn 40 tỷ");
             openShopKyGui(pl);
             return;
         }
@@ -158,8 +153,7 @@ public class ShopKyGuiService {
             msg.writer().writeByte(tab); // max page
             msg.writer().writeByte(page);
             msg.writer().writeByte(itemsSend.size());
-            for (int j = 0; j < itemsSend.size(); j++) {
-                ItemKyGui itk = itemsSend.get(j);
+            for (ItemKyGui itk : itemsSend) {
                 Item it = ItemService.gI().createNewItem(itk.itemId);
                 it.itemOptions.clear();
                 if (itk.options.isEmpty()) {
@@ -192,7 +186,6 @@ public class ShopKyGuiService {
         } finally {
             if (msg != null) {
                 msg.cleanup();
-                msg = null;
             }
         }
     }
@@ -262,21 +255,15 @@ public class ShopKyGuiService {
 
     public List<ItemKyGui> getItemCanKiGui(Player pl) {
         List<ItemKyGui> its = new ArrayList<>();
-        ShopKyGuiManager.gI().listItem.stream().filter((it) -> (it != null && it.player_sell == pl.id)).forEachOrdered((it) -> {
-            its.add(it);
-        });
-        pl.inventory.itemsBag.stream().filter((it) -> (it.isNotNullItem() && ((it.template.type < 5 && it.template.type >= 0) || it.template.type == 12 || it.template.type == 33 || it.template.type == 29))).forEachOrdered((it) -> {
-            its.add(new ItemKyGui(InventoryServiceNew.gI().getIndexBag(pl, it), it.template.id, (int) pl.id, (byte) 4, -1, -1, it.quantity, (byte) -1, it.itemOptions, false));
-        });
+        ShopKyGuiManager.gI().listItem.stream().filter((it) -> (it != null && it.player_sell == pl.id)).forEachOrdered(its::add);
+        pl.inventory.itemsBag.stream().filter((it) -> (it.isNotNullItem() && ((it.template.type < 5 && it.template.type >= 0) || it.template.type == 12 || it.template.type == 33 || it.template.type == 29))).forEachOrdered((it) -> its.add(new ItemKyGui(InventoryServiceNew.gI().getIndexBag(pl, it), it.template.id, (int) pl.id, (byte) 4, -1, -1, it.quantity, (byte) -1, it.itemOptions, false)));
         return its;
     }
 
     public int getMaxId() {
         try {
             List<Integer> id = new ArrayList<>();
-            ShopKyGuiManager.gI().listItem.stream().filter((it) -> (it != null)).forEachOrdered((it) -> {
-                id.add(it.id);
-            });
+            ShopKyGuiManager.gI().listItem.stream().filter(Objects::nonNull).forEachOrdered((it) -> id.add(it.id));
             return Collections.max(id);
         } catch (Exception e) {
             return 0;
@@ -297,6 +284,11 @@ public class ShopKyGuiService {
 
     public void KiGui(Player pl, int id, int money, byte moneyType, int quantity) {
         try {
+            if (pl.nPoint.power < 40000000000L) {
+                Service.gI().sendThongBao(pl, "Yêu cầu sức mạnh lớn hơn 40 tỷ");
+                openShopKyGui(pl);
+                return;
+            }
             if (pl.inventory.ruby < 5) {
                 Service.gI().sendThongBao(pl, "Bạn cần có ít nhất 5 hồng ngọc để làm phí đăng bán");
                 return;
@@ -341,6 +333,16 @@ public class ShopKyGuiService {
     }
 
     public void openShopKyGui(Player pl) {
+        if (pl.nPoint.power < 40000000000L) {
+            Service.gI().sendThongBao(pl, "Yêu cầu sức mạnh lớn hơn 40 tỷ");
+            openShopKyGui(pl);
+            return;
+        }
+        if (!pl.getSession().actived) {
+            Service.getInstance().sendThongBaoFromAdmin(pl,
+                    "|5|VUI LÒNG KÍCH HOẠT TÀI KHOẢN\n|7|Liên Hệ Admin\n|5|ĐỂ MỞ KHÓA TÍNH NĂNG KÝ GỬI");
+            return;
+        }
         Message msg = null;
         try {
             msg = new Message(-44);
@@ -429,7 +431,6 @@ public class ShopKyGuiService {
         } finally {
             if (msg != null) {
                 msg.cleanup();
-                msg = null;
             }
         }
     }

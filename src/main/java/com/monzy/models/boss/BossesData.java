@@ -1,12 +1,9 @@
 package com.monzy.models.boss;
 
-import com.monzy.consts.ConstPlayer;
 import com.monzy.models.skill.Skill;
+import com.monzy.consts.*;
 import com.monzy.utils.Util;
 
-/**
- * @Stole By Arriety❤
- */
 public class BossesData {
 
     /**
@@ -21,6 +18,7 @@ public class BossesData {
     private static final int[][] FULL_ANTOMIC = new int[][]{{Skill.ANTOMIC, 1}, {Skill.ANTOMIC, 2}, {Skill.ANTOMIC, 3}, {Skill.ANTOMIC, 4}, {Skill.ANTOMIC, 5}, {Skill.ANTOMIC, 6}, {Skill.ANTOMIC, 7}};
     private static final int[][] FULL_LIENHOAN = new int[][]{{Skill.LIEN_HOAN, 1}, {Skill.LIEN_HOAN, 2}, {Skill.LIEN_HOAN, 3}, {Skill.LIEN_HOAN, 4}, {Skill.LIEN_HOAN, 5}, {Skill.LIEN_HOAN, 6}, {Skill.LIEN_HOAN, 7}};
     private static final int[][] FULL_TDHS = new int[][]{{Skill.THAI_DUONG_HA_SAN, 1}, {Skill.THAI_DUONG_HA_SAN, 2}, {Skill.THAI_DUONG_HA_SAN, 3}, {Skill.THAI_DUONG_HA_SAN, 4}, {Skill.THAI_DUONG_HA_SAN, 5}, {Skill.THAI_DUONG_HA_SAN, 6}, {Skill.THAI_DUONG_HA_SAN, 7}};
+
     private static final int REST_1_S = 1;
     private static final int REST_2_S = 2;
     private static final int REST_5_S = 5;
@@ -34,6 +32,7 @@ public class BossesData {
     private static final int REST_15_M = 900;
     private static final int REST_30_M = 1800;
     private static final int REST_24_H = 86400000;
+
     //************************************************************************** Boss nappa
     public static final BossData KUKU = new BossData(
             "Kuku", //name
@@ -60,6 +59,7 @@ public class BossesData {
             new String[]{"|-2|Đẹp trai nó phải thế"}, //text chat 3
             REST_15_M //second rest
     );
+
     public static final BossData MAP_DAU_DINH = new BossData(
             "Mập Đầu Đinh", //name
             ConstPlayer.XAYDA, //gender
@@ -85,6 +85,7 @@ public class BossesData {
             new String[]{"|-1|Ôi bạn ơi ....ơi!!!"}, //text chat 3
             REST_15_M //second rest
     );
+
     public static final BossData RAMBO = new BossData(
             "Rambo", //name
             ConstPlayer.XAYDA, //gender
@@ -110,6 +111,7 @@ public class BossesData {
             new String[]{"|-1|Ôi bạn ơi..."}, //text chat 3
             REST_15_M //second rest
     );
+
     //************************************************************************** Boss tiểu đội sát thủ
     public static final BossData SO_4 = new BossData(
             "Số 4 Guldo", //name
@@ -135,7 +137,9 @@ public class BossesData {
                     "|-1|Hãy trả thù cho ta!"
             }, //text chat 3
             REST_15_M
+
     );
+
     public static final BossData SO_3 = new BossData(
             "Số 3 Recome", //name
             ConstPlayer.XAYDA, //gender
@@ -159,6 +163,7 @@ public class BossesData {
             }, //text chat 3
             TypeAppear.APPEAR_WITH_ANOTHER //type appear
     );
+
     public static final BossData SO_2 = new BossData(
             "Số 2 Jeice", //name
             ConstPlayer.XAYDA, //gender
@@ -182,6 +187,7 @@ public class BossesData {
             }, //text chat 3
             TypeAppear.APPEAR_WITH_ANOTHER //type appear
     );
+
     public static final BossData SO_1 = new BossData(
             "Số 1 Burter", //name
             ConstPlayer.XAYDA, //gender
@@ -205,6 +211,7 @@ public class BossesData {
             }, //text chat 3
             TypeAppear.APPEAR_WITH_ANOTHER //type appear
     );
+
     public static final BossData TIEU_DOI_TRUONG = new BossData(
             "Tiểu đội trưởng Ginyu", //name
             ConstPlayer.XAYDA, //gender
@@ -227,6 +234,7 @@ public class BossesData {
             }, //text chat 3
             TypeAppear.APPEAR_WITH_ANOTHER //type appear
     );
+
     public static final BossData SO_4_1 = new BossData(
             "Số 4 Guldo", //name
             ConstPlayer.XAYDA, //gender
@@ -251,7 +259,9 @@ public class BossesData {
                     "|-1|Hãy trả thù cho ta!"
             }, //text chat 3
             REST_15_M
+
     );
+
     public static final BossData SO_3_1 = new BossData(
             "Số 3 Recome", //name
             ConstPlayer.XAYDA, //gender
@@ -275,6 +285,7 @@ public class BossesData {
             }, //text chat 3
             TypeAppear.APPEAR_WITH_ANOTHER //type appear
     );
+
     public static final BossData SO_2_1 = new BossData(
             "Số 2 Jeice", //name
             ConstPlayer.XAYDA, //gender
@@ -298,6 +309,7 @@ public class BossesData {
             }, //text chat 3
             TypeAppear.APPEAR_WITH_ANOTHER //type appear
     );
+
     public static final BossData SO_1_1 = new BossData(
             "Số 1 Burter", //name
             ConstPlayer.XAYDA, //gender
@@ -321,6 +333,7 @@ public class BossesData {
             }, //text chat 3
             TypeAppear.APPEAR_WITH_ANOTHER //type appear
     );
+
     public static final BossData TIEU_DOI_TRUONG_1 = new BossData(
             "Tiểu đội trưởng Ginyu", //name
             ConstPlayer.XAYDA, //gender
@@ -343,6 +356,7 @@ public class BossesData {
             }, //text chat 3
             TypeAppear.APPEAR_WITH_ANOTHER //type appear
     );
+
     //************************************************************************** Boss Fide đại ca
     public static final BossData FIDE_DAI_CA_1 = new BossData(
             "Fide đại ca 1", //name
@@ -368,6 +382,7 @@ public class BossesData {
             new String[]{"|-1|Biến hình, hây aaaa..."}, //text chat 3
             REST_15_M //second rest
     );
+
     public static final BossData FIDE_DAI_CA_2 = new BossData(
             "Fide đại ca 2", //name
             ConstPlayer.XAYDA, //gender
@@ -393,6 +408,7 @@ public class BossesData {
             new String[]{"|-1|Ác quỷ biến hình, Graaaaa...."}, //text chat 3
             TypeAppear.ANOTHER_LEVEL //type appear
     );
+
     public static final BossData FIDE_DAI_CA_3 = new BossData(
             "Fide đại ca 3", //name
             ConstPlayer.XAYDA, //gender
@@ -414,12 +430,13 @@ public class BossesData {
                     "|-1|Nhớ mặt tao đấy !",}, //text chat 3
             TypeAppear.ANOTHER_LEVEL //type appear
     );
+
     //************************************************************************** Boss Android
     public static final BossData DR_KORE = new BossData(
             "Dr.Kôrê", //name
             ConstPlayer.TRAI_DAT, //gender
             new short[]{255, 256, 257, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
-            120000, //dame
+            12000, //dame
             new int[]{20000000}, //hp
             new int[]{96, 94, 93}, //map join
             new int[][]{
@@ -448,11 +465,12 @@ public class BossesData {
             REST_15_M, //second rest
             new int[]{BossID.ANDROID_19}
     );
+
     public static final BossData ANDROID_19 = new BossData(
             "Android 19", //name
             ConstPlayer.TRAI_DAT, //gender
             new short[]{249, 250, 251, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
-            122000, //dame
+            12200, //dame
             new int[]{10000000}, //hp
             new int[]{96, 94, 93}, //map join
             new int[][]{
@@ -467,12 +485,13 @@ public class BossesData {
             new String[]{}, //text chat 3
             TypeAppear.APPEAR_WITH_ANOTHER
     );
+
     //**************************************************************************
     public static final BossData ANDROID_13 = new BossData(
             "Android 13", //name
             ConstPlayer.TRAI_DAT, //gender
             new short[]{252, 253, 254, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
-            120550, //dame
+            12550, //dame
             new int[]{10000000}, //hp
             new int[]{84, 104}, //map join
             new int[][]{
@@ -496,11 +515,12 @@ public class BossesData {
             new String[]{"|-1|Sô..Sông...gôku....."}, //text chat 3
             TypeAppear.CALL_BY_ANOTHER
     );
+
     public static final BossData ANDROID_14 = new BossData(
             "Android 14", //name
             ConstPlayer.TRAI_DAT, //gender
             new short[]{246, 247, 248, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
-            120000, //dame
+            12000, //dame
             new int[]{20000000}, //hp
             new int[]{84, 104}, //map join
             new int[][]{
@@ -515,6 +535,7 @@ public class BossesData {
             REST_15_M,
             new int[]{BossID.ANDROID_13, BossID.ANDROID_15}
     );
+
     public static final BossData ANDROID_15 = new BossData(
             "Android 15", //name
             ConstPlayer.TRAI_DAT, //gender
@@ -531,11 +552,12 @@ public class BossesData {
             TypeAppear.APPEAR_WITH_ANOTHER
     );
 //**************************************************************************
+
     public static final BossData PIC = new BossData(
             "Số 17 Pic", //name
             ConstPlayer.TRAI_DAT, //gender
             new short[]{237, 238, 239, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
-            170220, //dame
+            17220, //dame
             new int[]{250000000}, //hp
             new int[]{97, 98, 99}, //map join
             (int[][]) Util.addArray(FULL_GALICK, FULL_KAMEJOKO), //skill
@@ -562,11 +584,12 @@ public class BossesData {
             }, //text chat 3
             TypeAppear.APPEAR_WITH_ANOTHER
     );
+
     public static final BossData POC = new BossData(
             "Số 18 Poc", //name
             ConstPlayer.TRAI_DAT, //gender
             new short[]{240, 241, 242, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
-            180000, //dame
+            18000, //dame
             new int[]{250000000}, //hp
             new int[]{97, 98, 99}, //map join
             (int[][]) Util.addArray(FULL_KAMEJOKO), //skill
@@ -580,11 +603,12 @@ public class BossesData {
             new String[]{"|-2|Cô gái xinh đẹp vậy mà lại bị tên tiến sĩ Kôrê biến thành người máy.."}, //text chat 3
             TypeAppear.APPEAR_WITH_ANOTHER
     );
+
     public static final BossData KING_KONG = new BossData(
             "Số 16 King Kong", //name
             ConstPlayer.TRAI_DAT, //gender
             new short[]{243, 244, 245, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
-            1200000, //dame
+            12000, //dame
             new int[]{250000000}, //hp
             new int[]{97, 98, 99}, //map join
             (int[][]) Util.addArray(FULL_LIENHOAN, FULL_MASENKO), //skill
@@ -598,6 +622,7 @@ public class BossesData {
             new int[]{BossID.PIC, BossID.POC}
     );
     //************************************************************************** Boss cell
+
     public static final BossData XEN_BO_HUNG_1 = new BossData(
             "Xên bọ hung",
             ConstPlayer.XAYDA,
@@ -636,6 +661,7 @@ public class BossesData {
             new String[]{"|-2|Khốn kiếp, Pic.. hắn bị Cell hấp thu rồi!!"}, //text chat 3
             REST_15_M
     );
+
     public static final BossData XEN_BO_HUNG_2 = new BossData(
             "Xên bọ hung 2",
             ConstPlayer.XAYDA,
@@ -662,6 +688,7 @@ public class BossesData {
             new String[]{"|-1|Đến lúc rồi!"}, //text chat 3
             TypeAppear.ANOTHER_LEVEL
     );
+
     public static final BossData XEN_BO_HUNG_3 = new BossData(
             "Xên hoàn thiện",
             ConstPlayer.XAYDA,
@@ -677,6 +704,7 @@ public class BossesData {
                     {Skill.LIEN_HOAN, 7, 10000},
                     {Skill.THOI_MIEN, 7, 100000}},
             //skill
+
             new String[]{"|-2|Cuối cùng hắn cũng đã biến đổi",
                     "|-2|Khốn kiếp! Phải kết liễu hắn ngay lúc này!"
             }, //text chat 1
@@ -733,6 +761,7 @@ public class BossesData {
             new String[]{"|-1|Hô hô hô, đây sẽ là kết thúc của lũ ngu ngốc các ngươi!! Ta sẽ chết nhưng sẽ kéo theo cái hành tinh này luôn"}, //text chat 3
             REST_30_M
     );
+
     public static final BossData SIEU_BO_HUNG_2 = new BossData(
             "Xên Hoàn Thiện",
             ConstPlayer.XAYDA,
@@ -741,6 +770,7 @@ public class BossesData {
             new int[]{2000000000},
             new int[]{103},
             new int[][]{
+
                     {Skill.KAMEJOKO, 7, 6}, {Skill.KAMEJOKO, 6, 7}, {Skill.KAMEJOKO, 5, 8}, {Skill.KAMEJOKO, 4, 9}, {Skill.KAMEJOKO, 3, 10}, {Skill.KAMEJOKO, 2, 11}, {Skill.KAMEJOKO, 1, 12},
                     {Skill.ANTOMIC, 1, 13}, {Skill.ANTOMIC, 2, 14}, {Skill.ANTOMIC, 3, 15}, {Skill.ANTOMIC, 4, 16}, {Skill.ANTOMIC, 5, 17}, {Skill.ANTOMIC, 6, 19}, {Skill.ANTOMIC, 7, 20},
                     {Skill.MASENKO, 1, 21}, {Skill.MASENKO, 5, 22}, {Skill.MASENKO, 6, 23},
@@ -765,6 +795,7 @@ public class BossesData {
             new String[]{}, //text chat 3
             TypeAppear.ANOTHER_LEVEL
     );
+
     public static final BossData SIEU_BO_HUNG_3 = new BossData(
             "Siêu Xên Hoàn Thiện",
             ConstPlayer.XAYDA,
@@ -852,6 +883,8 @@ public class BossesData {
             new String[]{"|-2|Đêm qua em đẹp lắm!"}, //text chat 3
             REST_15_M //second rest
     );
+
+
     public static final BossData CUMBER = new BossData(
             "Sayan Tà Ác Cumber", //name
             ConstPlayer.XAYDA, //gender
@@ -901,6 +934,8 @@ public class BossesData {
             REST_15_M //second rest
     );
     //**************************************************************************
+
+
     //**************************************************************************cha con fide
     public static final BossData VUA_COLD = new BossData(
             "Thống Chế King COLD",
@@ -922,6 +957,7 @@ public class BossesData {
             REST_15_M, //second rest
             new int[]{BossID.FIDE_ROBOT}
     );
+
     public static final BossData FIDE_ROBOT = new BossData(
             "Fide người máy", //name
             ConstPlayer.TRAI_DAT, //gender
@@ -939,6 +975,7 @@ public class BossesData {
             new String[]{"|-1|Ta thua rồi sao? Khôngggggggg!"}, //text chat 3
             TypeAppear.APPEAR_WITH_ANOTHER
     );
+
     //**************************************************************************
     //**************************************************************************
     public static final BossData XUKA = new BossData(
@@ -961,6 +998,7 @@ public class BossesData {
             new String[]{}, //text chat 3
             TypeAppear.APPEAR_WITH_ANOTHER //type appear
     );
+
     public static final BossData XEKO = new BossData(
             "Mõm Nhọn Suneo", //name
             ConstPlayer.XAYDA, //gender
@@ -981,6 +1019,7 @@ public class BossesData {
             new String[]{}, //text chat 3
             TypeAppear.APPEAR_WITH_ANOTHER //type appear
     );
+
     public static final BossData CHAIEN = new BossData(
             "Khỉ Đột Chaien", //name
             ConstPlayer.XAYDA, //gender
@@ -1002,6 +1041,7 @@ public class BossesData {
             new String[]{}, //text chat 3
             TypeAppear.APPEAR_WITH_ANOTHER //type appear
     );
+
     public static final BossData NOBITA = new BossData(
             "Chú Bé Đần Nobita", //name
             ConstPlayer.XAYDA, //gender
@@ -1010,6 +1050,7 @@ public class BossesData {
             new int[]{10000000}, //hp
             new int[]{19}, //map join
             new int[][]{
+
                     {Skill.MASENKO, 7, 1000},
                     {Skill.ANTOMIC, 7, 10000},
             },//skill//skill
@@ -1022,6 +1063,7 @@ public class BossesData {
             new String[]{}, //text chat 3
             TypeAppear.APPEAR_WITH_ANOTHER //type appear
     );
+
     public static final BossData DORAEMON = new BossData(
             "Người Máy Doraemon",
             ConstPlayer.XAYDA,
@@ -1031,6 +1073,7 @@ public class BossesData {
             new int[]{19},
 //            new int[]{14},
             new int[][]{
+
                     {Skill.DRAGON, 7, 1000},
                     {Skill.DICH_CHUYEN_TUC_THOI, 7, 30000},
             }, //skill//skill
@@ -1040,7 +1083,11 @@ public class BossesData {
             REST_15_M, //second rest
             new int[]{BossID.CHAIEN, BossID.XEKO, BossID.NOBITA, BossID.XUKA} //boss join map together
     );
+
+
     //**************************************************************************
+
+
     //**************************************************************************
     public static final BossData BLACK_GOKU_BASE = new BossData(
             "Black Goku", //name
@@ -1091,6 +1138,7 @@ public class BossesData {
             new String[]{"|-1|Biến hình! Super Sayan Rose"}, //text chat 3
             REST_5_M //second rest
     );
+
     public static final BossData SUPER_BLACK_GOKU = new BossData(
             "Super Black Goku Rose", //name
             ConstPlayer.TRAI_DAT, //gender
@@ -1111,10 +1159,12 @@ public class BossesData {
                     "|-1|Để ta nói cho nghe,người Sayan sau khi hồi phục sức mạnh sẽ tăng lên rất nhiều",
                     "|-2|Tại sao ngươi lại lấy thân thể của songoku chứ?"
             }, //text chat 2
+
             new String[]{"|-1|Chúng ta sẽ gặp lại nhau sớm thôi",
                     "|-2|Ngươi nói gì chứ?"}, //text chat 3
             TypeAppear.ANOTHER_LEVEL //type appear
     );
+
     //-------------------------------------------------------------------
     public static final BossData SUPER_BLACK_GOKU_2 = new BossData(
             "Super Black Goku Rose", //name
@@ -1137,11 +1187,13 @@ public class BossesData {
                     "|-1|Để ta nói cho nghe,người Sayan sau khi hồi phục sức mạnh sẽ tăng lên rất nhiều",
                     "|-2|Tại sao ngươi lại lấy thân thể của songoku chứ?"
             }, //text chat 2
+
             new String[]{"|-1|Hẹn gặp lại",
                     "|-2|Không tiễn"}, //text chat 3
             REST_15_M, //second rest
             new int[]{BossID.ZAMASZIN}
     );
+
     public static final BossData ZAMAS = new BossData(
             "Kaioshin Zamas", //name
             ConstPlayer.TRAI_DAT, //gender
@@ -1150,6 +1202,7 @@ public class BossesData {
             new int[]{450000000}, //hp
             new int[]{102, 92, 93, 94, 96, 97, 98, 99, 100}, //map join
 //            new int[]{14}, //map join
+
             new int[][]{
                     {Skill.GALICK, 7, 1000},
                     {Skill.DICH_CHUYEN_TUC_THOI, 7, 10000},
@@ -1173,6 +1226,7 @@ public class BossesData {
                     "|-1|Hắn thực sự rất mạnh, đúng là cuộc chiến hay",
                     "|-3|Không lí nào ta lại run sợ bọn con người sao"
             }, //text chat 2
+
             new String[]{"|-1|Chỉ còn một cách duy nhất mà thôi",
                     "|-1|Bông tai Porata!"}, //text chat 3
             TypeAppear.APPEAR_WITH_ANOTHER
@@ -1201,7 +1255,10 @@ public class BossesData {
             new String[]{}, //text chat 3
             REST_15_M
     );
+
     //**************************************************************************
+
+
     public static final BossData MABU = new BossData(
             "Mabư",
             ConstPlayer.XAYDA,
@@ -1243,6 +1300,7 @@ public class BossesData {
             new String[]{"|-1|Gaaaaaaaa!!!"}, //text chat 3
             REST_10_M //second rest
     );
+
     public static final BossData BROLY_2 = new BossData(
             "Super Broly", //name
             ConstPlayer.XAYDA, //gender
@@ -1265,6 +1323,7 @@ public class BossesData {
             new String[]{"|-1|Gaaaaaaaa!!!"}, //text chat 3
             TypeAppear.ANOTHER_LEVEL //type appear
     );
+
     public static final BossData BROLY_3 = new BossData(
             "Super Sayan Huyền Thoại", //name
             ConstPlayer.XAYDA, //gender
@@ -1315,6 +1374,7 @@ public class BossesData {
             new String[]{"|-1|Khôngggggggg!!"}, //text chat 3
             TypeAppear.ANOTHER_LEVEL //type appear
     );
+
     //************************************************************************** Boss hủy diệt
     public static final BossData THIEN_SU_WHIS = new BossData(
             "Thiên sứ Whis", //name
@@ -1446,7 +1506,10 @@ public class BossesData {
             new String[]{"|-2|Mau nghỉ ngơi nào chú Goku"}, //text chat 3
             REST_15_M //second rest
     );
+
     //************************************************************************** Boss nrd
+
+
     public static final BossData Rong_1Sao = new BossData(
             "Rồng Syn 1 Sao", //name
             ConstPlayer.XAYDA, //gender
@@ -1490,6 +1553,7 @@ public class BossesData {
             }, //text chat 2
             new String[]{"|-2|Tên đó mạnh thật!"}, //text chat 3
             REST_24_H //second rest
+
     );
     public static final BossData Rong_3Sao = new BossData(
             "Rồng Eis 3 Sao", //name
@@ -1513,6 +1577,7 @@ public class BossesData {
             }, //text chat 2
             new String[]{"|-2|Tên đó mạnh thật!"}, //text chat 3
             REST_24_H //second rest
+
     );
     public static final BossData Rong_4Sao = new BossData(
             "Rồng Nuova 4 Sao", //name
@@ -1610,6 +1675,7 @@ public class BossesData {
             new int[]{2000000000},
             new int[]{120},
             new int[][]{
+
                     {Skill.KHIEN_NANG_LUONG, 7, 50000},
                     {Skill.THAI_DUONG_HA_SAN, 7, 70000},
                     {Skill.DICH_CHUYEN_TUC_THOI, 7, 1000},
@@ -1669,6 +1735,7 @@ public class BossesData {
                     "|-1|Tobe continue.."}, //text chat 3
             REST_1_M
     );
+
     public static final BossData BUI_BUI_2 = new BossData(
             "Bui Bui",
             ConstPlayer.XAYDA,
@@ -1700,6 +1767,8 @@ public class BossesData {
                     "|-1|Tobe continue.."}, //text chat 3
             REST_1_M
     );
+
+
     public static final BossData COOLER_1 = new BossData(
             "Cooler", //name
             ConstPlayer.TRAI_DAT, //gender
@@ -1787,6 +1856,7 @@ public class BossesData {
             5205500, //dame
             new int[]{100000000}, //hp
             new int[]{38}, //map join
+
             (int[][]) Util.addArray(FULL_GALICK, FULL_KAMEJOKO, FULL_LIENHOAN, FULL_ANTOMIC, FULL_DEMON, FULL_MASENKO, FULL_DRAGON), //skill
             new String[]{"|-1|Sôn..gôku",
                     "|-2|Lại là Soome à.. rốt cuộc ông ta đã tạo ra bao nhiêu Anhrin nhân tạo thế nhỉ?",
@@ -1806,6 +1876,7 @@ public class BossesData {
             new String[]{"|-1|Sô..Sông...gôku....."}, //text chat 3
             TypeAppear.CALL_BY_ANOTHER
     );
+
     public static final BossData KAMILOC = new BossData(
             "Super Super Super SooMe", //name
             ConstPlayer.TRAI_DAT, //gender
@@ -1828,6 +1899,7 @@ public class BossesData {
             REST_30_M,
             new int[]{BossID.KAMIRIN, BossID.KAMI_SOOME}
     );
+
     public static final BossData KAMI_SOOME = new BossData(
             "Super Super Super Super SooMe", //name
             ConstPlayer.TRAI_DAT, //gender
@@ -1890,5 +1962,4 @@ public class BossesData {
             new String[]{}, //text chat 3
             TypeAppear.APPEAR_WITH_ANOTHER
     );
-
 }

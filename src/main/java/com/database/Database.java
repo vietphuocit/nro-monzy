@@ -83,7 +83,12 @@ public class Database {
                 log.info("Thực thi thành công câu lệnh: " + stmt);
                 Log.getInstance().log(stmt.toString());
             }
-            return new MonzyResultSetImpl(rs);
+            try {
+                return new MonzyResultSetImpl(rs);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
         } catch (SQLException e) {
             log.error("Có lỗi xảy ra khi thực thi câu lệnh: " + query);
             throw e;
@@ -101,7 +106,12 @@ public class Database {
                 Log.getInstance().log(stmt.toString());
             }
             ResultSet rs = stmt.executeQuery();
-            return new MonzyResultSetImpl(rs);
+            try {
+                return new MonzyResultSetImpl(rs);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
         } catch (SQLException e) {
             log.error("Có lỗi xảy ra khi thực thi câu lệnh: " + query);
             throw e;

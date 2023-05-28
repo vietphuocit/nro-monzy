@@ -18,7 +18,7 @@ public class ItemKyGui {
     public int id;
     public short itemId;
     public int player_sell;
-    public byte tab;
+    public int tab;
     public int goldSell;
     public int rubySell;
     public int quantity;
@@ -29,7 +29,7 @@ public class ItemKyGui {
     public ItemKyGui() {
     }
 
-    public ItemKyGui(int i, short id, int plId, byte t, int gold, int ruby, int q, byte isUp, List<ItemOption> op, boolean b) {
+    public ItemKyGui(int i, short id, int plId, int t, int gold, int ruby, int q, byte isUp, List<ItemOption> op, boolean b) {
         this.id = i;
         itemId = id;
         player_sell = plId;

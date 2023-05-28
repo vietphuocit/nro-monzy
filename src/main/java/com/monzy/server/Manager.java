@@ -785,7 +785,7 @@ public class Manager {
             while (rs.next()) {
                 int i = rs.getInt("id");
                 int idPl = rs.getInt("player_id");
-                byte tab = rs.getByte("tab");
+                int tab = rs.getInt("tab");
                 short itemId = rs.getShort("item_id");
                 int gold = rs.getInt("gold");
                 int gem = rs.getInt("gem");

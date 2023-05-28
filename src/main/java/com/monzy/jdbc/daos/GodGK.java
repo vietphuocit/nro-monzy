@@ -150,7 +150,7 @@ public class GodGK {
                             dataArray = (JSONArray) jv.parse(rs.getString("data_inventory"));
                             player.inventory.gold = Long.parseLong(String.valueOf(dataArray.get(0)));
                             player.inventory.gem = Integer.parseInt(String.valueOf(dataArray.get(1)));
-                            player.inventory.ruby = Integer.parseInt(String.valueOf(dataArray.get(2)));
+                            player.inventory.ruby = Math.max(Integer.parseInt(String.valueOf(dataArray.get(2))), 0);
                             player.inventory.coupon = Integer.parseInt(String.valueOf(dataArray.get(3)));
                             if (dataArray.size() >= 4) {
                                 player.inventory.coupon = Integer.parseInt(String.valueOf(dataArray.get(3)));
@@ -619,7 +619,7 @@ public class GodGK {
         String name = "";
         ResultSet rs = null;
         try (Connection con = Database.getConnection()) {
-            ps = con.prepareStatement("select * from player", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = con.prepareStatement("select * from player", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rs = ps.executeQuery();
             while (rs.next()) {
                 int plHp = 200000000;
@@ -823,7 +823,7 @@ public class GodGK {
         String name = "";
         ResultSet rs = null;
         try (Connection con = Database.getConnection()) {
-            ps = con.prepareStatement("select * from player", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = con.prepareStatement("select * from player", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rs = ps.executeQuery();
             while (rs.next()) {
                 int plHp = 200000000;
