@@ -335,7 +335,6 @@ public class ShopKyGuiService {
     public void openShopKyGui(Player pl) {
         if (pl.nPoint.power < 40000000000L) {
             Service.gI().sendThongBao(pl, "Yêu cầu sức mạnh lớn hơn 40 tỷ");
-            openShopKyGui(pl);
             return;
         }
         if (!pl.getSession().actived) {
