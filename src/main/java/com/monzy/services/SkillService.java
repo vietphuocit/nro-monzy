@@ -283,7 +283,7 @@ public class SkillService {
                     for (Player pl : playersMap) {
                         if (pl != null && !player.equals(pl) && !player.nPoint.khangTDHS) {
                             if (Util.getDistance(player, pl) <= SkillUtil.getRangeStun(player.playerSkill.skillSelect.point)
-//                                    && canAttackPlayer(player, pl) //&& (!pl.playerSkill.prepareQCKK && !pl.playerSkill.prepareLaze && !pl.playerSkill.prepareTuSat)
+                                    && canAttackPlayer(player, pl) //&& (!pl.playerSkill.prepareQCKK && !pl.playerSkill.prepareLaze && !pl.playerSkill.prepareTuSat)
                             ) {
                                 if (player.isPet && ((Pet) player).master.equals(pl)) {
                                     continue;

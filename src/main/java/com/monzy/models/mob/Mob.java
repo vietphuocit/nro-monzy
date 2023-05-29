@@ -99,6 +99,8 @@ public class Mob {
     }
 
     public long getTiemNangForPlayer(Player pl, long dame) {
+        if(dame == 0)
+            return (int) pl.nPoint.calSucManhTiemNang(1);
         int levelPlayer = Service.gI().getCurrLevel(pl);
         int n = levelPlayer - this.level;
         long pDameHit = dame * 100 / point.getHpFull();
@@ -127,9 +129,6 @@ public class Mob {
             tiemNang = 1;
         }
         tiemNang = (int) pl.nPoint.calSucManhTiemNang(tiemNang);
-        if (pl.zone.map.mapId == 122 || pl.zone.map.mapId == 123 || pl.zone.map.mapId == 124) {
-            tiemNang *= 20;
-        }
         return tiemNang;
     }
 

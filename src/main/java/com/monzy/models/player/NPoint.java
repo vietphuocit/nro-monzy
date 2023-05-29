@@ -1060,7 +1060,7 @@ public class NPoint {
                 }
             }
             if (MapService.gI().isnguhs(this.player.zone.map.mapId)) {
-                tiemNang *= 200;
+                tiemNang *= 20;
             }
             tiemNang *= Manager.RATE_EXP_SERVER;
             tiemNang = calSubTNSM(tiemNang);

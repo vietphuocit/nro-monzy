@@ -28,6 +28,10 @@ public class MaQuaTangManager {
     public final ArrayList<MaQuaTang> listGiftCode = new ArrayList<>();
     private static MaQuaTangManager instance;
 
+    public MaQuaTangManager() {
+        init();
+    }
+
     public static MaQuaTangManager gI() {
         if (instance == null) {
             instance = new MaQuaTangManager();

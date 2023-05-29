@@ -1157,10 +1157,10 @@ public class NpcFactory {
                 if (canOpenNpc(player)) {
                     if (mapId == 0) {
                         nguhs.gI().setTimeJoinnguhs();
-                        if (player.nPoint.power >= 1500000L) {
+                        if (player.nPoint.power >= 1500000L && player.nPoint.power <= 20000000000L) {
                             this.createOtherMenu(player, 0, "Ngũ Hàng Sơn x10 Tnsm\nHỗ trợ cho Ae từ 1tr5 đến 20tỷ sức mạnh\n250 hồng ngọc 1 lần vào", "Không", "OK");
                         } else {
-                            this.createOtherMenu(player, 0, "Ngũ Hàng Sơn x10 Tnsm\nHỗ trợ cho Ae trên 80 Tỷ SM?\nThời gian từ 13h - 18h, 250 hồng ngọc 1 lần vào", "Không");
+                            this.createOtherMenu(player, 0, "Sức mạnh bạn không đủ điều kiện\nChỉ hỗ trợ cho Ae 1tr5 đến 20tỷ sức mạnh.", "Không");
                         }
                     }
                     if (mapId == 123) {
