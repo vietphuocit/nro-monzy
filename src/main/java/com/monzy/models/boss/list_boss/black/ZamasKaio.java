@@ -1,4 +1,4 @@
-package com.monzy.models.boss.list_boss.BLACK;
+package com.monzy.models.boss.list_boss.black;
 
 import com.monzy.models.boss.*;
 import com.monzy.models.map.ItemMap;
@@ -10,10 +10,10 @@ import com.monzy.utils.Util;
 
 import java.util.Random;
 
-public class ZamasMax extends Boss {
+public class ZamasKaio extends Boss {
 
-    public ZamasMax() throws Exception {
-        super(BossID.ZAMASMAX, BossesData.THANZM2);
+    public ZamasKaio() throws Exception {
+        super(BossID.ZAMASZIN, BossesData.ZAMAS);
     }
 
     @Override
@@ -21,16 +21,18 @@ public class ZamasMax extends Boss {
         byte randomDo = (byte) new Random().nextInt(Manager.itemIds_TL.length - 1);
         byte randomNR = (byte) new Random().nextInt(Manager.itemIds_NR_SB.length);
         int[] itemDos = new int[]{233, 237, 241, 245, 249, 253, 257, 261, 265, 269, 273, 277, 281};
+        int randomc12 = new Random().nextInt(itemDos.length);
         if (Util.isTrue(BossManager.ratioReward, 100)) {
-            if (Util.isTrue(1, 20)) {
-                Service.gI().dropItemMap(this.zone, new ItemMap(zone, 725, 1, this.location.x, this.location.y, plKill.id));
-            } else {
-                Service.gI().dropItemMap(this.zone, Util.ratiItem(zone, Manager.itemIds_TL[randomDo], 1, this.location.x, this.location.y, plKill.id));
+            if (Util.isTrue(1, 5)) {
+                Service.gI().dropItemMap(this.zone, new ItemMap(zone, 1230, 1, this.location.x, this.location.y, plKill.id));
+                return;
             }
-        } else if (Util.isTrue(70, 100)) {
-            Service.gI().dropItemMap(this.zone, new ItemMap(zone, Manager.itemIds_NR_SB[randomNR], 1, this.location.x, this.location.y, plKill.id));
+            Service.gI().dropItemMap(this.zone, Util.ratiItem(zone, Manager.itemIds_TL[randomDo], 1, this.location.x, this.location.y, plKill.id));
+        } else if (Util.isTrue(2, 5)) {
+            Service.gI().dropItemMap(this.zone, Util.RaitiDoc12(zone, itemDos[randomc12], 1, this.location.x, this.location.y, plKill.id));
+            return;
         } else {
-            Service.gI().dropItemMap(this.zone, Util.RaitiDoc12(zone, itemDos[randomDo], 1, this.location.x, this.location.y, plKill.id));
+            Service.gI().dropItemMap(this.zone, new ItemMap(zone, Manager.itemIds_NR_SB[randomNR], 1, this.location.x, this.location.y, plKill.id));
         }
     }
 
@@ -62,7 +64,7 @@ public class ZamasMax extends Boss {
                 if (damage > nPoint.hpMax) {
                     EffectSkillService.gI().breakShield(this);
                 }
-                damage = damage / 4;
+                damage = damage / 2;
             }
             this.nPoint.subHP(damage);
             if (isDie()) {
@@ -89,7 +91,7 @@ public class ZamasMax extends Boss {
 //        }
 //        super.reward(plKill);
 //    }
-//    
+//
 //    @Override
 //    protected void notifyJoinMap() {
 //        if(this.currentLevel == 1){

@@ -1,6 +1,6 @@
 package com.monzy.models.boss;
 
-import com.monzy.models.boss.list_boss.BLACK.*;
+import com.monzy.models.boss.list_boss.black.*;
 import com.monzy.models.boss.list_boss.Broly.Broly;
 import com.monzy.models.boss.list_boss.Doraemon.*;
 import com.monzy.models.boss.list_boss.FideBack.FideRobot;
@@ -69,54 +69,56 @@ public class BossManager implements Runnable {
             return;
         }
         try {
-            this.createBoss(BossID.KAMIRIN);
-            this.createBoss(BossID.KAMILOC);
-            this.createBoss(BossID.KAMI_SOOME);
-            this.createBoss(BossID.CUMBERBLACK);
-            this.createBoss(BossID.CUMBERYELLOW);
-            this.createBoss(BossID.SUPER_XEN);
-            this.createBoss(BossID.TDST);
-            this.createBoss(BossID.TDST_1);
-            this.createBoss(BossID.BROLY);
-            this.createBoss(BossID.PIC);
-            this.createBoss(BossID.POC);
-            this.createBoss(BossID.KING_KONG);
-            this.createBoss(BossID.SONGOKU_TA_AC);
-            this.createBoss(BossID.CUMBER);
-            this.createBoss(BossID.COOLER_GOLD);
-            this.createBoss(BossID.XEN_BO_HUNG);
-            this.createBoss(BossID.SIEU_BO_HUNG);
-            this.createBoss(BossID.XEN_CON_1);
-            this.createBoss(BossID.XEN_CON_1);
-            this.createBoss(BossID.XEN_CON_1);
-            this.createBoss(BossID.XEN_CON_1);
-            this.createBoss(BossID.THIEN_SU_VADOS);
-            this.createBoss(BossID.THIEN_SU_WHIS);
-            this.createBoss(BossID.THIEN_SU_VADOS);
-            this.createBoss(BossID.THIEN_SU_WHIS);
-            this.createBoss(BossID.THIEN_SU_VADOS);
-            this.createBoss(BossID.THIEN_SU_WHIS);
-            this.createBoss(BossID.THIEN_SU_VADOS);
-            this.createBoss(BossID.THIEN_SU_WHIS);
-            this.createBoss(BossID.DORAEMON);
-            this.createBoss(BossID.NOBITA);
-            this.createBoss(BossID.XUKA);
-            this.createBoss(BossID.CHAIEN);
-            this.createBoss(BossID.XEKO);
-            this.createBoss(BossID.BLACK);
-            this.createBoss(BossID.ZAMASZIN);
-            this.createBoss(BossID.BLACK2);
-            this.createBoss(BossID.ZAMASMAX);
-            this.createBoss(BossID.BLACK);
-            this.createBoss(BossID.BLACK3);
+/**
+ this.createBoss(BossID.KAMIRIN);
+ this.createBoss(BossID.KAMILOC);
+ this.createBoss(BossID.KAMI_SOOME);
+ this.createBoss(BossID.CUMBERBLACK);
+ this.createBoss(BossID.CUMBERYELLOW);
+ this.createBoss(BossID.SUPER_XEN);
+ this.createBoss(BossID.SONGOKU_TA_AC);
+ this.createBoss(BossID.CUMBER);
+ this.createBoss(BossID.COOLER_GOLD);
+ this.createBoss(BossID.THIEN_SU_VADOS);
+ this.createBoss(BossID.THIEN_SU_WHIS);
+ this.createBoss(BossID.THIEN_SU_VADOS);
+ this.createBoss(BossID.THIEN_SU_WHIS);
+ this.createBoss(BossID.THIEN_SU_VADOS);
+ this.createBoss(BossID.THIEN_SU_WHIS);
+ this.createBoss(BossID.THIEN_SU_VADOS);
+ this.createBoss(BossID.THIEN_SU_WHIS);
+ this.createBoss(BossID.ZAMASZIN);
+ this.createBoss(BossID.BLACK2);
+ this.createBoss(BossID.ZAMASMAX);
+ this.createBoss(BossID.BLACK);
+ this.createBoss(BossID.BLACK3);
+ */
+//            this.createBoss(BossID.TDST_1);
+//            this.createBoss(BossID.BROLY);
+//            this.createBoss(BossID.BLACK);
             this.createBoss(BossID.KUKU);
             this.createBoss(BossID.MAP_DAU_DINH);
             this.createBoss(BossID.RAMBO);
+
+            this.createBoss(BossID.TDST);
+
             this.createBoss(BossID.FIDE);
-            this.createBoss(BossID.DR_KORE);
+
             this.createBoss(BossID.ANDROID_14);
-//            this.createBoss(BossID.SUPER_ANDROID_17); 
-            this.createBoss(BossID.MABU);
+
+            this.createBoss(BossID.KING_KONG);
+
+            this.createBoss(BossID.DR_KORE);
+
+//            this.createBoss(BossID.XEN_BO_HUNG);
+//            this.createBoss(BossID.SIEU_BO_HUNG);
+//            this.createBoss(BossID.XEN_CON_1);
+//            this.createBoss(BossID.DORAEMON);
+//            this.createBoss(BossID.NOBITA);
+//            this.createBoss(BossID.XUKA);
+//            this.createBoss(BossID.CHAIEN);
+//            this.createBoss(BossID.XEKO);
+//            this.createBoss(BossID.MABU);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -220,7 +222,7 @@ public class BossManager implements Runnable {
                 case BossID.BLACK2:
                     return new SuperBlack2();
                 case BossID.BLACK1:
-                    return new BlackGokuTl();
+                    return new BlackGokuTL();
                 case BossID.BLACK:
                     return new Black();
                 case BossID.BLACK3:
@@ -262,27 +264,21 @@ public class BossManager implements Runnable {
     }
 
     public void showListBoss(Player player) {
-//        if (!player.isAdmin()) {
-//            return;
-//        }
         Message msg;
         try {
             msg = new Message(-96);
             msg.writer().writeByte(0);
             msg.writer().writeUTF("Boss");
-            msg.writer().writeByte((int) bosses.stream().filter(boss -> !MapService.gI().isMapMaBu(boss.data[0].getMapJoin()[0]) && !MapService.gI().isMapBlackBallWar(boss.data[0].getMapJoin()[0]) && !MapService.gI().isMapBanDoKhoBau(boss.data[0].getMapJoin()[0]) && !MapService.gI().isnguhs(boss.data[0].getMapJoin()[0])).count());
+            msg.writer().writeByte(((Integer) bosses.size()).byteValue());
             for (int i = 0; i < bosses.size(); i++) {
                 Boss boss = this.bosses.get(i);
-                if (MapService.gI().isMapMaBu(boss.data[0].getMapJoin()[0]) || MapService.gI().isMapBlackBallWar(boss.data[0].getMapJoin()[0]) || MapService.gI().isMapBanDoKhoBau(boss.data[0].getMapJoin()[0]) || MapService.gI().isnguhs(boss.data[0].getMapJoin()[0])) {
-                    continue;
-                }
-                msg.writer().writeInt(i);
-                msg.writer().writeInt(i);
+                msg.writer().writeInt(i + 1);
+                msg.writer().writeInt((int) boss.id);
                 msg.writer().writeShort(boss.data[0].getOutfit()[0]);
-                msg.writer().writeShort(boss.data[0].getOutfit()[1]);
                 if (player.getSession().version > 214) {
                     msg.writer().writeShort(-1);
                 }
+                msg.writer().writeShort(boss.data[0].getOutfit()[1]);
                 msg.writer().writeShort(boss.data[0].getOutfit()[2]);
                 msg.writer().writeUTF(boss.data[0].getName());
                 if (boss.zone != null) {

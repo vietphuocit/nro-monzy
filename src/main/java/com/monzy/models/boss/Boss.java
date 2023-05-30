@@ -535,7 +535,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
 
     @Override
     public void wakeupAnotherBossWhenAppear() {
-        System.out.println(this.name + ":" + this.zone.map.mapName + " khu vực " + this.zone.zoneId + "(" + this.zone.map.mapId + ")");
+//        System.out.println(this.name + ":" + this.zone.map.mapName + " khu vực " + this.zone.zoneId + "(" + this.zone.map.mapId + ")");
         if (!MapService.gI().isMapMaBu(this.zone.map.mapId) && !MapService.gI().isMapBlackBallWar(this.zone.map.mapId) && !MapService.gI().isMapBanDoKhoBau(this.zone.map.mapId) && !MapService.gI().isnguhs(this.zone.map.mapId)) {
             System.out.println("BOSS " + this.name + " : " + this.zone.map.mapName + " khu vực " + this.zone.zoneId + "(" + this.zone.map.mapId + ")");
         }
