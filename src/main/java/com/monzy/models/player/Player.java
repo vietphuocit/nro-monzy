@@ -41,7 +41,7 @@ public class Player {
 
     private MySession session;
     public boolean beforeDispose;
-    public boolean banv = true;
+    public boolean banv = false;
     public boolean muav = false;
     public boolean isPet;
     public boolean isNewPet;
@@ -753,7 +753,7 @@ public class Player {
 
     public void banv(Player player) {
         try {
-            if (this.banv && player.inventory.gold <= 1000000000 && player != null) {
+            if (this.banv && player.inventory.gold <= 10000000000L && player != null) {
                 Item tv = null;
                 for (Item item : player.inventory.itemsBag) {
                     if (item.isNotNullItem() && item.template.id == 457) {
@@ -762,17 +762,13 @@ public class Player {
                     }
                 }
                 if (tv != null) {
-                    if (player.inventory.gold <= 1000000000) {
-                        InventoryServiceNew.gI().subQuantityItemsBag(player, tv, 1);
-                        player.inventory.gold += 500000000;
-                        lasttimebanv = System.currentTimeMillis();
-                        PlayerService.gI().sendInfoHpMpMoney(player);
-                        InventoryServiceNew.gI().sendItemBags(player);
-                    } else {
-                        Service.getInstance().sendThongBao(player, "không được vượt quá 2 tỷ vàng");
-                    }
+                    InventoryServiceNew.gI().subQuantityItemsBag(player, tv, 1);
+                    player.inventory.gold += 500000000;
+                    lasttimebanv = System.currentTimeMillis();
+                    PlayerService.gI().sendInfoHpMpMoney(player);
+                    InventoryServiceNew.gI().sendItemBags(player);
                 } else {
-                    Service.getInstance().sendThongBao(player, "hết thỏi vàng rồi, đã tắt lệnh bán vàng");
+                    Service.getInstance().sendThongBao(player, "Hết thỏi vàng rồi, đã tắt lệnh bán vàng");
                     this.banv = false;
                 }
             }

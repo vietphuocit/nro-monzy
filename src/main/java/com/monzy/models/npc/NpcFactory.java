@@ -1520,7 +1520,7 @@ public class NpcFactory {
                                     LuckyRound.gI().openCrackBallUI(player, LuckyRound.USING_GOLD);
                                     break;
                                 case 1:
-                                    LuckyRound.gI().openCrackBallUI(player, LuckyRound.USING_GEM);
+                                    LuckyRound.gI().openCrackBallUI(player, LuckyRound.USING_RUBY);
                                     break;
                                 case 2:
                                     ShopServiceNew.gI().opendShop(player, "ITEMS_LUCKY_ROUND", true);

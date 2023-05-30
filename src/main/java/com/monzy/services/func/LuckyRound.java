@@ -13,9 +13,9 @@ public class LuckyRound {
     private static final byte MAX_ITEM_IN_BOX = 100;
 //    private static final int IFOX_BOX = 400;
     //1 gem and ruby
-    public static final byte USING_GEM = 2;
+    public static final byte USING_RUBY = 2;
     public static final byte USING_GOLD = 0;
-    private static final byte PRICE_GEM = 4;
+    private static final byte PRICE_RUBY = 10;
     private static final int PRICE_GOLD = 10000000;
     private static LuckyRound i;
 
@@ -40,7 +40,7 @@ public class LuckyRound {
                 msg.writer().writeShort(419 + i);
             }
             msg.writer().writeByte(type); //type price
-            msg.writer().writeInt(type == USING_GEM ? PRICE_GEM : PRICE_GOLD); //price
+            msg.writer().writeInt(type == USING_RUBY ? PRICE_RUBY : PRICE_GOLD); //price
             msg.writer().writeShort(14); //id ticket
             pl.sendMessage(msg);
             msg.cleanup();
@@ -53,7 +53,7 @@ public class LuckyRound {
             byte type = msg.reader().readByte();
             byte count = msg.reader().readByte();
             switch (player.iDMark.getTypeLuckyRound()) {
-                case USING_GEM:
+                case USING_RUBY:
                     openBallByGem(player, count);
                     break;
                 case USING_GOLD:
@@ -66,13 +66,12 @@ public class LuckyRound {
     }
 
     private void openBallByGem(Player player, byte count) {
-        int gemNeed = (count * PRICE_GEM);
-        if (player.inventory.gem < gemNeed) {
-            Service.gI().sendThongBao(player, "Bạn không đủ ngọc để mở");
-            return;
+        int rubyNeed = (count * PRICE_RUBY);
+        if (player.inventory.ruby < rubyNeed) {
+            Service.gI().sendThongBao(player, "Bạn không đủ hồng ngọc để mở");
         } else {
             if (count + player.inventory.itemsBoxCrackBall.size() <= MAX_ITEM_IN_BOX) {
-                player.inventory.gem -= gemNeed;
+                player.inventory.ruby -= rubyNeed;
                 List<Item> list = RewardService.gI().getListItemLuckyRound(player, count);
                 addItemToBox(player, list);
                 sendReward(player, list);

@@ -809,10 +809,10 @@ public class Service {
                 if (!player.muav) {
                     if (!player.banv) {
                         player.banv = true;
-                        Service.getInstance().sendThongBao(player, "Đã bật tự động bán vàng khi vàng dưới 1 tỷ !");
+                        Service.getInstance().sendThongBao(player, "Đã bật tự động bán vàng khi vàng dưới 10 tỷ !");
                     } else {
                         player.banv = false;
-                        Service.getInstance().sendThongBao(player, "Đã tắt tự động bán vàng khi vàng dưới 1 tỷ !");
+                        Service.getInstance().sendThongBao(player, "Đã tắt tự động bán vàng khi vàng dưới 10 tỷ !");
                     }
                     lasttimechatbanv = System.currentTimeMillis();
                     Logger.success("Thằng " + player.name + " chat banv\n");
@@ -825,7 +825,7 @@ public class Service {
             }
             return;
         }
-        if (text.equals("muavang36")) {
+        if (text.equals("muav")) {
             long now = System.currentTimeMillis();
             if (now >= lasttimechatmuav + 10000) {
                 if (!player.banv) {

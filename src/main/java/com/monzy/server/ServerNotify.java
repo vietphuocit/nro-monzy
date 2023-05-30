@@ -40,10 +40,10 @@ public class ServerNotify extends Thread {
                 while (!notifies.isEmpty()) {
                     sendThongBaoBenDuoi(notifies.remove(0));
                 }
-                if (Util.canDoWithTime(this.lastTimeGK, 12000)) {
-                    sendThongBaoBenDuoi("Nro MONZY!");
-                    this.lastTimeGK = System.currentTimeMillis();
-                }
+//                if (Util.canDoWithTime(this.lastTimeGK, 12000)) {
+//                    sendThongBaoBenDuoi("Nro MONZY!");
+//                    this.lastTimeGK = System.currentTimeMillis();
+//                }
             } catch (Exception ignored) {
             }
             try {

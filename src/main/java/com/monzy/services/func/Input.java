@@ -275,11 +275,11 @@ public class Input {
                         int y = diceRoller(true, x);
                         int z = diceRoller(true, x, y);
                         int tong = (x + y + z);
-                        if (3 <= (x + y + z) && (x + y + z) <= 10) {
+                        if (3 <= tong && tong <= 10) {
                             Service.getInstance().sendThongBaoOK(player, "Kết quả" + "\nSố hệ thống quay ra là :" +
                                     " " + x + " " + y + " " + z + "\nTổng là : " + tong + "\nBạn đã cược : "
                                     + taiThoiVang + " Thỏi vàng vào Tài" + "\nKết quả : Xỉu" + "\nCòn cái nịt.");
-                        } else if ((x + y + z) > 10 && (x + y + z) <= 18) {
+                        } else if (tong > 10 && tong <= 18) {
                             Item tvthang = ItemService.gI().createNewItem((short) 457);
                             tvthang.quantity = (int) Math.round(taiThoiVang * 1.8);
                             InventoryServiceNew.gI().addItemBag(player, tvthang);
@@ -330,18 +330,18 @@ public class Input {
                         int y = diceRoller(false, x);
                         int z = diceRoller(false, x, y);
                         int tong = (x + y + z);
-                        if ((x + y + z) > 10 && (x + y + z) <= 18) {
+                        if (tong > 10 && tong <= 18) {
                             Service.getInstance().sendThongBaoOK(player, "Kết quả" + "\nSố hệ thống quay ra là :" +
                                     " " + x + " " + y + " " + z + "\nTổng là : " + tong + "\nBạn đã cược : "
-                                    + xiuThoiVang + " Thỏi vàng vào Tài" + "\nKết quả : Tài" + "\nCòn cái nịt.");
-                        } else if (3 <= (x + y + z) && (x + y + z) <= 10) {
+                                    + xiuThoiVang + " Thỏi vàng vào Xỉu" + "\nKết quả : Tài" + "\nCòn cái nịt.");
+                        } else if (3 <= tong && tong <= 10) {
                             Item tvthang = ItemService.gI().createNewItem((short) 457);
                             tvthang.quantity = (int) Math.round(xiuThoiVang * 1.8);
                             InventoryServiceNew.gI().addItemBag(player, tvthang);
                             InventoryServiceNew.gI().sendItemBags(player);
                             Service.getInstance().sendThongBaoOK(player, "Kết quả" + "\nSố hệ thống quay ra : " + x + " " +
                                     y + " " + z + "\nTổng là : " + tong + "\nBạn đã cược : " + xiuThoiVang +
-                                    " Thỏi vàng vào Tài" + "\nKết quả : Xỉu" + "\n\nVề bờ");
+                                    " Thỏi vàng vào Xỉu" + "\nKết quả : Xỉu" + "\n\nVề bờ");
                         }
                     });
                     threadXiuTV.start();
