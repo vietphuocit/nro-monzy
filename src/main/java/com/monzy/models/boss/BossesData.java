@@ -620,10 +620,10 @@ public class BossesData {
     );
 
     /**
-     * Boss Xên
+     * Boss Xên bọ hung
      */
     public static final BossData XEN_BO_HUNG_1 = new BossData(
-            "Xên bọ hung",
+            "Xên bọ hung 1",
             ConstPlayer.XAYDA,
             new short[]{228, 229, 230, -1, -1, -1},
             300000,
@@ -631,9 +631,9 @@ public class BossesData {
             new int[]{100},
             new int[][]{
                     {Skill.KAMEJOKO, 7, 1000},
-                    {Skill.KAMEJOKO, 7, 1000},
-                    {Skill.LIEN_HOAN, 7, 10000},
-                    {Skill.DICH_CHUYEN_TUC_THOI, 7, 1000}},//skill
+                    {Skill.LIEN_HOAN, 7, 1000}
+            },
+            // skill
             new String[]{"|-2|Cái gì kia vậy!? Đó là loài gì thế!!?",
                     "|-1|Hôm nay sẽ là ngày đáng nhớ đây!",
                     "|-1|Ta sẽ hấp thụ số 17 và 18 để đạt được dạng hoàn hảo!",
@@ -665,12 +665,13 @@ public class BossesData {
             ConstPlayer.XAYDA,
             new short[]{231, 232, 233, -1, -1, -1},
             300000,
-            new int[]{200000000},
+            new int[]{100000000},
             new int[]{100},
             new int[][]{
                     {Skill.KAMEJOKO, 7, 1000},
-                    {Skill.KAMEJOKO, 7, 1000},
-                    {Skill.LIEN_HOAN, 7, 10000}}, //skill
+                    {Skill.LIEN_HOAN, 7, 1000}
+            },
+            // skill
             new String[]{}, //text chat 1
             new String[]{"|-2|Nguy rồi... thực sự nguy to rồi!",
                     "|-1|Các ngươi nghĩ có thể chạy được sao!?",
@@ -691,15 +692,12 @@ public class BossesData {
             ConstPlayer.XAYDA,
             new short[]{234, 235, 236, -1, -1, -1},
             350000,
-            new int[]{300000000},
+            new int[]{150000000},
             new int[]{100},
             new int[][]{
                     {Skill.KAMEJOKO, 7, 1000},
-                    {Skill.KAMEJOKO, 7, 1000},
-                    {Skill.DICH_CHUYEN_TUC_THOI, 7, 10000},
-                    {Skill.KHIEN_NANG_LUONG, 7, 100000},
-                    {Skill.LIEN_HOAN, 7, 10000},
-                    {Skill.THOI_MIEN, 7, 100000}},
+                    {Skill.LIEN_HOAN, 7, 1000}
+            },
             //skill
             new String[]{"|-2|Cuối cùng hắn cũng đã biến đổi",
                     "|-2|Khốn kiếp! Phải kết liễu hắn ngay lúc này!"
