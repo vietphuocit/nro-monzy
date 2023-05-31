@@ -27,7 +27,11 @@ public class BossID {
     public static final int KING_KONG = -37;
     public static final int XEN_BO_HUNG = -100;
     public static final int SIEU_BO_HUNG = -101;
-    public static final int XEN_CON_1 = -102;
+    public static final int XEN_CON = -102;
+    public static final int XEN_CON_1 = -103;
+    public static final int XEN_CON_2 = -104;
+    public static final int XEN_CON_3 = -105;
+    public static final int XEN_CON_4 = -106;
     public static final int TRUNG_UY_TRANG = -200;
     public static final int COOLER_GOLD = -201;
     public static final int VUA_COLD = -202;

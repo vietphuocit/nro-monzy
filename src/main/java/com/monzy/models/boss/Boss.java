@@ -3,6 +3,7 @@ package com.monzy.models.boss;
 import com.monzy.consts.ConstPlayer;
 import com.monzy.models.boss.iboss.IBossNew;
 import com.monzy.models.boss.iboss.IBossOutfit;
+import com.monzy.models.map.ItemMap;
 import com.monzy.models.map.Zone;
 import com.monzy.models.player.Player;
 import com.monzy.models.skill.Skill;
@@ -11,6 +12,9 @@ import com.monzy.services.*;
 import com.monzy.services.func.ChangeMapService;
 import com.monzy.utils.SkillUtil;
 import com.monzy.utils.Util;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Boss extends Player implements IBossNew, IBossOutfit {
 
@@ -99,7 +103,6 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
         this.indexChatE = 0;
     }
 
-    //.outfit.
     @Override
     public short getHead() {
         if (effectSkill != null && effectSkill.isMonkey) {
@@ -177,7 +180,6 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
     @Override
     public void update() {
         super.update();
-//        System.out.println("this status: " + this.bossStatus + " (" + this.id + ")");
         this.nPoint.mp = this.nPoint.mpg;
         if (this.effectSkill.isHaveEffectSkill()) {
             return;
@@ -203,7 +205,6 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
                 }
                 break;
             case ACTIVE:
-                this.chatM();
                 if (this.effectSkill.isCharging && !Util.isTrue(1, 20) || this.effectSkill.useTroi) {
                     return;
                 }
@@ -232,7 +233,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
             nextLevel = 0;
         }
         if (this.data[nextLevel].getTypeAppear() == TypeAppear.DEFAULT_APPEAR
-                && Util.canDoWithTime(lastTimeRest, secondsRest * 1000)) {
+                && Util.canDoWithTime(lastTimeRest, secondsRest * 1000L)) {
             this.changeStatus(BossStatus.RESPAWN);
         }
     }
@@ -303,7 +304,8 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
 
     @Override
     public boolean chatS() {
-        if (Util.canDoWithTime(lastTimeChatS, timeChatS)) {
+        this.changeToTypeNonPK();
+        if (Util.canDoWithTime(lastTimeChatS, 1000)) {
             if (this.indexChatS == this.data[this.currentLevel].getTextS().length) {
                 return true;
             }
@@ -314,10 +316,6 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
                 return false;
             }
             this.lastTimeChatS = System.currentTimeMillis();
-            this.timeChatS = textChat.length() * 100;
-            if (this.timeChatS > 2000) {
-                this.timeChatS = 2000;
-            }
             this.indexChatS++;
         }
         return false;
@@ -325,6 +323,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
 
     @Override
     public void doneChatS() {
+        this.changeToTypePK();
     }
 
     @Override
@@ -361,48 +360,20 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
         if (Util.canDoWithTime(this.lastTimeAttack, 100) && this.typePk == ConstPlayer.PK_ALL) {
             this.lastTimeAttack = System.currentTimeMillis();
             try {
-                Player pl = getPlayerAttack();
+                Player pl = this.zone.getPlayers().stream()
+                        .skip((int) (this.zone.getPlayers().size() * Math.random()))
+                        .findFirst()
+                        .orElse(null);
                 if (pl == null || pl.isDie() || pl.isNewPet) {
                     return;
                 }
                 this.playerSkill.skillSelect = this.playerSkill.skills.get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
-                if (Util.getDistance(this, pl) <= this.getRangeCanAttackWithSkillSelect()) {
-                    if (Util.isTrue(5, 20)) {
-                        if (SkillUtil.isUseSkillChuong(this)) {
-                            this.moveTo(pl.location.x + (Util.getOne(-1, 1) * Util.nextInt(20, 200)),
-                                    Util.nextInt(10) % 2 == 0 ? pl.location.y : pl.location.y - Util.nextInt(0, 70));
-                        } else {
-                            this.moveTo(pl.location.x + (Util.getOne(-1, 1) * Util.nextInt(10, 40)),
-                                    Util.nextInt(10) % 2 == 0 ? pl.location.y : pl.location.y - Util.nextInt(0, 50));
-                        }
-                    }
-                    SkillService.gI().useSkill(this, pl, null);
-                    checkPlayerDie(pl);
-                } else {
-                    if (Util.isTrue(1, 2)) {
-                        this.moveToPlayer(pl);
-                    }
-                }
+                this.moveToPlayer(pl);
+                SkillService.gI().useSkill(this, pl, null);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
-    }
-
-    @Override
-    public void checkPlayerDie(Player player) {
-        if (player.isDie()) {
-        }
-    }
-
-    protected int getRangeCanAttackWithSkillSelect() {
-        int skillId = this.playerSkill.skillSelect.template.id;
-        if (skillId == Skill.KAMEJOKO || skillId == Skill.MASENKO || skillId == Skill.ANTOMIC) {
-            return Skill.RANGE_ATTACK_CHIEU_CHUONG;
-        } else if (skillId == Skill.DRAGON || skillId == Skill.DEMON || skillId == Skill.GALICK) {
-            return Skill.RANGE_ATTACK_CHIEU_DAM;
-        }
-        return 752002;
     }
 
     @Override
@@ -498,6 +469,10 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
         PlayerService.gI().playerMove(this, this.location.x + (dir == 1 ? move : -move), y + (Util.isTrue(3, 10) ? -50 : 0));
     }
 
+    @Override
+    public void checkPlayerDie(Player player) {
+    }
+
     public void chat(String text) {
         Service.gI().chat(this, text);
     }
@@ -566,6 +541,26 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
 //        System.out.println("wake up boss when disappear");
         System.out.println("Boss " + this.name + " vừa bị tiêu diệt");
     }
+
+    public void rewardItem(Player plKill, int... ids) {
+        for (int i = 0; i < ids.length; i++) {
+            if (Util.isTrue(getRatioById(ids[i]), 100)) {
+                ItemMap it = new ItemMap(this.zone, ids[i], 17, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
+                        this.location.y - 24), plKill.id);
+                Service.gI().dropItemMap(this.zone, it);
+            }
+        }
+    }
+
+    public int getRatioById(int id) {
+        return item_reward.getOrDefault(id, 0);
+    }
+
+    private Map<Integer, Integer> item_reward = new HashMap<Integer, Integer>() {{
+        put(1142, 10);
+        put(15, 10);
+        put(16, 20);
+    }};
 
 }
 /**

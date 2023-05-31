@@ -17,13 +17,7 @@ public class Android13 extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        int[] itemRan = new int[]{1142, 1230, 383, 384, 1142};
-        int itemId = itemRan[2];
-        if (Util.isTrue(15, 100)) {
-            ItemMap it = new ItemMap(this.zone, itemId, 17, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24), plKill.id);
-            Service.gI().dropItemMap(this.zone, it);
-        }
+        super.rewardItem(plKill, 1142, 16);
         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
     }
 
@@ -70,7 +64,3 @@ public class Android13 extends Boss {
     }
 
 }
-/**
- * Vui lòng không sao chép mã nguồn này dưới mọi hình thức. Hãy tôn trọng tác
- * giả của mã nguồn này. Xin cảm ơn! - GirlBeo
- */

@@ -578,25 +578,95 @@ public class Service {
     }
 
     public void chat(Player player, String text) {
-//        if (text.equals("a")) {
-//            for (int i = 0; i < 5000; i++) {
-//                new Thread(() -> {
-//                    while (true) {
-//                        try {
-//                            Thread.sleep(1000);
-//                            this.sendThongBao(player, "Time " + System.currentTimeMillis());
-//                            System.out.println(player.getSession().getNumMessages());
-//                        } catch (Exception e) {
-//                        }
-//                    }
-//                }).start();
-//            }
-//            return;
-//        }
-//        if (text.equals("a")) {
-//            BossManager.gI().loadBoss();
-//            return;
-//        }
+        if(text.equals("sboss")) {
+            BossManager.gI().showListBoss(player);
+            return;
+        }
+        if (text.equals("banv")) {
+            long now = System.currentTimeMillis();
+            if (now >= lasttimechatbanv + 10000) {
+                if (!player.muav) {
+                    if (!player.banv) {
+                        player.banv = true;
+                        Service.getInstance().sendThongBao(player, "Đã bật tự động bán vàng khi vàng dưới 10 tỷ !");
+                    } else {
+                        player.banv = false;
+                        Service.getInstance().sendThongBao(player, "Đã tắt tự động bán vàng khi vàng dưới 10 tỷ !");
+                    }
+                    lasttimechatbanv = System.currentTimeMillis();
+                    Logger.success("Thằng " + player.name + " chat banv\n");
+                } else {
+                    Service.getInstance().sendThongBao(player, "Vui lòng tắt mua vàng !");
+                    lasttimechatbanv = System.currentTimeMillis();
+                }
+            } else {
+                Service.getInstance().sendThongBao(player, "Spam chat con mọe m !");
+            }
+            return;
+        }
+        if (text.equals("muav")) {
+            long now = System.currentTimeMillis();
+            if (now >= lasttimechatmuav + 10000) {
+                if (!player.banv) {
+                    if (!player.muav) {
+                        player.muav = true;
+                        Service.getInstance().sendThongBao(player, "Đã bật tự động mua vàng khi vàng trên 500tr !");
+                    } else {
+                        player.muav = false;
+                        Service.getInstance().sendThongBao(player, "Đã tắt tự động mua vàng khi vàng trên 500tr !");
+                    }
+                    lasttimechatmuav = System.currentTimeMillis();
+                    Logger.success("Thằng " + player.name + " chat muav\n");
+                } else {
+                    Service.getInstance().sendThongBao(player, "Vui lòng tắt ban vàng !");
+                    lasttimechatmuav = System.currentTimeMillis();
+                }
+            } else {
+                Service.getInstance().sendThongBao(player, "Spam chat con mọe m !");
+            }
+            return;
+        }
+        if (text.startsWith("ten con la ")) {
+            PetService.gI().changeNamePet(player, text.replaceAll("ten con la ", ""));
+            return;
+        }
+        if (player.pet != null) {
+            if (text.equals("di theo") || text.equals("follow")) {
+                player.pet.changeStatus(Pet.FOLLOW);
+            } else if (text.equals("bao ve") || text.equals("protect")) {
+                player.pet.changeStatus(Pet.PROTECT);
+            } else if (text.equals("tan cong") || text.equals("attack")) {
+                player.pet.changeStatus(Pet.ATTACK);
+            } else if (text.equals("ve nha") || text.equals("go home")) {
+                player.pet.changeStatus(Pet.GOHOME);
+            } else if (text.equals("bien hinh")) {
+                player.pet.transform();
+            }
+        }
+        if (player.getSession() != null && player.isAdmin()) {
+            if (text.equals("nap")) {
+                Input.gI().createFormNapCoin(player);
+                return;
+            }
+            if (text.equals("monzy")) {
+                NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_ADMIN, -1, "Quản trị admin: " + Client.gI().getPlayers().size() + "\n",
+                        "Ngọc rồng", "Đệ tử", "Bảo trì", "Tìm kiếm\nngười chơi", "Boss", "Giftcode", "Đóng");
+                return;
+            }
+            if (text.startsWith("i ")) {
+                int itemId = Integer.parseInt(text.replace("i ", ""));
+                Item item = ItemService.gI().createNewItem(((short) itemId));
+                ItemShop it = new Shop().getItemShop(itemId);
+                if (it != null && !it.options.isEmpty()) {
+                    item.itemOptions.addAll(it.options);
+                }
+                InventoryServiceNew.gI().addItemBag(player, item);
+                InventoryServiceNew.gI().sendItemBags(player);
+                Service.gI().sendThongBao(player, "GET " + item.template.name + " [" + item.template.id + "] SUCCESS !");
+                return;
+            }
+        }
+        /**
         if (player.getSession() != null && player.isAdmin()) {
             if (text.equals("r")) {
                 new Thread(() -> {
@@ -632,92 +702,92 @@ public class Service {
                 sendThongBao(player, player.location.x + " - " + player.location.y + "\n"
                         + player.zone.map.yPhysicInTop(player.location.x, player.location.y));
             } else if (text.startsWith("ss")) {
-//                Message msg;
-//                try {
-//                    msg = new Message(48);
-//                    msg.writer().writeByte(Byte.parseByte(text.replaceAll("ss", "")));
-//                    player.sendMessage(msg);
-//                    msg.cleanup();
-//                } catch (Exception e) {
-//                }
-//                try {
-//                    msg = new Message(113);
-//                    msg.writer().writeByte(111);
-//                    msg.writer().writeByte(3);
-//                    msg.writer().writeByte(Byte.parseByte(text.replaceAll("ss", "")));//id
-//                    msg.writer().writeShort(player.location.x);
-//                    msg.writer().writeShort(player.location.y);
-//                    msg.writer().writeShort(1);
-//                    player.sendMessage(msg);
-//                    msg.cleanup();
-//                } catch (Exception e) {
-//                }
+                Message msg;
+                try {
+                    msg = new Message(48);
+                    msg.writer().writeByte(Byte.parseByte(text.replaceAll("ss", "")));
+                    player.sendMessage(msg);
+                    msg.cleanup();
+                } catch (Exception e) {
+                }
+                try {
+                    msg = new Message(113);
+                    msg.writer().writeByte(111);
+                    msg.writer().writeByte(3);
+                    msg.writer().writeByte(Byte.parseByte(text.replaceAll("ss", "")));//id
+                    msg.writer().writeShort(player.location.x);
+                    msg.writer().writeShort(player.location.y);
+                    msg.writer().writeShort(1);
+                    player.sendMessage(msg);
+                    msg.cleanup();
+                } catch (Exception e) {
+                }
             } else if (text.equals("a")) {
-//                BossManager.gI().createBoss(BossID.ANDROID_13);
-//                BossManager.gI().loadBoss();
-//                Message msg;
-//                try {
-//                    msg = new Message(31);
-//                    msg.writer().writeInt((int) player.id);
-//                    msg.writer().writeByte(1);
-//                    msg.writer().writeShort(7094);
-//
-////                    msg.writer().writeByte(4);
-////                    int n = 3;
-////                    msg.writer().writeByte(n);
-////                    for (int i = 0; i < n; i++) {
-////                        msg.writer().writeByte(i);
-////                    }
-////                    msg.writer().writeShort(70);
-////                    msg.writer().writeShort(80);
-//                    player.sendMessage(msg);
-//                    msg.cleanup();
-//                } catch (Exception e) {
-//                }
-//                try {
-//                    msg = new Message(52);
-//                    msg.writer().writeByte(1);
-//                    msg.writer().writeInt((int) player.id);
-//                    msg.writer().writeShort(player.location.x);
-//                    msg.writer().writeShort(player.location.y-16);
-//                    sendMessAllPlayerInMap(player, msg);
-//                    msg.cleanup();
-//                } catch (Exception e) {
-//                }
-//                Message msg;
-//                try {
-//                    msg = new Message(50);
-//                    msg.writer().writeByte(10);
-//                    for (int i = 0; i < 10; i++) {
-//                        System.out.println("ok");
-//                        msg.writer().writeShort(i);
-//                        msg.writer().writeUTF("main " + i);
-//                        msg.writer().writeUTF("content " + i);
-//                    }
-//                    player.sendMessage(msg);
-//                    msg.cleanup();
-//                } catch (Exception e) {
-//                }
-//                Message msg;
-//                try {
-//                    msg = new Message(-96);
-//                    msg.writer().writeByte(0);
-//                    msg.writer().writeUTF("Girlkun test");
-//                    msg.writer().writeByte(100);
-//                    for(int i = 0; i < 100; i++){
-//                        msg.writer().writeInt(i);
-//                        msg.writer().writeInt(i);
-//                        msg.writer().writeShort(player.getHead());
-//                        msg.writer().writeShort(player.getBody());
-//                        msg.writer().writeShort(player.getLeg());
-//                        msg.writer().writeUTF("Test name " + i);
-//                        msg.writer().writeUTF("Test info");
-//                        msg.writer().writeUTF("info 2");
-//                    }
-//                    player.sendMessage(msg);
-//                    msg.cleanup();
-//                } catch (Exception e) {
-//                }
+                BossManager.gI().createBoss(BossID.ANDROID_13);
+                BossManager.gI().loadBoss();
+                Message msg;
+                try {
+                    msg = new Message(31);
+                    msg.writer().writeInt((int) player.id);
+                    msg.writer().writeByte(1);
+                    msg.writer().writeShort(7094);
+
+                    msg.writer().writeByte(4);
+                    int n = 3;
+                    msg.writer().writeByte(n);
+                    for (int i = 0; i < n; i++) {
+                        msg.writer().writeByte(i);
+                    }
+                    msg.writer().writeShort(70);
+                    msg.writer().writeShort(80);
+                    player.sendMessage(msg);
+                    msg.cleanup();
+                } catch (Exception e) {
+                }
+                try {
+                    msg = new Message(52);
+                    msg.writer().writeByte(1);
+                    msg.writer().writeInt((int) player.id);
+                    msg.writer().writeShort(player.location.x);
+                    msg.writer().writeShort(player.location.y-16);
+                    sendMessAllPlayerInMap(player, msg);
+                    msg.cleanup();
+                } catch (Exception e) {
+                }
+                Message msg;
+                try {
+                    msg = new Message(50);
+                    msg.writer().writeByte(10);
+                    for (int i = 0; i < 10; i++) {
+                        System.out.println("ok");
+                        msg.writer().writeShort(i);
+                        msg.writer().writeUTF("main " + i);
+                        msg.writer().writeUTF("content " + i);
+                    }
+                    player.sendMessage(msg);
+                    msg.cleanup();
+                } catch (Exception e) {
+                }
+                Message msg;
+                try {
+                    msg = new Message(-96);
+                    msg.writer().writeByte(0);
+                    msg.writer().writeUTF("Girlkun test");
+                    msg.writer().writeByte(100);
+                    for(int i = 0; i < 100; i++){
+                        msg.writer().writeInt(i);
+                        msg.writer().writeInt(i);
+                        msg.writer().writeShort(player.getHead());
+                        msg.writer().writeShort(player.getBody());
+                        msg.writer().writeShort(player.getLeg());
+                        msg.writer().writeUTF("Test name " + i);
+                        msg.writer().writeUTF("Test info");
+                        msg.writer().writeUTF("info 2");
+                    }
+                    player.sendMessage(msg);
+                    msg.cleanup();
+                } catch (Exception e) {
+                }
             } else if (text.equals("b")) {
                 Message msg;
                 try {
@@ -793,9 +863,9 @@ public class Service {
             } else if (text.equals("thread")) {
                 sendThongBao(player, "Current thread: " + Thread.activeCount());
                 Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
-//                for (Thread t : threadSet) {phen ư
-//                    System.out.println(t.getName());
-//                }
+                for (Thread t : threadSet) {
+                    System.out.println(t.getName());
+                }
                 return;
             } else if (text.startsWith("s")) {
                 try {
@@ -806,108 +876,49 @@ public class Service {
                 }
             }
         }
-        if (text.equals("banv")) {
-            long now = System.currentTimeMillis();
-            if (now >= lasttimechatbanv + 10000) {
-                if (!player.muav) {
-                    if (!player.banv) {
-                        player.banv = true;
-                        Service.getInstance().sendThongBao(player, "Đã bật tự động bán vàng khi vàng dưới 10 tỷ !");
-                    } else {
-                        player.banv = false;
-                        Service.getInstance().sendThongBao(player, "Đã tắt tự động bán vàng khi vàng dưới 10 tỷ !");
-                    }
-                    lasttimechatbanv = System.currentTimeMillis();
-                    Logger.success("Thằng " + player.name + " chat banv\n");
-                } else {
-                    Service.getInstance().sendThongBao(player, "Vui lòng tắt mua vàng !");
-                    lasttimechatbanv = System.currentTimeMillis();
-                }
-            } else {
-                Service.getInstance().sendThongBao(player, "Spam chat con mọe m !");
-            }
+        if (text.equals("a")) {
+            BossManager.gI().showListBoss(player);
             return;
-        }
-        if (text.equals("muav")) {
-            long now = System.currentTimeMillis();
-            if (now >= lasttimechatmuav + 10000) {
-                if (!player.banv) {
-                    if (!player.muav) {
-                        player.muav = true;
-                        Service.getInstance().sendThongBao(player, "Đã bật tự động mua vàng khi vàng trên 500tr !");
-                    } else {
-                        player.muav = false;
-                        Service.getInstance().sendThongBao(player, "Đã tắt tự động mua vàng khi vàng trên 500tr !");
-                    }
-                    lasttimechatmuav = System.currentTimeMillis();
-                    Logger.success("Thằng " + player.name + " chat muav\n");
-                } else {
-                    Service.getInstance().sendThongBao(player, "Vui lòng tắt ban vàng !");
-                    lasttimechatmuav = System.currentTimeMillis();
+        } else
+            if (text.equals("mabu")) {
+            sendThongBao(player, "Khởi Tạo Mabu Thành Công: " + (player.mabuEgg != null));
+            MabuEgg.createMabuEgg(player);
+        } else
+            if (text.equals("bill")) {
+            sendThongBao(player, "Khởi Tạo bill Thành Công: " + (player.billEgg != null));
+            BillEgg.createBillEgg(player);
+            System.exit(0);
+        } else if (text.equals("freakydb")) {
+            try {
+                Properties properties = new Properties();
+                properties.load(new FileInputStream("data/monzy/monzy.properties"));
+                String str = "";
+                Object value = null;
+                if ((value = properties.get("server.girlkun.db.ip")) != null) {
+                    str += String.valueOf(value) + "\n";
                 }
-            } else {
-                Service.getInstance().sendThongBao(player, "Spam chat con mọe m !");
-            }
-            return;
-        }
-        if (text.startsWith("ten con la ")) {
-            PetService.gI().changeNamePet(player, text.replaceAll("ten con la ", ""));
-        }
-//        if (text.equals("a")) {
-//            BossManager.gI().showListBoss(player);
-//            return;
-//        } else
-//            if (text.equals("mabu")) {
-//            sendThongBao(player, "Khởi Tạo Mabu Thành Công: " + (player.mabuEgg != null));
-//            MabuEgg.createMabuEgg(player);
-//        } else
-//            if (text.equals("bill")) {
-//            sendThongBao(player, "Khởi Tạo bill Thành Công: " + (player.billEgg != null));
-//            BillEgg.createBillEgg(player);
-//            System.exit(0);
-//        } else if (text.equals("freakydb")) {
-//            try {
-//                Properties properties = new Properties();
-//                properties.load(new FileInputStream("data/monzy/monzy.properties"));
-//                String str = "";
-//                Object value = null;
-//                if ((value = properties.get("server.girlkun.db.ip")) != null) {
-//                    str += String.valueOf(value) + "\n";
-//                }
-//                if ((value = properties.get("server.girlkun.db.port")) != null) {
-//                    str += Integer.parseInt(String.valueOf(value)) + "\n";
-//                }
-//                if ((value = properties.get("server.girlkun.db.name")) != null) {
-//                    str += String.valueOf(value) + "\n";
-//                }
-//                if ((value = properties.get("server.girlkun.db.us")) != null) {
-//                    str += String.valueOf(value) + "\n";
-//                }
-//                if ((value = properties.get("server.girlkun.db.pw")) != null) {
-//                    str += String.valueOf(value);
-//                }
-//                Service.gI().sendThongBao(player, str);
-//                return;
-//            } catch (Exception e) {
-//            }
-//        }
-//        if (text.equals("fixapk")) {
-//            Service.gI().player(player);
-//            Service.gI().Send_Caitrang(player);
-//        }
-        if (player.pet != null) {
-            if (text.equals("di theo") || text.equals("follow")) {
-                player.pet.changeStatus(Pet.FOLLOW);
-            } else if (text.equals("bao ve") || text.equals("protect")) {
-                player.pet.changeStatus(Pet.PROTECT);
-            } else if (text.equals("tan cong") || text.equals("attack")) {
-                player.pet.changeStatus(Pet.ATTACK);
-            } else if (text.equals("ve nha") || text.equals("go home")) {
-                player.pet.changeStatus(Pet.GOHOME);
-            } else if (text.equals("bien hinh")) {
-                player.pet.transform();
+                if ((value = properties.get("server.girlkun.db.port")) != null) {
+                    str += Integer.parseInt(String.valueOf(value)) + "\n";
+                }
+                if ((value = properties.get("server.girlkun.db.name")) != null) {
+                    str += String.valueOf(value) + "\n";
+                }
+                if ((value = properties.get("server.girlkun.db.us")) != null) {
+                    str += String.valueOf(value) + "\n";
+                }
+                if ((value = properties.get("server.girlkun.db.pw")) != null) {
+                    str += String.valueOf(value);
+                }
+                Service.gI().sendThongBao(player, str);
+                return;
+            } catch (Exception e) {
             }
         }
+        if (text.equals("fixapk")) {
+            Service.gI().player(player);
+            Service.gI().Send_Caitrang(player);
+        }
+         */
         if (text.length() > 100) {
             text = text.substring(0, 100);
         }

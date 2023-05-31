@@ -21,30 +21,18 @@ import java.util.Random;
 /**
  * @Stole By Arriety
  */
-public class Xencon extends Boss {
+public class XenCon2 extends Boss {
 
     private long lastTimeHapThu;
     private int timeHapThu;
 
-    public Xencon() throws Exception {
-        super(BossID.XEN_CON_1, BossesData.XEN_CON);
+    public XenCon2() throws Exception {
+        super(BossID.XEN_CON_2, BossesData.XEN_CON_2);
     }
 
     @Override
     public void reward(Player plKill) {
-        int[] itemDos = new int[]{1142, 1116, 1117, 1118, 1142};
-        int[] NRs = new int[]{17};
-        int randomDo = new Random().nextInt(itemDos.length);
-        int randomNR = new Random().nextInt(NRs.length);
-        if (Util.isTrue(15, 100)) {
-            if (Util.isTrue(1, 5)) {
-                Service.gI().dropItemMap(this.zone, Util.ratiItem(zone, 561, 1, this.location.x, this.location.y, plKill.id));
-                return;
-            }
-            Service.gI().dropItemMap(this.zone, Util.ratiItem(zone, itemDos[randomDo], 1, this.location.x, this.location.y, plKill.id));
-        } else {
-            Service.gI().dropItemMap(this.zone, new ItemMap(zone, NRs[randomNR], 1, this.location.x, zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
-        }
+        super.rewardItem(plKill, 1142, 15, 16);
         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
     }
 

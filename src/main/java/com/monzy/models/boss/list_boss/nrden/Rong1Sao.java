@@ -1,4 +1,4 @@
-package com.monzy.models.boss.list_boss.NRD;
+package com.monzy.models.boss.list_boss.nrden;
 
 import com.monzy.models.boss.Boss;
 import com.monzy.models.boss.BossesData;
@@ -8,15 +8,15 @@ import com.monzy.services.EffectSkillService;
 import com.monzy.services.Service;
 import com.monzy.utils.Util;
 
-public class Rong6Sao extends Boss {
+public class Rong1Sao extends Boss {
 
-    public Rong6Sao() throws Exception {
-        super(Util.randomBossId(), BossesData.Rong_6Sao);
+    public Rong1Sao() throws Exception {
+        super(Util.randomBossId(), BossesData.Rong_1Sao);
     }
 
     @Override
     public void reward(Player plKill) {
-        ItemMap it = new ItemMap(this.zone, 377, 1, this.location.x, this.location.y, -1);
+        ItemMap it = new ItemMap(this.zone, 372, 1, this.location.x, this.location.y, -1);
         Service.gI().dropItemMap(this.zone, it);
     }
 
@@ -33,6 +33,18 @@ public class Rong6Sao extends Boss {
                     EffectSkillService.gI().breakShield(this);
                 }
                 damage = damage / 4;
+            }
+            if (!piercing && effectSkill.useTroi) {
+                EffectSkillService.gI().removeUseTroi(this);
+            }
+            if (!piercing && effectSkill.isStun) {
+                EffectSkillService.gI().removeStun(this);
+            }
+            if (!piercing && effectSkill.isThoiMien) {
+                EffectSkillService.gI().removeThoiMien(this);
+            }
+            if (!piercing && effectSkill.isBlindDCTT) {
+                EffectSkillService.gI().removeBlindDCTT(this);
             }
             this.nPoint.subHP(damage);
             if (isDie()) {

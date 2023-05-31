@@ -18,29 +18,9 @@ public class Fide extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        if (Util.isTrue(15, 100)) {
-            ItemMap it = new ItemMap(this.zone, 17, 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24), plKill.id);
-            Service.gI().dropItemMap(this.zone, it);
-        }
+        super.rewardItem(plKill, 16);
         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
     }
-
-    @Override
-    public void active() {
-        super.active(); //To change body of generated methods, choose Tools | Templates.
-        if (Util.canDoWithTime(st, 900000)) {
-            this.changeStatus(BossStatus.LEAVE_MAP);
-        }
-    }
-
-    @Override
-    public void joinMap() {
-        super.joinMap(); //To change body of generated methods, choose Tools | Templates.
-        st = System.currentTimeMillis();
-    }
-
-    private long st;
 
 }
 

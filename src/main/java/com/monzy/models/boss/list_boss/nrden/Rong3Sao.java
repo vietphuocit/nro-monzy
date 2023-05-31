@@ -1,4 +1,4 @@
-package com.monzy.models.boss.list_boss.NRD;
+package com.monzy.models.boss.list_boss.nrden;
 
 import com.monzy.models.boss.Boss;
 import com.monzy.models.boss.BossesData;

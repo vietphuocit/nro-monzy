@@ -22,13 +22,7 @@ public class XenBoHung extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        if (Util.isTrue(50, 100)) {
-            ItemMap it = new ItemMap(this.zone, 1142, 1, this.location.x, this.location.y, plKill.id);
-            Service.gI().dropItemMap(this.zone, it);
-        } else if (Util.isTrue(5, 100)) {
-            ItemMap it = new ItemMap(this.zone, 16, 1, this.location.x, this.location.y, plKill.id);
-            Service.gI().dropItemMap(this.zone, it);
-        }
+        super.rewardItem(plKill, 1142, 15, 16);
         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
     }
 
@@ -64,7 +58,3 @@ public class XenBoHung extends Boss {
     }
 
 }
-/**
- * Vui lòng không sao chép mã nguồn này dưới mọi hình thức. Hãy tôn trọng tác
- * giả của mã nguồn này. Xin cảm ơn! - GirlBeo
- */

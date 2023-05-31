@@ -1,8 +1,14 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.monzy.models.boss.list_boss.cell;
 
 import com.monzy.consts.ConstPlayer;
 import com.monzy.models.boss.Boss;
 import com.monzy.models.boss.BossID;
+import com.monzy.models.boss.BossStatus;
 import com.monzy.models.boss.BossesData;
 import com.monzy.models.map.ItemMap;
 import com.monzy.models.player.Player;
@@ -13,13 +19,13 @@ import com.monzy.utils.Util;
 
 import java.util.Random;
 
-public class SieuBoHung extends Boss {
+public class XenCon extends Boss {
 
     private long lastTimeHapThu;
     private int timeHapThu;
 
-    public SieuBoHung() throws Exception {
-        super(BossID.SIEU_BO_HUNG, BossesData.SIEU_BO_HUNG_1, BossesData.SIEU_BO_HUNG_2, BossesData.SIEU_BO_HUNG_3);
+    public XenCon() throws Exception {
+        super(BossID.XEN_CON, BossesData.XEN_CON);
     }
 
     @Override
@@ -56,29 +62,7 @@ public class SieuBoHung extends Boss {
         this.chat(2, "Ui cha cha, kinh dị quá. " + pl.name + " vừa bị tên " + this.name + " nuốt chửng kìa!!!");
         this.chat("Haha, ngọt lắm đấy " + pl.name + "..");
         this.lastTimeHapThu = System.currentTimeMillis();
-        this.timeHapThu = Util.nextInt(15000, 20000);
+        this.timeHapThu = Util.nextInt(70000, 150000);
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -459,7 +459,11 @@ public class TaskService {
                             break;
                     }
                     break;
+                case BossID.XEN_CON:
                 case BossID.XEN_CON_1:
+                case BossID.XEN_CON_2:
+                case BossID.XEN_CON_3:
+                case BossID.XEN_CON_4:
                     doneTask(player, ConstTask.TASK_28_1);
                     break;
                 case BossID.SIEU_BO_HUNG:
