@@ -21,9 +21,9 @@ public class BlackGokuTL extends Boss {
         byte randomNR = (byte) new Random().nextInt(Manager.itemIds_NR_SB.length);
         if (Util.isTrue(BossManager.ratioReward, 100)) {
             if (Util.isTrue(1, 20)) {
-                Service.gI().dropItemMap(this.zone, Util.ratiItem(zone, 1230, 1, this.location.x, this.location.y, plKill.id));
+                Service.gI().dropItemMap(this.zone, Util.randomAWJThan(zone, 1230, 1, this.location.x, this.location.y, plKill.id));
             } else {
-                Service.gI().dropItemMap(this.zone, Util.ratiItem(zone, Manager.itemIds_TL[randomDo], 1, this.location.x, this.location.y, plKill.id));
+                Service.gI().dropItemMap(this.zone, Util.randomAWJThan(zone, Manager.itemIds_TL[randomDo], 1, this.location.x, this.location.y, plKill.id));
             }
         } else {
             Service.gI().dropItemMap(this.zone, new ItemMap(zone, Manager.itemIds_NR_SB[randomNR], 1, this.location.x, zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));

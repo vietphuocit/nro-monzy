@@ -4,7 +4,6 @@ import com.monzy.models.boss.*;
 import com.monzy.models.map.ItemMap;
 import com.monzy.models.player.Player;
 import com.monzy.server.Manager;
-import com.monzy.services.EffectSkillService;
 import com.monzy.services.Service;
 import com.monzy.utils.Util;
 
@@ -24,7 +23,7 @@ public class BlackGokuBase extends Boss {
             if (Util.isTrue(1, 20)) {
                 Service.gI().dropItemMap(this.zone, new ItemMap(zone, 16, 1, this.location.x, this.location.y, plKill.id));
             } else {
-                Service.gI().dropItemMap(this.zone, Util.ratiItem(zone, Manager.itemIds_TL[randomDo], 1, this.location.x, this.location.y, plKill.id));
+                Service.gI().dropItemMap(this.zone, Util.randomAWJThan(zone, Manager.itemIds_TL[randomDo], 1, this.location.x, this.location.y, plKill.id));
             }
         } else {
             Service.gI().dropItemMap(this.zone, new ItemMap(zone, Manager.itemIds_NR_SB[randomNR], 1, this.location.x, zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));

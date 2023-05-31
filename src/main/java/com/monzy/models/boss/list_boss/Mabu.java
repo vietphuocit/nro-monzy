@@ -30,7 +30,7 @@ public class Mabu extends Boss {
         int randomDo = new Random().nextInt(itemCt.length);
         if (Util.isTrue(99, 100)) {
             if (Util.isTrue(50, 100)) {
-                Service.gI().dropItemMap(this.zone, Util.ratiItem(zone, 568, 1, this.location.x, this.location.y, plKill.id));
+                Service.gI().dropItemMap(this.zone, Util.randomAWJThan(zone, 568, 1, this.location.x, this.location.y, plKill.id));
                 return;
             }
             Service.gI().dropItemMap(this.zone, Util.useItem(zone, itemCt[randomDo], 1, this.location.x, this.location.y, plKill.id));

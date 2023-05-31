@@ -45,7 +45,7 @@ public class SieuBoHung extends Boss {
         if (pl == null || pl.isDie()) {
             return;
         }
-//        ChangeMapService.gI().changeMapYardrat(this, this.zone, pl.location.x, pl.location.y);
+
         this.nPoint.dameg += pl.nPoint.dame;
         this.nPoint.hpg += (pl.nPoint.hp * 2 / 100);
         this.nPoint.critg++;

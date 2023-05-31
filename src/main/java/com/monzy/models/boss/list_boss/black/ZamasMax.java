@@ -25,12 +25,12 @@ public class ZamasMax extends Boss {
             if (Util.isTrue(1, 20)) {
                 Service.gI().dropItemMap(this.zone, new ItemMap(zone, 725, 1, this.location.x, this.location.y, plKill.id));
             } else {
-                Service.gI().dropItemMap(this.zone, Util.ratiItem(zone, Manager.itemIds_TL[randomDo], 1, this.location.x, this.location.y, plKill.id));
+                Service.gI().dropItemMap(this.zone, Util.randomAWJThan(zone, Manager.itemIds_TL[randomDo], 1, this.location.x, this.location.y, plKill.id));
             }
         } else if (Util.isTrue(70, 100)) {
             Service.gI().dropItemMap(this.zone, new ItemMap(zone, Manager.itemIds_NR_SB[randomNR], 1, this.location.x, this.location.y, plKill.id));
         } else {
-            Service.gI().dropItemMap(this.zone, Util.RaitiDoc12(zone, itemDos[randomDo], 1, this.location.x, this.location.y, plKill.id));
+            Service.gI().dropItemMap(this.zone, Util.RandomCSDoThuong(zone, itemDos[randomDo], 1, this.location.x, this.location.y, plKill.id));
         }
     }
 
