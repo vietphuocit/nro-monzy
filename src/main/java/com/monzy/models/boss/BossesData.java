@@ -750,13 +750,13 @@ public class BossesData {
      */
     public static final BossData BLACK_GOKU = new BossData(
             "Black Goku", //name
-            ConstPlayer.TRAI_DAT, //gender
+            ConstPlayer.XAYDA, //gender
             new short[]{550, 880, 881, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
             500000, //dame
             new int[]{1500000000}, //hp
             new int[]{102, 92, 93, 94, 96, 97, 98, 99, 100}, //map join
             new int[][]{
-                    {Skill.TAI_TAO_NANG_LUONG, 7, 10000},
+                    {Skill.TAI_TAO_NANG_LUONG, 7, 1000},
                     {Skill.KAMEJOKO, 7, 1000},
                     {Skill.LIEN_HOAN, 7, 1000}},
             //skill
@@ -767,13 +767,13 @@ public class BossesData {
     );
     public static final BossData SUPER_BLACK_GOKU = new BossData(
             "Super Black Goku", //name
-            ConstPlayer.TRAI_DAT, //gender
+            ConstPlayer.XAYDA, //gender
             new short[]{553, 880, 881, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
-            200000, //dame
+            500000, //dame
             new int[]{2000000000}, //hp
             new int[]{102, 92, 93, 94, 96, 97, 98, 99, 100}, //map join
             new int[][]{
-                    {Skill.TAI_TAO_NANG_LUONG, 7, 10000},
+                    {Skill.TAI_TAO_NANG_LUONG, 7, 1000},
                     {Skill.KAMEJOKO, 7, 1000},
                     {Skill.LIEN_HOAN, 7, 1000}},
             //skill
