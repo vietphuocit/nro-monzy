@@ -24,33 +24,4 @@ public class Mabu extends Boss {
         super(BossID.MABU, BossesData.MABU);
     }
 
-    @Override
-    public void reward(Player plKill) {
-        int[] itemCt = new int[]{1087, 1088, 1090, 1091};
-        int randomDo = new Random().nextInt(itemCt.length);
-        if (Util.isTrue(99, 100)) {
-            if (Util.isTrue(50, 100)) {
-                Service.gI().dropItemMap(this.zone, Util.randomAWJThan(zone, 568, 1, this.location.x, this.location.y, plKill.id));
-                return;
-            }
-            Service.gI().dropItemMap(this.zone, Util.useItem(zone, itemCt[randomDo], 1, this.location.x, this.location.y, plKill.id));
-        }
-    }
-
-    @Override
-    public void active() {
-        super.active(); //To change body of generated methods, choose Tools | Templates.
-        if (Util.canDoWithTime(st, 900000)) {
-            this.changeStatus(BossStatus.LEAVE_MAP);
-        }
-    }
-
-    @Override
-    public void joinMap() {
-        super.joinMap(); //To change body of generated methods, choose Tools | Templates.
-        st = System.currentTimeMillis();
-    }
-
-    private long st;
-
 }

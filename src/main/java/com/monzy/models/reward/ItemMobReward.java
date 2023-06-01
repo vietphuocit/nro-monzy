@@ -10,6 +10,7 @@ import com.monzy.utils.Util;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Data
@@ -67,6 +68,14 @@ public class ItemMobReward {
             }
         }
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return "ItemMobReward{" +
+                "item=" + temp.name +
+                ", ratio=" + Arrays.toString(ratio) +
+                '}';
     }
 
 }

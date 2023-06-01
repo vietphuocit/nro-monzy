@@ -25,6 +25,8 @@ import java.util.stream.Collectors;
 public class Util {
 
     private static final Random rand;
+    public static final int MOB_DROP = 0;
+    public static final int BOSS_DROP = 1;
 
     static {
         rand = new Random();
@@ -135,17 +137,16 @@ public class Util {
     }
 
     public static boolean isTrue(int ratio, int typeRatio) {
-        int num = Util.nextInt(typeRatio);
-        return num != 0 && num < ratio;
+        int num = Util.nextInt(1, typeRatio);
+        return num < ratio;
     }
 
     public static boolean isTrue(float ratio, int typeRatio) {
-        if (ratio < 1) {
+        while (ratio < 1) {
             ratio *= 10;
             typeRatio *= 10;
         }
-        int num = Util.nextInt(typeRatio);
-        return num != 0 && num < ratio;
+        return isTrue((int) ratio, typeRatio);
     }
 
     public static boolean haveSpecialCharacter(String text) {
@@ -328,21 +329,30 @@ public class Util {
         return it;
     }
 
-    public static ItemMap randomAWJThan(Zone zone, int tempId, int quantity, int x, int y, long playerId) {
+    public static ItemMap randomClothesGod(Zone zone, int tempId, int quantity, int x, int y, long playerId, int typeDrop) {
         ItemMap it = new ItemMap(zone, tempId, quantity, x, y, playerId);
         List<Integer> ao = Arrays.asList(555, 557, 559);
         List<Integer> quan = Arrays.asList(556, 558, 560);
+        List<Integer> gang = Arrays.asList(562, 564, 566);
         List<Integer> giay = Arrays.asList(563, 565, 567);
+        int ntl = 561;
         if (ao.contains(tempId)) {
             it.options.add(new Item.ItemOption(47, highlightsItem(it.itemTemplate.gender == 2, Util.nextInt(1000, 1500))));
         }
         if (quan.contains(tempId)) {
             it.options.add(new Item.ItemOption(22, highlightsItem(it.itemTemplate.gender == 0, Util.nextInt(45, 60))));
         }
+        if (gang.contains(tempId)) {
+            it.options.add(new Item.ItemOption(0, highlightsItem(it.itemTemplate.gender == 2, Util.nextInt(3500, 4500))));
+        }
         if (giay.contains(tempId)) {
             it.options.add(new Item.ItemOption(23, highlightsItem(it.itemTemplate.gender == 1, Util.nextInt(45, 60))));
         }
-        it.options.add(new Item.ItemOption(209, 1));
+        if (ntl == tempId) {
+            it.options.add(new Item.ItemOption(14, Util.nextInt(15, 18)));
+        }
+        if(typeDrop == BOSS_DROP)
+            it.options.add(new Item.ItemOption(209, 1));
         it.options.add(new Item.ItemOption(21, 18));
         it.options.add(new Item.ItemOption(107, randomStar()));
         return it;

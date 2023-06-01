@@ -23,23 +23,23 @@ public class ThanHuyDiet extends Boss {
         super(Util.randomBossId(), BossesData.THAN_HUY_DIET);
     }
 
-    @Override
-    public void reward(Player plKill) {
-        byte randomDo = (byte) new Random().nextInt(Manager.itemIds_TL.length - 1);
-        byte randomNR = (byte) new Random().nextInt(Manager.itemIds_NR_SB.length);
-        ItemMap itemMap;
-        if (Util.isTrue(5, 100)) {
-            if (Util.isTrue(1, 50)) {
-                itemMap = Util.randomAWJThan(zone, 1142, 1, this.location.x, this.location.y, plKill.id);
-            } else {
-                itemMap = Util.randomAWJThan(zone, Manager.itemIds_TL[randomDo], 1, this.location.x, this.location.y, plKill.id);
-            }
-        } else {
-            itemMap = Util.randomAWJThan(zone, Manager.itemIds_NR_SB[randomNR], 1, this.location.x, this.location.y, plKill.id);
-        }
-        itemMap.options.add(new Item.ItemOption(30, 1));
-        Service.gI().dropItemMap(this.zone, itemMap);
-    }
+//    @Override
+//    public void reward(Player plKill) {
+//        byte randomDo = (byte) new Random().nextInt(Manager.ID_CLOTHES_GOD.length - 1);
+//        byte randomNR = (byte) new Random().nextInt(Manager.itemIds_NR_SB.length);
+//        ItemMap itemMap;
+//        if (Util.isTrue(5, 100)) {
+//            if (Util.isTrue(1, 50)) {
+//                itemMap = Util.randomClothesGod(zone, 1142, 1, this.location.x, this.location.y, plKill.id);
+//            } else {
+//                itemMap = Util.randomClothesGod(zone, Manager.ID_CLOTHES_GOD[randomDo], 1, this.location.x, this.location.y, plKill.id);
+//            }
+//        } else {
+//            itemMap = Util.randomClothesGod(zone, Manager.itemIds_NR_SB[randomNR], 1, this.location.x, this.location.y, plKill.id);
+//        }
+//        itemMap.options.add(new Item.ItemOption(30, 1));
+//        Service.gI().dropItemMap(this.zone, itemMap);
+//    }
 
     @Override
     public int injured(Player plAtt, int damage, boolean piercing, boolean isMobAttack) {

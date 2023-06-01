@@ -54,7 +54,7 @@ public class MonzyServer implements IMonzyServer {
             }
             this.start = true;
             this.loopServer.start();
-            System.out.println("Server Girlkun đang chạy tại port " + this.port);
+            System.out.println("Server Monzy đang chạy tại port " + this.port);
             return this;
         }
     }

@@ -287,6 +287,12 @@ public class MapService {
         return mapId >= 53 && mapId <= 62;
     }
 
+    public boolean isMapFuture(int mapId) {
+        if (mapId == 95 || mapId == 101)
+            return false;
+        return mapId >= 92 && mapId <= 103;
+    }
+
     public boolean isMapHuyDiet(int mapId) {
         return mapId >= 146 && mapId <= 148;
     }

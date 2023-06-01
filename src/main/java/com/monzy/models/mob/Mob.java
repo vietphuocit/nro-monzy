@@ -18,7 +18,10 @@ import com.monzy.utils.Util;
 import com.network.io.Message;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Mob {
 
@@ -99,7 +102,7 @@ public class Mob {
     }
 
     public long getTiemNangForPlayer(Player pl, long dame) {
-        if(dame == 0)
+        if (dame == 0)
             return (int) pl.nPoint.calSucManhTiemNang(1);
         int levelPlayer = Service.gI().getCurrLevel(pl);
         int n = levelPlayer - this.level;
@@ -296,8 +299,7 @@ public class Mob {
                     Service.gI().sendThongBao(player, "Bạn vừa nhận được " + DoAn.template.name);
                 }
             }
-            itemReward = this.getItemMobReward(player, this.location.x + Util.nextInt(-10, 10),
-                    this.zone.map.yPhysicInTop(this.location.x, this.location.y));
+            itemReward = this.getItemMobReward(player, this.location.x + Util.nextInt(-10, 10), this.zone.map.yPhysicInTop(this.location.x, this.location.y));
             if (itemTask != null) {
                 itemReward.add(itemTask);
             }
@@ -317,49 +319,50 @@ public class Mob {
 
     public List<ItemMap> getItemMobReward(Player player, int x, int yEnd) {
         List<ItemMap> list = new ArrayList<>();
-        MobReward mobReward = Manager.MOB_REWARDS.get(this.tempId);
-        if (mobReward == null) {
-            return list;
+        // đồ thần linh
+        if (MapService.gI().isMapCold(this.zone.map) && Util.isTrue(1, 2000)) {
+            list.add(Util.randomClothesGod(zone, Manager.ID_CLOTHES_GOD[Util.nextInt(Manager.ID_CLOTHES_GOD.length)], 1, x, player.location.y, player.id, Util.MOB_DROP));
         }
-        List<ItemMobReward> items = mobReward.getItemReward();
-        List<ItemMobReward> golds = mobReward.getGoldReward();
-        if (!items.isEmpty()) {
-            ItemMobReward item = items.get(Util.nextInt(0, items.size() - 1));
-            ItemMap itemMap = item.getItemMap(zone, player, x, yEnd);
-            if (itemMap != null) {
-                list.add(itemMap);
-            }
+        // thức ăn
+        if (MapService.gI().isMapCold(this.zone.map) && player.setClothes.godClothes && Util.isTrue(5, 100)) {
+            list.add(new ItemMap(zone, Util.nextInt(663, 667), 1, x, player.location.y, player.id));
         }
-        if (!golds.isEmpty()) {
-            ItemMobReward gold = golds.get(Util.nextInt(0, golds.size() - 1));
-            ItemMap itemMap = gold.getItemMap(zone, player, x, yEnd);
-            if (itemMap != null) {
-                list.add(itemMap);
-            }
-        }
-        if (player.itemTime.isUseMayDo && Util.isTrue(21, 100) && this.tempId > 57 && this.tempId < 66) {
+        // cskb
+        if (player.itemTime.isUseMayDo && MapService.gI().isMapFuture(this.zone.map.mapId) && Util.isTrue(20, 100) && this.tempId > 57 && this.tempId < 66) {
             list.add(new ItemMap(zone, 380, 1, x, player.location.y, player.id));
-        }// vat phẩm rơi khi user maaáy dò adu hoa r o day ti code choa
-        if (player.itemTime.isUseMayDo2 && Util.isTrue(7, 100) && this.tempId > 1 && this.tempId < 81) {
-            list.add(new ItemMap(zone, 2036, 1, x, player.location.y, player.id));// cai nay sua sau nha
         }
-        if (Util.nextInt(0, 10) < 8) {
-            int tlGold = (player.nPoint.getTlGold() + 100);
-            list.add(new ItemMap(zone, 190, (Math.round(Util.nextInt(200000, 200000) / 100) * tlGold), x, player.location.y, player.id));
+        //
+        if (player.itemTime.isUseMayDo2 && Util.isTrue(10, 100) && this.tempId > 1 && this.tempId < 81) {
+            list.add(new ItemMap(zone, 2036, 1, x, player.location.y, player.id));
         }
+        // up hồng ngọc bdkb
         if (MapService.gI().isMapBanDoKhoBau(player.zone.map.mapId)) {
-            if (Util.nextInt(0, 100) < 30) {
-                list.add(new ItemMap(zone, 861, 1, x, player.location.y, player.id));
-            }
+            list.add(new ItemMap(zone, 861, Util.nextInt(50, 500), x, player.location.y, player.id));
         }
-        if (MapService.gI().isMapDoanhTrai(player.zone.map.mapId)) {
-            short dnc;
-            dnc = Manager.dnc[Util.nextInt(0, 4)];
-            if (Util.nextInt(0, 100) < 100) {
-                list.add(new ItemMap(zone, dnc, 1, x, player.location.y, player.id));
-            }
+        // vàng
+        int gold = this.level * Util.nextInt(2000, 3000);
+        if (Util.isTrue(20, 100)) {
+            list.add(new ItemMap(zone, 190, gold + gold * ((player.nPoint.getTlGold() + 100) / 100), x, player.location.y, player.id));
+        } else if (Util.isTrue(50, 100)) {
+            list.add(new ItemMap(zone, 190, gold + gold * (player.nPoint.getTlGold() / 100), x, player.location.y, player.id));
         }
-        if (Util.nextInt(0, 100) < 3) {
+        // đá nâng cấp
+        int dnc = Util.nextInt(220, 224);
+        if (Util.isTrue(25, 100)) {
+            list.add(new ItemMap(zone, dnc, MapService.gI().isMapDoanhTrai(player.zone.map.mapId) ? Util.nextInt(100, 200) : 1, x, player.location.y, player.id));
+        }
+        // sao pha lê
+        int spl = Util.nextInt(441, 447);
+        if (Util.isTrue(25, 100)) {
+            list.add(new ItemMap(zone, spl, 1, x, player.location.y, player.id));
+        }
+        // ngọc rồng
+        int ngocRong = Util.nextInt(17, 20);
+        if (Util.isTrue(25, 100)) {
+            list.add(new ItemMap(zone, ngocRong, 1, x, player.location.y, player.id));
+        }
+        // up đồng xu vàng
+        if (Util.isTrue(3, 100)) {
             list.add(new ItemMap(zone, 1229, 1, x, player.location.y, player.id));
         }
 //        if (player.isPet && player.getSession().actived && Util.isTrue(15, 100)) {

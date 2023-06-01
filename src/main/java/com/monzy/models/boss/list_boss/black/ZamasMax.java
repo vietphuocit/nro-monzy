@@ -16,23 +16,23 @@ public class ZamasMax extends Boss {
         super(BossID.ZAMASMAX, BossesData.THANZM2);
     }
 
-    @Override
-    public void reward(Player plKill) {
-        byte randomDo = (byte) new Random().nextInt(Manager.itemIds_TL.length - 1);
-        byte randomNR = (byte) new Random().nextInt(Manager.itemIds_NR_SB.length);
-        int[] itemDos = new int[]{233, 237, 241, 245, 249, 253, 257, 261, 265, 269, 273, 277, 281};
-        if (Util.isTrue(BossManager.ratioReward, 100)) {
-            if (Util.isTrue(1, 20)) {
-                Service.gI().dropItemMap(this.zone, new ItemMap(zone, 725, 1, this.location.x, this.location.y, plKill.id));
-            } else {
-                Service.gI().dropItemMap(this.zone, Util.randomAWJThan(zone, Manager.itemIds_TL[randomDo], 1, this.location.x, this.location.y, plKill.id));
-            }
-        } else if (Util.isTrue(70, 100)) {
-            Service.gI().dropItemMap(this.zone, new ItemMap(zone, Manager.itemIds_NR_SB[randomNR], 1, this.location.x, this.location.y, plKill.id));
-        } else {
-            Service.gI().dropItemMap(this.zone, Util.RandomCSDoThuong(zone, itemDos[randomDo], 1, this.location.x, this.location.y, plKill.id));
-        }
-    }
+//    @Override
+//    public void reward(Player plKill) {
+//        byte randomDo = (byte) new Random().nextInt(Manager.ID_CLOTHES_GOD.length - 1);
+//        byte randomNR = (byte) new Random().nextInt(Manager.itemIds_NR_SB.length);
+//        int[] itemDos = new int[]{233, 237, 241, 245, 249, 253, 257, 261, 265, 269, 273, 277, 281};
+//        if (Util.isTrue(BossManager.ratioReward, 100)) {
+//            if (Util.isTrue(1, 20)) {
+//                Service.gI().dropItemMap(this.zone, new ItemMap(zone, 725, 1, this.location.x, this.location.y, plKill.id));
+//            } else {
+//                Service.gI().dropItemMap(this.zone, Util.randomClothesGod(zone, Manager.ID_CLOTHES_GOD[randomDo], 1, this.location.x, this.location.y, plKill.id));
+//            }
+//        } else if (Util.isTrue(70, 100)) {
+//            Service.gI().dropItemMap(this.zone, new ItemMap(zone, Manager.itemIds_NR_SB[randomNR], 1, this.location.x, this.location.y, plKill.id));
+//        } else {
+//            Service.gI().dropItemMap(this.zone, Util.RandomCSDoThuong(zone, itemDos[randomDo], 1, this.location.x, this.location.y, plKill.id));
+//        }
+//    }
 
     @Override
     public void active() {

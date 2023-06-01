@@ -42,9 +42,9 @@ public class ServerManager {
         Manager.gI();
         try {
             if (Manager.LOCAL) return;
-            Database.executeUpdate("update account set last_time_login = '2000-01-01', "
-                    + "last_time_logout = '2001-01-01'");
+            Database.executeUpdate("update account set last_time_login = '2000-01-01', last_time_logout = '2001-01-01'");
         } catch (Exception e) {
+            Logger.log(e.getMessage());
         }
         HistoryTransactionDAO.deleteHistory();
     }
@@ -67,7 +67,6 @@ public class ServerManager {
         activeCommandLine();
         activeGame();
         activeServerSocket();
-        Logger.log(Logger.PURPLE_BOLD_BRIGHT, "▄▄▄█████ ]▄▄▄▄▄▄▃\n▂▄▅███████▅▄▃▂\nI█████████████]\n◥⊙▲⊙▲⊙▲⊙▲⊙▲⊙▲⊙◤");
         new Thread(DaiHoiVoThuat.gI(), "Thread DHVT").start();
         ChonAiDay.gI().lastTimeEnd = System.currentTimeMillis() + 300000;
         new Thread(ChonAiDay.gI(), "Thread CAD").start();

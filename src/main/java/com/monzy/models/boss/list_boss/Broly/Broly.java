@@ -18,22 +18,22 @@ public class Broly extends Boss {
         super(BossID.BROLY, BossesData.BROLY_1, BossesData.BROLY_2, BossesData.BROLY_3);
     }
 
-    @Override
-    public void reward(Player plKill) {
-        int[] itemDos = new int[]{1115, 1116, 1117, 1118, 1119};
-        int[] NRs = new int[]{17, 18};
-        int randomDo = new Random().nextInt(itemDos.length);
-        int randomNR = new Random().nextInt(NRs.length);
-        if (Util.isTrue(15, 100)) {
-            if (Util.isTrue(1, 50)) {
-                Service.gI().dropItemMap(this.zone, Util.randomAWJThan(zone, 1230, 1, this.location.x, this.location.y, plKill.id));
-                return;
-            }
-            Service.gI().dropItemMap(this.zone, Util.randomAWJThan(zone, itemDos[randomDo], 1, this.location.x, this.location.y, plKill.id));
-        } else {
-            Service.gI().dropItemMap(this.zone, new ItemMap(zone, NRs[randomNR], 1, this.location.x, this.location.y, plKill.id));
-        }
-    }
+//    @Override
+//    public void reward(Player plKill) {
+//        int[] itemDos = new int[]{1115, 1116, 1117, 1118, 1119};
+//        int[] NRs = new int[]{17, 18};
+//        int randomDo = new Random().nextInt(itemDos.length);
+//        int randomNR = new Random().nextInt(NRs.length);
+//        if (Util.isTrue(15, 100)) {
+//            if (Util.isTrue(1, 50)) {
+//                Service.gI().dropItemMap(this.zone, Util.randomClothesGod(zone, 1230, 1, this.location.x, this.location.y, plKill.id));
+//                return;
+//            }
+//            Service.gI().dropItemMap(this.zone, Util.randomClothesGod(zone, itemDos[randomDo], 1, this.location.x, this.location.y, plKill.id));
+//        } else {
+//            Service.gI().dropItemMap(this.zone, new ItemMap(zone, NRs[randomNR], 1, this.location.x, this.location.y, plKill.id));
+//        }
+//    }
 
     @Override
     public void active() {

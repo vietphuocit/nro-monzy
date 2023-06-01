@@ -15,20 +15,20 @@ public class BlackGokuBase extends Boss {
         super(BossID.BLACK3, BossesData.SUPER_BLACK_GOKU);
     }
 
-    @Override
-    public void reward(Player plKill) {
-        byte randomDo = (byte) new Random().nextInt(Manager.itemIds_TL.length - 1);
-        byte randomNR = (byte) new Random().nextInt(Manager.itemIds_NR_SB.length);
-        if (Util.isTrue(BossManager.ratioReward, 100)) {
-            if (Util.isTrue(1, 20)) {
-                Service.gI().dropItemMap(this.zone, new ItemMap(zone, 16, 1, this.location.x, this.location.y, plKill.id));
-            } else {
-                Service.gI().dropItemMap(this.zone, Util.randomAWJThan(zone, Manager.itemIds_TL[randomDo], 1, this.location.x, this.location.y, plKill.id));
-            }
-        } else {
-            Service.gI().dropItemMap(this.zone, new ItemMap(zone, Manager.itemIds_NR_SB[randomNR], 1, this.location.x, zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
-        }
-    }
+//    @Override
+//    public void reward(Player plKill) {
+//        byte randomDo = (byte) new Random().nextInt(Manager.ID_CLOTHES_GOD.length - 1);
+//        byte randomNR = (byte) new Random().nextInt(Manager.itemIds_NR_SB.length);
+//        if (Util.isTrue(BossManager.ratioReward, 100)) {
+//            if (Util.isTrue(1, 20)) {
+//                Service.gI().dropItemMap(this.zone, new ItemMap(zone, 16, 1, this.location.x, this.location.y, plKill.id));
+//            } else {
+//                Service.gI().dropItemMap(this.zone, Util.randomClothesGod(zone, Manager.ID_CLOTHES_GOD[randomDo], 1, this.location.x, this.location.y, plKill.id));
+//            }
+//        } else {
+//            Service.gI().dropItemMap(this.zone, new ItemMap(zone, Manager.itemIds_NR_SB[randomNR], 1, this.location.x, zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
+//        }
+//    }
 
 //    @Override
 //    public int injured(Player plAtt, int damage, boolean piercing, boolean isMobAttack) {

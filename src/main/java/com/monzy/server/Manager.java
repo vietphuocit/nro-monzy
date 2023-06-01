@@ -98,7 +98,7 @@ public class Manager {
     public static List<TOP> topNHS;
     public static List<TOP> topNAP;
     public static long timeRealTop = 0;
-    public static final short[] itemIds_TL = {555, 557, 559, 556, 558, 560, 562, 564, 566, 563, 565, 567, 561};
+    public static final int[] ID_CLOTHES_GOD = {555, 557, 559, 556, 558, 560, 562, 564, 566, 563, 565, 567, 561};
     public static final byte[] itemIds_NR_SB = {16, 17, 15};
     public static final short[] itemDC12 = {233, 237, 241, 245, 249, 253, 257, 261, 265, 269, 273, 277};
     public static final short[] doAn = {663, 664, 665, 666, 667};
@@ -574,65 +574,6 @@ public class Manager {
                 }
             }
             Logger.success("Load reward lucky round thành công (" + LUCKY_ROUND_REWARDS.size() + ")\n");
-            //load reward mob
-            folder = new File("data/monzy/mob_reward");
-            for (File fileEntry : folder.listFiles()) {
-                if (!fileEntry.isDirectory()) {
-                    DataInputStream dis = new DataInputStream(new FileInputStream(fileEntry));
-                    int size = dis.readInt();
-                    for (int i = 0; i < size; i++) {
-                        int mobId = dis.readInt();
-                        MobReward mobReward = MOB_REWARDS.get(mobId);
-                        if (mobReward == null) {
-                            mobReward = new MobReward(mobId);
-                            MOB_REWARDS.put(mobId, mobReward);
-                        }
-                        int itemId = dis.readInt();
-                        String[] quantity = dis.readUTF().split("-");
-                        String[] ratio = dis.readUTF().split("-");
-                        int gender = dis.readInt();
-                        String map = dis.readUTF();
-                        String[] arrMap = map.replaceAll("[\\]\\[]", "").split(",");
-                        int[] mapDrop = new int[arrMap.length];
-                        for (int g = 0; g < mapDrop.length; g++) {
-                            mapDrop[g] = Integer.parseInt(arrMap[g]);
-                        }
-                        ItemMobReward item = new ItemMobReward(itemId, mapDrop,
-                                new int[]{Integer.parseInt(quantity[0]), Integer.parseInt(quantity[1])},
-                                new int[]{Integer.parseInt(ratio[0]), Integer.parseInt(ratio[1])}, gender);
-                        if (item.getTemp().type == 30) { // sao pha lê
-                            item.setRatio(new int[]{20, Integer.parseInt(ratio[1])});
-                        }
-                        if (item.getTemp().type == 14) { //14 đá nâng c?p
-                            item.setRatio(new int[]{20, Integer.parseInt(ratio[1])});
-                        }
-                        if (item.getTemp().type < 5) {
-                            item.setRatio(new int[]{Integer.parseInt(ratio[0]), Integer.parseInt(ratio[1]) / 4 * 3});
-                        }
-//                        System.out.println(mobReward.getMobId());
-//                        System.out.println(item.getTemp().name);
-//                        System.out.println(item.getTemp().type);
-//                        System.out.println(item.getRatio()[0] + "/" + item.getRatio()[1]);
-//                        System.out.println(item.getQuantity()[0] + "/" + item.getQuantity()[1]);
-                        if (item.getTemp().type == 9) { //vàng
-                            mobReward.getGoldReward().add(item);
-                        } else {
-                            mobReward.getItemReward().add(item);
-                        }
-                        int sizeOption = dis.readInt();
-                        for (int j = 0; j < sizeOption; j++) {
-                            int optionId = dis.readInt();
-                            String[] param = dis.readUTF().split("-");
-                            String[] ratioOption = dis.readUTF().split("-");
-                            ItemOptionMobReward option = new ItemOptionMobReward(optionId,
-                                    new int[]{Integer.parseInt(param[0]), Integer.parseInt(param[1])},
-                                    new int[]{Integer.parseInt(ratioOption[0]), Integer.parseInt(ratioOption[1])});
-                            item.getOption().add(option);
-                        }
-                    }
-                }
-            }
-            Logger.success("Load reward mob thành công (" + MOB_REWARDS.size() + ")\n");
             //load notify
             folder = new File("data/monzy/notify");
             for (File fileEntry : folder.listFiles()) {
@@ -802,7 +743,7 @@ public class Manager {
                 }
                 ShopKyGuiManager.gI().listItem.add(new ItemKyGui(i, itemId, idPl, tab, gold, gem, quantity, isUp, op, isBuy));
             }
-            Logger.log(Logger.YELLOW_BOLD_BRIGHT, "Finish load item ky gui [" + ShopKyGuiManager.gI().listItem.size() + "]!");
+            Logger.log(Logger.YELLOW_BOLD_BRIGHT, "Finish load item ky gui [" + ShopKyGuiManager.gI().listItem.size() + "]!\n");
             ps = con.prepareStatement("select * from radar", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -850,17 +791,10 @@ public class Manager {
             topNHS = realTop(queryTopNHS, con);
             Logger.success("Load top NHS thành công (" + topSK.size() + ")\n");
             Manager.timeRealTop = System.currentTimeMillis();
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (ps != null) {
-                    ps.close();
-                }
-            } catch (SQLException ex) {
-            }
+            rs.close();
+            ps.close();
         } catch (Exception e) {
-            Logger.logException(Manager.class, e, "L?i load database");
+            Logger.logException(Manager.class, e, "Lỗi load database");
             System.exit(0);
         } finally {
             try {
@@ -873,7 +807,7 @@ public class Manager {
             } catch (SQLException ex) {
             }
         }
-        Logger.log(Logger.GREEN_BOLD_BRIGHT, "T?ng th?i gian load database: " + (System.currentTimeMillis() - st) + "(ms)\n");
+        Logger.log(Logger.GREEN_BOLD_BRIGHT, "Tổng thời gian load database: " + (System.currentTimeMillis() - st) + "(ms)\n");
     }
 
     public static List<TOP> realTop(String query, Connection con) {
