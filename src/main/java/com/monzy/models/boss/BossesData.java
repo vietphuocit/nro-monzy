@@ -782,6 +782,23 @@ public class BossesData {
             new String[]{}, //text chat 3
             TypeAppear.ANOTHER_LEVEL //type appear
     );
+    /**
+     * Boss Ăn trộm
+     */
+    public static final BossData AN_TROM = new BossData(
+            "Ăn trộm", //name
+            ConstPlayer.XAYDA, //gender
+            new short[]{201, 202, 203, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
+            1, //dame
+            new int[]{100}, //hp
+            new int[]{84}, //map join
+            new int[][]{},
+            //skill
+            new String[]{}, //text chat 1
+            new String[]{}, //text chat 2
+            new String[]{}, //text chat 3
+            REST_1_S
+    );
     //**************************************************************************Boss doanh trại
     //**************************************************************************
     //**************************************************************************

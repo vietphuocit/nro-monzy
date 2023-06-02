@@ -28,16 +28,6 @@ public class NhanBan extends Boss {
     }
 
     @Override
-    public void active() {
-        super.active();
-    }
-
-    @Override
-    public void joinMap() {
-        super.joinMap();
-    }
-
-    @Override
     public void leaveMap() {
         super.leaveMap();
         BossManager.gI().removeBoss(this);

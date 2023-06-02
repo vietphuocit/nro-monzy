@@ -60,6 +60,14 @@ public class Template {
             this.strRequire = strRequire;
         }
 
+        @Override
+        public String toString() {
+            return "ItemTemplate{" +
+                    "id=" + id +
+                    ", name='" + name + '\'' +
+                    '}';
+        }
+
     }
 
     public static class MobTemplate {

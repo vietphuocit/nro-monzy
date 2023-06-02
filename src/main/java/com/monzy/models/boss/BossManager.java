@@ -1,5 +1,6 @@
 package com.monzy.models.boss;
 
+import com.monzy.models.boss.list_boss.AnTrom;
 import com.monzy.models.boss.list_boss.black.Black;
 import com.monzy.models.boss.list_boss.cooler.Cooler;
 import com.monzy.models.boss.list_boss.android.*;
@@ -76,6 +77,9 @@ public class BossManager implements Runnable {
  this.createBoss(BossID.BLACK);
  this.createBoss(BossID.BLACK3);
  */
+            this.createBoss(BossID.AN_TROM);
+            this.createBoss(BossID.AN_TROM);
+            this.createBoss(BossID.AN_TROM);
             this.createBoss(BossID.TDST_1);
             this.createBoss(BossID.BROLY);
             this.createBoss(BossID.KUKU);
@@ -119,6 +123,8 @@ public class BossManager implements Runnable {
                     return new Rong6Sao();
                 case BossID.Rong_7Sao:
                     return new Rong7Sao();
+                case BossID.AN_TROM:
+                    return new AnTrom();
                 case BossID.TDST_1:
                     return new TDST1();
                 case BossID.KUKU:

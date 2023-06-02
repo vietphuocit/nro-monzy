@@ -92,6 +92,7 @@ public class BossID {
     public static final int SO_1_1 = -258;
     public static final int TIEU_DOI_TRUONG_1 = -259;
     public static final int TDST_1 = -260;
+    public static final int AN_TROM = -261;
 
 }
 

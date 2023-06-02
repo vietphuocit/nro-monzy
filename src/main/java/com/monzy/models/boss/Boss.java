@@ -143,7 +143,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
     }
 
     public Zone getMapJoin() {
-        int mapId = this.data[this.currentLevel].getMapJoin()[Util.nextInt(0, this.data[this.currentLevel].getMapJoin().length - 1)];
+        int mapId = this.data[this.currentLevel].getMapJoin()[Util.nextInt(0, Math.min(10, this.data[this.currentLevel].getMapJoin().length - 1))];
         Zone map = MapService.gI().getMapWithRandZone(mapId);
         //to do: check boss in map
         return map;

@@ -167,8 +167,10 @@ public class MapService {
         Zone zone = null;
         try {
             if (map != null) {
-                zone = map.zones.get(Util.nextInt(0, map.zones.size() - 1));
+                zone = map.zones.get(Math.min(10, Util.nextInt(0, map.zones.size() - 1)));
             }
+            if (zone != null && zone.getBosses().size() > 0)
+                return getMapWithRandZone(mapId);
         } catch (Exception e) {
         }
         return zone;

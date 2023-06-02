@@ -50,4 +50,12 @@ public class ItemShop {
         this.options = null;
     }
 
+    @Override
+    public String toString() {
+        return "ItemShop{" +
+                "temp=" + temp +
+                ", options=" + options +
+                '}';
+    }
+
 }

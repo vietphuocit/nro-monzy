@@ -11,16 +11,17 @@ import com.monzy.models.player.Pet;
 import com.monzy.models.player.Player;
 import com.monzy.models.reward.ItemMobReward;
 import com.monzy.models.reward.MobReward;
+import com.monzy.models.shop.ItemShop;
+import com.monzy.models.shop.Shop;
+import com.monzy.models.shop.TabShop;
 import com.monzy.server.Maintenance;
 import com.monzy.server.Manager;
 import com.monzy.services.*;
 import com.monzy.utils.Util;
 import com.network.io.Message;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import javax.swing.text.TabableView;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class Mob {
@@ -317,8 +318,40 @@ public class Mob {
         return itemReward;
     }
 
+    public List<Integer> itemLevel1IDs = Arrays.asList(27, 28, 29, 6, 7, 8, 0, 1, 2, 12, 21, 22, 23, 30, 47, 55, 35, 43, 51, 33, 41, 49, 57, 24, 46, 53);
+
+    public List<ItemShop> getIDsClothesBasic(int level, int gender) {
+        if (level > 12)
+            level = 12;
+        List<ItemShop> itemShops = new ArrayList<>();
+        int[] tabIDs = gender == 0 ? new int[]{1, 2} : gender == 1 ? new int[]{4, 5} : new int[]{7, 8};
+        Shop shopClothes = Manager.SHOPS.stream().filter(shop -> shop.npcId == 7 + gender).findFirst().get();
+        for (int i = 0; i < tabIDs.length; i++) {
+            int finalI = i;
+            TabShop tabShopClothes = shopClothes.tabShops.stream().filter(tabShop -> tabShop.id == tabIDs[finalI]).findFirst().get();
+            itemShops.add(tabShopClothes.itemShops.get(-1 + level));
+            itemShops.add(tabShopClothes.itemShops.get(11 + level));
+            if (tabShopClothes.itemShops.size() > 24) {
+                itemShops.add(tabShopClothes.itemShops.get(23 + level));
+            }
+        }
+        return itemShops;
+    }
+
+    public ItemMap convertToItemMap(Zone zone, ItemShop itemShop, int quantity, int x, int y, long playerId) {
+        ItemMap it = new ItemMap(zone, itemShop.temp.id, quantity, x, y, playerId);
+        it.options = itemShop.options;
+        it.options.add(new Item.ItemOption(107, Util.randomStar()));
+        return it;
+    }
+
     public List<ItemMap> getItemMobReward(Player player, int x, int yEnd) {
         List<ItemMap> list = new ArrayList<>();
+        // đồ thường
+        if (Util.isTrue(2, 100) && level < 19) {
+            ItemShop itemShop = getIDsClothesBasic(level, player.gender).stream().skip((long) (5 * Math.random())).findFirst().get();
+            list.add(convertToItemMap(zone, itemShop, 1, x, player.location.y, player.id));
+        }
         // đồ thần linh
         if (MapService.gI().isMapCold(this.zone.map) && Util.isTrue(1, 2000)) {
             list.add(Util.randomClothesGod(zone, Manager.ID_CLOTHES_GOD[Util.nextInt(Manager.ID_CLOTHES_GOD.length)], 1, x, player.location.y, player.id, Util.MOB_DROP));
@@ -336,29 +369,30 @@ public class Mob {
             list.add(new ItemMap(zone, 2036, 1, x, player.location.y, player.id));
         }
         // up hồng ngọc bdkb
-        if (MapService.gI().isMapBanDoKhoBau(player.zone.map.mapId)) {
-            list.add(new ItemMap(zone, 861, Util.nextInt(50, 500), x, player.location.y, player.id));
+        if (MapService.gI().isMapBanDoKhoBau(player.zone.map.mapId) && Util.isTrue(50, 100)) {
+            list.add(new ItemMap(zone, 861, Util.nextInt(10, 100), x, player.location.y, player.id));
         }
         // vàng
-        int gold = this.level * Util.nextInt(2000, 3000);
-        if (Util.isTrue(20, 100)) {
-            list.add(new ItemMap(zone, 190, gold + gold * ((player.nPoint.getTlGold() + 100) / 100), x, player.location.y, player.id));
-        } else if (Util.isTrue(50, 100)) {
-            list.add(new ItemMap(zone, 190, gold + gold * (player.nPoint.getTlGold() / 100), x, player.location.y, player.id));
+        int gold = this.level * Util.nextInt(400, 600);
+        gold = Math.min(gold + gold * (player.nPoint.getTlGold() / 100), 30000);
+        if (Util.isTrue(50, 100)) {
+            list.add(new ItemMap(zone, 190, gold, x, player.location.y, player.id));
         }
         // đá nâng cấp
         int dnc = Util.nextInt(220, 224);
-        if (Util.isTrue(25, 100)) {
-            list.add(new ItemMap(zone, dnc, MapService.gI().isMapDoanhTrai(player.zone.map.mapId) ? Util.nextInt(100, 200) : 1, x, player.location.y, player.id));
+        if (MapService.gI().isMapDoanhTrai(player.zone.map.mapId) && Util.isTrue(50, 100)) {
+            list.add(new ItemMap(zone, dnc, Util.nextInt(100, 200), x, player.location.y, player.id));
+        } else if (Util.isTrue(10, 100)) {
+            list.add(new ItemMap(zone, dnc, 1, x, player.location.y, player.id));
         }
         // sao pha lê
         int spl = Util.nextInt(441, 447);
-        if (Util.isTrue(25, 100)) {
+        if (Util.isTrue(10, 100)) {
             list.add(new ItemMap(zone, spl, 1, x, player.location.y, player.id));
         }
         // ngọc rồng
         int ngocRong = Util.nextInt(17, 20);
-        if (Util.isTrue(25, 100)) {
+        if (Util.isTrue(10, 100)) {
             list.add(new ItemMap(zone, ngocRong, 1, x, player.location.y, player.id));
         }
         // up đồng xu vàng
