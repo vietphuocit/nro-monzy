@@ -10,12 +10,12 @@ public class SetClothes {
         this.player = player;
     }
 
+    public byte krilin;
+    public byte kaioken;
     public byte songoku;
-    public byte thienXinHang;
-    public byte kirin;
+    public byte picolo;
     public byte ocTieu;
     public byte pikkoroDaimao;
-    public byte picolo;
     public byte kakarot;
     public byte cadic;
     public byte nappa;
@@ -74,12 +74,12 @@ public class SetClothes {
                         case 127:
                         case 139:
                             isActSet = true;
-                            thienXinHang++;
+                            kaioken++;
                             break;
                         case 128:
                         case 140:
                             isActSet = true;
-                            kirin++;
+                            krilin++;
                             break;
                         case 131:
                         case 143:
@@ -132,8 +132,8 @@ public class SetClothes {
 
     private void setDefault() {
         this.songoku = 0;
-        this.thienXinHang = 0;
-        this.kirin = 0;
+        this.kaioken = 0;
+        this.krilin = 0;
         this.ocTieu = 0;
         this.pikkoroDaimao = 0;
         this.picolo = 0;

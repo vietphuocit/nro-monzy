@@ -530,7 +530,7 @@ public class NPoint {
         }
         //set nappa
         if (this.player.setClothes.nappa == 5) {
-            this.hpMax *= 3;
+            this.hpMax *= 1.8;
         }
         //set worldcup
         if (this.player.setClothes.worldcup == 2) {
@@ -617,9 +617,6 @@ public class NPoint {
         //đồ
         for (Integer tl : this.tlMp) {
             this.mpMax += ((long) this.mpMax * tl / 100);
-        }
-        if (this.player.setClothes.picolo == 5) {
-            this.mpMax *= 3;
         }
         //ngọc rồng đen 3 sao
         if (this.player.rewardBlackBall.timeOutOfDateReward[2] > System.currentTimeMillis()) {
@@ -709,15 +706,15 @@ public class NPoint {
         }
         //btc2
         if (this.player.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2) {
-            this.dame *= 1.15;
+            this.dame *= 1.1;
         }
         //btc3
         if (this.player.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3) {
-            this.dame *= 1.3;
+            this.dame *= 1.2;
         }
         //btc4
         if (this.player.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4) {
-            this.dame *= 1.5;
+            this.dame *= 1.3;
         }
         //cuồng nộ
         if (this.player.itemTime != null && this.player.itemTime.isUseCuongNo) {
@@ -929,7 +926,7 @@ public class NPoint {
                     percentDameIntrinsic = intrinsic.param1;
                 }
                 percentDameSkill = skillSelect.damage;
-                if (this.player.setClothes.kirin == 5) {
+                if (this.player.setClothes.kaioken == 5) {
                     percentXDame = 100;
                 }
                 break;
@@ -950,10 +947,13 @@ public class NPoint {
             case Skill.MAKANKOSAPPO:
                 percentDameSkill = skillSelect.damage;
                 int dameSkill = (int) ((long) this.mpMax * percentDameSkill / 100);
+                if (this.player.setClothes.picolo == 5) {
+                    dameSkill *= 1.5;
+                }
                 return dameSkill;
             case Skill.QUA_CAU_KENH_KHI:
                 int dame = this.dame * 40;
-                if (this.player.setClothes.kirin == 5) {
+                if (this.player.setClothes.krilin == 5) {
                     dame *= 2;
                 }
                 dame = dame + (Util.nextInt(-5, 5) * dame / 100);
