@@ -350,20 +350,20 @@ public class Mob {
     public List<ItemMap> getItemMobReward(Player player, int x, int yEnd) {
         List<ItemMap> list = new ArrayList<>();
         // đồ thường
-        if (Util.isTrue(3, 100) && level < 19) {
-            ItemShop itemShop = getIDsClothesBasic(level, player.gender).stream().skip((long) (5 * Math.random())).findFirst().orElse(null);
-            if (itemShop != null) {
-                ItemMap itemMap = convertToItemMap(zone, itemShop, 1, x, player.location.y, player.id);
-                // set kich hoat
-                if ((player.gender == itemMap.itemTemplate.gender || itemMap.itemTemplate.gender == 3) && itemMap.itemTemplate.id < 58 && Util.isTrue(1, 100)) {
-                    int randSet = Util.nextInt(0, 2);
-                    itemMap.options.add(new Item.ItemOption(127 + randSet + player.gender * 3, 1));
-                    itemMap.options.add(new Item.ItemOption(136 + randSet + player.gender * 3, 1));
-                    itemMap.options.add(new Item.ItemOption(30, 1));
-                }
-                list.add(itemMap);
-            }
-        }
+//        if (Util.isTrue(100, 100) && level < 19) {
+//            ItemShop itemShop = getIDsClothesBasic(level, player.gender).stream().skip((long) (5 * Math.random())).findFirst().orElse(null);
+//            if (itemShop != null) {
+//                ItemMap itemMap = convertToItemMap(zone, itemShop, 1, x, player.location.y, player.id);
+//                // set kich hoat
+//                if ((player.gender == itemMap.itemTemplate.gender || itemMap.itemTemplate.gender == 3) && itemMap.itemTemplate.id < 58 && Util.isTrue(1, 100)) {
+//                    int randSet = Util.nextInt(0, 2);
+//                    itemMap.options.add(new Item.ItemOption(127 + randSet + player.gender * 3, 1));
+//                    itemMap.options.add(new Item.ItemOption(136 + randSet + player.gender * 3, 1));
+//                    itemMap.options.add(new Item.ItemOption(30, 1));
+//                }
+//                list.add(itemMap);
+//            }
+//        }
         // đồ thần linh
         if (MapService.gI().isMapCold(this.zone.map) && Util.isTrue(1, 1500)) {
             list.add(Util.randomClothesGod(zone, Manager.ID_CLOTHES_GOD[Util.nextInt(Manager.ID_CLOTHES_GOD.length)], 1, x, player.location.y, player.id, Util.MOB_DROP));
@@ -401,7 +401,10 @@ public class Mob {
         } else if (Util.isTrue(5, 100)) {
             list.add(new ItemMap(zone, dnc, 1, x, player.location.y, player.id));
         } else if (Util.isTrue(5, 100)) {
-            list.add(new ItemMap(zone, spl, 1, x, player.location.y, player.id));
+            ItemMap itemSPL = new ItemMap(zone, spl, 1, x, player.location.y, player.id);
+            short idOption = (short) (95 + spl - 441);
+            itemSPL.options.add(new Item.ItemOption(idOption, idOption == 98 || idOption == 99 ? 3 : 5));
+            list.add(itemSPL);
         } else if (Util.isTrue(5, 100)) {
             list.add(new ItemMap(zone, ngocRong, 1, x, player.location.y, player.id));
         }

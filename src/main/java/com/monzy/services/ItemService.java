@@ -253,7 +253,7 @@ public class ItemService {
 
     public int randomSKHId(byte gender) {
         if (gender == 3) gender = 2;
-        int[][] options = {{128, 129, 127}, {130, 131, 132}, {133, 135, 134}};
+        int[][] options = {{127, 128, 129}, {130, 131, 132}, {133, 134, 135}};
         int skhv1 = 25;
         int skhv2 = 35;
         int skhc = 40;
@@ -697,7 +697,7 @@ public class ItemService {
         if (item != null) {
             item.itemOptions.addAll(ItemService.gI().getListOptionItemShop((short) itemId));
             item.itemOptions.add(new Item.ItemOption(skhId, 1));
-            item.itemOptions.add(new Item.ItemOption(optionIdSKH(skhId), 1));
+            item.itemOptions.add(new Item.ItemOption(skhId + 9, 1));
             item.itemOptions.add(new Item.ItemOption(30, 1));
         }
         return item;

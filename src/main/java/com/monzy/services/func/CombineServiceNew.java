@@ -665,11 +665,8 @@ public class CombineServiceNew {
                     this.npsthiensu64.createOtherMenu(player, ConstNpc.MENU_NANG_DOI_SKH_VIP,
                             npcSay, "Nâng cấp\n" + Util.numberToMoney(COST) + " vàng", "Từ chối");
                 } else {
-                    if (player.combineNew.itemsCombine.size() > 1) {
-                        this.npsthiensu64.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Nguyên liệu không phù hợp", "Đóng");
-                        return;
-                    }
-                    this.npsthiensu64.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Còn thiếu nguyên liệu để nâng cấp hãy quay lại sau", "Đóng");
+                    this.npsthiensu64.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Nguyên liệu không phù hợp", "Đóng");
+                    return;
                 }
                 break;
         }
@@ -1094,9 +1091,9 @@ public class CombineServiceNew {
             if (new Item(itemId).isDTL()) {
                 item = Util.ratiItemTL(itemId);
                 item.itemOptions.add(new Item.ItemOption(skhId, 1));
-                item.itemOptions.add(new Item.ItemOption(ItemService.gI().optionIdSKH(skhId), 1));
+                item.itemOptions.add(new Item.ItemOption(skhId + 9, 1));
                 item.itemOptions.remove(item.itemOptions.stream().filter(itemOption -> itemOption.optionTemplate.id == 21).findFirst().get());
-                item.itemOptions.add(new Item.ItemOption(21, 15));
+                item.itemOptions.add(new Item.ItemOption(21, 18));
                 item.itemOptions.add(new Item.ItemOption(30, 1));
             } else {
                 item = ItemService.gI().itemSKH(itemId, skhId);
@@ -2410,9 +2407,7 @@ public class CombineServiceNew {
                         + "\nsẽ cho ra đồ hủy diệt từ 0-15% chỉ số"
                         + "\nSau đó chọn 'Nâng Cấp'";
             case NANG_CAP_SKH_VIP:
-                return "vào hành trang\nChọn 1 trang bị thiên sứ bất kì\nChọn tiếp ngẫu nhiên 2 món SKH thường \n "
-                        + " đồ SKH VIP sẽ cùng loại \n với đồ thiên sứ!"
-                        + "Chỉ cần chọn 'Nâng Cấp'";
+                return "Vào hành trang\nChọn 1 trang bị thiên sứ bất kì\nChọn 'Nâng Cấp'";
             case NANG_CAP_BONG_TAI:
                 return "Vào hành trang\nChọn bông tai Porata\nChọn mảnh bông tai để nâng cấp \nSau đó chọn 'Nâng cấp'";
             case MO_CHI_SO_BONG_TAI:

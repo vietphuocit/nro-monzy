@@ -1,5 +1,6 @@
 package com.monzy.utils;
 
+import com.monzy.models.Template;
 import com.monzy.models.boss.BossManager;
 import com.monzy.models.item.Item;
 import com.monzy.models.map.ItemMap;
@@ -228,40 +229,40 @@ public class Util {
         return new ItemMap(zone, tempId, quantity, x, y, playerId);
     }
 
-    public static ItemMap ratiDTL(Zone zone, int tempId, int quantity, int x, int y, long playerId) {
-        ItemMap it = new ItemMap(zone, tempId, quantity, x, zone.map.yPhysicInTop(x, y - 24), playerId);
-        List<Integer> ao = Arrays.asList(555, 557, 559);
-        List<Integer> quan = Arrays.asList(556, 558, 560);
-        List<Integer> gang = Arrays.asList(562, 564, 566);
-        List<Integer> giay = Arrays.asList(563, 565, 567);
-        int ntl = 561;
-        if (ao.contains(tempId)) {
-            it.options.add(new Item.ItemOption(47, highlightsItem(it.itemTemplate.gender == 2, new Random().nextInt(501) + 1300)));
-        }
-        if (quan.contains(tempId)) {
-            it.options.add(new Item.ItemOption(22, highlightsItem(it.itemTemplate.gender == 0, new Random().nextInt(11) + 45)));
-        }
-        if (gang.contains(tempId)) {
-            it.options.add(new Item.ItemOption(0, highlightsItem(it.itemTemplate.gender == 2, new Random().nextInt(1001) + 3500)));
-        }
-        if (giay.contains(tempId)) {
-            it.options.add(new Item.ItemOption(23, highlightsItem(it.itemTemplate.gender == 1, new Random().nextInt(11) + 35)));
-        }
-        if (ntl == tempId) {
-            it.options.add(new Item.ItemOption(14, new Random().nextInt(2) + 15));
-        }
-        it.options.add(new Item.ItemOption(209, 1)); // đồ rơi từ boss
-        it.options.add(new Item.ItemOption(21, 18)); // ycsm 18 tỉ
-        it.options.add(new Item.ItemOption(30, 1)); // ko thể gd
-        if (Util.isTrue(90, 100)) {// tỉ lệ ra spl
-            it.options.add(new Item.ItemOption(107, new Random().nextInt(3) + 1));
-        } else if (Util.isTrue(4, 100)) {
-            it.options.add(new Item.ItemOption(107, new Random().nextInt(3) + 5));
-        } else {
-            it.options.add(new Item.ItemOption(107, new Random().nextInt(5) + 1));
-        }
-        return it;
-    }
+//    public static ItemMap ratiDTL(Zone zone, int tempId, int quantity, int x, int y, long playerId) {
+//        ItemMap it = new ItemMap(zone, tempId, quantity, x, zone.map.yPhysicInTop(x, y - 24), playerId);
+//        List<Integer> ao = Arrays.asList(555, 557, 559);
+//        List<Integer> quan = Arrays.asList(556, 558, 560);
+//        List<Integer> gang = Arrays.asList(562, 564, 566);
+//        List<Integer> giay = Arrays.asList(563, 565, 567);
+//        int ntl = 561;
+//        if (ao.contains(tempId)) {
+//            it.options.add(new Item.ItemOption(47, highlightsItem(it.itemTemplate.gender == 2, new Random().nextInt(501) + 1300)));
+//        }
+//        if (quan.contains(tempId)) {
+//            it.options.add(new Item.ItemOption(22, highlightsItem(it.itemTemplate.gender == 0, new Random().nextInt(11) + 45)));
+//        }
+//        if (gang.contains(tempId)) {
+//            it.options.add(new Item.ItemOption(0, highlightsItem(it.itemTemplate.gender == 2, new Random().nextInt(1001) + 3500)));
+//        }
+//        if (giay.contains(tempId)) {
+//            it.options.add(new Item.ItemOption(23, highlightsItem(it.itemTemplate.gender == 1, new Random().nextInt(11) + 35)));
+//        }
+//        if (ntl == tempId) {
+//            it.options.add(new Item.ItemOption(14, new Random().nextInt(2) + 15));
+//        }
+//        it.options.add(new Item.ItemOption(209, 1)); // đồ rơi từ boss
+//        it.options.add(new Item.ItemOption(21, 18)); // ycsm 18 tỉ
+//        it.options.add(new Item.ItemOption(30, 1)); // ko thể gd
+//        if (Util.isTrue(90, 100)) {// tỉ lệ ra spl
+//            it.options.add(new Item.ItemOption(107, new Random().nextInt(3) + 1));
+//        } else if (Util.isTrue(4, 100)) {
+//            it.options.add(new Item.ItemOption(107, new Random().nextInt(3) + 5));
+//        } else {
+//            it.options.add(new Item.ItemOption(107, new Random().nextInt(5) + 1));
+//        }
+//        return it;
+//    }
 
     public static ItemMap RandomCSDoThuong(Zone zone, int tempId, int quantity, int x, int y, long playerId) {
         ItemMap it = new ItemMap(zone, tempId, quantity, x, y, playerId);
