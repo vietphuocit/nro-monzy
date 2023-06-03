@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CombineServiceNew {
 
@@ -1342,24 +1343,7 @@ public class CombineServiceNew {
             InventoryServiceNew.gI().subQuantityItemsBag(player, daXanhLam, 1);
             if (Util.isTrue(player.combineNew.ratioCombine, 100)) {
                 bongTai.itemOptions.clear();
-                int randomCSA = Util.nextInt(0, 7);
-                if (randomCSA == 0) {
-                    bongTai.itemOptions.add(new Item.ItemOption(50, Util.nextInt(5, levelBongTai(bongTai) * 5)));
-                } else if (randomCSA == 1) {
-                    bongTai.itemOptions.add(new Item.ItemOption(77, Util.nextInt(5, levelBongTai(bongTai) * 5)));
-                } else if (randomCSA == 2) {
-                    bongTai.itemOptions.add(new Item.ItemOption(103, Util.nextInt(5, levelBongTai(bongTai) * 5)));
-                } else if (randomCSA == 3) {
-                    bongTai.itemOptions.add(new Item.ItemOption(108, Util.nextInt(5, levelBongTai(bongTai) * 5)));
-                } else if (randomCSA == 4) {
-                    bongTai.itemOptions.add(new Item.ItemOption(94, Util.nextInt(5, levelBongTai(bongTai) * 5)));
-                } else if (randomCSA == 5) {
-                    bongTai.itemOptions.add(new Item.ItemOption(14, Util.nextInt(5, levelBongTai(bongTai) * 5)));
-                } else if (randomCSA == 6) {
-                    bongTai.itemOptions.add(new Item.ItemOption(80, Util.nextInt(5, levelBongTai(bongTai) * 5)));
-                } else if (randomCSA == 7) {
-                    bongTai.itemOptions.add(new Item.ItemOption(81, Util.nextInt(5, levelBongTai(bongTai) * 5)));
-                }
+                bongTai.itemOptions.add(new Item.ItemOption(Stream.of(50, 77, 103, 108, 94, 14, 80, 81).skip((long) (8 * Math.random())).findFirst().get(), Util.nextInt(5, levelBongTai(bongTai) * 5)));
                 sendEffectSuccessCombine(player);
             } else {
                 sendEffectFailCombine(player);

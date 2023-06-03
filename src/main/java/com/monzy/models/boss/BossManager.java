@@ -7,6 +7,8 @@ import com.monzy.models.boss.list_boss.android.*;
 import com.monzy.models.boss.list_boss.cell.*;
 import com.monzy.models.boss.list_boss.doraemon.*;
 import com.monzy.models.boss.list_boss.fide.Fide;
+import com.monzy.models.boss.list_boss.hanhtinhberus.Bill;
+import com.monzy.models.boss.list_boss.hanhtinhberus.Whis;
 import com.monzy.models.boss.list_boss.nappa.Kuku;
 import com.monzy.models.boss.list_boss.nappa.MapDauDinh;
 import com.monzy.models.boss.list_boss.nappa.Rambo;
@@ -98,6 +100,7 @@ public class BossManager implements Runnable {
             this.createBoss(BossID.BLACK);
             this.createBoss(BossID.BLACK);
             this.createBoss(BossID.BLACK);
+            this.createBoss(BossID.BILL);
 //            this.createBoss(BossID.MABU);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -181,6 +184,10 @@ public class BossManager implements Runnable {
                     return new Cooler();
                 case BossID.BLACK:
                     return new Black();
+                case BossID.BILL:
+                    return new Bill();
+                case BossID.WISH:
+                    return new Whis();
                 /**
                  case BossID.CUMBERYELLOW:
                  return new cumberYellow();

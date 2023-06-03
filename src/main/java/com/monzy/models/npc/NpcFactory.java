@@ -2223,30 +2223,23 @@ public class NpcFactory {
         return new Npc(mapId, status, cx, cy, tempId, avartar) {
             @Override
             public void openBaseMenu(Player player) {
-                if (this.mapId == 14) {
-                    this.createOtherMenu(player, ConstNpc.BASE_MENU, "Ta sẽ dẫn cậu tới hành tinh Berrus với điều kiện\n 2. đạt 80 tỷ sức mạnh "
-                            + "\n 3. chi phí vào cổng  50 triệu vàng", "Tới ngay", "Từ chối");
-                }
-                if (this.mapId == 7) {
-                    this.createOtherMenu(player, ConstNpc.BASE_MENU, "Ta sẽ dẫn cậu tới hành tinh Berrus với điều kiện\n 2. đạt 80 tỷ sức mạnh "
-                            + "\n 3. chi phí vào cổng  50 triệu vàng", "Tới ngay", "Từ chối");
-                }
-                if (this.mapId == 0) {
-                    this.createOtherMenu(player, ConstNpc.BASE_MENU, "Ta sẽ dẫn cậu tới hành tinh Berrus với điều kiện\n 2. đạt 80 tỷ sức mạnh "
-                            + "\n 3. chi phí vào cổng  50 triệu vàng", "Tới ngay", "Từ chối");
-                }
-                if (this.mapId == 146) {
-                    this.createOtherMenu(player, ConstNpc.BASE_MENU, "Cậu không chịu nổi khi ở đây sao?\nCậu sẽ khó mà mạnh lên được", "Trốn về", "Ở lại");
-                }
-                if (this.mapId == 147) {
-                    this.createOtherMenu(player, ConstNpc.BASE_MENU, "Cậu không chịu nổi khi ở đây sao?\nCậu sẽ khó mà mạnh lên được", "Trốn về", "Ở lại");
-                }
-                if (this.mapId == 148) {
-                    this.createOtherMenu(player, ConstNpc.BASE_MENU, "Cậu không chịu nổi khi ở đây sao?\nCậu sẽ khó mà mạnh lên được", "Trốn về", "Ở lại");
-                }
-                if (this.mapId == 48) {
-                    this.createOtherMenu(player, ConstNpc.BASE_MENU, "Đã tìm đủ nguyên liệu cho tôi chưa?\n Tôi sẽ giúp cậu mạnh lên kha khá đấy!", "Hướng Dẫn",
-                            "Đổi SKH VIP", "Từ Chối");
+                switch (this.mapId) {
+                    case 0:
+                    case 7:
+                    case 14: {
+                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Ta sẽ dẫn cậu tới hành tinh Berrus với điều kiện\n 2. đạt 80 tỷ sức mạnh "
+                                + "\n 3. chi phí vào cổng  50 triệu vàng", "Tới ngay", "Từ chối");
+                        break;
+                    }
+                    case 201: {
+                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Cậu không chịu nổi khi ở đây sao?\nCậu sẽ khó mà mạnh lên được", "Trốn về", "Ở lại");
+                        break;
+                    }
+                    case 48: {
+                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Đã tìm đủ nguyên liệu cho tôi chưa?\n Tôi sẽ giúp cậu mạnh lên kha khá đấy!", "Hướng Dẫn",
+                                "Đổi SKH VIP", "Từ Chối");
+                        break;
+                    }
                 }
             }
 
@@ -2257,76 +2250,44 @@ public class NpcFactory {
             @Override
             public void confirmMenu(Player player, int select) {
                 if (canOpenNpc(player)) {
-                    if (player.iDMark.isBaseMenu() && this.mapId == 7) {
-                        if (select == 0) {
-                            if (player.getSession().player.nPoint.power >= 80000000000L && player.inventory.gold > COST_HD) {
-                                player.inventory.gold -= COST_HD;
-                                Service.gI().sendMoney(player);
-                                ChangeMapService.gI().changeMapBySpaceShip(player, 146, -1, 168);
-                            } else {
-                                this.npcChat(player, "Bạn chưa đủ điều kiện để vào");
+                    if (player.iDMark.isBaseMenu()) {
+                        switch (this.mapId) {
+                            case 0:
+                            case 7:
+                            case 14: {
+                                if (select == 0) {
+                                    if (player.getSession().player.nPoint.power >= 80000000000L && player.inventory.gold > COST_HD) {
+                                        player.inventory.gold -= COST_HD;
+                                        Service.gI().sendMoney(player);
+                                        ChangeMapService.gI().changeMapBySpaceShip(player, 201, -1, 54);
+                                    } else {
+                                        this.npcChat(player, "Bạn chưa đủ điều kiện để vào");
+                                    }
+                                }
+                                break;
                             }
-                        }
-                        if (select == 1) {
-                        }
-                    }
-                    if (player.iDMark.isBaseMenu() && this.mapId == 14) {
-                        if (select == 0) {
-                            if (player.getSession().player.nPoint.power >= 80000000000L && player.inventory.gold > COST_HD) {
-                                player.inventory.gold -= COST_HD;
-                                Service.gI().sendMoney(player);
-                                ChangeMapService.gI().changeMapBySpaceShip(player, 148, -1, 168);
-                            } else {
-                                this.npcChat(player, "Bạn chưa đủ điều kiện để vào");
+                            case 201: {
+                                if (select == 0) {
+                                    ChangeMapService.gI().changeMapBySpaceShip(player, 7 * player.gender, -1, 450);
+                                }
+                                break;
                             }
-                        }
-                        if (select == 1) {
-                        }
-                    }
-                    if (player.iDMark.isBaseMenu() && this.mapId == 0) {
-                        if (select == 0) {
-                            if (player.getSession().player.nPoint.power >= 80000000000L && player.inventory.gold > COST_HD) {
-                                player.inventory.gold -= COST_HD;
-                                Service.gI().sendMoney(player);
-                                ChangeMapService.gI().changeMapBySpaceShip(player, 147, -1, 168);
-                            } else {
-                                this.npcChat(player, "Bạn chưa đủ điều kiện để vào");
+                            case 48: {
+                                if (select == 0) {
+                                    NpcService.gI().createTutorial(player, this.avartar, ConstNpc.HUONG_DAN_DOI_SKH_VIP);
+                                }
+                                if (select == 1) {
+                                    CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.NANG_CAP_SKH_VIP);
+                                }
                             }
-                        }
-                        if (select == 1) {
-                        }
-                    }
-                    if (player.iDMark.isBaseMenu() && this.mapId == 147) {
-                        if (select == 0) {
-                            ChangeMapService.gI().changeMapBySpaceShip(player, 0, -1, 450);
-                        }
-                        if (select == 1) {
-                        }
-                    }
-                    if (player.iDMark.isBaseMenu() && this.mapId == 148) {
-                        if (select == 0) {
-                            ChangeMapService.gI().changeMapBySpaceShip(player, 14, -1, 450);
-                        }
-                        if (select == 1) {
-                        }
-                    }
-                    if (player.iDMark.isBaseMenu() && this.mapId == 146) {
-                        if (select == 0) {
-                            ChangeMapService.gI().changeMapBySpaceShip(player, 7, -1, 450);
-                        }
-                        if (select == 1) {
-                        }
-                    }
-                    if (player.iDMark.isBaseMenu() && this.mapId == 48) {
-                        if (select == 0) {
-                            NpcService.gI().createTutorial(player, this.avartar, ConstNpc.HUONG_DAN_DOI_SKH_VIP);
-                        }
-                        if (select == 1) {
-                            CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.NANG_CAP_SKH_VIP);
-                        }
-                    } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_NANG_DOI_SKH_VIP) {
-                        if (select == 0) {
-                            CombineServiceNew.gI().startCombine(player);
+                            default: {
+                                if (player.iDMark.getIndexMenu() == ConstNpc.MENU_NANG_DOI_SKH_VIP) {
+                                    if (select == 0) {
+                                        CombineServiceNew.gI().startCombine(player);
+                                    }
+                                }
+                                break;
+                            }
                         }
                     }
                 }

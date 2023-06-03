@@ -14,8 +14,8 @@ public class Bdkb {
     public static final byte HOUR_OPEN_MAP_BDKB = 19;
     public static final byte MIN_OPEN_MAP_BDKB = 0;
     public static final byte SECOND_OPEN_MAP_BDKB = 0;
-    public static final byte HOUR_CLOSE_MAP_BDKB = 22;
-    public static final byte MIN_CLOSE_MAP_BDKB = 35;
+    public static final byte HOUR_CLOSE_MAP_BDKB = 19;
+    public static final byte MIN_CLOSE_MAP_BDKB = 30;
     public static final byte SECOND_CLOSE_MAP_BDKB = 0;
     public static final int AVAILABLE = 7;
     private static Bdkb i;

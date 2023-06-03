@@ -799,6 +799,45 @@ public class BossesData {
             new String[]{}, //text chat 3
             REST_1_S
     );
+    /**
+     * Boss hành tinh Berus
+     */
+    public static final BossData BILL = new BossData(
+            "Bill", //name
+            ConstPlayer.XAYDA, //gender
+            new short[]{508, 509, 510, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
+            500000, //dame
+            new int[]{2000000000}, //hp
+            new int[]{201}, //map join
+            new int[][]{
+                    {Skill.LIEN_HOAN, 7, 1000},
+                    {Skill.KAMEJOKO, 7, 1000}
+            },
+            //skill
+            new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|Vào đây mà húp"}, //text chat 1
+            new String[]{}, //text chat 2
+            new String[]{}, //text chat 3
+            REST_30_M, //second rest
+            new int[]{BossID.WISH}
+    );
+    public static final BossData WISH = new BossData(
+            "Whis", //name
+            ConstPlayer.XAYDA, //gender
+            new short[]{838, 839, 840, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
+            500000, //dame
+            new int[]{150}, //hp
+            new int[]{201}, //map join
+            new int[][]{
+                    {Skill.LIEN_HOAN, 7, 1000},
+                    {Skill.KAMEJOKO, 7, 1000},
+                    {Skill.KHIEN_NANG_LUONG, 1, 15000}
+            },
+            //skill
+            new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|Vào đây mà húp"}, //text chat 1
+            new String[]{}, //text chat 2
+            new String[]{}, //text chat 3
+            TypeAppear.APPEAR_WITH_ANOTHER
+    );
     //**************************************************************************Boss doanh trại
     //**************************************************************************
     //**************************************************************************

@@ -162,29 +162,29 @@ public class NPoint {
                 if (item.template.id == idbt) {
                     for (Item.ItemOption io : item.itemOptions) {
                         switch (io.optionTemplate.id) {
-                            case 80: //HP+#%/30s
-                                this.tlHpHoi += io.param;
-                                break;
-                            case 81: //MP+#%/30s
-                                this.tlMpHoi += io.param;
-                                break;
                             case 50: //Sức đánh+#%
                                 this.tlDame.add(io.param);
                                 break;
                             case 77: //HP+#%
                                 this.tlHp.add(io.param);
                                 break;
-                            case 94: //Giáp #%
-                                this.tlDef.add(io.param);
-                                break;
-                            case 101: //+#% TN,SM
-                                this.tlTNSM.add(io.param);
-                                break;
                             case 103: //KI +#%
                                 this.tlMp.add(io.param);
                                 break;
                             case 108: //#% Né đòn
                                 this.tlNeDon += io.param;
+                                break;
+                            case 94: //Giáp #%
+                                this.tlDef.add(io.param);
+                                break;
+                            case 14: //+#% Chí mạng
+                                this.critAdd += io.param;
+                                break;
+                            case 80: //HP+#%/30s
+                                this.tlHpHoi += io.param;
+                                break;
+                            case 81: //MP+#%/30s
+                                this.tlMpHoi += io.param;
                                 break;
                         }
                     }
