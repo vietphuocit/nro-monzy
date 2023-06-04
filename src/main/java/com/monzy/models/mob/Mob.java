@@ -365,7 +365,7 @@ public class Mob {
 //            }
 //        }
         // đồ thần linh
-        if (MapService.gI().isMapCold(this.zone.map) && Util.isTrue(1, 1500)) {
+        if (MapService.gI().isMapCold(this.zone.map) && Util.isTrue(1, 1000)) {
             list.add(Util.randomClothesGod(zone, Manager.ID_CLOTHES_GOD[Util.nextInt(Manager.ID_CLOTHES_GOD.length)], 1, x, player.location.y, player.id, Util.MOB_DROP));
         }
         // thức ăn

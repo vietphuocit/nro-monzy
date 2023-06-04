@@ -29,8 +29,8 @@ public class CombineServiceNew {
     private static final int COST_DOI_MANH_KICH_HOAT = 500000000;
     private static final int COST = 500000000;
     private static final int TIME_COMBINE = 1;
-    private static final byte MAX_STAR_ITEM = 8;
-    private static final byte MAX_LEVEL_ITEM = 7;
+    public static final byte MAX_STAR_ITEM = 8;
+    public static final byte MAX_LEVEL_ITEM = 8;
     private static final byte OPEN_TAB_COMBINE = 0;
     private static final byte REOPEN_TAB_COMBINE = 1;
     private static final byte COMBINE_SUCCESS = 2;
@@ -1057,7 +1057,6 @@ public class CombineServiceNew {
     }
 
     public void openSKHVIP(Player player) {
-        // 1 thiên sứ + 2 món kích hoạt -- món đầu kh làm gốc
         if (player.combineNew.itemsCombine.size() != 1) {
             Service.gI().sendThongBao(player, "Thiếu nguyên liệu");
             return;
@@ -1092,9 +1091,9 @@ public class CombineServiceNew {
             if (new Item(itemId).isDTL()) {
                 item = Util.ratiItemTL(itemId);
                 item.itemOptions.add(new Item.ItemOption(skhId, 1));
-                item.itemOptions.add(new Item.ItemOption(skhId + 9, 1));
+                item.itemOptions.add(new Item.ItemOption(ItemService.gI().optionIdSKH(skhId), 1));
                 item.itemOptions.remove(item.itemOptions.stream().filter(itemOption -> itemOption.optionTemplate.id == 21).findFirst().get());
-                item.itemOptions.add(new Item.ItemOption(21, 18));
+                item.itemOptions.add(new Item.ItemOption(21, 15));
                 item.itemOptions.add(new Item.ItemOption(30, 1));
             } else {
                 item = ItemService.gI().itemSKH(itemId, skhId);
@@ -2021,17 +2020,13 @@ public class CombineServiceNew {
             case 6:
                 return 100;
             case 7:
-                return 100;
+                return 120;
             case 8:
-                return 100;
+                return 150;
             case 9:
-                return 100;
             case 10:
-                return 100;
             case 11:
-                return 100;
             case 12:
-                return 100;
         }
         return 0;
     }
@@ -2058,11 +2053,11 @@ public class CombineServiceNew {
                 return 0.5;
             case 9:
                 return 0.3;
-            case 10: // 7 sao
+            case 10:
                 return 0.2;
-            case 11: // 7 sao
+            case 11:
                 return 0.1;
-            case 12: // 7 sao
+            case 12:
                 return 0.05;
         }
         return 0;
@@ -2181,7 +2176,7 @@ public class CombineServiceNew {
 
     private boolean isTrangBiPhaLeHoa(Item item) {
         if (item != null && item.isNotNullItem()) {
-            return item.template.type < 5 || item.template.type == 11 || item.template.type == 32 || item.template.type == 23 || item.template.type == 24;
+            return item.template.type < 5 || item.template.type == 32 || item.template.type == 23 || item.template.type == 24;
         } else {
             return false;
         }

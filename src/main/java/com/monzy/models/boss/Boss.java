@@ -556,9 +556,9 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
     }
 
     private final Map<Integer, Integer> ITEM_REWARD = new HashMap<Integer, Integer>() {{
-        put(1066, 10);
-        put(1067, 10);
-        put(1068, 10);
+        put(1066, 33);
+        put(1067, 33);
+        put(1068, 33);
         put(1069, 10);
         put(1070, 10);
         put(1142, 10);

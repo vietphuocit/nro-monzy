@@ -13,7 +13,7 @@ public class Bill extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        rewardItem(plKill, 1066, 1067, 1068, 1069, 1070, 1142);
+        rewardItem(plKill, 1069, 1070, 1066, 1067, 1068, 1142);
     }
 
 }

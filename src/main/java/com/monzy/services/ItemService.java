@@ -254,18 +254,7 @@ public class ItemService {
     public int randomSKHId(byte gender) {
         if (gender == 3) gender = 2;
         int[][] options = {{127, 128, 129}, {130, 131, 132}, {133, 134, 135}};
-        int skhv1 = 25;
-        int skhv2 = 35;
-        int skhc = 40;
-        int skhId = -1;
-        int rd = Util.nextInt(1, 100);
-        if (rd <= skhv1) {
-            skhId = 0;
-        } else if (rd <= skhv1 + skhv2) {
-            skhId = 1;
-        } else if (rd <= skhv1 + skhv2 + skhc) {
-            skhId = 2;
-        }
+        int skhId = Util.nextInt(0, 2);
         return options[gender][skhId];
     }
 
@@ -732,27 +721,7 @@ public class ItemService {
     }
 
     public int optionIdSKH(int skhId) {
-        switch (skhId) {
-            case 127: //Set Arriety Taiyoken
-                return 139;
-            case 128: //Set Arriety Genki
-                return 140;
-            case 129: //Set Arriety Kamejoko
-                return 141;
-            case 130: //Set Arriety KI
-                return 142;
-            case 131: //Set Arriety Dame
-                return 143;
-            case 132: //Set Arriety Summon
-                return 144;
-            case 133: //Set Arriety Galick
-                return 136;
-            case 134: //Set Arriety Monkey
-                return 137;
-            case 135: //Set Arriety HP
-                return 138;
-        }
-        return 0;
+        return skhId + 9;
     }
 
     public Item itemDHD(int itemId, int dhdId) {

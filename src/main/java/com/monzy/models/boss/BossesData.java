@@ -756,7 +756,6 @@ public class BossesData {
             new int[]{1500000000}, //hp
             new int[]{102, 92, 93, 94, 96, 97, 98, 99, 100}, //map join
             new int[][]{
-                    {Skill.TAI_TAO_NANG_LUONG, 7, 1000},
                     {Skill.KAMEJOKO, 7, 1000},
                     {Skill.LIEN_HOAN, 7, 1000}},
             //skill
@@ -773,7 +772,6 @@ public class BossesData {
             new int[]{2000000000}, //hp
             new int[]{102, 92, 93, 94, 96, 97, 98, 99, 100}, //map join
             new int[][]{
-                    {Skill.TAI_TAO_NANG_LUONG, 7, 1000},
                     {Skill.KAMEJOKO, 7, 1000},
                     {Skill.LIEN_HOAN, 7, 1000}},
             //skill
@@ -825,7 +823,7 @@ public class BossesData {
             ConstPlayer.XAYDA, //gender
             new short[]{838, 839, 840, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
             500000, //dame
-            new int[]{150}, //hp
+            new int[]{250}, //hp
             new int[]{201}, //map join
             new int[][]{
                     {Skill.LIEN_HOAN, 7, 1000},

@@ -2280,14 +2280,10 @@ public class NpcFactory {
                                     CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.NANG_CAP_SKH_VIP);
                                 }
                             }
-                            default: {
-                                if (player.iDMark.getIndexMenu() == ConstNpc.MENU_NANG_DOI_SKH_VIP) {
-                                    if (select == 0) {
-                                        CombineServiceNew.gI().startCombine(player);
-                                    }
-                                }
-                                break;
-                            }
+                        }
+                    } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_NANG_DOI_SKH_VIP) {
+                        if (select == 0) {
+                            CombineServiceNew.gI().startCombine(player);
                         }
                     }
                 }

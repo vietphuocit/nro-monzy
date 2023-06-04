@@ -1393,7 +1393,7 @@ public class NPoint {
             Service.gI().sendThongBaoOK(player, "Bạn không đủ tiềm năng");
             return false;
         }
-        if (this.tiemNang >= tiemNang && this.tiemNang - tiemNang >= 0) {
+        if (this.tiemNang - tiemNang >= 0) {
             this.tiemNang -= tiemNang;
             TaskService.gI().checkDoneTaskUseTiemNang(player);
             return true;
@@ -1409,8 +1409,7 @@ public class NPoint {
         if (player != null && player.effectSkill != null) {
             if (player.effectSkill.isCharging && player.effectSkill.countCharging < 10) {
                 int tiLeHoiPhuc = SkillUtil.getPercentCharge(player.playerSkill.skillSelect.point);
-                if (player.effectSkill.isCharging && !player.isDie() && !player.effectSkill.isHaveEffectSkill()
-                        && (hp < hpMax || mp < mpMax)) {
+                if (!player.isDie() && !player.effectSkill.isHaveEffectSkill() && (hp < hpMax || mp < mpMax)) {
                     PlayerService.gI().hoiPhuc(player, hpMax / 100 * tiLeHoiPhuc,
                             mpMax / 100 * tiLeHoiPhuc);
                     if (player.effectSkill.countCharging % 3 == 0) {

@@ -22,6 +22,11 @@ public class Black extends Boss {
         rewardItem(plKill, 1142, 15, 16);
     }
 
+    @Override
+    public int injured(Player plAtt, int damage, boolean piercing, boolean isMobAttack) {
+        return super.injured(plAtt, damage / 2, piercing, isMobAttack);
+    }
+
 }
 
 
