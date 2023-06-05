@@ -20,9 +20,6 @@ import com.monzy.models.matches.TOP;
 import com.monzy.models.matches.pvp.DaiHoiVoThuat;
 import com.monzy.models.npc.Npc;
 import com.monzy.models.npc.NpcFactory;
-import com.monzy.models.reward.ItemMobReward;
-import com.monzy.models.reward.ItemOptionMobReward;
-import com.monzy.models.reward.MobReward;
 import com.monzy.models.shop.Shop;
 import com.monzy.models.skill.NClass;
 import com.monzy.models.skill.Skill;
@@ -51,13 +48,12 @@ public class Manager {
     public static byte SECOND_WAIT_LOGIN = 5;
     public static int MAX_PER_IP = 5;
     public static int MAX_PLAYER = 1000;
-    public static byte RATE_EXP_SERVER = 2;
+    public static byte RATE_EXP_SERVER = 1;
     public static boolean LOCAL = false;
-//    public static byte RATE_EXP_SERVER = 1;// sau khi chinh
+    //    public static byte RATE_EXP_SERVER = 1;// sau khi chinh
     public static MapTemplate[] MAP_TEMPLATES;
     public static final List<com.monzy.models.map.Map> MAPS = new ArrayList<>();
     public static final List<ItemOptionTemplate> ITEM_OPTION_TEMPLATES = new ArrayList<>();
-    public static final Map<Integer, MobReward> MOB_REWARDS = new HashMap<>();
     public static final List<ItemLuckyRound> LUCKY_ROUND_REWARDS = new ArrayList<>();
     public static final Map<String, Byte> IMAGES_BY_NAME = new HashMap<String, Byte>();
     public static final List<ItemTemplate> ITEM_TEMPLATES = new ArrayList<>();
@@ -79,59 +75,46 @@ public class Manager {
     public static final List<String> NOTIFY = new ArrayList<>();
     public static final ArrayList<DaiHoiVoThuat> LIST_DHVT = new ArrayList<>();
     public static final List<Item> RUBY_REWARDS = new ArrayList<>();
-    public static final String queryTopSM = "SELECT id, CAST( split_str(data_point,',',2) AS UNSIGNED) AS sm FROM player ORDER BY CAST( split_str(data_point,',',2)  AS UNSIGNED) DESC LIMIT 20;";
-    public static final String queryTopSD = "SELECT id, CAST( split_str(data_point,',',8) AS UNSIGNED) AS sd FROM player ORDER BY CAST( split_str(data_point,',',8)  AS UNSIGNED) DESC LIMIT 20;";
-    public static final String queryTopHP = "SELECT id, CAST( split_str(data_point,',',6) AS UNSIGNED) AS hp FROM player ORDER BY CAST( split_str(data_point,',',6)  AS UNSIGNED) DESC LIMIT 20;";
-    public static final String queryTopKI = "SELECT id, CAST( split_str(data_point,',',7) AS UNSIGNED) AS ki FROM player ORDER BY CAST( split_str(data_point,',',7)  AS UNSIGNED) DESC LIMIT 20;";
-    public static final String queryTopNV = "SELECT id, CAST( split_str(split_str(data_task,',',1),'[',2)  AS UNSIGNED) AS nv FROM player ORDER BY CAST( split_str(split_str(data_task,',',1),'[',2)  AS UNSIGNED) DESC, CAST(split_str(data_task,',',2)  AS UNSIGNED) DESC, CAST( split_str(data_point,',',2) AS UNSIGNED) DESC LIMIT 50;";
-    public static final String queryTopSK = "SELECT id, CAST( split_str( data_inventory,',',5)  AS UNSIGNED) AS event FROM player ORDER BY CAST( split_str( data_inventory,',',5)  AS UNSIGNED) DESC LIMIT 20;";
-    public static final String queryTopPVP = "SELECT id, CAST( pointPvp AS UNSIGNED) AS pointPvp FROM player ORDER BY CAST( pointPvp AS UNSIGNED) DESC LIMIT 50;";
-    public static final String queryTopNHS = "SELECT id, CAST( NguHanhSonPoint AS UNSIGNED) AS nhs FROM player ORDER BY CAST( NguHanhSonPoint AS UNSIGNED) DESC LIMIT 20;";
-    public static final String queryTopNAP = "SELECT name, vnd FROM player ORDER BY vnd DESC LIMIT 10;";
-    public static List<TOP> topSM;
-    public static List<TOP> topSD;
-    public static List<TOP> topHP;
-    public static List<TOP> topKI;
-    public static List<TOP> topNV;
-    public static List<TOP> topSK;
-    public static List<TOP> topPVP;
-    public static List<TOP> topNHS;
-    public static List<TOP> topNAP;
-    public static long timeRealTop = 0;
+    public static final String QUERY_TOP_SM = "SELECT player.id, CAST( split_str(data_point,',',2) AS UNSIGNED) AS sm FROM player JOIN account ON player.account_id = account.id WHERE account.create_time > Date('2023-6-1') ORDER BY CAST( split_str(data_point,',',2)  AS UNSIGNED) DESC LIMIT 20;";
+    //    public static final String queryTopSD = "SELECT id, CAST( split_str(data_point,',',8) AS UNSIGNED) AS sd FROM player ORDER BY CAST( split_str(data_point,',',8)  AS UNSIGNED) DESC LIMIT 20;";
+//    public static final String queryTopHP = "SELECT id, CAST( split_str(data_point,',',6) AS UNSIGNED) AS hp FROM player ORDER BY CAST( split_str(data_point,',',6)  AS UNSIGNED) DESC LIMIT 20;";
+//    public static final String queryTopKI = "SELECT id, CAST( split_str(data_point,',',7) AS UNSIGNED) AS ki FROM player ORDER BY CAST( split_str(data_point,',',7)  AS UNSIGNED) DESC LIMIT 20;";
+    public static final String QUERY_TOP_NV = "SELECT id, CAST( split_str(split_str(data_task,',',1),'[',2)  AS UNSIGNED) AS nv FROM player ORDER BY CAST( split_str(split_str(data_task,',',1),'[',2)  AS UNSIGNED) DESC, CAST(split_str(data_task,',',2)  AS UNSIGNED) DESC, CAST( split_str(data_point,',',2) AS UNSIGNED) DESC LIMIT 20;";
+    //    public static final String queryTopSK = "SELECT id, CAST( split_str( data_inventory,',',5)  AS UNSIGNED) AS event FROM player ORDER BY CAST( split_str( data_inventory,',',5)  AS UNSIGNED) DESC LIMIT 20;";
+//    public static final String queryTopPVP = "SELECT id, CAST( pointPvp AS UNSIGNED) AS pointPvp FROM player ORDER BY CAST( pointPvp AS UNSIGNED) DESC LIMIT 50;";
+//    public static final String queryTopNHS = "SELECT id, CAST( NguHanhSonPoint AS UNSIGNED) AS nhs FROM player ORDER BY CAST( NguHanhSonPoint AS UNSIGNED) DESC LIMIT 20;";
+    public static final String QUERY_TOP_NAP = "SELECT player.id, tongnap FROM account join player on account.id = player.account_id ORDER BY tongnap DESC LIMIT 20;";
+    public static List<TOP> TOP_SM;
+    //    public static List<TOP> topSD;
+//    public static List<TOP> topHP;
+//    public static List<TOP> topKI;
+    public static List<TOP> TOP_NV;
+    //    public static List<TOP> topSK;
+//    public static List<TOP> topPVP;
+//    public static List<TOP> topNHS;
+    public static List<TOP> TOP_NAP;
+    public static long TIME_READ_TOP = 15;
     public static final int[] ID_CLOTHES_GOD = {555, 557, 559, 556, 558, 560, 562, 564, 566, 563, 565, 567, 561};
     public static final byte[] itemIds_NR_SB = {16, 17, 15};
     public static final short[] itemDC12 = {233, 237, 241, 245, 249, 253, 257, 261, 265, 269, 273, 277};
-    public static final short[] doAn = {663, 664, 665, 666, 667};
-    public static final short[] dnc = {220, 221, 222, 223, 224};
-    public static final short[] aotd = {138, 139, 230, 231, 232, 233, 555};
-    public static final short[] quantd = {142, 143, 242, 243, 244, 245, 556};
-    public static final short[] gangtd = {146, 147, 254, 255, 256, 257, 562};
-    public static final short[] giaytd = {150, 151, 266, 267, 268, 269, 563};
-    public static final short[] aoxd = {170, 171, 238, 239, 240, 241, 559};
-    public static final short[] quanxd = {174, 175, 250, 251, 252, 253, 560};
-    public static final short[] gangxd = {178, 179, 262, 263, 264, 265, 566};
-    public static final short[] giayxd = {182, 183, 274, 275, 276, 277, 567};
-    public static final short[] aonm = {154, 155, 234, 235, 236, 237, 557};
-    public static final short[] quannm = {158, 159, 246, 247, 248, 249, 558};
-    public static final short[] gangnm = {162, 163, 258, 259, 260, 261, 564};
-    public static final short[] giaynm = {166, 167, 270, 271, 272, 273, 565};
-    public static final short[] radaSKHVip = {186, 187, 278, 279, 280, 281, 561};
-    public static final short[][][] doSKHVip = {{aotd, quantd, gangtd, giaytd}, {aonm, quannm, gangnm, giaynm}, {aoxd, quanxd, gangxd, giayxd}};
-    //doSKHVip[gender][typeDo][randomLVDo]
-    public static final short[] aohdtd = {650};
-    public static final short[] quanhdtd = {651};
-    public static final short[] ganghdtd = {657};
-    public static final short[] giayhdtd = {658};
-    public static final short[] aohdxd = {654};
-    public static final short[] quanhdxd = {655};
-    public static final short[] ganghdxd = {661};
-    public static final short[] giayhdxd = {662};
-    public static final short[] aohdnm = {652};
-    public static final short[] quanhdnm = {653};
-    public static final short[] ganghdnm = {659};
-    public static final short[] giayhdnm = {660};
-    public static final short[] radaHD = {656};
-    public static final short[][][] doHD = {{aohdtd, quanhdtd, ganghdtd, giayhdtd}, {aohdnm, quanhdnm, ganghdnm, giayhdnm}, {aohdxd, quanhdxd, ganghdxd, giayhdxd}};
+    public static final short[] THUC_AN = {663, 664, 665, 666, 667};
+    public static final short[] DA_NANG_CAP = {220, 221, 222, 223, 224};
+    public static final short[] IDS_AO_TD = {138, 139, 230, 231, 232, 233, 555};
+    public static final short[] IDS_QUAN_TD = {142, 143, 242, 243, 244, 245, 556};
+    public static final short[] IDS_GANG_TD = {146, 147, 254, 255, 256, 257, 562};
+    public static final short[] IDS_GIAY_TD = {150, 151, 266, 267, 268, 269, 563};
+    public static final short[] IDS_AO_XD = {170, 171, 238, 239, 240, 241, 559};
+    public static final short[] IDS_QUAN_XD = {174, 175, 250, 251, 252, 253, 560};
+    public static final short[] IDS_GANG_XD = {178, 179, 262, 263, 264, 265, 566};
+    public static final short[] IDS_GIAY_XD = {182, 183, 274, 275, 276, 277, 567};
+    public static final short[] IDS_AO_NM = {154, 155, 234, 235, 236, 237, 557};
+    public static final short[] IDS_QUAN_NM = {158, 159, 246, 247, 248, 249, 558};
+    public static final short[] IDS_GANG_NM = {162, 163, 258, 259, 260, 261, 564};
+    public static final short[] IDS_GIAY_NM = {166, 167, 270, 271, 272, 273, 565};
+    public static final short[] IDS_RADAR = {186, 187, 278, 279, 280, 281, 561};
+    public static final short[][][] IDS_TRANG_BI = {{IDS_AO_TD, IDS_QUAN_TD, IDS_GANG_TD, IDS_GIAY_TD}, {IDS_AO_NM, IDS_QUAN_NM, IDS_GANG_NM, IDS_GIAY_NM}, {IDS_AO_XD, IDS_QUAN_XD, IDS_GANG_XD, IDS_GIAY_XD}};
+    public static final short ID_RADAR_HD = 656;
+    public static final short[][] IDS_DO_HUY_DIET = {{650, 651, 657, 658}, {652, 653, 659, 660}, {654, 655, 661, 662}};
 
     public static Manager gI() {
         if (i == null) {
@@ -179,7 +162,7 @@ public class Manager {
         ResultSet rs = null;
         try (Connection con = Database.getConnection()) {
             //load part
-            ps = con.prepareStatement("select * from part", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = con.prepareStatement("select * from part", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rs = ps.executeQuery();
             List<Part> parts = new ArrayList<>();
             while (rs.next()) {
@@ -224,7 +207,7 @@ public class Manager {
         ResultSet rs = null;
         try (Connection con = Database.getConnection()) {
             //load part
-            ps = con.prepareStatement("select * from part", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = con.prepareStatement("select * from part", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rs = ps.executeQuery();
             List<Part> parts = new ArrayList<>();
             while (rs.next()) {
@@ -256,7 +239,7 @@ public class Manager {
             dos.close();
             Logger.success("Load part thành công (" + parts.size() + ")\n");
             //load small version
-            ps = con.prepareStatement("select count(id) from small_version", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = con.prepareStatement("select count(id) from small_version", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rs = ps.executeQuery();
             List<byte[]> smallVersion = new ArrayList<>();
             if (rs.first()) {
@@ -265,7 +248,7 @@ public class Manager {
                     smallVersion.add(new byte[size]);
                 }
             }
-            ps = con.prepareStatement("select * from small_version order by id", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = con.prepareStatement("select * from small_version order by id", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rs = ps.executeQuery();
             int index = 0;
             while (rs.next()) {
@@ -285,7 +268,7 @@ public class Manager {
                 dos.close();
             }
             //load clan
-            ps = con.prepareStatement("select * from clan_sv" + SERVER, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = con.prepareStatement("select * from clan_sv" + SERVER, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rs = ps.executeQuery();
             while (rs.next()) {
                 Clan clan = new Clan();
@@ -325,13 +308,13 @@ public class Manager {
                 dataArray.clear();
                 dataObject.clear();
             }
-            ps = con.prepareStatement("select id from clan_sv" + SERVER + " order by id desc limit 1", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = con.prepareStatement("select id from clan_sv" + SERVER + " order by id desc limit 1", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rs = ps.executeQuery();
             if (rs.first()) {
                 Clan.NEXT_ID = rs.getInt("id") + 1;
             }
             Logger.success("Load clan thành công (" + CLANS.size() + "), clan next id: " + Clan.NEXT_ID + "\n");
-            ps = con.prepareStatement("select * from dhvt_template", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = con.prepareStatement("select * from dhvt_template", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rs = ps.executeQuery();
             if (rs.next()) {
                 DaiHoiVoThuat dhvt = new DaiHoiVoThuat();
@@ -346,7 +329,7 @@ public class Manager {
             }
             Logger.success("Load DHVT thành công (" + LIST_DHVT.size() + "), clan next id: " + Clan.NEXT_ID + "\n");
             //load skill
-            ps = con.prepareStatement("select * from skill_template order by nclass_id, slot", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = con.prepareStatement("select * from skill_template order by nclass_id, slot", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rs = ps.executeQuery();
             byte nClassId = -1;
             NClass nClass = null;
@@ -397,7 +380,7 @@ public class Manager {
             }
             Logger.success("Load skill thành công (" + NCLASS.size() + ")\n");
             //load head avatar
-            ps = con.prepareStatement("select * from head_avatar", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = con.prepareStatement("select * from head_avatar", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rs = ps.executeQuery();
             while (rs.next()) {
                 HeadAvatar headAvatar = new HeadAvatar(rs.getInt("head_id"), rs.getInt("avatar_id"));
@@ -405,7 +388,7 @@ public class Manager {
             }
             Logger.success("Load head avatar thành công (" + HEAD_AVATARS.size() + ")\n");
             //load flag bag
-            ps = con.prepareStatement("select * from flag_bag", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = con.prepareStatement("select * from flag_bag", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rs = ps.executeQuery();
             while (rs.next()) {
                 FlagBag flagBag = new FlagBag();
@@ -423,7 +406,7 @@ public class Manager {
             }
             Logger.success("Load flag bag thành công (" + FLAGS_BAGS.size() + ")\n");
             //load intrinsic
-            ps = con.prepareStatement("select * from intrinsic", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = con.prepareStatement("select * from intrinsic", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rs = ps.executeQuery();
             while (rs.next()) {
                 Intrinsic intrinsic = new Intrinsic();
@@ -481,7 +464,7 @@ public class Manager {
             }
             Logger.success("Load task thành công (" + TASKS.size() + ")\n");
             //load side task
-            ps = con.prepareStatement("select * from side_task_template", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = con.prepareStatement("select * from side_task_template", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rs = ps.executeQuery();
             while (rs.next()) {
                 SideTaskTemplate sideTask = new SideTaskTemplate();
@@ -506,7 +489,7 @@ public class Manager {
             }
             Logger.success("Load side task thành công (" + SIDE_TASKS_TEMPLATE.size() + ")\n");
             //load item template
-            ps = con.prepareStatement("select * from item_template", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = con.prepareStatement("select * from item_template", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rs = ps.executeQuery();
             while (rs.next()) {
                 ItemTemplate itemTemp = new ItemTemplate();
@@ -528,7 +511,7 @@ public class Manager {
             }
             Logger.success("Load map item template thành công (" + ITEM_TEMPLATES.size() + ")\n");
             //load item option template
-            ps = con.prepareStatement("select id, name from item_option_template", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = con.prepareStatement("select id, name from item_option_template", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rs = ps.executeQuery();
             while (rs.next()) {
                 ItemOptionTemplate optionTemp = new ItemOptionTemplate();
@@ -589,21 +572,21 @@ public class Manager {
             }
             Logger.success("Load notify thành công (" + NOTIFY.size() + ")\n");
             //load caption
-            ps = con.prepareStatement("select * from caption", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = con.prepareStatement("select * from caption", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rs = ps.executeQuery();
             while (rs.next()) {
                 CAPTIONS.add(rs.getString("name"));
             }
             Logger.success("Load caption thành công (" + CAPTIONS.size() + ")\n");
             //load image by name
-            ps = con.prepareStatement("select name, n_frame from img_by_name", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = con.prepareStatement("select name, n_frame from img_by_name", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rs = ps.executeQuery();
             while (rs.next()) {
                 IMAGES_BY_NAME.put(rs.getString("name"), rs.getByte("n_frame"));
             }
             Logger.success("Load images by name thành công (" + IMAGES_BY_NAME.size() + ")\n");
             //load mob template
-            ps = con.prepareStatement("select * from mob_template", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = con.prepareStatement("select * from mob_template", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rs = ps.executeQuery();
             while (rs.next()) {
                 MobTemplate mobTemp = new MobTemplate();
@@ -620,7 +603,7 @@ public class Manager {
             }
             Logger.success("Load mob template thành công (" + MOB_TEMPLATES.size() + ")\n");
             //load npc template
-            ps = con.prepareStatement("select * from npc_template", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = con.prepareStatement("select * from npc_template", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rs = ps.executeQuery();
             while (rs.next()) {
                 NpcTemplate npcTemp = new NpcTemplate();
@@ -634,12 +617,12 @@ public class Manager {
             }
             Logger.success("Load npc template thành công (" + NPC_TEMPLATES.size() + ")\n");
             //load map template
-            ps = con.prepareStatement("select count(id) from map_template", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = con.prepareStatement("select count(id) from map_template", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rs = ps.executeQuery();
             if (rs.first()) {
                 int countRow = rs.getShort(1);
                 MAP_TEMPLATES = new MapTemplate[countRow];
-                ps = con.prepareStatement("select * from map_template", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+                ps = con.prepareStatement("select * from map_template", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
                 rs = ps.executeQuery();
                 short i = 0;
                 while (rs.next()) {
@@ -721,7 +704,7 @@ public class Manager {
                 Logger.success("Load map template thành công (" + MAP_TEMPLATES.length + ")\n");
                 RUBY_REWARDS.add(Util.sendDo(861, 0, new ArrayList<>()));
             }
-            ps = con.prepareStatement("SELECT * FROM shop_ky_gui", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = con.prepareStatement("SELECT * FROM shop_ky_gui", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rs = ps.executeQuery();
             while (rs.next()) {
                 int i = rs.getInt("id");
@@ -744,7 +727,7 @@ public class Manager {
                 ShopKyGuiManager.gI().listItem.add(new ItemKyGui(i, itemId, idPl, tab, gold, gem, quantity, isUp, op, isBuy));
             }
             Logger.log(Logger.YELLOW_BOLD_BRIGHT, "Finish load item ky gui [" + ShopKyGuiManager.gI().listItem.size() + "]!\n");
-            ps = con.prepareStatement("select * from radar", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = con.prepareStatement("select * from radar", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rs = ps.executeQuery();
             while (rs.next()) {
                 RadarCard rd = new RadarCard();
@@ -780,17 +763,13 @@ public class Manager {
                 RadarService.gI().RADAR_TEMPLATE.add(rd);
             }
             Logger.success("Load radar template thành công (" + RadarService.gI().RADAR_TEMPLATE.size() + ")\n");
-            topSM = realTop(queryTopSM, con);
-            Logger.success("Load top sm thành công (" + topSM.size() + ")\n");
-            topNV = realTop(queryTopNV, con);
-            Logger.success("Load top nv thành công (" + topNV.size() + ")\n");
-            topSK = realTop(queryTopSK, con);
-            Logger.success("Load top sk thành công (" + topSK.size() + ")\n");
-            topPVP = realTop(queryTopPVP, con);
-            Logger.success("Load top pvp thành công (" + topSK.size() + ")\n");
-            topNHS = realTop(queryTopNHS, con);
-            Logger.success("Load top NHS thành công (" + topSK.size() + ")\n");
-            Manager.timeRealTop = System.currentTimeMillis();
+            TOP_SM = readTop(QUERY_TOP_SM, con);
+            Logger.success("Load top sm thành công (" + TOP_SM.size() + ")\n");
+            TOP_NV = readTop(QUERY_TOP_NV, con);
+            Logger.success("Load top nv thành công (" + TOP_NV.size() + ")\n");
+            TOP_NAP = readTop(QUERY_TOP_NAP, con);
+            Logger.success("Load top nap thành công (" + TOP_NV.size() + ")\n");
+            Manager.TIME_READ_TOP = System.currentTimeMillis();
             rs.close();
             ps.close();
         } catch (Exception e) {
@@ -810,38 +789,43 @@ public class Manager {
         Logger.log(Logger.GREEN_BOLD_BRIGHT, "Tổng thời gian load database: " + (System.currentTimeMillis() - st) + "(ms)\n");
     }
 
-    public static List<TOP> realTop(String query, Connection con) {
+    public static List<TOP> readTop(String query, Connection con) {
         List<TOP> tops = new ArrayList<>();
         try {
-            PreparedStatement ps = con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            PreparedStatement ps = con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 TOP top = TOP.builder().id_player(rs.getInt("id")).build();
                 switch (query) {
-                    case queryTopSM:
+                    case QUERY_TOP_SM:
                         top.setInfo1(rs.getLong("sm") + "");
                         top.setInfo2(rs.getLong("sm") + "");
                         break;
-                    case queryTopNV:
+                    case QUERY_TOP_NV:
                         top.setInfo1(rs.getByte("nv") + "");
                         top.setInfo2(rs.getByte("nv") + "");
                         break;
-                    case queryTopSK:
-                        top.setInfo1(rs.getInt("event") + " đi?m");
-                        top.setInfo2(rs.getInt("event") + " đi?m");
+                    case QUERY_TOP_NAP:
+                        top.setInfo1(rs.getInt("tongnap") + " vnd");
+                        top.setInfo2(rs.getInt("tongnap") + " vnd");
                         break;
-                    case queryTopPVP:
-                        top.setInfo1(rs.getInt("pointPvp") + " đi?m");
-                        top.setInfo2(rs.getInt("pointPvp") + " đi?m");
-                        break;
-                    case queryTopNHS:
-                        top.setInfo1(rs.getInt("NguHanhSonPoin") + " đi?m");
-                        top.setInfo2(rs.getInt("NguHanhSonPoin") + " đi?m");
-                        break;
+//                    case queryTopSK:
+//                        top.setInfo1(rs.getInt("event") + " điểm");
+//                        top.setInfo2(rs.getInt("event") + " điểm");
+//                        break;
+//                    case queryTopPVP:
+//                        top.setInfo1(rs.getInt("pointPvp") + " điểm");
+//                        top.setInfo2(rs.getInt("pointPvp") + " điểm");
+//                        break;
+//                    case queryTopNHS:
+//                        top.setInfo1(rs.getInt("NguHanhSonPoin") + " điểm");
+//                        top.setInfo2(rs.getInt("NguHanhSonPoin") + " điểm");
+//                        break;
                 }
                 tops.add(top);
             }
         } catch (Exception e) {
+            Logger.error(e.getMessage());
         }
         return tops;
     }

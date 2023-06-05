@@ -4,20 +4,15 @@ import com.monzy.models.boss.Boss;
 import com.monzy.models.boss.BossID;
 import com.monzy.models.boss.BossStatus;
 import com.monzy.models.boss.BossesData;
-import com.monzy.models.map.ItemMap;
 import com.monzy.models.player.Player;
 import com.monzy.services.EffectSkillService;
-import com.monzy.services.Service;
 import com.monzy.utils.Util;
-
-import java.util.Random;
 
 public class Broly extends Boss {
 
     public Broly() throws Exception {
         super(BossID.BROLY, BossesData.BROLY_1, BossesData.BROLY_2, BossesData.BROLY_3);
     }
-
 //    @Override
 //    public void reward(Player plKill) {
 //        int[] itemDos = new int[]{1115, 1116, 1117, 1118, 1119};

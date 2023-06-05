@@ -2,10 +2,7 @@ package com.monzy.models.boss.list_boss.tdst;
 
 import com.monzy.models.boss.Boss;
 import com.monzy.models.boss.BossID;
-import com.monzy.models.boss.BossStatus;
 import com.monzy.models.boss.BossesData;
-import com.monzy.models.player.Player;
-import com.monzy.utils.Util;
 
 public class TDST extends Boss {
 

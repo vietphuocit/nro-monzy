@@ -1217,7 +1217,7 @@ public class NpcFactory {
                             }
                         }
                         if (select == 1) {
-                            Service.gI().showListTop(player, Manager.topNHS);
+//                            Service.gI().showListTop(player, Manager.topNHS);
                         }
                     }
                 }
@@ -2441,7 +2441,7 @@ public class NpcFactory {
                 if (canOpenNpc(player)) {
                     createOtherMenu(player, ConstNpc.BASE_MENU,
                             "|2|Ta Vừa Hắc Mắp Xêm Được Tóp Của Toàn Server\b|7|Người Muốn Xem Tóp Gì?",
-                            "TOP Sức Mạnh", "TOP Nhiệm Vụ", "TOP Pvp", "TOP Ngũ Hành Sơn", "TOP NẠP", "Đóng");
+                            "TOP Sức Mạnh", "TOP Nhiệm Vụ", "TOP NẠP", "Đóng");
                 }
             }
 
@@ -2453,23 +2453,16 @@ public class NpcFactory {
                             switch (player.iDMark.getIndexMenu()) {
                                 case ConstNpc.BASE_MENU:
                                     if (select == 0) {
-                                        Service.gI().showListTop(player, Manager.topSM);
+                                        Service.gI().showListTop(player, Manager.TOP_SM);
                                         break;
                                     }
                                     if (select == 1) {
-                                        Service.gI().showListTop(player, Manager.topNV);
+                                        Service.gI().showListTop(player, Manager.TOP_NV);
                                         break;
                                     }
                                     if (select == 2) {
-                                        Service.gI().showListTop(player, Manager.topPVP);
-                                        break;
-                                    }
-                                    if (select == 3) {
-                                        Service.gI().showListTop(player, Manager.topNHS);
-                                        break;
-                                    }
-                                    if (select == 4) {
-                                        Service.getInstance().sendThongBaoOK(player, TopService.getTopNap());
+                                        Service.gI().showListTop(player, Manager.TOP_NAP);
+//                                        Service.getInstance().sendThongBaoOK(player, TopService.getTopNap());
                                         break;
                                     }
                                     break;
@@ -2720,7 +2713,7 @@ public class NpcFactory {
                                     // bat menu doi item
                                     break;
                                 case 2:  //
-                                    Service.gI().showListTop(player, Manager.topPVP);
+//                                    Service.gI().showListTop(player, Manager.topPVP);
                                     // mo top pvp
                                     break;
                             }
@@ -3049,12 +3042,6 @@ public class NpcFactory {
                     case ConstNpc.MENU_OPTION_USE_ITEM2003:
                     case ConstNpc.MENU_OPTION_USE_ITEM2004:
                     case ConstNpc.MENU_OPTION_USE_ITEM2005:
-                        try {
-                            ItemService.gI().OpenDHD(player, player.iDMark.getIndexMenu(), select);
-                        } catch (Exception e) {
-                            Logger.error("Lỗi mở hộp quà");
-                        }
-                        break;
                     case ConstNpc.MENU_OPTION_USE_ITEM736:
                         try {
                             ItemService.gI().OpenDHD(player, player.iDMark.getIndexMenu(), select);
@@ -3288,7 +3275,7 @@ public class NpcFactory {
                                 Service.gI().sendThongBaoOK(player, "Điểm sự kiện: " + player.inventory.event + " ngon ngon...");
                                 break;
                             case 1:
-                                Service.gI().showListTop(player, Manager.topSK);
+//                                Service.gI().showListTop(player, Manager.topSK);
                                 break;
                             case 2:
                                 Service.gI().sendThongBao(player, "Sự kiện đã kết thúc...");

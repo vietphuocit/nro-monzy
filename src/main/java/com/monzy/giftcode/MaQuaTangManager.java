@@ -41,7 +41,7 @@ public class MaQuaTangManager {
 
     public void init() {
         try (Connection con = Database.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM giftcode", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM giftcode", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 MaQuaTang giftcode = new MaQuaTang();

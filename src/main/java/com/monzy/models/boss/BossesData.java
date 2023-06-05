@@ -1,7 +1,7 @@
 package com.monzy.models.boss;
 
+import com.monzy.consts.ConstPlayer;
 import com.monzy.models.skill.Skill;
-import com.monzy.consts.*;
 import com.monzy.utils.Util;
 
 public class BossesData {
@@ -795,7 +795,7 @@ public class BossesData {
             new String[]{}, //text chat 1
             new String[]{}, //text chat 2
             new String[]{}, //text chat 3
-            REST_1_S
+            REST_15_M
     );
     /**
      * Boss hành tinh Berus
@@ -835,6 +835,25 @@ public class BossesData {
             new String[]{}, //text chat 2
             new String[]{}, //text chat 3
             TypeAppear.APPEAR_WITH_ANOTHER
+    );
+    /**
+     * Boss Ma bư
+     */
+    public static final BossData MABU = new BossData(
+            "Mabư",
+            ConstPlayer.XAYDA,
+            new short[]{297, 298, 299, -1, -1, -1},
+            500000,
+            new int[]{2000000000},
+            new int[]{52},
+            new int[][]{
+                    {Skill.KAMEJOKO, 7, 1000},
+                    {Skill.LIEN_HOAN, 7, 1000},
+                    {Skill.SOCOLA, 7, 1000}},
+            new String[]{"|-2|Ma nhân Bư đã xuất hiện rồi"}, //text chat 1
+            new String[]{}, //text chat 2
+            new String[]{"|-1|Nhớ mặt tao đấy", "|-1|Tobe continue.."}, //text chat 3
+            REST_15_M
     );
     //**************************************************************************Boss doanh trại
     //**************************************************************************
@@ -1054,23 +1073,6 @@ public class BossesData {
             REST_15_M
     );
     //**************************************************************************
-    public static final BossData MABU = new BossData(
-            "Mabư",
-            ConstPlayer.XAYDA,
-            new short[]{297, 298, 299, -1, -1, -1},
-            500000,
-            new int[]{1500000000},
-            new int[]{52},
-            new int[][]{
-                    {Skill.KAMEJOKO, 3, 5000},
-                    {Skill.LIEN_HOAN, 7, 100},
-                    {Skill.SOCOLA, 7, 1000}},
-            new String[]{"|-2|Ma nhân Bư đã xuất hiện rồi"}, //text chat 1
-            new String[]{"|-1|Thấy ảo chưa nè!"}, //text chat 2
-            new String[]{"|-1|Nhớ mặt tao đấy",
-                    "|-1|Tobe continue.."}, //text chat 3
-            REST_10_M
-    );
     //*******************
     //**************************************************************************
     public static final BossData BROLY_1 = new BossData(

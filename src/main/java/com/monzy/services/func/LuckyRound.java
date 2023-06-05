@@ -11,7 +11,7 @@ import java.util.List;
 public class LuckyRound {
 
     private static final byte MAX_ITEM_IN_BOX = 100;
-//    private static final int IFOX_BOX = 400;
+    //    private static final int IFOX_BOX = 400;
     //1 gem and ruby
     public static final byte USING_RUBY = 2;
     public static final byte USING_GOLD = 0;

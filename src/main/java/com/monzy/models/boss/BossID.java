@@ -86,7 +86,6 @@ public class BossID {
     public static final int CUMBERBLACK = -252;
     public static final int BOSSTG = -253;
     public static final int BOSSTG1 = -254;
-
     public static final int SO_4_1 = -255;
     public static final int SO_3_1 = -256;
     public static final int SO_2_1 = -257;
@@ -94,9 +93,9 @@ public class BossID {
     public static final int TIEU_DOI_TRUONG_1 = -259;
     public static final int TDST_1 = -260;
     public static final int AN_TROM = -261;
-
     public static final int BILL = -262;
     public static final int WISH = -263;
+
 }
 
 

@@ -2,20 +2,13 @@ package com.monzy.models.boss.list_boss.Mabu12h;
 
 import com.monzy.models.boss.Boss;
 import com.monzy.models.boss.BossesData;
-import com.monzy.models.map.ItemMap;
-import com.monzy.models.player.Player;
-import com.monzy.server.Manager;
-import com.monzy.services.Service;
 import com.monzy.utils.Util;
-
-import java.util.Random;
 
 public class BuiBui extends Boss {
 
     public BuiBui() throws Exception {
         super(Util.randomBossId(), BossesData.BUI_BUI);
     }
-
 //    @Override
 //    public void reward(Player plKill) {
 //        byte randomDo = (byte) new Random().nextInt(Manager.ID_CLOTHES_GOD.length - 1);

@@ -1059,10 +1059,10 @@ public class NPoint {
                     tiemNang += tn * 2;
                 }
             }
-            if (MapService.gI().isnguhs(this.player.zone.map.mapId)) {
-                tiemNang *= 20;
-            }
             tiemNang *= Manager.RATE_EXP_SERVER;
+            if (MapService.gI().isnguhs(this.player.zone.map.mapId)) {
+                tiemNang *= 10;
+            }
             tiemNang = calSubTNSM(tiemNang);
             if (tiemNang <= 0) {
                 tiemNang = 1;

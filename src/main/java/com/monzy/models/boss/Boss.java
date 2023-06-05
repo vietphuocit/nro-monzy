@@ -562,8 +562,8 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
         put(1069, 10);
         put(1070, 10);
         put(1142, 10);
-        put(15, 10);
-        put(16, 20);
+        put(15, 5);
+        put(16, 10);
     }};
 
 }

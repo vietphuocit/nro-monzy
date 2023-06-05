@@ -3,16 +3,11 @@ package com.monzy.models.boss.list_boss.HuyDiet;
 import com.monzy.consts.ConstPlayer;
 import com.monzy.models.boss.Boss;
 import com.monzy.models.boss.BossesData;
-import com.monzy.models.item.Item;
-import com.monzy.models.map.ItemMap;
 import com.monzy.models.player.Player;
-import com.monzy.server.Manager;
 import com.monzy.services.EffectSkillService;
 import com.monzy.services.PlayerService;
 import com.monzy.services.Service;
 import com.monzy.utils.Util;
-
-import java.util.Random;
 
 public class Champa extends Boss {
 
@@ -22,7 +17,6 @@ public class Champa extends Boss {
     public Champa() throws Exception {
         super(Util.randomBossId(), BossesData.THAN_HUY_DIET_CHAMPA);
     }
-
 //    @Override
 //    public void reward(Player plKill) {
 //        byte randomDo = (byte) new Random().nextInt(Manager.ID_CLOTHES_GOD.length - 1);

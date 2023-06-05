@@ -677,7 +677,7 @@ public class PlayerDAO {
     public static boolean subGoldBar(Player player, int num) {
         PreparedStatement ps = null;
         try (Connection con = Database.getConnection()) {
-            ps = con.prepareStatement("update account set thoi_vang = (thoi_vang - ?), active = ? where id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = con.prepareStatement("update account set thoi_vang = (thoi_vang - ?), active = ? where id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ps.setInt(1, num);
             ps.setInt(2, player.getSession().actived ? 1 : 0);
             ps.setInt(3, player.getSession().userId);
@@ -695,7 +695,7 @@ public class PlayerDAO {
     public static boolean subcoinBar(Player player, int num) {
         PreparedStatement ps = null;
         try (Connection con = Database.getConnection()) {
-            ps = con.prepareStatement("update account set coin = (coin - ?), active = ? where id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = con.prepareStatement("update account set coin = (coin - ?), active = ? where id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ps.setInt(1, num);
             ps.setInt(2, player.getSession().actived ? 1 : 0);
             ps.setInt(3, player.getSession().userId);
@@ -716,7 +716,7 @@ public class PlayerDAO {
     public static boolean subvnd(Player player, int num) {
         PreparedStatement ps = null;
         try (Connection con = Database.getConnection()) {
-            ps = con.prepareStatement("update account set vnd = (vnd - ?), active = ? where id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = con.prepareStatement("update account set vnd = (vnd - ?), active = ? where id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ps.setInt(1, num);
             ps.setInt(2, player.getSession().actived ? 1 : 0);
             ps.setInt(3, player.getSession().userId);
@@ -737,7 +737,7 @@ public class PlayerDAO {
     public static boolean addTongNap(Player player, int num) {
         PreparedStatement ps = null;
         try (Connection con = Database.getConnection()) {
-            ps = con.prepareStatement("update account set tongnap = (tongnap + ?), active = ? where id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = con.prepareStatement("update account set tongnap = (tongnap + ?), active = ? where id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ps.setInt(1, num);
             ps.setInt(2, player.getSession().actived ? 1 : 0);
             ps.setInt(3, player.getSession().userId);
@@ -758,7 +758,7 @@ public class PlayerDAO {
     public static boolean addvnd(Player player, int num) {
         PreparedStatement ps = null;
         try (Connection con = Database.getConnection()) {
-            ps = con.prepareStatement("update account set vnd = (vnd + ?), active = ? where id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = con.prepareStatement("update account set vnd = (vnd + ?), active = ? where id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ps.setInt(1, num);
             ps.setInt(2, player.getSession().actived ? 1 : 0);
             ps.setInt(3, player.getSession().userId);
@@ -779,7 +779,7 @@ public class PlayerDAO {
     public static boolean setIs_gift_box(Player player) {
         PreparedStatement ps = null;
         try (Connection con = Database.getConnection()) {
-            ps = con.prepareStatement("update account set is_gift_box = 0 where id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = con.prepareStatement("update account set is_gift_box = 0 where id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ps.setInt(1, player.getSession().userId);
             ps.executeUpdate();
             ps.close();
@@ -832,7 +832,7 @@ public class PlayerDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
         try (Connection con = Database.getConnection()) {
-            ps = con.prepareStatement("update account set reward = ? where id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = con.prepareStatement("update account set reward = ? where id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ps.setString(1, dataItemReward);
             ps.setInt(2, player.getSession().userId);
             ps.executeUpdate();
@@ -850,7 +850,7 @@ public class PlayerDAO {
     public static boolean insertHistoryGold(Player player, int quantily) {
         PreparedStatement ps = null;
         try (Connection con = Database.getConnection()) {
-            ps = con.prepareStatement("insert into history_gold(name,gold) values (?,?)", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = con.prepareStatement("insert into history_gold(name,gold) values (?,?)", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ps.setString(1, player.name);
             ps.setInt(2, quantily);
             ps.executeUpdate();
@@ -866,7 +866,7 @@ public class PlayerDAO {
         long lastTimeLogout = 0;
         long lastTimeLogin = 0;
         try {
-            PreparedStatement ps = con.prepareStatement("select * from account where id = ? limit 1", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            PreparedStatement ps = con.prepareStatement("select * from account where id = ? limit 1", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ps.setInt(1, player.getSession().userId);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -894,7 +894,7 @@ public class PlayerDAO {
             Connection conn = Database.getConnection();
             PreparedStatement ps = null;
             //UPDATE NRSD,
-            ps = conn.prepareStatement(UPDATE_PASS, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = conn.prepareStatement(UPDATE_PASS, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             conn.setAutoCommit(false);
             //NGOC RONG SAO DEN
             ps.setString(1, uid);
@@ -921,7 +921,7 @@ public class PlayerDAO {
         try {
             PreparedStatement ps = null;
             Connection con = Database.getConnection();
-            ps = con.prepareStatement("update account set active = ? where id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = con.prepareStatement("update account set active = ? where id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ps.setInt(1, player.getSession().actived ? 1 : 0);
             ps.setInt(2, player.getSession().userId);
             ps.executeUpdate();

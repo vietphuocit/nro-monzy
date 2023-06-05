@@ -67,47 +67,47 @@ public class SetClothes {
                 for (Item.ItemOption io : item.itemOptions) {
                     switch (io.optionTemplate.id) {
                         case 129:
-                        case 141:
+                        case 138:
                             isActSet = true;
                             songoku++;
                             break;
-                        case 127:
-                        case 139:
+                        case 128:
+                        case 137:
                             isActSet = true;
                             kaioken++;
                             break;
-                        case 128:
-                        case 140:
+                        case 127:
+                        case 136:
                             isActSet = true;
                             krilin++;
                             break;
                         case 131:
-                        case 143:
+                        case 140:
                             isActSet = true;
                             ocTieu++;
                             break;
                         case 132:
-                        case 144:
+                        case 141:
                             isActSet = true;
                             pikkoroDaimao++;
                             break;
                         case 130:
-                        case 142:
+                        case 139:
                             isActSet = true;
                             picolo++;
                             break;
                         case 135:
-                        case 138:
+                        case 144:
                             isActSet = true;
                             nappa++;
                             break;
                         case 133:
-                        case 136:
+                        case 142:
                             isActSet = true;
                             kakarot++;
                             break;
                         case 134:
-                        case 137:
+                        case 143:
                             isActSet = true;
                             cadic++;
                             break;

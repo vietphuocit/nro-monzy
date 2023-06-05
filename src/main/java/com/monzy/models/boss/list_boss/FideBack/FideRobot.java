@@ -3,19 +3,12 @@ package com.monzy.models.boss.list_boss.FideBack;
 import com.monzy.models.boss.Boss;
 import com.monzy.models.boss.BossID;
 import com.monzy.models.boss.BossesData;
-import com.monzy.models.map.ItemMap;
-import com.monzy.models.player.Player;
-import com.monzy.services.Service;
-import com.monzy.utils.Util;
-
-import java.util.Random;
 
 public class FideRobot extends Boss {
 
     public FideRobot() throws Exception {
         super(BossID.FIDE_ROBOT, BossesData.FIDE_ROBOT);
     }
-
 //    @Override
 //    public void reward(Player plKill) {
 //        int[] itemDos = new int[]{555, 557, 559, 556, 558, 560, 562, 564, 566, 563, 565, 567};

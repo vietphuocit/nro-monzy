@@ -1,21 +1,18 @@
 package com.monzy.models.boss.list_boss.black;
 
-import com.monzy.models.boss.*;
-import com.monzy.models.map.ItemMap;
+import com.monzy.models.boss.Boss;
+import com.monzy.models.boss.BossID;
+import com.monzy.models.boss.BossStatus;
+import com.monzy.models.boss.BossesData;
 import com.monzy.models.player.Player;
-import com.monzy.server.Manager;
 import com.monzy.services.EffectSkillService;
-import com.monzy.services.Service;
 import com.monzy.utils.Util;
-
-import java.util.Random;
 
 public class ZamasMax extends Boss {
 
     public ZamasMax() throws Exception {
         super(BossID.ZAMASMAX, BossesData.THANZM2);
     }
-
 //    @Override
 //    public void reward(Player plKill) {
 //        byte randomDo = (byte) new Random().nextInt(Manager.ID_CLOTHES_GOD.length - 1);

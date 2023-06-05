@@ -12,7 +12,7 @@ public class GiftDAO {
 
     public static void createGiftPlayer(Connection con, int playerId) {
         try {
-            PreparedStatement ps = con.prepareStatement("insert into gift (player_id) values (?)", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            PreparedStatement ps = con.prepareStatement("insert into gift (player_id) values (?)", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ps.setInt(1, playerId);
             ps.executeUpdate();
             ps.close();
@@ -25,7 +25,7 @@ public class GiftDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
-            ps = con.prepareStatement("select * from gift where player_id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = con.prepareStatement("select * from gift where player_id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ps.setInt(1, (int) player.id);
             rs = ps.executeQuery();
             if (rs.first()) {
@@ -53,7 +53,7 @@ public class GiftDAO {
 
     public static void saveGiftPlayer(Connection con, Player player) {
         try {
-            PreparedStatement ps = con.prepareStatement("update gift set gold_tan_thu = ?, gem_tan_thu = ? where player_id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            PreparedStatement ps = con.prepareStatement("update gift set gold_tan_thu = ?, gem_tan_thu = ? where player_id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ps.setBoolean(1, player.gift.goldTanThu);
             ps.setBoolean(2, player.gift.gemTanThu);
             ps.setInt(3, (int) player.id);

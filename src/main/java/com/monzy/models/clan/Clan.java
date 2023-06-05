@@ -343,7 +343,7 @@ public class Clan {
     public void deleteDB(int id) {
         PreparedStatement ps;
         try (Connection con = Database.getConnection()) {
-            ps = con.prepareStatement("delete from clan_sv" + Manager.SERVER + " where id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = con.prepareStatement("delete from clan_sv" + Manager.SERVER + " where id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ps.setInt(1, id);
             ps.executeUpdate();
             ps.close();

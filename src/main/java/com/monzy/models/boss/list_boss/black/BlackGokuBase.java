@@ -1,20 +1,14 @@
 package com.monzy.models.boss.list_boss.black;
 
-import com.monzy.models.boss.*;
-import com.monzy.models.map.ItemMap;
-import com.monzy.models.player.Player;
-import com.monzy.server.Manager;
-import com.monzy.services.Service;
-import com.monzy.utils.Util;
-
-import java.util.Random;
+import com.monzy.models.boss.Boss;
+import com.monzy.models.boss.BossID;
+import com.monzy.models.boss.BossesData;
 
 public class BlackGokuBase extends Boss {
 
     public BlackGokuBase() throws Exception {
         super(BossID.BLACK3, BossesData.SUPER_BLACK_GOKU);
     }
-
 //    @Override
 //    public void reward(Player plKill) {
 //        byte randomDo = (byte) new Random().nextInt(Manager.ID_CLOTHES_GOD.length - 1);
@@ -29,7 +23,6 @@ public class BlackGokuBase extends Boss {
 //            Service.gI().dropItemMap(this.zone, new ItemMap(zone, Manager.itemIds_NR_SB[randomNR], 1, this.location.x, zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
 //        }
 //    }
-
 //    @Override
 //    public int injured(Player plAtt, int damage, boolean piercing, boolean isMobAttack) {
 //        if (!this.isDie()) {

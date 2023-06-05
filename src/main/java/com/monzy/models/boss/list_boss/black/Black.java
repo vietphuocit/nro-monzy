@@ -1,6 +1,8 @@
 package com.monzy.models.boss.list_boss.black;
 
-import com.monzy.models.boss.*;
+import com.monzy.models.boss.Boss;
+import com.monzy.models.boss.BossID;
+import com.monzy.models.boss.BossesData;
 import com.monzy.models.player.Player;
 import com.monzy.services.Service;
 import com.monzy.utils.Util;
@@ -19,7 +21,7 @@ public class Black extends Boss {
         if (Util.isTrue(30, 100)) {
             Service.gI().dropItemMap(this.zone, Util.randomClothesGod(zone, trangBi, 1, this.location.x, this.location.y, plKill.id, Util.BOSS_DROP));
         }
-        rewardItem(plKill, 1142, 15, 16);
+        rewardItem(plKill, 1142, 16, 15);
     }
 
     @Override

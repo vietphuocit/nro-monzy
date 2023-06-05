@@ -1,7 +1,6 @@
 package com.monzy.services;
 
 import com.monzy.models.player.NPoint;
-import com.monzy.models.player.Pet;
 import com.monzy.models.player.Player;
 
 public class OpenPowerService {

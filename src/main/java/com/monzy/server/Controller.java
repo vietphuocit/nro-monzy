@@ -2,9 +2,6 @@ package com.monzy.server;
 
 import com.database.Database;
 import com.database.result.MonzyResultSet;
-import com.monzy.card.Card;
-import com.monzy.card.RadarCard;
-import com.monzy.card.RadarService;
 import com.monzy.consts.ConstIgnoreName;
 import com.monzy.consts.ConstMap;
 import com.monzy.consts.ConstNpc;
@@ -101,41 +98,41 @@ public class Controller implements IMessageHandler {
                         // hủy ký gửi
                     }
                     break;
-                case 127:
-                    if (player != null) {
-                        byte actionRadar = _msg.reader().readByte();
-                        switch (actionRadar) {
-                            case 0:
-                                RadarService.gI().sendRadar(player, player.Cards);
-                                break;
-                            case 1:
-                                short idC = _msg.reader().readShort();
-                                Card card = player.Cards.stream().filter(r -> r != null && r.Id == idC).findFirst().orElse(null);
-                                if (card != null) {
-                                    if (card.Level == 0) {
-                                        return;
-                                    }
-                                    if (card.Used == 0) {
-                                        if (player.Cards.stream().anyMatch(c -> c != null && c.Used == 1)) {
-                                            Service.gI().sendThongBao(player, "Số thẻ sử dụng đã đạt tối đa");
-                                            return;
-                                        }
-                                        card.Used = 1;
-                                        RadarCard radarTemplate = RadarService.gI().RADAR_TEMPLATE.stream().filter(r -> r.Id == idC).findFirst().orElse(null);
-                                        if (radarTemplate != null && card.Level >= 2) {
-                                            player.idAura = radarTemplate.AuraId;
-                                        }
-                                    } else {
-                                        card.Used = 0;
-                                        player.idAura = -1;
-                                    }
-                                    RadarService.gI().Radar1(player, idC, card.Used);
-                                    Service.gI().point(player);
-                                }
-                                break;
-                        }
-                    }
-                    break;
+//                case 127:
+//                    if (player != null) {
+//                        byte actionRadar = _msg.reader().readByte();
+//                        switch (actionRadar) {
+//                            case 0:
+//                                RadarService.gI().sendRadar(player, player.Cards);
+//                                break;
+//                            case 1:
+//                                short idC = _msg.reader().readShort();
+//                                Card card = player.Cards.stream().filter(r -> r != null && r.Id == idC).findFirst().orElse(null);
+//                                if (card != null) {
+//                                    if (card.Level == 0) {
+//                                        return;
+//                                    }
+//                                    if (card.Used == 0) {
+//                                        if (player.Cards.stream().anyMatch(c -> c != null && c.Used == 1)) {
+//                                            Service.gI().sendThongBao(player, "Số thẻ sử dụng đã đạt tối đa");
+//                                            return;
+//                                        }
+//                                        card.Used = 1;
+//                                        RadarCard radarTemplate = RadarService.gI().RADAR_TEMPLATE.stream().filter(r -> r.Id == idC).findFirst().orElse(null);
+//                                        if (radarTemplate != null && card.Level >= 2) {
+//                                            player.idAura = radarTemplate.AuraId;
+//                                        }
+//                                    } else {
+//                                        card.Used = 0;
+//                                        player.idAura = -1;
+//                                    }
+//                                    RadarService.gI().Radar1(player, idC, card.Used);
+//                                    Service.gI().point(player);
+//                                }
+//                                break;
+//                        }
+//                    }
+//                    break;
                 case -105:
                     if (player.type == 0 && player.maxTime == 30) {
                         ChangeMapService.gI().changeMap(player, 102, 0, 100, 336);

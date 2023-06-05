@@ -1033,9 +1033,9 @@ public class CombineServiceNew {
             CombineServiceNew.gI().sendEffectOpenItem(player, itemTL.template.iconID, itemTL.template.iconID);
             short itemId;
             if (itemTL.template.gender == 3 || itemTL.template.type == 4) {
-                itemId = Manager.radaHD[0];
+                itemId = Manager.ID_RADAR_HD;
             } else {
-                itemId = Manager.doHD[itemTL.template.gender][itemTL.template.type][0];
+                itemId = Manager.IDS_DO_HUY_DIET[itemTL.template.gender][itemTL.template.type];
             }
             Item item = null;
             if (new Item(itemId).isDHD()) {
@@ -1076,14 +1076,14 @@ public class CombineServiceNew {
             CombineServiceNew.gI().sendEffectOpenItem(player, itemTS.template.iconID, itemTS.template.iconID);
             short itemId;
             if (itemTS.template.gender == 3 || itemTS.template.type == 4) {
-                itemId = Manager.radaSKHVip[Util.nextInt(0, 5)];
+                itemId = Manager.IDS_RADAR[Util.nextInt(0, 5)];
                 if (player.getSession().bdPlayer > 0 && Util.isTrue(1, (int) (100 / player.getSession().bdPlayer))) {
-                    itemId = Manager.radaSKHVip[6];
+                    itemId = Manager.IDS_RADAR[6];
                 }
             } else {
-                itemId = Manager.doSKHVip[itemTS.template.gender][itemTS.template.type][Util.nextInt(0, 5)];
+                itemId = Manager.IDS_TRANG_BI[itemTS.template.gender][itemTS.template.type][Util.nextInt(0, 5)];
                 if (player.getSession().bdPlayer > 0 && Util.isTrue(1, (int) (100 / player.getSession().bdPlayer))) {
-                    itemId = Manager.doSKHVip[itemTS.template.gender][itemTS.template.type][6];
+                    itemId = Manager.IDS_TRANG_BI[itemTS.template.gender][itemTS.template.type][6];
                 }
             }
             int skhId = ItemService.gI().randomSKHId(itemTS.template.gender);
@@ -1093,7 +1093,7 @@ public class CombineServiceNew {
                 item.itemOptions.add(new Item.ItemOption(skhId, 1));
                 item.itemOptions.add(new Item.ItemOption(ItemService.gI().optionIdSKH(skhId), 1));
                 item.itemOptions.remove(item.itemOptions.stream().filter(itemOption -> itemOption.optionTemplate.id == 21).findFirst().get());
-                item.itemOptions.add(new Item.ItemOption(21, 15));
+                item.itemOptions.add(new Item.ItemOption(21, 18));
                 item.itemOptions.add(new Item.ItemOption(30, 1));
             } else {
                 item = ItemService.gI().itemSKH(itemId, skhId);

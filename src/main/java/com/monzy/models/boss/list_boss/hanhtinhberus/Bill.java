@@ -16,4 +16,9 @@ public class Bill extends Boss {
         rewardItem(plKill, 1069, 1070, 1066, 1067, 1068, 1142);
     }
 
+    @Override
+    public int injured(Player plAtt, int damage, boolean piercing, boolean isMobAttack) {
+        return super.injured(plAtt, damage / 2, piercing, isMobAttack);
+    }
+
 }

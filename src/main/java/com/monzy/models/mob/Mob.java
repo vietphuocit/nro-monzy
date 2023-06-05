@@ -9,8 +9,6 @@ import com.monzy.models.map.Zone;
 import com.monzy.models.player.Location;
 import com.monzy.models.player.Pet;
 import com.monzy.models.player.Player;
-import com.monzy.models.reward.ItemMobReward;
-import com.monzy.models.reward.MobReward;
 import com.monzy.models.shop.ItemShop;
 import com.monzy.models.shop.Shop;
 import com.monzy.models.shop.TabShop;
@@ -20,9 +18,8 @@ import com.monzy.services.*;
 import com.monzy.utils.Util;
 import com.network.io.Message;
 
-import javax.swing.text.TabableView;
-import java.util.*;
-import java.util.stream.Stream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Mob {
 
@@ -292,7 +289,7 @@ public class Mob {
         try {
             if ((!player.isPet && player.getSession().actived && player.setClothes.setGOD == 5) || (player.isPet && ((Pet) player).master.getSession().actived && player.setClothes.setGOD == 5)) {
                 short randomDoAn;
-                randomDoAn = Manager.doAn[Util.nextInt(0, 4)];
+                randomDoAn = Manager.THUC_AN[Util.nextInt(0, 4)];
                 if (Util.nextInt(0, 100) < 7) {
                     Item DoAn = ItemService.gI().createNewItem(randomDoAn);
                     InventoryServiceNew.gI().addItemBag(player, DoAn);

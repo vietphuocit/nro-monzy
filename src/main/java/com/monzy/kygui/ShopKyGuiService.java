@@ -273,7 +273,7 @@ public class ShopKyGuiService {
     public byte getTabKiGui(Item it) {
         if (it.template.type >= 0 && it.template.type <= 2) {
             return 0;
-        } else if ((it.template.type >= 3 && it.template.type <= 4) || it.template.type == 12 || it.template.type == 33) {
+        } else if (it.template.type >= 3 && it.template.type <= 4) {
             return 1;
         } else if (it.template.type == 29) {
             return 2;

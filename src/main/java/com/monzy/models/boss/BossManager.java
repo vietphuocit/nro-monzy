@@ -1,10 +1,11 @@
 package com.monzy.models.boss;
 
 import com.monzy.models.boss.list_boss.AnTrom;
-import com.monzy.models.boss.list_boss.black.Black;
-import com.monzy.models.boss.list_boss.cooler.Cooler;
+import com.monzy.models.boss.list_boss.Mabu;
 import com.monzy.models.boss.list_boss.android.*;
+import com.monzy.models.boss.list_boss.black.Black;
 import com.monzy.models.boss.list_boss.cell.*;
+import com.monzy.models.boss.list_boss.cooler.Cooler;
 import com.monzy.models.boss.list_boss.doraemon.*;
 import com.monzy.models.boss.list_boss.fide.Fide;
 import com.monzy.models.boss.list_boss.hanhtinhberus.Bill;
@@ -101,7 +102,7 @@ public class BossManager implements Runnable {
             this.createBoss(BossID.BLACK);
             this.createBoss(BossID.BLACK);
             this.createBoss(BossID.BILL);
-//            this.createBoss(BossID.MABU);
+            this.createBoss(BossID.MABU);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -188,6 +189,8 @@ public class BossManager implements Runnable {
                     return new Bill();
                 case BossID.WISH:
                     return new Whis();
+                case BossID.MABU:
+                    return new Mabu();
                 /**
                  case BossID.CUMBERYELLOW:
                  return new cumberYellow();
@@ -235,8 +238,6 @@ public class BossManager implements Runnable {
                  return new Black();
                  case BossID.BLACK3:
                  return new BlackGokuBase();
-                 case BossID.MABU:
-                 return new Mabu();
                  case BossID.COOLER_GOLD:
                  return new CoolerGold();
                  case BossID.CUMBER:

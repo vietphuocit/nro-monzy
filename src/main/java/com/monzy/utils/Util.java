@@ -1,6 +1,5 @@
 package com.monzy.utils;
 
-import com.monzy.models.Template;
 import com.monzy.models.boss.BossManager;
 import com.monzy.models.item.Item;
 import com.monzy.models.map.ItemMap;
@@ -228,7 +227,6 @@ public class Util {
     public static ItemMap manhTS(Zone zone, int tempId, int quantity, int x, int y, long playerId) {
         return new ItemMap(zone, tempId, quantity, x, y, playerId);
     }
-
 //    public static ItemMap ratiDTL(Zone zone, int tempId, int quantity, int x, int y, long playerId) {
 //        ItemMap it = new ItemMap(zone, tempId, quantity, x, zone.map.yPhysicInTop(x, y - 24), playerId);
 //        List<Integer> ao = Arrays.asList(555, 557, 559);
@@ -352,7 +350,7 @@ public class Util {
         if (ntl == tempId) {
             it.options.add(new Item.ItemOption(14, Util.nextInt(15, 18)));
         }
-        if(typeDrop == BOSS_DROP)
+        if (typeDrop == BOSS_DROP)
             it.options.add(new Item.ItemOption(209, 1));
         it.options.add(new Item.ItemOption(21, 18));
         it.options.add(new Item.ItemOption(107, randomStar()));

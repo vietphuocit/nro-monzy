@@ -148,7 +148,7 @@ public class Input {
                 break;
                 case TAIHN:
                     int taiHongNgoc = Integer.parseInt(text[0]);
-                    if(player.inventory.ruby < taiHongNgoc) {
+                    if (player.inventory.ruby < taiHongNgoc) {
                         Service.getInstance().sendThongBao(player, "Không đủ hồng ngọc kìa cu!!");
                         return;
                     }
@@ -193,7 +193,7 @@ public class Input {
                     break;
                 case XIUHN:
                     int xiuHongNgoc = Integer.parseInt(text[0]);
-                    if(player.inventory.ruby < xiuHongNgoc) {
+                    if (player.inventory.ruby < xiuHongNgoc) {
                         Service.getInstance().sendThongBao(player, "Không đủ hồng ngọc kìa cu!!");
                         return;
                     }

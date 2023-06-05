@@ -26,7 +26,7 @@ public class TopService implements Runnable {
         ResultSet rs;
         try {
             Connection conn = Database.getConnection();
-            ps = conn.prepareStatement(SELECT_TOP_POWER, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY );
+            ps = conn.prepareStatement(SELECT_TOP_POWER, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             conn.setAutoCommit(false);
             rs = ps.executeQuery();
             byte i = 1;
@@ -46,20 +46,14 @@ public class TopService implements Runnable {
     public void run() {
         while (true) {
             try {
-                if (Manager.timeRealTop + (30 * 60 * 1000) < System.currentTimeMillis()) {
-                    Manager.timeRealTop = System.currentTimeMillis();
-                    try (Connection con = Database.getConnection()) {
-                        Manager.topNV = Manager.realTop(Manager.queryTopNV, con);
-                        Manager.topSM = Manager.realTop(Manager.queryTopSM, con);
-                        Manager.topSK = Manager.realTop(Manager.queryTopSK, con);
-                        Manager.topPVP = Manager.realTop(Manager.queryTopPVP, con);
-                        Manager.topNHS = Manager.realTop(Manager.queryTopNHS, con);
-                        Manager.topNHS = Manager.realTop(Manager.queryTopNAP, con);
-                    } catch (Exception ignored) {
-                        Logger.error("Lỗi đọc top");
-                    }
+                try (Connection con = Database.getConnection()) {
+                    Manager.TOP_NV = Manager.readTop(Manager.QUERY_TOP_NV, con);
+                    Manager.TOP_SM = Manager.readTop(Manager.QUERY_TOP_SM, con);
+                    Manager.TOP_NAP = Manager.readTop(Manager.QUERY_TOP_NAP, con);
+                } catch (Exception ignored) {
+                    Logger.error("Lỗi đọc top");
                 }
-                Thread.sleep(1000);
+                Thread.sleep(1000 * 60 * Manager.TIME_READ_TOP);
             } catch (Exception ignored) {
             }
         }
