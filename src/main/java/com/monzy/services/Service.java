@@ -1350,10 +1350,10 @@ public class Service {
             return 19;
         } else if (sucmanh < 150010000000L) {
             return 20;
-        } else if (sucmanh < 2100010000000L) {
+        } else if (sucmanh < 2000010000000L) {
             return 21;
         }
-        return 21;
+        return 22;
     }
 
     public void hsChar(Player pl, int hp, int mp) {

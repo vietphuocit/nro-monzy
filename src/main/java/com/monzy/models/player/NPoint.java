@@ -280,6 +280,7 @@ public class NPoint {
                                     break;
                                 case 49: //Tấn công+#%
                                 case 50: //Sức đánh+#%
+                                case 147: //+#% sức đánh
                                     this.tlDame.add(io.param);
                                     break;
                                 case 77: //HP+#%
@@ -292,6 +293,7 @@ public class NPoint {
                                     this.tlMpHoi += io.param;
                                     break;
                                 case 88: //Cộng #% exp khi đánh quái
+                                case 101: //+#% TN,SM
                                     this.tlTNSM.add(io.param);
                                     break;
                                 case 94: //Giáp #%
@@ -309,17 +311,11 @@ public class NPoint {
                                 case 100: //+#% vàng từ quái
                                     this.tlGold += io.param;
                                     break;
-                                case 101: //+#% TN,SM
-                                    this.tlTNSM.add(io.param);
-                                    break;
                                 case 103: //KI +#%
                                     this.tlMp.add(io.param);
                                     break;
                                 case 104: //Biến #% tấn công quái thành HP
                                     this.tlHutHpMob += io.param;
-                                    break;
-                                case 147: //+#% sức đánh
-                                    this.tlDame.add(io.param);
                                     break;
                             }
                         }
@@ -379,6 +375,7 @@ public class NPoint {
                             break;
                         case 49: //Tấn công+#%
                         case 50: //Sức đánh+#%
+                        case 147: //+#% sức đánh
                             this.tlDame.add(io.param);
                             break;
                         case 77: //HP+#%
@@ -391,6 +388,7 @@ public class NPoint {
                             this.tlMpHoi += io.param;
                             break;
                         case 88: //Cộng #% exp khi đánh quái
+                        case 101: //+#% TN,SM
                             this.tlTNSM.add(io.param);
                             break;
                         case 94: //Giáp #%
@@ -407,9 +405,6 @@ public class NPoint {
                             break;
                         case 100: //+#% vàng từ quái
                             this.tlGold += io.param;
-                            break;
-                        case 101: //+#% TN,SM
-                            this.tlTNSM.add(io.param);
                             break;
                         case 103: //KI +#%
                             this.tlMp.add(io.param);
@@ -434,9 +429,6 @@ public class NPoint {
                             break;
                         case 117: //Đẹp +#% SĐ cho mình và người xung quanh
                             this.tlSDDep.add(io.param);
-                            break;
-                        case 147: //+#% sức đánh
-                            this.tlDame.add(io.param);
                             break;
                         case 75: //Giảm 50% sức đánh, HP, KI và +#% SM, TN, vàng từ quái
                             this.tlSubSD += 50;
@@ -542,8 +534,7 @@ public class NPoint {
         }
         //khỉ
         if (this.player.effectSkill.isMonkey) {
-            if (!this.player.isPet || (this.player.isPet
-                    && ((Pet) this.player).status != Pet.FUSION)) {
+            if (!this.player.isPet || ((Pet) this.player).status != Pet.FUSION) {
                 int percent = SkillUtil.getPercentHpMonkey(player.effectSkill.levelMonkey);
                 this.hpMax += ((long) this.hpMax * percent / 100);
             }
@@ -1051,15 +1042,12 @@ public class NPoint {
             if (this.intrinsic != null && this.intrinsic.id == 24) {
                 tiemNang += (tiemNang * this.intrinsic.param1 / 100);
             }
-            if (this.power >= 60000000000L) {
-                tiemNang -= (tiemNang * 80 / 100);
-            }
             if (this.player.isPet) {
                 if (((Pet) this.player).master.charms.tdDeTu > System.currentTimeMillis()) {
                     tiemNang += tn * 2;
                 }
             }
-            tiemNang *= Manager.RATE_EXP_SERVER;
+            tiemNang += tn * Manager.RATE_EXP;
             if (MapService.gI().isnguhs(this.player.zone.map.mapId)) {
                 tiemNang *= 10;
             }
@@ -1074,15 +1062,10 @@ public class NPoint {
     }
 
     public long calSubTNSM(long tiemNang) {
-        if (power >= 110000000000L) {
-            tiemNang /= 10000;
-        } else if (power >= 100000000000L) {
-            tiemNang /= 5000;
-        } else if (power >= 90000000000L) {
-            tiemNang -= (tiemNang * 99 / 100);
-        } else if (power >= 80000000000L) {
-            tiemNang -= (tiemNang * 98 / 100);
-        }
+        if(limitPower == 8)
+            tiemNang -= tiemNang * 0.7;
+        if(limitPower == 9)
+            tiemNang -= tiemNang * 0.9;
         return tiemNang;
     }
 

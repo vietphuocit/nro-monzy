@@ -61,7 +61,7 @@ public class Mob {
     }
 
     public void setTiemNang() {
-        this.maxTiemNang = (long) this.point.getHpFull() * (this.pTiemNang + Util.nextInt(-2, 2)) / 100;
+        this.maxTiemNang = (long) this.point.getHpFull() * (this.pTiemNang + Util.nextInt(1, 2)) / 100;
     }
 
     private long lastTimeAttackPlayer;
@@ -101,7 +101,7 @@ public class Mob {
 
     public long getTiemNangForPlayer(Player pl, long dame) {
         if (dame == 0)
-            return (int) pl.nPoint.calSucManhTiemNang(1);
+            return 1;
         int levelPlayer = Service.gI().getCurrLevel(pl);
         int n = levelPlayer - this.level;
         long pDameHit = dame * 100 / point.getHpFull();

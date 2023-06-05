@@ -9,6 +9,7 @@ import com.monzy.models.npc.Npc;
 import com.monzy.models.npc.NpcManager;
 import com.monzy.models.player.Player;
 import com.monzy.server.Client;
+import com.monzy.server.Manager;
 import com.monzy.services.*;
 import com.monzy.utils.Util;
 import com.network.io.Message;
@@ -84,12 +85,13 @@ public class Input {
                     GiftService.gI().giftCode(player, text[0]);
                     break;
                 case NAP:
-                    String Name = text[0];
-                    int coin = Integer.parseInt(text[1]);
-                    if (Client.gI().getPlayer(Name) != null) {
-                        PlayerDAO.addvnd(Client.gI().getPlayer(Name), coin);
-                        PlayerDAO.addTongNap(Client.gI().getPlayer(Name), coin);
-                        Service.gI().sendThongBao(player, Name + " nhận được " + coin + " vnd");
+                    Player playerNap = Client.gI().getPlayer(text[0]);
+                    int vnd = Integer.parseInt(text[1]);
+                    if (playerNap != null) {
+                        PlayerDAO.addvnd(playerNap, vnd * Manager.RATE_PAY);
+                        PlayerDAO.addTongNap(playerNap, vnd);
+                        Service.gI().sendThongBao(player, "Đã nạp cho " + playerNap + " " + vnd + " vnd");
+                        Service.gI().sendThongBao(playerNap, "Bạn nhận được " + vnd + " vnd. Đến Santa để kiểm tra số dư.");
                     } else {
                         Service.gI().sendThongBao(player, "Người chơi không tồn tại hoặc đang offline");
                     }

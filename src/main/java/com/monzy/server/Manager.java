@@ -48,7 +48,8 @@ public class Manager {
     public static byte SECOND_WAIT_LOGIN = 5;
     public static int MAX_PER_IP = 5;
     public static int MAX_PLAYER = 1000;
-    public static byte RATE_EXP_SERVER = 1;
+    public static byte RATE_EXP = 1;
+    public static byte RATE_PAY = 1;
     public static boolean LOCAL = false;
     //    public static byte RATE_EXP_SERVER = 1;// sau khi chinh
     public static MapTemplate[] MAP_TEMPLATES;
@@ -861,8 +862,11 @@ public class Manager {
         if ((value = properties.get("server.monzy.maxplayer")) != null) {
             MAX_PLAYER = Integer.parseInt(String.valueOf(value));
         }
-        if ((value = properties.get("server.monzy.expserver")) != null) {
-            RATE_EXP_SERVER = Byte.parseByte(String.valueOf(value));
+        if ((value = properties.get("server.monzy.rateExp")) != null) {
+            RATE_EXP = Byte.parseByte(String.valueOf(value));
+        }
+        if ((value = properties.get("server.monzy.ratePay")) != null) {
+            RATE_PAY = Byte.parseByte(String.valueOf(value));
         }
         if ((value = properties.get("server.monzy.local")) != null) {
             LOCAL = String.valueOf(value).equalsIgnoreCase("true");
