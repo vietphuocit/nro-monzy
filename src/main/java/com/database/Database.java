@@ -71,7 +71,7 @@ public class Database {
             LOG_QUERY = Boolean.parseBoolean(properties.getProperty(DATABASE_LOG_QUERY_KEY));
             log.info("Load file properites thành công!");
         } catch (IOException | NumberFormatException e) {
-            log.error(e.getMessage());
+            log.error("loadProperties: " + e.getMessage());
         }
     }
 

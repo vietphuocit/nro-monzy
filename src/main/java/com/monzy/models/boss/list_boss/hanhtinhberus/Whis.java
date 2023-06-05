@@ -22,7 +22,6 @@ public class Whis extends Boss {
     @Override
     public int injured(Player plAtt, int damage, boolean piercing, boolean isMobAttack) {
         if (!this.effectSkill.isShielding) {
-            this.chat("Xí hụt");
             return 0;
         } else {
             this.nPoint.subHP(1);

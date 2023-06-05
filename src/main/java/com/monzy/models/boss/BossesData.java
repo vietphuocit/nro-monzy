@@ -733,7 +733,7 @@ public class BossesData {
             ConstPlayer.TRAI_DAT, //gender
             new short[]{320, 321, 322, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
             300000, //dame
-            new int[]{300000000}, //hp
+            new int[]{600000000}, //hp
             new int[]{110}, //map join
             new int[][]{
                     {Skill.KAMEJOKO, 7, 1000},
