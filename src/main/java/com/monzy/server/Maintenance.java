@@ -6,9 +6,8 @@ import com.monzy.utils.Logger;
 public class Maintenance extends Thread {
 
     public static boolean isRuning = false;
-    public boolean canUseCode;
     private static Maintenance i;
-    private int min;
+    private int seconds;
 
     private Maintenance() {
     }
@@ -23,16 +22,16 @@ public class Maintenance extends Thread {
     public void start(int min) {
         if (!isRuning) {
             isRuning = true;
-            this.min = min;
+            this.seconds = min;
             this.start();
         }
     }
 
     @Override
     public void run() {
-        while (this.min > 0) {
-            this.min--;
-            Service.gI().sendThongBaoAllPlayer("Hệ thống sẽ bảo trì sau " + min
+        while (this.seconds > 0) {
+            this.seconds--;
+            Service.gI().sendThongBaoAllPlayer("Hệ thống sẽ bảo trì sau " + seconds
                     + " giây nữa, vui lòng thoát game để tránh mất vật phẩm");
             try {
                 Thread.sleep(1000);

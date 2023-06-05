@@ -79,18 +79,18 @@ public class IntrinsicService {
                 "Xem\ntất cả\nNội Tại", "Mở\nNội Tại", "Mở VIP", "Từ chối");
     }
 
-    public void sattd(Player player) {
-        NpcService.gI().createMenuConMeo(player, ConstNpc.menutd, -1,
+    public void setTSTD(Player player) {
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_SKH_THIEN_SU_TD, -1,
                 "chọn lẹ đi để tau đi chơi với ny", "Set\nTaiyoken", "Set\nGenki", "Set\nkamejoko", "Từ chối");
     }
 
-    public void satnm(Player player) {
-        NpcService.gI().createMenuConMeo(player, ConstNpc.menunm, -1,
+    public void setTSNM(Player player) {
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_SKH_THIEN_SU_NM, -1,
                 "chọn lẹ đi để tau đi chơi với ny", "Set\ngod ki", "Set\ngod dame", "Set\nsummon", "Từ chối");
     }
 
-    public void setxd(Player player) {
-        NpcService.gI().createMenuConMeo(player, ConstNpc.menuxd, -1,
+    public void setTSXD(Player player) {
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_SKH_THIEN_SU_XD, -1,
                 "chọn lẹ đi để tau đi chơi với ny", "Set\ngod galick", "Set\nmonkey", "Set\ngod hp", "Từ chối");
     }
 

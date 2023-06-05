@@ -34,6 +34,7 @@ public class Input {
     public static final int QUY_DOI_COIN = 508;
     public static final int QUY_DOI_HONG_NGOC = 509;
     public static final int NAP = 516;
+    public static final int MTV = 517;
     public static final int TAIHN = 510;
     public static final int XIUHN = 511;
     public static final int TAITV = 512;
@@ -428,6 +429,16 @@ public class Input {
                                 + " đổi " + gemTrade + " Thỏi Vàng" + " " + "bạn cần thêm" + (player.getSession().vnd - gemTrade));
                     }
                     break;
+                case MTV:
+                    Player playerMTV = Client.gI().getPlayer(text[0]);
+                    if (playerMTV != null) {
+                        playerMTV.getSession().actived = true;
+                        Service.gI().sendThongBao(player, "Đã mở thành viên cho " + playerMTV.name + "!");
+                        Service.gI().sendThongBao(playerMTV, "Đã mở thành viên!");
+                    } else {
+                        Service.gI().sendThongBao(player, "Người chơi không tồn tại hoặc đang offline");
+                    }
+                    break;
             }
         } catch (Exception e) {
         }
@@ -478,6 +489,10 @@ public class Input {
 
     public void createFormNapCoin(Player pl) {
         createForm(pl, NAP, "Nạp coin", new SubInput("Tên", ANY), new SubInput("Số lượng", ANY));
+    }
+
+    public void createFormMTV(Player pl) {
+        createForm(pl, MTV, "Mở thành viên", new SubInput("Tên", ANY));
     }
 
     public void createFormGiftCode(Player pl) {

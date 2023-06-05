@@ -2983,38 +2983,36 @@ public class NpcFactory {
                 switch (player.iDMark.getIndexMenu()) {
                     case ConstNpc.IGNORE_MENU:
                         break;
-                    case ConstNpc.MAKE_MATCH_PVP: //                        if (player.getSession().actived)
-                    {
+                    case ConstNpc.MAKE_MATCH_PVP:
+                        // Thách đấu
                         if (Maintenance.isRuning) {
                             break;
                         }
                         PVPService.gI().sendInvitePVP(player, (byte) select);
                         break;
-                    }
-//                        else {
-//                            Service.gI().sendThongBao(player, "|5|VUI LÒNG KÍCH HOẠT TÀI KHOẢN TẠI\n|7|MONZY\n|5|ĐỂ MỞ KHÓA TÍNH NĂNG");
-//                            break;
-//                        }
                     case ConstNpc.MAKE_FRIEND:
+                        // Kết bạn
                         if (select == 0) {
                             Object playerId = PLAYERID_OBJECT.get(player.id);
                             if (playerId != null) {
-                                FriendAndEnemyService.gI().acceptMakeFriend(player,
-                                        Integer.parseInt(String.valueOf(playerId)));
+                                FriendAndEnemyService.gI().acceptMakeFriend(player, Integer.parseInt(String.valueOf(playerId)));
                             }
                         }
                         break;
                     case ConstNpc.REVENGE:
+                        // Trả thù
                         if (select == 0) {
                             PVPService.gI().acceptRevenge(player);
                         }
                         break;
                     case ConstNpc.TUTORIAL_SUMMON_DRAGON:
+                        // Hướng dẫn gọi rồng thần
                         if (select == 0) {
                             NpcService.gI().createTutorial(player, -1, SummonDragon.SUMMON_SHENRON_TUTORIAL);
                         }
                         break;
                     case ConstNpc.SUMMON_SHENRON:
+                        // Gọi rồng
                         if (select == 0) {
                             NpcService.gI().createTutorial(player, -1, SummonDragon.SUMMON_SHENRON_TUTORIAL);
                         } else if (select == 1) {
@@ -3022,34 +3020,29 @@ public class NpcFactory {
                         }
                         break;
                     case ConstNpc.MENU_OPTION_USE_ITEM1105:
+                        // Hộp đồ thiên sứ
                         if (select == 0) {
-                            IntrinsicService.gI().sattd(player);
+                            IntrinsicService.gI().setTSTD(player);
                         } else if (select == 1) {
-                            IntrinsicService.gI().satnm(player);
+                            IntrinsicService.gI().setTSNM(player);
                         } else if (select == 2) {
-                            IntrinsicService.gI().setxd(player);
+                            IntrinsicService.gI().setTSXD(player);
                         }
                         break;
                     case ConstNpc.MENU_OPTION_USE_ITEM2000:
                     case ConstNpc.MENU_OPTION_USE_ITEM2001:
                     case ConstNpc.MENU_OPTION_USE_ITEM2002:
-                        try {
-                            ItemService.gI().OpenSKH(player, player.iDMark.getIndexMenu(), select);
-                        } catch (Exception e) {
-                            Logger.error("Lỗi mở hộp quà");
-                        }
+                        // Hòm tiếp tế -> Set KH
+                        ItemService.gI().OpenSKH(player, player.iDMark.getIndexMenu(), select);
                         break;
                     case ConstNpc.MENU_OPTION_USE_ITEM2003:
                     case ConstNpc.MENU_OPTION_USE_ITEM2004:
                     case ConstNpc.MENU_OPTION_USE_ITEM2005:
-                    case ConstNpc.MENU_OPTION_USE_ITEM736:
-                        try {
-                            ItemService.gI().OpenDHD(player, player.iDMark.getIndexMenu(), select);
-                        } catch (Exception e) {
-                            Logger.error("Lỗi mở hộp quà");
-                        }
+                        // Rương hủy diệt -> Set HD
+                        ItemService.gI().OpenDHD(player, player.iDMark.getIndexMenu(), select);
                         break;
                     case ConstNpc.INTRINSIC:
+                        // Nội tại
                         if (select == 0) {
                             IntrinsicService.gI().showAllIntrinsic(player);
                         } else if (select == 1) {
@@ -3059,11 +3052,13 @@ public class NpcFactory {
                         }
                         break;
                     case ConstNpc.CONFIRM_OPEN_INTRINSIC:
+                        // Mở nội tại thường
                         if (select == 0) {
                             IntrinsicService.gI().open(player);
                         }
                         break;
                     case ConstNpc.CONFIRM_OPEN_INTRINSIC_VIP:
+                        // Mở nội tại VIP
                         if (select == 0) {
                             IntrinsicService.gI().openVip(player);
                         }
@@ -3094,109 +3089,76 @@ public class NpcFactory {
                         }
                         break;
                     case ConstNpc.UP_TOP_ITEM:
+                        break;
                     case ConstNpc.MENU_ADMIN:
                         switch (select) {
+//                            case 1:
+//                                if (player.pet == null) {
+//                                    PetService.gI().createNormalPet(player);
+//                                } else {
+//                                    if (player.pet.typePet == 1) {
+//                                        PetService.gI().changePicPet(player);
+//                                    } else if (player.pet.typePet == 2) {
+//                                        PetService.gI().changeMabuPet(player);
+//                                    }
+//                                    PetService.gI().changeBerusPet(player);
+//                                }
+//                                break;
                             case 0:
-                                for (int i = 14; i <= 20; i++) {
-                                    Item item = ItemService.gI().createNewItem((short) i);
-                                    InventoryServiceNew.gI().addItemBag(player, item);
+                                if (player.isAdmin()) {
+                                    Maintenance.gI().start(15);
                                 }
-                                InventoryServiceNew.gI().sendItemBags(player);
                                 break;
                             case 1:
-                                if (player.pet == null) {
-                                    PetService.gI().createNormalPet(player);
-                                } else {
-                                    if (player.pet.typePet == 1) {
-                                        PetService.gI().changePicPet(player);
-                                    } else if (player.pet.typePet == 2) {
-                                        PetService.gI().changeMabuPet(player);
-                                    }
-                                    PetService.gI().changeBerusPet(player);
-                                }
-                                break;
-                            case 2:
-                                if (player.isAdmin()) {
-                                    System.out.println(player.name);
-//                                PlayerService.gI().baoTri();
-                                    Maintenance.gI().start(15);
-                                    System.out.println(player.name);
-                                }
-                                break;
-                            case 3:
                                 Input.gI().createFormFindPlayer(player);
                                 break;
-                            case 4:
-                                BossManager.gI().showListBoss(player);
-                                break;
-                            case 5:
+                            case 2:
                                 MaQuaTangManager.gI().checkInfomationGiftCode(player);
                                 break;
-                        }
-                        break;
-                    case ConstNpc.menutd:
-                        switch (select) {
-                            case 0:
-                                try {
-                                    ItemService.gI().settaiyoken(player);
-                                } catch (Exception e) {
-                                }
+                            case 3:
+                                Input.gI().createFormNapCoin(player);
                                 break;
-                            case 1:
-                                try {
-                                    ItemService.gI().setgenki(player);
-                                } catch (Exception e) {
-                                }
-                                break;
-                            case 2:
-                                try {
-                                    ItemService.gI().setkamejoko(player);
-                                } catch (Exception e) {
-                                }
+                            case 4:
+                                Input.gI().createFormMTV(player);
                                 break;
                         }
                         break;
-                    case ConstNpc.menunm:
+                    case ConstNpc.MENU_SKH_THIEN_SU_TD:
                         switch (select) {
                             case 0:
-                                try {
-                                    ItemService.gI().setgodki(player);
-                                } catch (Exception e) {
-                                }
+                                ItemService.gI().setKrilin(player);
                                 break;
                             case 1:
-                                try {
-                                    ItemService.gI().setgoddam(player);
-                                } catch (Exception e) {
-                                }
+                                ItemService.gI().setKaioken(player);
                                 break;
                             case 2:
-                                try {
-                                    ItemService.gI().setsummon(player);
-                                } catch (Exception e) {
-                                }
+                                ItemService.gI().setSongoku(player);
                                 break;
                         }
                         break;
-                    case ConstNpc.menuxd:
+                    case ConstNpc.MENU_SKH_THIEN_SU_NM:
                         switch (select) {
                             case 0:
-                                try {
-                                    ItemService.gI().setgodgalick(player);
-                                } catch (Exception e) {
-                                }
+                                ItemService.gI().setPicolo(player);
                                 break;
                             case 1:
-                                try {
-                                    ItemService.gI().setmonkey(player);
-                                } catch (Exception e) {
-                                }
+                                ItemService.gI().setOcTieu(player);
                                 break;
                             case 2:
-                                try {
-                                    ItemService.gI().setgodhp(player);
-                                } catch (Exception e) {
-                                }
+                                ItemService.gI().setPikkoroDaimao(player);
+                                break;
+                        }
+                        break;
+                    case ConstNpc.MENU_SKH_THIEN_SU_XD:
+                        switch (select) {
+                            case 0:
+                                ItemService.gI().setKakarot(player);
+                                break;
+                            case 1:
+                                ItemService.gI().setCadic(player);
+                                break;
+                            case 2:
+                                ItemService.gI().setNappa(player);
                                 break;
                         }
                         break;
@@ -3226,7 +3188,7 @@ public class NpcFactory {
 //                                        this.npcChat(player, "Lỗi vui lòng báo admin...");
 //                                    }
 //                                }
-////                                Service.gI().sendThongBao(player, "Bạn không có vàng\n Vui lòng MONZY để nạp thỏi vàng");
+//                                Service.gI().sendThongBao(player, "Bạn không có vàng\n Vui lòng MONZY để nạp thỏi vàng");
 //                                break;
 //                        }
 //                        break;
@@ -3269,34 +3231,34 @@ public class NpcFactory {
                             }
                         }
                         break;
-                    case ConstNpc.MENU_EVENT:
-                        switch (select) {
-                            case 0:
-                                Service.gI().sendThongBaoOK(player, "Điểm sự kiện: " + player.inventory.event + " ngon ngon...");
-                                break;
-                            case 1:
+//                    case ConstNpc.MENU_EVENT:
+//                        switch (select) {
+//                            case 0:
+//                                Service.gI().sendThongBaoOK(player, "Điểm sự kiện: " + player.inventory.event + " ngon ngon...");
+//                                break;
+//                            case 1:
 //                                Service.gI().showListTop(player, Manager.topSK);
-                                break;
-                            case 2:
-                                Service.gI().sendThongBao(player, "Sự kiện đã kết thúc...");
+//                                break;
+//                            case 2:
+//                                Service.gI().sendThongBao(player, "Sự kiện đã kết thúc...");
 //                                NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_GIAO_BONG, -1, "Người muốn giao bao nhiêu bông...",
 //                                        "100 bông", "1000 bông", "10000 bông");
-                                break;
-                            case 3:
-                                Service.gI().sendThongBao(player, "Sự kiện đã kết thúc...");
+//                                break;
+//                            case 3:
+//                                Service.gI().sendThongBao(player, "Sự kiện đã kết thúc...");
 //                                NpcService.gI().createMenuConMeo(player, ConstNpc.CONFIRM_DOI_THUONG_SU_KIEN, -1, "Con có thực sự muốn đổi thưởng?\nPhải giao cho ta 3000 điểm sự kiện đấy... ",
 //                                        "Đồng ý", "Từ chối");
-                                break;
-                        }
-                        break;
-                    case ConstNpc.MENU_GIAO_BONG:
-                        ItemService.gI().giaobong(player, (int) Util.tinhLuyThua(10, select + 2));
-                        break;
-                    case ConstNpc.CONFIRM_DOI_THUONG_SU_KIEN:
-                        if (select == 0) {
-                            ItemService.gI().openBoxVip(player);
-                        }
-                        break;
+//                                break;
+//                        }
+//                        break;
+//                    case ConstNpc.MENU_GIAO_BONG:
+//                        ItemService.gI().giaobong(player, (int) Util.tinhLuyThua(10, select + 2));
+//                        break;
+//                    case ConstNpc.CONFIRM_DOI_THUONG_SU_KIEN:
+//                        if (select == 0) {
+//                            ItemService.gI().openBoxVip(player);
+//                        }
+//                        break;
                     case ConstNpc.CONFIRM_TELE_NAMEC:
                         if (select == 0) {
                             NgocRongNamecService.gI().teleportToNrNamec(player);

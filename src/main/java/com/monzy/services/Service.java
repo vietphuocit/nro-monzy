@@ -640,13 +640,9 @@ public class Service {
             }
         }
         if (player.getSession() != null && player.isAdmin()) {
-            if (text.equals("nap")) {
-                Input.gI().createFormNapCoin(player);
-                return;
-            }
             if (text.equals("monzy")) {
                 NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_ADMIN, -1, "Quản trị admin: " + Client.gI().getPlayers().size() + "\n",
-                        "Ngọc rồng", "Đệ tử", "Bảo trì", "Tìm kiếm\nngười chơi", "Boss", "Giftcode", "Đóng");
+                        "Bảo trì", "Tìm kiếm\nngười chơi", "Giftcode", "Nạp", "Mở\nthành viên", "Đóng");
                 return;
             }
             if (text.startsWith("i ")) {

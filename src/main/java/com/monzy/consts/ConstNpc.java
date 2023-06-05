@@ -171,9 +171,9 @@ public class ConstNpc {
     public static final int MENU_FIND_PLAYER = 516;
     public static final int CONFIRM_DISSOLUTION_CLAN = 517;
     //    public static final int CONFIRM_ACTIVE = 518;
-    public static final int menutd = 519;
-    public static final int menunm = 520;
-    public static final int menuxd = 521;
+    public static final int MENU_SKH_THIEN_SU_TD = 519;
+    public static final int MENU_SKH_THIEN_SU_NM = 520;
+    public static final int MENU_SKH_THIEN_SU_XD = 521;
     public static final int CONFIRM_TELE_NAMEC = 522;
     public static final int RUT_VANG = 526;
     public static final int UP_TOP_ITEM = 527;
