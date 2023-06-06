@@ -102,12 +102,9 @@ public class ServerManager {
                         Client.gI().kickSession((MySession) session);
                     }
                 }).setTypeSessioClone(MySession.class)
-                .setDoSomeThingWhenClose(new IServerClose() {
-                    @Override
-                    public void serverClose() {
-                        System.out.println("server close");
-                        System.exit(0);
-                    }
+                .setDoSomeThingWhenClose(() -> {
+                    System.out.println("server close");
+                    System.exit(0);
                 })
                 .start(PORT);
     }
