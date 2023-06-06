@@ -47,6 +47,7 @@ public class TopService implements Runnable {
         while (true) {
             try {
                 try (Connection con = Database.getConnection()) {
+                    System.out.println("Đã làm mới TOP");
                     Manager.TOP_NV = Manager.readTop(Manager.QUERY_TOP_NV, con);
                     Manager.TOP_SM = Manager.readTop(Manager.QUERY_TOP_SM, con);
                     Manager.TOP_NAP = Manager.readTop(Manager.QUERY_TOP_NAP, con);

@@ -1307,10 +1307,10 @@ public class NPoint {
         if (point <= 0 || point > 100) {
             return;
         }
-        long tiemNangUse = 0;
+        long tiemNangUse;
         if (type == 0) {
             int pointHp = point * 20;
-            tiemNangUse = point * (2 * (this.hpg + 1000) + pointHp - 20) / 2;
+            tiemNangUse = point * (2L * (this.hpg + 1000) + pointHp - 20) / 2;
             if ((this.hpg + pointHp) <= getHpMpLimit()) {
                 if (doUseTiemNang(tiemNangUse)) {
                     hpg += pointHp;
@@ -1322,7 +1322,7 @@ public class NPoint {
         }
         if (type == 1) {
             int pointMp = point * 20;
-            tiemNangUse = point * (2 * (this.mpg + 1000) + pointMp - 20) / 2;
+            tiemNangUse = point * (2L * (this.mpg + 1000) + pointMp - 20) / 2;
             if ((this.mpg + pointMp) <= getHpMpLimit()) {
                 if (doUseTiemNang(tiemNangUse)) {
                     mpg += pointMp;
@@ -1333,7 +1333,7 @@ public class NPoint {
             }
         }
         if (type == 2) {
-            tiemNangUse = point * (2 * this.dameg + point - 1) / 2 * 100;
+            tiemNangUse = point * (2L * this.dameg + point - 1) / 2 * 100;
             if ((this.dameg + point) <= getDameLimit()) {
                 if (doUseTiemNang(tiemNangUse)) {
                     dameg += point;
@@ -1344,7 +1344,7 @@ public class NPoint {
             }
         }
         if (type == 3) {
-            tiemNangUse = 2 * (this.defg + 5) / 2 * 100000;
+            tiemNangUse = 2L * (this.defg + 5) / 2 * 100000;
             if ((this.defg + point) <= getDefLimit()) {
                 if (doUseTiemNang(tiemNangUse)) {
                     defg += point;

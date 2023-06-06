@@ -76,11 +76,11 @@ public class Manager {
     public static final List<String> NOTIFY = new ArrayList<>();
     public static final ArrayList<DaiHoiVoThuat> LIST_DHVT = new ArrayList<>();
     public static final List<Item> RUBY_REWARDS = new ArrayList<>();
-    public static final String QUERY_TOP_SM = "SELECT player.id, CAST( split_str(data_point,',',2) AS UNSIGNED) AS sm FROM player JOIN account ON player.account_id = account.id WHERE account.create_time > Date('2023-6-1') ORDER BY CAST( split_str(data_point,',',2)  AS UNSIGNED) DESC LIMIT 20;";
+    public static final String QUERY_TOP_SM = "SELECT player.id, CAST( split_str(data_point,',',2) AS UNSIGNED) AS sm FROM player JOIN account ON player.account_id = account.id WHERE account.create_time > Date('2023-5-1') ORDER BY CAST( split_str(data_point,',',2)  AS UNSIGNED) DESC LIMIT 20;";
     //    public static final String queryTopSD = "SELECT id, CAST( split_str(data_point,',',8) AS UNSIGNED) AS sd FROM player ORDER BY CAST( split_str(data_point,',',8)  AS UNSIGNED) DESC LIMIT 20;";
 //    public static final String queryTopHP = "SELECT id, CAST( split_str(data_point,',',6) AS UNSIGNED) AS hp FROM player ORDER BY CAST( split_str(data_point,',',6)  AS UNSIGNED) DESC LIMIT 20;";
 //    public static final String queryTopKI = "SELECT id, CAST( split_str(data_point,',',7) AS UNSIGNED) AS ki FROM player ORDER BY CAST( split_str(data_point,',',7)  AS UNSIGNED) DESC LIMIT 20;";
-    public static final String QUERY_TOP_NV = "SELECT id, CAST( split_str(split_str(data_task,',',1),'[',2)  AS UNSIGNED) AS nv FROM player ORDER BY CAST( split_str(split_str(data_task,',',1),'[',2)  AS UNSIGNED) DESC, CAST(split_str(data_task,',',2)  AS UNSIGNED) DESC, CAST( split_str(data_point,',',2) AS UNSIGNED) DESC LIMIT 20;";
+    public static final String QUERY_TOP_NV = "SELECT player.id, CAST( split_str(split_str(data_task,',',1),'[',2)  AS UNSIGNED) AS nv FROM player JOIN account on player.account_id = account.id WHERE account.create_time > Date('2023-5-1') ORDER BY CAST( split_str(split_str(data_task,',',1),'[',2)  AS UNSIGNED) DESC, CAST(split_str(data_task,',',2)  AS UNSIGNED) DESC, CAST( split_str(data_point,',',2) AS UNSIGNED) DESC LIMIT 20;";
     //    public static final String queryTopSK = "SELECT id, CAST( split_str( data_inventory,',',5)  AS UNSIGNED) AS event FROM player ORDER BY CAST( split_str( data_inventory,',',5)  AS UNSIGNED) DESC LIMIT 20;";
 //    public static final String queryTopPVP = "SELECT id, CAST( pointPvp AS UNSIGNED) AS pointPvp FROM player ORDER BY CAST( pointPvp AS UNSIGNED) DESC LIMIT 50;";
 //    public static final String queryTopNHS = "SELECT id, CAST( NguHanhSonPoint AS UNSIGNED) AS nhs FROM player ORDER BY CAST( NguHanhSonPoint AS UNSIGNED) DESC LIMIT 20;";
@@ -94,7 +94,7 @@ public class Manager {
 //    public static List<TOP> topPVP;
 //    public static List<TOP> topNHS;
     public static List<TOP> TOP_NAP;
-    public static long TIME_READ_TOP = 15;
+    public static long TIME_READ_TOP = 1;
     public static final int[] ID_CLOTHES_GOD = {555, 557, 559, 556, 558, 560, 562, 564, 566, 563, 565, 567, 561};
     public static final byte[] itemIds_NR_SB = {16, 17, 15};
     public static final short[] itemDC12 = {233, 237, 241, 245, 249, 253, 257, 261, 265, 269, 273, 277};
@@ -128,7 +128,7 @@ public class Manager {
         try {
             loadProperties();
         } catch (IOException ex) {
-            Logger.logException(Manager.class, ex, "L?i load properites");
+            Logger.logException(Manager.class, ex, "Lỗi load properites");
             System.exit(0);
         }
         this.loadDatabase();
