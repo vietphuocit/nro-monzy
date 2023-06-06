@@ -1029,6 +1029,7 @@ public class NPoint {
                     tiemNang += (tiemNang * 5 / 100);
                 }
             }
+            tiemNang *= Manager.RATE_EXP;
             long tn = tiemNang;
             if (this.player.charms.tdTriTue > System.currentTimeMillis()) {
                 tiemNang += tn;
@@ -1047,7 +1048,6 @@ public class NPoint {
                     tiemNang += tn * 2;
                 }
             }
-            tiemNang += tn * Manager.RATE_EXP;
             if (MapService.gI().isnguhs(this.player.zone.map.mapId)) {
                 tiemNang *= 10;
             }

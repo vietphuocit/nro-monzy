@@ -934,7 +934,7 @@ public class Manager {
                 return clan;
             }
         }
-        throw new Exception("Không t?m th?y clan id: " + id);
+        throw new Exception("Không tìm thấy clan id: " + id);
     }
 
     public static void addClan(Clan clan) {

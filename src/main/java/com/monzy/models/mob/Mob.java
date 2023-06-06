@@ -61,7 +61,7 @@ public class Mob {
     }
 
     public void setTiemNang() {
-        this.maxTiemNang = (long) this.point.getHpFull() * (this.pTiemNang + Util.nextInt(1, 2)) / 100;
+        this.maxTiemNang = (long) this.point.getHpFull() * (this.pTiemNang + Util.nextInt(-2, 2)) / 100;
     }
 
     private long lastTimeAttackPlayer;
