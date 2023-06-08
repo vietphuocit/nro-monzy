@@ -302,29 +302,40 @@ public class Mob {
         return itemReward;
     }
 
+    public float getRateTrangBi(int level) {
+        float dropRate = 2f - (level - 2.0f) * 0.5f;
+        if (dropRate < 0.2) {
+            dropRate = 0.2f;
+        }
+        return dropRate;
+    }
+
     public List<ItemMap> getItemMobReward(Player player, int x) {
         List<ItemMap> list = new ArrayList<>();
         // đồ thường + skh
-        if (Util.isTrue(5, 100) && level < 19 && level > 1) {
-            short itemId;
-            if (Util.isTrue(4, 100)) {
-                itemId = Manager.IDS_RADAR[Math.min(11, level - 2)];
-            } else {
-                itemId = Manager.IDS_TRANG_BI_SHOP[player.gender][Util.nextInt(0, 3)][Math.min(11, level - 2)];
+        if (level < 19 && level > 1) {
+            float rateTrangBi = getRateTrangBi(Math.min(level, 13));
+            if (Util.isTrue(rateTrangBi, 100)) {
+                short itemId;
+                if (Util.isTrue(4, 100)) {
+                    itemId = Manager.IDS_RADAR[Math.min(11, level - 2)];
+                } else {
+                    itemId = Manager.IDS_TRANG_BI_SHOP[player.gender][Util.nextInt(0, 3)][Math.min(11, level - 2)];
+                }
+                ItemMap itemMap = new ItemMap(zone, itemId, 1, x, player.location.y, player.id);
+                itemMap.options.addAll(ItemService.gI().getListOptionItemShop(itemId));
+                if (Util.isTrue(2, 1000) && MapService.gI().isMapUpSKH(zone.map.mapId)) {
+                    int skhId = ItemService.gI().randomSKHId(player.gender);
+                    itemMap.options.add(new Item.ItemOption(skhId, 1));
+                    itemMap.options.add(new Item.ItemOption(skhId + 9, 1));
+                    itemMap.options.add(new Item.ItemOption(30, 1));
+                }
+                itemMap.options.add(new Item.ItemOption(107, ItemService.gI().randomStarModReward()));
+                list.add(itemMap);
             }
-            ItemMap itemMap = new ItemMap(zone, itemId, 1, x, player.location.y, player.id);
-            itemMap.options.addAll(ItemService.gI().getListOptionItemShop(itemId));
-            if (Util.isTrue(2, 1000) && MapService.gI().isMapUpSKH(zone.map.mapId)) {
-                int skhId = ItemService.gI().randomSKHId(player.gender);
-                itemMap.options.add(new Item.ItemOption(skhId, 1));
-                itemMap.options.add(new Item.ItemOption(skhId + 9, 1));
-                itemMap.options.add(new Item.ItemOption(30, 1));
-            }
-            itemMap.options.add(new Item.ItemOption(107, ItemService.gI().randomStarModReward()));
-            list.add(itemMap);
         }
         // đồ thần linh
-        if (MapService.gI().isMapCold(this.zone.map) && Util.isTrue(5, 1000)) {
+        if (MapService.gI().isMapCold(this.zone.map) && Util.isTrue(1, 200)) {
             int idItem = Manager.IDS_DO_THAN[Util.nextInt(Manager.IDS_DO_THAN.length)];
             Item item = ItemService.gI().randomCSDTL(idItem, ItemService.MOB_DROP);
             ItemMap itemMap = new ItemMap(zone, idItem, 1, x, player.location.y, player.id);
