@@ -14,7 +14,6 @@ public class Fide extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        super.rewardItem(plKill, 16);
         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
     }
 

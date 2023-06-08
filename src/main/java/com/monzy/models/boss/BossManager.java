@@ -6,6 +6,7 @@ import com.monzy.models.boss.list_boss.android.*;
 import com.monzy.models.boss.list_boss.black.Black;
 import com.monzy.models.boss.list_boss.cell.*;
 import com.monzy.models.boss.list_boss.cooler.Cooler;
+import com.monzy.models.boss.list_boss.cooler.Cooler2;
 import com.monzy.models.boss.list_boss.doraemon.*;
 import com.monzy.models.boss.list_boss.fide.Fide;
 import com.monzy.models.boss.list_boss.hanhtinhberus.Bill;
@@ -183,6 +184,8 @@ public class BossManager implements Runnable {
                     return new Doraemon();
                 case BossID.COOLER:
                     return new Cooler();
+                case BossID.COOLER_2:
+                    return new Cooler2();
                 case BossID.BLACK:
                     return new Black();
                 case BossID.BILL:

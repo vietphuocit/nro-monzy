@@ -711,12 +711,12 @@ public class BossesData {
     /**
      * Boss Cooler
      */
-    public static final BossData COOLER_1 = new BossData(
+    public static final BossData COOLER = new BossData(
             "Cooler", //name
             ConstPlayer.TRAI_DAT, //gender
             new short[]{317, 318, 319, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
-            300000, //dame
-            new int[]{300000000}, //hp
+            500000, //dame
+            new int[]{2000000000}, //hp
             new int[]{110}, //map join
             new int[][]{
                     {Skill.KAMEJOKO, 7, 1000},
@@ -726,14 +726,15 @@ public class BossesData {
             new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, //text chat 1
             new String[]{}, //text chat 2
             new String[]{}, //text chat 3
-            REST_15_M
+            REST_15_M,
+            new int[]{BossID.COOLER_2}
     );
     public static final BossData COOLER_2 = new BossData(
             "Cooler 2", //name
             ConstPlayer.TRAI_DAT, //gender
             new short[]{320, 321, 322, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
-            300000, //dame
-            new int[]{600000000}, //hp
+            500000, //dame
+            new int[]{2000000000}, //hp
             new int[]{110}, //map join
             new int[][]{
                     {Skill.KAMEJOKO, 7, 1000},
@@ -743,7 +744,7 @@ public class BossesData {
             new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, //text chat 1
             new String[]{}, //text chat 2
             new String[]{}, //text chat 3
-            TypeAppear.ANOTHER_LEVEL
+            TypeAppear.APPEAR_WITH_ANOTHER
     );
     /**
      * BOSS Black
@@ -753,7 +754,7 @@ public class BossesData {
             ConstPlayer.XAYDA, //gender
             new short[]{550, 880, 881, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
             500000, //dame
-            new int[]{1500000000}, //hp
+            new int[]{2000000000}, //hp
             new int[]{102, 92, 93, 94, 96, 97, 98, 99, 100}, //map join
             new int[][]{
                     {Skill.KAMEJOKO, 7, 1000},

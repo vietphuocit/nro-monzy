@@ -15,7 +15,7 @@ public class Doraemon extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        super.rewardItem(plKill, 1142, 15, 16);
+        super.rewardItem(plKill, 1142, 16);
         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
     }
 

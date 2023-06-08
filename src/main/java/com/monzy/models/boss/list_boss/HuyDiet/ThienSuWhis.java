@@ -17,15 +17,15 @@ public class ThienSuWhis extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        int[] manhthuong = new int[]{1142, 1142};
-        int[] manhhiem = new int[]{1142, 1142, 1142};
-        int randomAWJ = new Random().nextInt(manhthuong.length);
-        int randomGR = new Random().nextInt(manhhiem.length);
-        if (Util.isTrue(95, 100)) {
-            Service.gI().dropItemMap(this.zone, Util.manhTS(zone, manhthuong[randomAWJ], 1, this.location.x, this.location.y, plKill.id));
-        } else {
-            Service.gI().dropItemMap(this.zone, Util.manhTS(zone, manhhiem[randomGR], 1, this.location.x, this.location.y, plKill.id));
-        }
+//        int[] manhthuong = new int[]{1142, 1142};
+//        int[] manhhiem = new int[]{1142, 1142, 1142};
+//        int randomAWJ = new Random().nextInt(manhthuong.length);
+//        int randomGR = new Random().nextInt(manhhiem.length);
+//        if (Util.isTrue(95, 100)) {
+//            Service.gI().dropItemMap(this.zone, Util.manhTS(zone, manhthuong[randomAWJ], 1, this.location.x, this.location.y, plKill.id));
+//        } else {
+//            Service.gI().dropItemMap(this.zone, Util.manhTS(zone, manhhiem[randomGR], 1, this.location.x, this.location.y, plKill.id));
+//        }
     }
 
     @Override

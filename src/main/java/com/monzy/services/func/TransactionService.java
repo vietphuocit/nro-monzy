@@ -113,7 +113,7 @@ public class TransactionService implements Runnable {
                     }
                     break;
                 case LOCK_TRADE:
-                    if (Maintenance.isRuning) {
+                    if (Maintenance.isRunning) {
                         trade.cancelTrade();
                         break;
                     }
@@ -122,7 +122,7 @@ public class TransactionService implements Runnable {
                     }
                     break;
                 case ACCEPT:
-                    if (Maintenance.isRuning) {
+                    if (Maintenance.isRunning) {
                         trade.cancelTrade();
                         break;
                     }

@@ -16,7 +16,6 @@ public class BossID {
     public static final int TIEU_DOI_TRUONG = -27;
     public static final int TDST = -223;
     public static final int FIDE = -28;
-    public static final int COOLER = -29;
     public static final int ANDROID_19 = -30;
     public static final int DR_KORE = -31;
     public static final int ANDROID_13 = -32;
@@ -92,9 +91,11 @@ public class BossID {
     public static final int SO_1_1 = -258;
     public static final int TIEU_DOI_TRUONG_1 = -259;
     public static final int TDST_1 = -260;
-    public static final int AN_TROM = -261;
-    public static final int BILL = -262;
-    public static final int WISH = -263;
+    public static final int AN_TROM = -2000;
+    public static final int BILL = -2001;
+    public static final int WISH = -2002;
+    public static final int COOLER = -2003;
+    public static final int COOLER_2 = -2004;
 
 }
 

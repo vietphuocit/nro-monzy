@@ -128,7 +128,7 @@ public class MySession extends Session {
             Service.gI().sendThongBaoOK(this, "Server này chỉ để lưu dữ liệu\nVui lòng qua server khác");
             return;
         }
-        if (Maintenance.isRuning) {
+        if (Maintenance.isRunning) {
             Service.gI().sendThongBaoOK(this, "Server đang trong thời gian bảo trì, vui lòng quay lại sau");
             return;
         }

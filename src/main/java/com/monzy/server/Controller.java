@@ -211,7 +211,7 @@ public class Controller implements IMessageHandler {
                     }
                     break;
                 case 6: //buy item
-                    if (player != null && !Maintenance.isRuning) {
+                    if (player != null && !Maintenance.isRunning) {
                         byte typeBuy = _msg.reader().readByte();
                         int tempId = _msg.reader().readShort();
                         int quantity = 0;
@@ -223,7 +223,7 @@ public class Controller implements IMessageHandler {
                     }
                     break;
                 case 7: //sell item
-                    if (player != null && !Maintenance.isRuning) {
+                    if (player != null && !Maintenance.isRunning) {
                         int action1 = _msg.reader().readByte();
                         if (action1 == 0) {
                             ShopServiceNew.gI().showConfirmSellItem(player, _msg.reader().readByte(),
@@ -632,7 +632,7 @@ public class Controller implements IMessageHandler {
     }
 
     public void createChar(MySession session, Message msg) {
-        if (!Maintenance.isRuning) {
+        if (!Maintenance.isRunning) {
             MonzyResultSet rs = null;
             boolean created = false;
             try {

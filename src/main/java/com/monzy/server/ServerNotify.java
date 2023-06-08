@@ -34,7 +34,7 @@ public class ServerNotify extends Thread {
 
     @Override
     public void run() {
-        while (!Maintenance.isRuning) {
+        while (!Maintenance.isRunning) {
             try {
                 while (!notifies.isEmpty()) {
                     sendThongBaoBenDuoi(notifies.remove(0));

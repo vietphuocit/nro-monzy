@@ -14,26 +14,26 @@ import java.util.HashMap;
 /**
  * @author Administrator
  */
-public class MaQuaTang {
+public class GiftCode {
 
     String code;
     int countLeft;
-    public HashMap<Integer, Integer> detail = new HashMap<>();
-    public ArrayList<Integer> listIdPlayer = new ArrayList<>();
+    public HashMap<Integer, Integer> details = new HashMap<>();
+    public ArrayList<Integer> idsPlayer = new ArrayList<>();
     public ArrayList<ItemOption> option = new ArrayList<>();
-    Timestamp datecreate;
-    Timestamp dateexpired;
+    Timestamp dateCreate;
+    Timestamp dateExpired;
 
     public boolean isUsedGiftCode(int idPlayer) {
-        return listIdPlayer.contains(idPlayer);
+        return idsPlayer.contains(idPlayer);
     }
 
     public void addPlayerUsed(int idPlayer) {
-        listIdPlayer.add(idPlayer);
+        idsPlayer.add(idPlayer);
     }
 
     public boolean timeCode() {
-        return this.datecreate.getTime() > this.dateexpired.getTime();
+        return this.dateCreate.getTime() > this.dateExpired.getTime();
     }
 
 }

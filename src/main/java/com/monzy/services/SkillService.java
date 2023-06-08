@@ -335,32 +335,21 @@ public class SkillService {
             case Skill.HUYT_SAO:
                 int tileHP = SkillUtil.getPercentHPHuytSao(player.playerSkill.skillSelect.point);
                 if (player.zone != null) {
-                    if (!MapService.gI().isMapOffline(player.zone.map.mapId)) {
-                        List<Player> playersMap = player.zone.getHumanoids();
-                        for (Player pl : playersMap) {
-                            if (pl.effectSkill.useTroi) {
-                                EffectSkillService.gI().removeUseTroi(pl);
-                            }
-                            if (!pl.isBoss && pl.gender != ConstPlayer.NAMEC && player.cFlag == pl.cFlag) {
-                                EffectSkillService.gI().setStartHuytSao(pl, tileHP);
-                                EffectSkillService.gI().sendEffectPlayer(pl, pl, EffectSkillService.TURN_ON_EFFECT, EffectSkillService.HUYT_SAO_EFFECT);
-                                pl.nPoint.calPoint();
-                                pl.nPoint.setHp(pl.nPoint.hp + (int) ((long) pl.nPoint.hp * tileHP / 100));
-                                Service.gI().point(pl);
-                                Service.gI().Send_Info_NV(pl);
-                                ItemTimeService.gI().sendItemTime(pl, 3781, 30);
-                                PlayerService.gI().sendInfoHpMp(pl);
-                            }
+                    List<Player> playersMap = player.zone.getHumanoids();
+                    for (Player pl : playersMap) {
+                        if (pl.effectSkill.useTroi) {
+                            EffectSkillService.gI().removeUseTroi(pl);
                         }
-                    } else {
-                        EffectSkillService.gI().setStartHuytSao(player, tileHP);
-                        EffectSkillService.gI().sendEffectPlayer(player, player, EffectSkillService.TURN_ON_EFFECT, EffectSkillService.HUYT_SAO_EFFECT);
-                        player.nPoint.calPoint();
-                        player.nPoint.setHp(player.nPoint.hp + (int) ((long) player.nPoint.hp * tileHP / 100));
-                        Service.gI().point(player);
-                        Service.gI().Send_Info_NV(player);
-                        ItemTimeService.gI().sendItemTime(player, 3781, 30);
-                        PlayerService.gI().sendInfoHpMp(player);
+                        if (!pl.isBoss && pl.gender != ConstPlayer.NAMEC && player.cFlag == pl.cFlag) {
+                            EffectSkillService.gI().setStartHuytSao(pl, tileHP);
+                            EffectSkillService.gI().sendEffectPlayer(pl, pl, EffectSkillService.TURN_ON_EFFECT, EffectSkillService.HUYT_SAO_EFFECT);
+                            pl.nPoint.calPoint();
+                            pl.nPoint.setHp(pl.nPoint.hp + (int) ((long) pl.nPoint.hp * tileHP / 100));
+                            Service.gI().point(pl);
+                            Service.gI().Send_Info_NV(pl);
+                            ItemTimeService.gI().sendItemTime(pl, 3781, 30);
+                            PlayerService.gI().sendInfoHpMp(pl);
+                        }
                     }
                 }
                 afterUseSkill(player, player.playerSkill.skillSelect.template.id);
@@ -371,7 +360,6 @@ public class SkillService {
                 break;
             case Skill.TU_SAT:
                 if (!player.playerSkill.prepareTuSat) {
-                    //gá»“ng tá»± sÃ¡t
                     player.playerSkill.prepareTuSat = true;
                     player.playerSkill.lastTimePrepareTuSat = System.currentTimeMillis();
                     sendPlayerPrepareBom(player, 2000);
@@ -381,7 +369,6 @@ public class SkillService {
                         player.playerSkill.prepareTuSat = false;
                         return;
                     }
-                    //ná»•
                     player.playerSkill.prepareTuSat = !player.playerSkill.prepareTuSat;
                     int rangeBom = SkillUtil.getRangeBom(player.playerSkill.skillSelect.point);
                     int dame = player.nPoint.hpMax;
@@ -418,42 +405,40 @@ public class SkillService {
     }
 
     private void useSkillBuffToPlayer(Player player, Player plTarget) {
-        switch (player.playerSkill.skillSelect.template.id) {
-            case Skill.TRI_THUONG:
-                List<Player> players = new ArrayList();
-                int percentTriThuong = SkillUtil.getPercentTriThuong(player.playerSkill.skillSelect.point);
-                int point = player.playerSkill.skillSelect.point;
-                if (canHsPlayer(player, plTarget)) {
-                    players.add(plTarget);
-                    List<Player> playersMap = player.zone.getNotBosses();
-                    for (Player pl : playersMap) {
-                        if (!pl.equals(plTarget)) {
-                            if (canHsPlayer(player, plTarget) && Util.getDistance(player, pl) <= 300) {
-                                players.add(pl);
-                            }
+        if (player.playerSkill.skillSelect.template.id == Skill.TRI_THUONG) {
+            List<Player> players = new ArrayList<>();
+            int percentTriThuong = SkillUtil.getPercentTriThuong(player.playerSkill.skillSelect.point);
+            int point = player.playerSkill.skillSelect.point;
+            if (canHsPlayer(player, plTarget)) {
+                players.add(plTarget);
+                List<Player> playersMap = player.zone.getNotBosses();
+                for (Player pl : playersMap) {
+                    if (!pl.equals(plTarget)) {
+                        if (canHsPlayer(player, plTarget) && Util.getDistance(player, pl) <= 300) {
+                            players.add(pl);
                         }
                     }
-                    playerAttackPlayer(player, plTarget, false);
-                    for (Player pl : players) {
-                        boolean isDie = pl.isDie();
-                        int hpHoi = pl.nPoint.hpMax * percentTriThuong / 100;
-                        int mpHoi = pl.nPoint.mpMax * percentTriThuong / 100;
-                        pl.nPoint.addHp(hpHoi);
-                        pl.nPoint.addMp(mpHoi);
-                        if (isDie) {
-                            Service.gI().hsChar(pl, hpHoi, mpHoi);
-                            PlayerService.gI().sendInfoHpMp(pl);
-                        } else {
-                            Service.gI().Send_Info_NV(pl);
-                            PlayerService.gI().sendInfoHpMp(pl);
-                        }
-                    }
-                    int hpHoiMe = player.nPoint.hp * percentTriThuong / 100;
-                    player.nPoint.addHp(hpHoiMe);
-                    PlayerService.gI().sendInfoHp(player);
                 }
-                afterUseSkill(player, player.playerSkill.skillSelect.template.id);
-                break;
+                playerAttackPlayer(player, plTarget, false);
+                for (Player pl : players) {
+                    boolean isDie = pl.isDie();
+                    int hpHoi = pl.nPoint.hpMax * percentTriThuong / 100;
+                    int mpHoi = pl.nPoint.mpMax * percentTriThuong / 100;
+                    pl.nPoint.addHp(hpHoi);
+                    pl.nPoint.addMp(mpHoi);
+                    if (isDie) {
+                        Service.gI().hsChar(pl, hpHoi, mpHoi);
+                        PlayerService.gI().sendInfoHpMp(pl);
+                    } else {
+                        Service.gI().Send_Info_NV(pl);
+                        PlayerService.gI().sendInfoHpMp(pl);
+                    }
+                }
+                int hpHoiMe = player.nPoint.hp * percentTriThuong / 100;
+                player.nPoint.addHp(hpHoiMe);
+                PlayerService.gI().sendInfoHp(player);
+            }
+            afterUseSkill(player, player.playerSkill.skillSelect.template.id);
         }
     }
 

@@ -3,16 +3,19 @@ package com.monzy.models.boss;
 import com.monzy.consts.ConstPlayer;
 import com.monzy.models.boss.iboss.IBossNew;
 import com.monzy.models.boss.iboss.IBossOutfit;
+import com.monzy.models.item.Item;
 import com.monzy.models.map.ItemMap;
 import com.monzy.models.map.Zone;
 import com.monzy.models.player.Player;
 import com.monzy.models.skill.Skill;
+import com.monzy.server.Manager;
 import com.monzy.server.ServerNotify;
 import com.monzy.services.*;
 import com.monzy.services.func.ChangeMapService;
 import com.monzy.utils.SkillUtil;
 import com.monzy.utils.Util;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -540,15 +543,29 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
         System.out.println("Boss " + this.name + " vừa bị tiêu diệt");
     }
 
-    public void rewardItem(Player plKill, int... ids) {
+    public boolean rewardItem(Player plKill, int... ids) {
         for (int i = 0; i < ids.length; i++) {
             if (Util.isTrue(getRatioById(ids[i]), 100)) {
                 ItemMap it = new ItemMap(this.zone, ids[i], 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
                         this.location.y - 24), plKill.id);
                 Service.gI().dropItemMap(this.zone, it);
-                return;
+                return true;
             }
         }
+        return false;
+    }
+
+    public boolean rewardDTL(Player plKill) {
+        int randomIdDoThan = Arrays.stream(Manager.IDS_DO_THAN).skip((int) (9 * Math.random())).findFirst().getAsInt();
+        if (Util.isTrue(20, 100)) {
+            Item item = ItemService.gI().randomCSDTL(randomIdDoThan, ItemService.BOSS_DROP);
+            ItemMap itemMap = new ItemMap(zone, randomIdDoThan, 1, this.location.x, this.location.y, plKill.id);
+            itemMap.options.clear();
+            itemMap.options.addAll(item.itemOptions);
+            Service.gI().dropItemMap(this.zone, itemMap);
+            return true;
+        }
+        return false;
     }
 
     public int getRatioById(int id) {

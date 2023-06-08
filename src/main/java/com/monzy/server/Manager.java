@@ -95,27 +95,32 @@ public class Manager {
 //    public static List<TOP> topNHS;
     public static List<TOP> TOP_NAP;
     public static long TIME_READ_TOP = 1;
-    public static final int[] ID_CLOTHES_GOD = {555, 557, 559, 556, 558, 560, 562, 564, 566, 563, 565, 567, 561};
     public static final byte[] itemIds_NR_SB = {16, 17, 15};
     public static final short[] itemDC12 = {233, 237, 241, 245, 249, 253, 257, 261, 265, 269, 273, 277};
     public static final short[] THUC_AN = {663, 664, 665, 666, 667};
     public static final short[] DA_NANG_CAP = {220, 221, 222, 223, 224};
-    public static final short[] IDS_AO_TD = {138, 139, 230, 231, 232, 233, 555};
-    public static final short[] IDS_QUAN_TD = {142, 143, 242, 243, 244, 245, 556};
-    public static final short[] IDS_GANG_TD = {146, 147, 254, 255, 256, 257, 562};
-    public static final short[] IDS_GIAY_TD = {150, 151, 266, 267, 268, 269, 563};
-    public static final short[] IDS_AO_XD = {170, 171, 238, 239, 240, 241, 559};
-    public static final short[] IDS_QUAN_XD = {174, 175, 250, 251, 252, 253, 560};
-    public static final short[] IDS_GANG_XD = {178, 179, 262, 263, 264, 265, 566};
-    public static final short[] IDS_GIAY_XD = {182, 183, 274, 275, 276, 277, 567};
-    public static final short[] IDS_AO_NM = {154, 155, 234, 235, 236, 237, 557};
-    public static final short[] IDS_QUAN_NM = {158, 159, 246, 247, 248, 249, 558};
-    public static final short[] IDS_GANG_NM = {162, 163, 258, 259, 260, 261, 564};
-    public static final short[] IDS_GIAY_NM = {166, 167, 270, 271, 272, 273, 565};
-    public static final short[] IDS_RADAR = {186, 187, 278, 279, 280, 281, 561};
-    public static final short[][][] IDS_TRANG_BI = {{IDS_AO_TD, IDS_QUAN_TD, IDS_GANG_TD, IDS_GIAY_TD}, {IDS_AO_NM, IDS_QUAN_NM, IDS_GANG_NM, IDS_GIAY_NM}, {IDS_AO_XD, IDS_QUAN_XD, IDS_GANG_XD, IDS_GIAY_XD}};
+    // id đồ shop
+    public static final short[] IDS_AO_TD = {0, 33, 3, 34, 136, 137, 138, 139, 230, 231, 232, 233};
+    public static final short[] IDS_QUAN_TD = {6, 35, 9, 36, 140, 141, 142, 143, 242, 243, 244, 245};
+    public static final short[] IDS_GANG_TD = {21, 24, 37, 38, 144, 145, 146, 147, 254, 255, 256, 257};
+    public static final short[] IDS_GIAY_TD = {27, 30, 39, 40, 148, 149, 150, 151, 266, 267, 268, 269};
+    public static final short[] IDS_AO_XD = {2, 49, 5, 50, 168, 169, 170, 171, 238, 239, 240, 241};
+    public static final short[] IDS_QUAN_XD = {8, 51, 11, 52, 172, 173, 174, 175, 250, 251, 252, 253};
+    public static final short[] IDS_GANG_XD = {23, 53, 26, 54, 176, 177, 178, 179, 262, 263, 264, 265};
+    public static final short[] IDS_GIAY_XD = {29, 55, 32, 56, 180, 181, 182, 183, 274, 275, 276, 277};
+    public static final short[] IDS_AO_NM = {1, 41, 4, 42, 152, 153, 154, 155, 234, 235, 236, 237};
+    public static final short[] IDS_QUAN_NM = {7, 43, 10, 44, 156, 157, 158, 159, 246, 247, 248, 249};
+    public static final short[] IDS_GANG_NM = {22, 46, 25, 45, 160, 161, 162, 163, 258, 259, 260, 261};
+    public static final short[] IDS_GIAY_NM = {28, 47, 31, 48, 164, 165, 166, 167, 270, 271, 272, 273};
+    public static final short[] IDS_RADAR = {12, 57, 58, 59, 184, 185, 186, 187, 278, 279, 280, 281};
+    public static final short[][][] IDS_TRANG_BI_SHOP = {{IDS_AO_TD, IDS_QUAN_TD, IDS_GANG_TD, IDS_GIAY_TD}, {IDS_AO_NM, IDS_QUAN_NM, IDS_GANG_NM, IDS_GIAY_NM}, {IDS_AO_XD, IDS_QUAN_XD, IDS_GANG_XD, IDS_GIAY_XD}};
+    // id đồ thần
+    public static final int[] IDS_DO_THAN = {555, 557, 559, 556, 558, 560, 562, 564, 566, 563, 565, 567, 561};
+    // id đồ hủy diệt
     public static final short ID_RADAR_HD = 656;
     public static final short[][] IDS_DO_HUY_DIET = {{650, 651, 657, 658}, {652, 653, 659, 660}, {654, 655, 661, 662}};
+    // id đồ thiên sứ
+    public static final short[][] IDS_DO_THIEN_SU = {{1048, 1051, 1054, 1057, 1060}, {1049, 1052, 1055, 1058, 1061}, {1050, 1053, 1056, 1059, 1062}};
 
     public static Manager gI() {
         if (i == null) {
@@ -138,15 +143,11 @@ public class Manager {
     }
 
     private void initMap() {
-        int[][] tileTyleTop = readTileIndexTileType(ConstMap.TILE_TOP);
+        int[][] tileTyleTop = MapService.gI().readTileIndexTileType(ConstMap.TILE_TOP);
         for (MapTemplate mapTemp : MAP_TEMPLATES) {
-            int[][] tileMap = readTileMap(mapTemp.id);
+            int[][] tileMap = MapService.gI().readTileMap(mapTemp.id);
             int[] tileTop = tileTyleTop[mapTemp.tileId - 1];
-            com.monzy.models.map.Map map = new com.monzy.models.map.Map(mapTemp.id,
-                    mapTemp.name, mapTemp.planetId, mapTemp.tileId, mapTemp.bgId,
-                    mapTemp.bgType, mapTemp.type, tileMap, tileTop,
-                    mapTemp.zones,
-                    mapTemp.maxPlayerPerZone, mapTemp.wayPoints);
+            com.monzy.models.map.Map map = new com.monzy.models.map.Map(mapTemp.id, mapTemp.name, mapTemp.planetId, mapTemp.tileId, mapTemp.bgId, mapTemp.bgType, mapTemp.type, tileMap, tileTop, mapTemp.zones, mapTemp.maxPlayerPerZone, mapTemp.wayPoints);
             MAPS.add(map);
             map.initMob(mapTemp.mobTemp, mapTemp.mobLevel, mapTemp.mobHp, mapTemp.mobX, mapTemp.mobY);
             map.initNpc(mapTemp.npcId, mapTemp.npcX, mapTemp.npcY);
@@ -154,55 +155,53 @@ public class Manager {
         }
         Logger.success("Init map thành công!\n");
     }
-
-    public static void loadPart() {
-        JSONValue jv = new JSONValue();
-        JSONArray dataArray = null;
-        JSONObject dataObject = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try (Connection con = Database.getConnection()) {
-            //load part
-            ps = con.prepareStatement("select * from part", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            rs = ps.executeQuery();
-            List<Part> parts = new ArrayList<>();
-            while (rs.next()) {
-                Part part = new Part();
-                part.id = rs.getShort("id");
-                part.type = rs.getByte("type");
-                dataArray = (JSONArray) JSONValue.parse(rs.getString("data").replaceAll("\\\"", ""));
-                for (int j = 0; j < dataArray.size(); j++) {
-                    JSONArray pd = (JSONArray) JSONValue.parse(String.valueOf(dataArray.get(j)));
-                    part.partDetails.add(new PartDetail(Short.parseShort(String.valueOf(pd.get(0))),
-                            Byte.parseByte(String.valueOf(pd.get(1))),
-                            Byte.parseByte(String.valueOf(pd.get(2)))));
-                    pd.clear();
-                }
-                parts.add(part);
-                dataArray.clear();
-            }
-            DataOutputStream dos = new DataOutputStream(new FileOutputStream("data/monzy/update_data/part"));
-            dos.writeShort(parts.size());
-            for (Part part : parts) {
-                dos.writeByte(part.type);
-                for (PartDetail partDetail : part.partDetails) {
-                    dos.writeShort(partDetail.iconId);
-                    dos.writeByte(partDetail.dx);
-                    dos.writeByte(partDetail.dy);
-                }
-            }
-            dos.flush();
-            dos.close();
-            Logger.success("Load part thành công (" + parts.size() + ")\n");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
+    /**
+     * public static void loadPart() {
+     * JSONArray dataArray;
+     * PreparedStatement ps;
+     * ResultSet rs;
+     * try (Connection con = Database.getConnection()) {
+     * //load part
+     * ps = con.prepareStatement("select * from part", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+     * rs = ps.executeQuery();
+     * List<Part> parts = new ArrayList<>();
+     * while (rs.next()) {
+     * Part part = new Part();
+     * part.id = rs.getShort("id");
+     * part.type = rs.getByte("type");
+     * dataArray = (JSONArray) JSONValue.parse(rs.getString("data").replaceAll("\\\"", ""));
+     * for (int j = 0; j < dataArray.size(); j++) {
+     * JSONArray pd = (JSONArray) JSONValue.parse(String.valueOf(dataArray.get(j)));
+     * part.partDetails.add(new PartDetail(Short.parseShort(String.valueOf(pd.get(0))),      * Byte.parseByte(String.valueOf(pd.get(1))),      * Byte.parseByte(String.valueOf(pd.get(2)))));
+     * pd.clear();
+     * }
+     * parts.add(part);
+     * dataArray.clear();
+     * }
+     * DataOutputStream dos = new DataOutputStream(new FileOutputStream("data/monzy/update_data/part"));
+     * dos.writeShort(parts.size());
+     * for (Part part : parts) {
+     * dos.writeByte(part.type);
+     * for (PartDetail partDetail : part.partDetails) {
+     * dos.writeShort(partDetail.iconId);
+     * dos.writeByte(partDetail.dx);
+     * dos.writeByte(partDetail.dy);
+     * }
+     * }
+     * dos.flush();
+     * dos.close();
+     * Logger.success("Load part thành công (" + parts.size() + ")\n");
+     * } catch (Exception e) {
+     * e.printStackTrace();
+     * }
+     * }
+     */
+    /**
+     * Load database
+     */
     private void loadDatabase() {
         long st = System.currentTimeMillis();
-        JSONValue jv = new JSONValue();
-        JSONArray dataArray = null;
+        JSONArray dataArray;
         JSONObject dataObject = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -218,9 +217,7 @@ public class Manager {
                 dataArray = (JSONArray) JSONValue.parse(rs.getString("data").replaceAll("\\\"", ""));
                 for (int j = 0; j < dataArray.size(); j++) {
                     JSONArray pd = (JSONArray) JSONValue.parse(String.valueOf(dataArray.get(j)));
-                    part.partDetails.add(new PartDetail(Short.parseShort(String.valueOf(pd.get(0))),
-                            Byte.parseByte(String.valueOf(pd.get(1))),
-                            Byte.parseByte(String.valueOf(pd.get(2)))));
+                    part.partDetails.add(new PartDetail(Short.parseShort(String.valueOf(pd.get(0))), Byte.parseByte(String.valueOf(pd.get(1))), Byte.parseByte(String.valueOf(pd.get(2)))));
                     pd.clear();
                 }
                 parts.add(part);
@@ -834,8 +831,8 @@ public class Manager {
     public void loadProperties() throws IOException {
         Properties properties = new Properties();
         properties.load(new FileInputStream("data/monzy/monzy.properties"));
-        Object value = null;
-        //###Config sv
+        Object value;
+        // Config sv
         if ((value = properties.get("server.monzy.port")) != null) {
             ServerManager.PORT = Integer.parseInt(String.valueOf(value));
         }
@@ -871,70 +868,6 @@ public class Manager {
         if ((value = properties.get("server.monzy.local")) != null) {
             LOCAL = String.valueOf(value).equalsIgnoreCase("true");
         }
-    }
-
-    /**
-     * @param tileTypeFocus tile type: top, bot, left, right...
-     * @return [tileMapId][tileType]
-     */
-    private int[][] readTileIndexTileType(int tileTypeFocus) {
-        int[][] tileIndexTileType = null;
-        try {
-            DataInputStream dis = new DataInputStream(new FileInputStream("data/monzy/map/tile_set_info"));
-            int numTileMap = dis.readByte();
-            tileIndexTileType = new int[numTileMap][];
-            for (int i = 0; i < numTileMap; i++) {
-                int numTileOfMap = dis.readByte();
-                for (int j = 0; j < numTileOfMap; j++) {
-                    int tileType = dis.readInt();
-                    int numIndex = dis.readByte();
-                    if (tileType == tileTypeFocus) {
-                        tileIndexTileType[i] = new int[numIndex];
-                    }
-                    for (int k = 0; k < numIndex; k++) {
-                        int typeIndex = dis.readByte();
-                        if (tileType == tileTypeFocus) {
-                            tileIndexTileType[i][k] = typeIndex;
-                        }
-                    }
-                }
-            }
-        } catch (Exception e) {
-            Logger.logException(MapService.class, e);
-        }
-        return tileIndexTileType;
-    }
-
-    /**
-     * @param mapId mapId
-     * @return tile map for paint
-     */
-    private int[][] readTileMap(int mapId) {
-        int[][] tileMap = null;
-        try {
-            DataInputStream dis = new DataInputStream(new FileInputStream("data/monzy/map/tile_map_data/" + mapId));
-            int w = dis.readByte();
-            int h = dis.readByte();
-            tileMap = new int[h][w];
-            for (int i = 0; i < tileMap.length; i++) {
-                for (int j = 0; j < tileMap[i].length; j++) {
-                    tileMap[i][j] = dis.readByte();
-                }
-            }
-            dis.close();
-        } catch (Exception e) {
-        }
-        return tileMap;
-    }
-
-    //service*******************************************************************
-    public static Clan getClanById(int id) throws Exception {
-        for (Clan clan : CLANS) {
-            if (clan.id == id) {
-                return clan;
-            }
-        }
-        throw new Exception("Không tìm thấy clan id: " + id);
     }
 
     public static void addClan(Clan clan) {

@@ -13,9 +13,10 @@ public class Whis extends Boss {
     }
 
     @Override
-    public boolean chatS() {
-        Boss berus = BossManager.gI().getBosses().stream().filter(boss -> boss.id == BossID.BILL).findFirst().get();
-        return super.chatS() && berus.isDie();
+    public void reward(Player plKill) {
+        if (rewardItem(plKill, 1070, 1069, 1068, 1067, 1066)) {
+        } else if (rewardItem(plKill, 1142)) {
+        }
     }
 
     @Override
@@ -33,8 +34,9 @@ public class Whis extends Boss {
     }
 
     @Override
-    public void reward(Player plKill) {
-        rewardItem(plKill, 1069, 1070, 1066, 1067, 1068, 1142);
+    public boolean chatS() {
+        Boss berus = BossManager.gI().getBosses().stream().filter(boss -> boss.id == BossID.BILL).findFirst().get();
+        return super.chatS() && berus.isDie();
     }
 
 }

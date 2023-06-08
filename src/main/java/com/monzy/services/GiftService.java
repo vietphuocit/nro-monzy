@@ -1,7 +1,7 @@
 package com.monzy.services;
 
-import com.monzy.giftcode.MaQuaTang;
-import com.monzy.giftcode.MaQuaTangManager;
+import com.monzy.giftcode.GiftCode;
+import com.monzy.giftcode.GiftCodeManager;
 import com.monzy.models.item.Item;
 import com.monzy.models.player.Player;
 
@@ -35,7 +35,7 @@ public class GiftService {
     }
 
     public void giftCode(Player player, String code) {
-        MaQuaTang giftcode = MaQuaTangManager.gI().checkUseGiftCode((int) player.id, code);
+        GiftCode giftcode = GiftCodeManager.gI().checkUseGiftCode((int) player.id, code);
         // if(!Maintenance.gI().canUseCode){Service.gI().sendThongBao(player, "Không thể thực hiện lúc này ");return;}
         if (giftcode == null) {
             Service.gI().sendThongBao(player, "Code đã được sử dụng, hoặc không tồn tại!");

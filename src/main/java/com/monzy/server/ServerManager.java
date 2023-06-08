@@ -1,6 +1,7 @@
 package com.monzy.server;
 
 import com.database.Database;
+import com.monzy.giftcode.GiftCodeManager;
 import com.monzy.jdbc.daos.HistoryTransactionDAO;
 import com.monzy.kygui.ShopKyGuiManager;
 import com.monzy.models.boss.BossManager;
@@ -230,7 +231,7 @@ public class ServerManager {
     private void activeGame() {
     }
 
-    public void close(long delay) {
+    public void close() {
         MonzyServer.gI().stopConnect();
         isRunning = false;
         try {
@@ -240,6 +241,7 @@ public class ServerManager {
         }
         Client.gI().close();
         ShopKyGuiManager.gI().save();
+        GiftCodeManager.gI().saveGiftCode();
         Logger.success("SUCCESSFULLY MAINTENANCE!...................................\n");
         System.exit(0);
     }

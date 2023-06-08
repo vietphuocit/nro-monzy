@@ -1000,8 +1000,7 @@ public class CombineServiceNew {
         Item itemManh = player.combineNew.itemsCombine.stream().filter(item -> item.isNotNullItem() && item.isManhTS() && item.quantity >= 5).findFirst().get();
         player.inventory.gold -= COST;
         sendEffectSuccessCombine(player);
-        short[][] itemIds = {{1048, 1051, 1054, 1057, 1060}, {1049, 1052, 1055, 1058, 1061}, {1050, 1053, 1056, 1059, 1062}}; // thứ tự td - 0,nm - 1, xd - 2
-        Item itemTS = ItemService.gI().DoThienSu(itemIds[itemTL.template.gender > 2 ? player.gender : itemTL.template.gender][itemManh.typeIdManh()], itemTL.template.gender);
+        Item itemTS = ItemService.gI().randomCSDTS(Manager.IDS_DO_THIEN_SU[itemTL.template.gender > 2 ? player.gender : itemTL.template.gender][itemManh.typeIdManh()], itemTL.template.gender);
         InventoryServiceNew.gI().addItemBag(player, itemTS);
         InventoryServiceNew.gI().subQuantityItemsBag(player, itemTL, 1);
         InventoryServiceNew.gI().subQuantityItemsBag(player, itemManh, 5);
@@ -1028,25 +1027,22 @@ public class CombineServiceNew {
                 return;
             }
             player.inventory.gold -= COST;
-            Item itemTL = player.combineNew.itemsCombine.stream().filter(Item::isDTL).findFirst().get();
-            List<Item> itemSKH = player.combineNew.itemsCombine.stream().filter(item -> item.isNotNullItem() && item.isDTL()).collect(Collectors.toList());
-            CombineServiceNew.gI().sendEffectOpenItem(player, itemTL.template.iconID, itemTL.template.iconID);
+            Item firstItemCombine = player.combineNew.itemsCombine.stream().filter(Item::isDTL).findFirst().get();
+            List<Item> itemsCombine = player.combineNew.itemsCombine.stream().filter(item -> item.isNotNullItem() && item.isDTL()).collect(Collectors.toList());
+            CombineServiceNew.gI().sendEffectOpenItem(player, firstItemCombine.template.iconID, firstItemCombine.template.iconID);
             short itemId;
-            if (itemTL.template.gender == 3 || itemTL.template.type == 4) {
+            if (firstItemCombine.template.gender == 3 || firstItemCombine.template.type == 4) {
                 itemId = Manager.ID_RADAR_HD;
             } else {
-                itemId = Manager.IDS_DO_HUY_DIET[itemTL.template.gender][itemTL.template.type];
+                itemId = Manager.IDS_DO_HUY_DIET[firstItemCombine.template.gender][firstItemCombine.template.type];
             }
-            Item item = null;
+            Item itemHD = null;
             if (new Item(itemId).isDHD()) {
-                item = Util.DHD(itemId);
-                item.itemOptions.remove(item.itemOptions.stream().filter(itemOption -> itemOption.optionTemplate.id == 21).findFirst().get());
-                item.itemOptions.add(new Item.ItemOption(21, 80));
-                item.itemOptions.add(new Item.ItemOption(30, 0));
+                itemHD = ItemService.gI().randomCSDHD(itemId, player.gender);
             }
-            InventoryServiceNew.gI().addItemBag(player, item);
-            InventoryServiceNew.gI().subQuantityItemsBag(player, itemTL, 1);
-            itemSKH.forEach(i -> InventoryServiceNew.gI().subQuantityItemsBag(player, i, 3));
+            InventoryServiceNew.gI().addItemBag(player, itemHD);
+            InventoryServiceNew.gI().subQuantityItemsBag(player, firstItemCombine, 1);
+            itemsCombine.forEach(i -> InventoryServiceNew.gI().subQuantityItemsBag(player, i, 1));
             InventoryServiceNew.gI().sendItemBags(player);
             Service.gI().sendMoney(player);
             player.combineNew.itemsCombine.clear();
@@ -1076,28 +1072,12 @@ public class CombineServiceNew {
             CombineServiceNew.gI().sendEffectOpenItem(player, itemTS.template.iconID, itemTS.template.iconID);
             short itemId;
             if (itemTS.template.gender == 3 || itemTS.template.type == 4) {
-                itemId = Manager.IDS_RADAR[Util.nextInt(0, 5)];
-                if (player.getSession().bdPlayer > 0 && Util.isTrue(1, (int) (100 / player.getSession().bdPlayer))) {
-                    itemId = Manager.IDS_RADAR[6];
-                }
+                itemId = Manager.IDS_RADAR[Util.nextInt(8, 11)];
             } else {
-                itemId = Manager.IDS_TRANG_BI[itemTS.template.gender][itemTS.template.type][Util.nextInt(0, 5)];
-                if (player.getSession().bdPlayer > 0 && Util.isTrue(1, (int) (100 / player.getSession().bdPlayer))) {
-                    itemId = Manager.IDS_TRANG_BI[itemTS.template.gender][itemTS.template.type][6];
-                }
+                itemId = Manager.IDS_TRANG_BI_SHOP[itemTS.template.gender][itemTS.template.type][Util.nextInt(8, 11)];
             }
             int skhId = ItemService.gI().randomSKHId(itemTS.template.gender);
-            Item item;
-            if (new Item(itemId).isDTL()) {
-                item = Util.ratiItemTL(itemId);
-                item.itemOptions.add(new Item.ItemOption(skhId, 1));
-                item.itemOptions.add(new Item.ItemOption(ItemService.gI().optionIdSKH(skhId), 1));
-                item.itemOptions.remove(item.itemOptions.stream().filter(itemOption -> itemOption.optionTemplate.id == 21).findFirst().get());
-                item.itemOptions.add(new Item.ItemOption(21, 18));
-                item.itemOptions.add(new Item.ItemOption(30, 1));
-            } else {
-                item = ItemService.gI().itemSKH(itemId, skhId);
-            }
+            Item item = ItemService.gI().newItemSKH(itemId, skhId);
             InventoryServiceNew.gI().addItemBag(player, item);
             InventoryServiceNew.gI().subQuantityItemsBag(player, itemTS, 1);
             itemSKH.forEach(i -> InventoryServiceNew.gI().subQuantityItemsBag(player, i, 1));

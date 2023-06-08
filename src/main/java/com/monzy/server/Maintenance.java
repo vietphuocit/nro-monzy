@@ -5,7 +5,7 @@ import com.monzy.utils.Logger;
 
 public class Maintenance extends Thread {
 
-    public static boolean isRuning = false;
+    public static boolean isRunning = false;
     private static Maintenance i;
     private int seconds;
 
@@ -19,10 +19,10 @@ public class Maintenance extends Thread {
         return i;
     }
 
-    public void start(int min) {
-        if (!isRuning) {
-            isRuning = true;
-            this.seconds = min;
+    public void start(int seconds) {
+        if (!isRunning) {
+            isRunning = true;
+            this.seconds = seconds;
             this.start();
         }
     }
@@ -35,11 +35,11 @@ public class Maintenance extends Thread {
                     + " giây nữa, vui lòng thoát game để tránh mất vật phẩm");
             try {
                 Thread.sleep(1000);
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
         }
         Logger.error("BEGIN MAINTENANCE...............................\n");
-        ServerManager.gI().close(100);
+        ServerManager.gI().close();
     }
 
 }

@@ -27,12 +27,14 @@ public class TopService implements Runnable {
     public void run() {
         while (true) {
             try {
-                if(TimeUtil.getCurrMin() % 15 != 0)
-                    continue;
-                Connection con = Database.getConnection();
-                Manager.TOP_NV = Manager.readTop(Manager.QUERY_TOP_NV, con);
-                Manager.TOP_SM = Manager.readTop(Manager.QUERY_TOP_SM, con);
-                Manager.TOP_NAP = Manager.readTop(Manager.QUERY_TOP_NAP, con);
+                try (Connection con = Database.getConnection()) {
+                    Manager.TOP_NV = Manager.readTop(Manager.QUERY_TOP_NV, con);
+                    Manager.TOP_SM = Manager.readTop(Manager.QUERY_TOP_SM, con);
+                    Manager.TOP_NAP = Manager.readTop(Manager.QUERY_TOP_NAP, con);
+                } catch (Exception ignored) {
+                    Logger.error("Lỗi đọc top");
+                }
+                Thread.sleep(1000 * 60 * Manager.TIME_READ_TOP);
             } catch (Exception ignored) {
             }
         }

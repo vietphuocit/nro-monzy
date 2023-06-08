@@ -4,7 +4,7 @@ import com.monzy.consts.ConstMap;
 import com.monzy.consts.ConstNpc;
 import com.monzy.consts.ConstPlayer;
 import com.monzy.consts.ConstTask;
-import com.monzy.giftcode.MaQuaTangManager;
+import com.monzy.giftcode.GiftCodeManager;
 import com.monzy.jdbc.daos.PlayerDAO;
 import com.monzy.kygui.ShopKyGuiService;
 import com.monzy.models.boss.Boss;
@@ -2985,7 +2985,7 @@ public class NpcFactory {
                         break;
                     case ConstNpc.MAKE_MATCH_PVP:
                         // Thách đấu
-                        if (Maintenance.isRuning) {
+                        if (Maintenance.isRunning) {
                             break;
                         }
                         PVPService.gI().sendInvitePVP(player, (byte) select);
@@ -3029,18 +3029,18 @@ public class NpcFactory {
                             IntrinsicService.gI().setTSXD(player);
                         }
                         break;
-                    case ConstNpc.MENU_OPTION_USE_ITEM2000:
-                    case ConstNpc.MENU_OPTION_USE_ITEM2001:
-                    case ConstNpc.MENU_OPTION_USE_ITEM2002:
-                        // Hòm tiếp tế -> Set KH
-                        ItemService.gI().OpenSKH(player, player.iDMark.getIndexMenu(), select);
-                        break;
-                    case ConstNpc.MENU_OPTION_USE_ITEM2003:
-                    case ConstNpc.MENU_OPTION_USE_ITEM2004:
-                    case ConstNpc.MENU_OPTION_USE_ITEM2005:
-                        // Rương hủy diệt -> Set HD
-                        ItemService.gI().OpenDHD(player, player.iDMark.getIndexMenu(), select);
-                        break;
+//                    case ConstNpc.MENU_OPTION_USE_ITEM2000:
+//                    case ConstNpc.MENU_OPTION_USE_ITEM2001:
+//                    case ConstNpc.MENU_OPTION_USE_ITEM2002:
+//                        // Hòm tiếp tế -> Set KH
+//                        ItemService.gI().OpenSKH(player, player.iDMark.getIndexMenu(), select);
+//                        break;
+//                    case ConstNpc.MENU_OPTION_USE_ITEM2003:
+//                    case ConstNpc.MENU_OPTION_USE_ITEM2004:
+//                    case ConstNpc.MENU_OPTION_USE_ITEM2005:
+//                        // Rương hủy diệt -> Set HD
+//                        ItemService.gI().OpenDHD(player, player.iDMark.getIndexMenu(), select);
+//                        break;
                     case ConstNpc.INTRINSIC:
                         // Nội tại
                         if (select == 0) {
@@ -3113,7 +3113,7 @@ public class NpcFactory {
                                 Input.gI().createFormFindPlayer(player);
                                 break;
                             case 2:
-                                MaQuaTangManager.gI().checkInfomationGiftCode(player);
+                                GiftCodeManager.gI().checkInformationGiftCode(player);
                                 break;
                             case 3:
                                 Input.gI().createFormNapCoin(player);
@@ -3126,39 +3126,39 @@ public class NpcFactory {
                     case ConstNpc.MENU_SKH_THIEN_SU_TD:
                         switch (select) {
                             case 0:
-                                ItemService.gI().setKrilin(player);
+                                ItemService.gI().sendSetTSKichHoat(player, 127);
                                 break;
                             case 1:
-                                ItemService.gI().setKaioken(player);
+                                ItemService.gI().sendSetTSKichHoat(player, 128);
                                 break;
                             case 2:
-                                ItemService.gI().setSongoku(player);
+                                ItemService.gI().sendSetTSKichHoat(player, 129);
                                 break;
                         }
                         break;
                     case ConstNpc.MENU_SKH_THIEN_SU_NM:
                         switch (select) {
                             case 0:
-                                ItemService.gI().setPicolo(player);
+                                ItemService.gI().sendSetTSKichHoat(player, 130);
                                 break;
                             case 1:
-                                ItemService.gI().setOcTieu(player);
+                                ItemService.gI().sendSetTSKichHoat(player, 131);
                                 break;
                             case 2:
-                                ItemService.gI().setPikkoroDaimao(player);
+                                ItemService.gI().sendSetTSKichHoat(player, 132);
                                 break;
                         }
                         break;
                     case ConstNpc.MENU_SKH_THIEN_SU_XD:
                         switch (select) {
                             case 0:
-                                ItemService.gI().setKakarot(player);
+                                ItemService.gI().sendSetTSKichHoat(player, 133);
                                 break;
                             case 1:
-                                ItemService.gI().setCadic(player);
+                                ItemService.gI().sendSetTSKichHoat(player, 134);
                                 break;
                             case 2:
-                                ItemService.gI().setNappa(player);
+                                ItemService.gI().sendSetTSKichHoat(player, 135);
                                 break;
                         }
                         break;

@@ -9,9 +9,6 @@ import com.monzy.models.map.Zone;
 import com.monzy.models.player.Location;
 import com.monzy.models.player.Pet;
 import com.monzy.models.player.Player;
-import com.monzy.models.shop.ItemShop;
-import com.monzy.models.shop.Shop;
-import com.monzy.models.shop.TabShop;
 import com.monzy.server.Maintenance;
 import com.monzy.server.Manager;
 import com.monzy.services.*;
@@ -144,7 +141,7 @@ public class Mob {
             } catch (Exception e) {
             }
         }
-        if (this.isDie() && !Maintenance.isRuning) {
+        if (this.isDie() && !Maintenance.isRunning) {
             switch (zone.map.type) {
                 case ConstMap.MAP_DOANH_TRAI:
                     break;
@@ -287,17 +284,7 @@ public class Mob {
 //        nplayer
         List<ItemMap> itemReward = new ArrayList<>();
         try {
-            if ((!player.isPet && player.getSession().actived && player.setClothes.setGOD == 5) || (player.isPet && ((Pet) player).master.getSession().actived && player.setClothes.setGOD == 5)) {
-                short randomDoAn;
-                randomDoAn = Manager.THUC_AN[Util.nextInt(0, 4)];
-                if (Util.nextInt(0, 100) < 7) {
-                    Item DoAn = ItemService.gI().createNewItem(randomDoAn);
-                    InventoryServiceNew.gI().addItemBag(player, DoAn);
-                    InventoryServiceNew.gI().sendItemBags(player);
-                    Service.gI().sendThongBao(player, "Bạn vừa nhận được " + DoAn.template.name);
-                }
-            }
-            itemReward = this.getItemMobReward(player, this.location.x + Util.nextInt(-10, 10), this.zone.map.yPhysicInTop(this.location.x, this.location.y));
+            itemReward = this.getItemMobReward(player, this.location.x + Util.nextInt(-10, 10));
             if (itemTask != null) {
                 itemReward.add(itemTask);
             }
@@ -315,59 +302,39 @@ public class Mob {
         return itemReward;
     }
 
-    public List<ItemShop> getIDsClothesBasic(int level, int gender) {
-        level -= 1;
-        if (level < 1)
-            return new ArrayList<>();
-        if (level > 12)
-            level = 12;
-        List<ItemShop> itemShops = new ArrayList<>();
-        int[] tabIDs = gender == 0 ? new int[]{1, 2} : gender == 1 ? new int[]{4, 5} : new int[]{7, 8};
-        List<Shop> SHOPS = new ArrayList<>(Manager.SHOPS);
-        Shop shopClothes = SHOPS.stream().filter(shop -> shop.npcId == 7 + gender).findFirst().get();
-        for (int i = 0; i < tabIDs.length; i++) {
-            int finalI = i;
-            TabShop tabShopClothes = shopClothes.tabShops.stream().filter(tabShop -> tabShop.id == tabIDs[finalI]).findFirst().get();
-            itemShops.add(tabShopClothes.itemShops.get(-1 + level));
-            itemShops.add(tabShopClothes.itemShops.get(11 + level));
-            if (tabShopClothes.itemShops.size() > 24) {
-                itemShops.add(tabShopClothes.itemShops.get(23 + level));
-            }
-        }
-        return itemShops;
-    }
-
-    public ItemMap convertToItemMap(Zone zone, ItemShop itemShop, int quantity, int x, int y, long playerId) {
-        ItemMap it = new ItemMap(zone, itemShop.temp.id, quantity, x, y, playerId);
-        it.options = itemShop.options.subList(0, 1);
-        it.options.add(new Item.ItemOption(107, Util.randomStar()));
-        return it;
-    }
-
-    public List<ItemMap> getItemMobReward(Player player, int x, int yEnd) {
+    public List<ItemMap> getItemMobReward(Player player, int x) {
         List<ItemMap> list = new ArrayList<>();
-        // đồ thường
-//        if (Util.isTrue(100, 100) && level < 19) {
-//            ItemShop itemShop = getIDsClothesBasic(level, player.gender).stream().skip((long) (5 * Math.random())).findFirst().orElse(null);
-//            if (itemShop != null) {
-//                ItemMap itemMap = convertToItemMap(zone, itemShop, 1, x, player.location.y, player.id);
-//                // set kich hoat
-//                if ((player.gender == itemMap.itemTemplate.gender || itemMap.itemTemplate.gender == 3) && itemMap.itemTemplate.id < 58 && Util.isTrue(1, 100)) {
-//                    int randSet = Util.nextInt(0, 2);
-//                    itemMap.options.add(new Item.ItemOption(127 + randSet + player.gender * 3, 1));
-//                    itemMap.options.add(new Item.ItemOption(136 + randSet + player.gender * 3, 1));
-//                    itemMap.options.add(new Item.ItemOption(30, 1));
-//                }
-//                list.add(itemMap);
-//            }
-//        }
+        // đồ thường + skh
+        if (Util.isTrue(5, 100) && level < 19 && level > 1) {
+            short itemId;
+            if (Util.isTrue(4, 100)) {
+                itemId = Manager.IDS_RADAR[Math.min(11, level - 2)];
+            } else {
+                itemId = Manager.IDS_TRANG_BI_SHOP[player.gender][Util.nextInt(0, 3)][Math.min(11, level - 2)];
+            }
+            ItemMap itemMap = new ItemMap(zone, itemId, 1, x, player.location.y, player.id);
+            itemMap.options.addAll(ItemService.gI().getListOptionItemShop(itemId));
+            if (Util.isTrue(2, 1000) && MapService.gI().isMapUpSKH(zone.map.mapId)) {
+                int skhId = ItemService.gI().randomSKHId(player.gender);
+                itemMap.options.add(new Item.ItemOption(skhId, 1));
+                itemMap.options.add(new Item.ItemOption(skhId + 9, 1));
+                itemMap.options.add(new Item.ItemOption(30, 1));
+            }
+            itemMap.options.add(new Item.ItemOption(107, ItemService.gI().randomStarModReward()));
+            list.add(itemMap);
+        }
         // đồ thần linh
-        if (MapService.gI().isMapCold(this.zone.map) && Util.isTrue(1, 1000)) {
-            list.add(Util.randomClothesGod(zone, Manager.ID_CLOTHES_GOD[Util.nextInt(Manager.ID_CLOTHES_GOD.length)], 1, x, player.location.y, player.id, Util.MOB_DROP));
+        if (MapService.gI().isMapCold(this.zone.map) && Util.isTrue(5, 1000)) {
+            int idItem = Manager.IDS_DO_THAN[Util.nextInt(Manager.IDS_DO_THAN.length)];
+            Item item = ItemService.gI().randomCSDTL(idItem, ItemService.MOB_DROP);
+            ItemMap itemMap = new ItemMap(zone, idItem, 1, x, player.location.y, player.id);
+            itemMap.options.addAll(item.itemOptions);
+            list.add(itemMap);
         }
         // thức ăn
-        if (MapService.gI().isMapCold(this.zone.map) && player.setClothes.godClothes && Util.isTrue(5, 100)) {
-            list.add(new ItemMap(zone, Util.nextInt(663, 667), 1, x, player.location.y, player.id));
+        if (Util.nextInt(0, 100) < 5 && MapService.gI().isMapCold(this.zone.map) && ((!player.isPet && player.getSession().actived && player.setClothes.setGOD == 5) || (player.isPet && ((Pet) player).master.getSession().actived && player.setClothes.setGOD == 5))) {
+            short randomThucAn = Manager.THUC_AN[Util.nextInt(0, 4)];
+            list.add(new ItemMap(zone, randomThucAn, 1, x, player.location.y, player.id));
         }
         // cskb
         if (player.itemTime.isUseMayDo && MapService.gI().isMapFuture(this.zone.map.mapId) && Util.isTrue(20, 100) && this.tempId > 57 && this.tempId < 66) {
@@ -394,7 +361,7 @@ public class Mob {
         // ngọc rồng
         int ngocRong = Util.nextInt(17, 20);
         if (MapService.gI().isMapDoanhTrai(player.zone.map.mapId) && Util.isTrue(50, 100)) {
-            list.add(new ItemMap(zone, dnc, Util.nextInt(100, 200), x, player.location.y, player.id));
+            list.add(new ItemMap(zone, dnc, Util.nextInt(30, 40), x, player.location.y, player.id));
         } else if (Util.isTrue(5, 100)) {
             list.add(new ItemMap(zone, dnc, 1, x, player.location.y, player.id));
         } else if (Util.isTrue(5, 100)) {

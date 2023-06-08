@@ -1,6 +1,6 @@
 package com.monzy.services;
 
-import com.monzy.giftcode.MaQuaTang;
+import com.monzy.giftcode.GiftCode;
 import com.monzy.models.item.Item;
 import com.monzy.models.item.Item.ItemOption;
 import com.monzy.models.map.blackball.BlackBallWar;
@@ -27,13 +27,15 @@ public class InventoryServiceNew {
         return InventoryServiceNew.I;
     }
 
-    //for giftcode
-    public void addItemGiftCodeToPlayer(Player p, MaQuaTang giftcode) {
-        Set<Integer> keySet = giftcode.detail.keySet();
+    /**
+     * Send reward giftcode
+     */
+    public void addItemGiftCodeToPlayer(Player p, GiftCode giftcode) {
+        Set<Integer> keySet = giftcode.details.keySet();
         String textGift = "Bạn vừa nhận được:\b";
         for (Integer key : keySet) {
             int idItem = key;
-            int quantity = giftcode.detail.get(key);
+            int quantity = giftcode.details.get(key);
             if (idItem == -1) {
                 p.inventory.gold = Math.min(p.inventory.gold + (long) quantity, 2000000000L);
                 textGift += quantity + " vàng\b";
