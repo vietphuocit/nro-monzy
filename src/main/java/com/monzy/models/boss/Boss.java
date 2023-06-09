@@ -546,8 +546,8 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
     public boolean rewardItem(Player plKill, int... ids) {
         for (int i = 0; i < ids.length; i++) {
             if (Util.isTrue(getRatioById(ids[i]), 100)) {
-                ItemMap it = new ItemMap(this.zone, ids[i], 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
-                        this.location.y - 24), plKill.id);
+                ItemMap it = new ItemMap(this.zone, ids[i], 1, this.location.x, this.zone.map.yPhysicInTop(plKill.location.x,
+                        plKill.location.y), plKill.id);
                 Service.gI().dropItemMap(this.zone, it);
                 return true;
             }
@@ -556,10 +556,15 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
     }
 
     public boolean rewardDTL(Player plKill) {
-        int randomIdDoThan = Arrays.stream(Manager.IDS_DO_THAN).skip((int) (9 * Math.random())).findFirst().getAsInt();
+        int randomIdDoThan;
+        if (Util.isTrue(10, 100)) {
+            randomIdDoThan = Manager.IDS_DO_THAN[Util.nextInt(9, 12)];
+        } else {
+            randomIdDoThan = Manager.IDS_DO_THAN[Util.nextInt(0, 8)];
+        }
         if (Util.isTrue(20, 100)) {
             Item item = ItemService.gI().randomCSDTL(randomIdDoThan, ItemService.BOSS_DROP);
-            ItemMap itemMap = new ItemMap(zone, randomIdDoThan, 1, this.location.x, this.location.y, plKill.id);
+            ItemMap itemMap = new ItemMap(zone, randomIdDoThan, 1, plKill.location.x, plKill.location.y, plKill.id);
             itemMap.options.clear();
             itemMap.options.addAll(item.itemOptions);
             Service.gI().dropItemMap(this.zone, itemMap);

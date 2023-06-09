@@ -22,8 +22,8 @@ public class AnTrom extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        ItemMap it = new ItemMap(this.zone, 457, Util.nextInt(1, 5), this.location.x, this.zone.map.yPhysicInTop(this.location.x,
-                this.location.y - 24), plKill.id);
+        ItemMap it = new ItemMap(this.zone, 457, Util.nextInt(1, 5), this.location.x, this.zone.map.yPhysicInTop(plKill.location.x,
+                plKill.location.y), plKill.id);
         Service.gI().dropItemMap(this.zone, it);
     }
 

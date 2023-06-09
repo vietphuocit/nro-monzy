@@ -2020,7 +2020,7 @@ public class NpcFactory {
                                     Service.gI().sendThongBao(player,
                                             "Bạn không đủ hồng ngọc để mở, còn thiếu "
                                                     + (1000 - player.inventory.ruby) + " hồng ngọc");
-                                    break;
+                                    return;
                                 }
                                 OpenPowerService.gI().openPowerSpeed(player);
                                 player.inventory.ruby -= 1000;
@@ -2033,6 +2033,7 @@ public class NpcFactory {
                                 Service.gI().sendThongBao(player,
                                         "Bạn không đủ vàng để mở, còn thiếu "
                                                 + (1000 - player.inventory.ruby) + " hồng ngọc");
+                                return;
                             }
                             OpenPowerService.gI().openPowerSpeed(player.pet);
                             player.inventory.ruby -= 1000;

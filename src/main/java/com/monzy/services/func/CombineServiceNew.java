@@ -1595,6 +1595,12 @@ public class CombineServiceNew {
                             }
                             optionLevel.param--;
                         }
+                        if ((level == 7) && (player.combineNew.itemsCombine.size() != 3)) {
+                            option.param -= (option.param * 10 / 100);
+                            if (option2 != null) {
+                                option2.param -= (option2.param * 10 / 100);
+                            }
+                        }
                         sendEffectFailCombine(player);
                     }
                     if (player.combineNew.itemsCombine.size() == 3) {
