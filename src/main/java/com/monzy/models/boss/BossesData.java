@@ -782,6 +782,41 @@ public class BossesData {
             TypeAppear.ANOTHER_LEVEL //type appear
     );
     /**
+     * Boss Zamasu
+     */
+    public static final BossData ZAMASU = new BossData(
+            "Zamasu", //name
+            ConstPlayer.TRAI_DAT, //gender
+            new short[]{433, 434, 435, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
+            500000, //dame
+            new int[]{2000000000}, //hp
+            new int[]{102, 92, 93, 94, 96, 97, 98, 99, 100}, //map join
+            new int[][]{
+                    {Skill.KAMEJOKO, 7, 1000},
+                    {Skill.LIEN_HOAN, 7, 1000}},
+            //skill
+            new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, //text chat 1
+            new String[]{}, //text chat 2
+            new String[]{}, //text chat 3
+            REST_15_M
+    );
+    public static final BossData THAN_ZAMASU = new BossData(
+            "Thần Zamasu", //name
+            ConstPlayer.TRAI_DAT, //gender
+            new short[]{903, 904, 905, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
+            500000, //dame
+            new int[]{2000000000}, //hp
+            new int[]{102, 92, 93, 94, 96, 97, 98, 99, 100}, //map join
+            new int[][]{
+                    {Skill.KAMEJOKO, 7, 1000},
+                    {Skill.LIEN_HOAN, 7, 1000}},
+            //skill
+            new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, //text chat 1
+            new String[]{}, //text chat 2
+            new String[]{}, //text chat 3
+            TypeAppear.ANOTHER_LEVEL //type appear
+    );
+    /**
      * Boss Ăn trộm
      */
     public static final BossData AN_TROM = new BossData(
@@ -1014,64 +1049,6 @@ public class BossesData {
                     "|-2|Không tiễn"}, //text chat 3
             REST_15_M, //second rest
             new int[]{BossID.ZAMASZIN}
-    );
-    public static final BossData ZAMAS = new BossData(
-            "Kaioshin Zamas", //name
-            ConstPlayer.TRAI_DAT, //gender
-            new short[]{433, 904, 905, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
-            4550500, //dame
-            new int[]{450000000}, //hp
-            new int[]{102, 92, 93, 94, 96, 97, 98, 99, 100}, //map join
-//            new int[]{14}, //map join
-            new int[][]{
-                    {Skill.GALICK, 7, 1000},
-                    {Skill.DICH_CHUYEN_TUC_THOI, 7, 10000},
-                    {Skill.TAI_TAO_NANG_LUONG, 4, 1000},
-                    {Skill.KAMEJOKO, 7, 30000}}, //skill
-            new String[]{"|-1|Kia là một con người sao?",
-                    "|-3|Ủa tên kia là ai vậy?",
-                    "|-2|Lẽ nào đúng như chúng ta đã nghĩ",
-                    "|-1|Lũ con người không đủ tư cách để nói chuyện với ta",
-                    "|-2|Zamas! Tại sao chứ !",
-                    "|-1|Ta sẽ cho người biết sức mạnh của một vị thần là như thế nào !"
-            }, //text chat 1
-            new String[]{"|-1|Ta là kaioshin của vũ trụ thứ 10 ",
-                    "|-1|Tên của ta là Zamas, ta sẽ thay đổi thế giới này",
-                    "|-1|Lũ con người các ngươi là những thứ ta cần loại bỏ đầu tiên",
-                    "|-2|Tại sao các ngươi lại nhắm tới con người bọn ta chứ?",
-                    "|-1|Bởi vì ta muốn thực hiện kế hoạch đưa con người về số 0 !",
-                    "|-1|Lần này ta không nương tay đâu!",
-                    "|-2|Ngươi thực sự rất mạnh. Nhưng chưa đủ thực lực đâu!!",
-                    "|-1|Cái gì!? Đó là điều ngu ngốc nhất ta từng nghe! Mau biến đi",
-                    "|-1|Hắn thực sự rất mạnh, đúng là cuộc chiến hay",
-                    "|-3|Không lí nào ta lại run sợ bọn con người sao"
-            }, //text chat 2
-            new String[]{"|-1|Chỉ còn một cách duy nhất mà thôi",
-                    "|-1|Bông tai Porata!"}, //text chat 3
-            TypeAppear.APPEAR_WITH_ANOTHER
-    );
-    public static final BossData THANZM2 = new BossData(
-            "Thần Zamas Tối Thượng", //name
-            ConstPlayer.TRAI_DAT, //gender
-            new short[]{903, 904, 905, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
-            13000000, //dame
-            new int[]{1700000000}, //hp
-            new int[]{102, 92, 93, 94, 96, 97, 98, 99, 100}, //map join
-            new int[][]{
-                    {Skill.DICH_CHUYEN_TUC_THOI, 7, 5000},
-                    {Skill.KAMEJOKO, 5, 3000},
-                    {Skill.TAI_TAO_NANG_LUONG, 1, 10000},
-                    {Skill.QUA_CAU_KENH_KHI, 7, 120000}},
-            //skill
-            new String[]{}, //text chat 1
-            new String[]{"|-1|Ta chính là thế giới",
-                    "|-1|Ta chính là công lí",
-                    "|-1|Hãy chiêm ngưỡng vẻ đẹp của ta !Hỡi con người",
-                    "|-1|Sức mạnh to lớn nằm trong cơ thể bất tử",
-                    "|-1|Ta sẽ đem công lí tới toàn bộ vũ trụ này", "|-2|Ngươi cứ lải nhải hoài 2 chữ công lí vậy?", "|-1|Lũ các ngươi làm ta thấy đau rồi ấy haha"
-            }, //text chat 2
-            new String[]{}, //text chat 3
-            REST_15_M
     );
     //**************************************************************************
     //*******************

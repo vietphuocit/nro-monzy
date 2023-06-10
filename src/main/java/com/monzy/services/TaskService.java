@@ -318,16 +318,16 @@ public class TaskService {
 //                    doneTask(player, ConstTask.TASK_28_3);
 //                    Service.gI().sendFlagBag(player);
 //                    break; 
-                case 992: //em bé
+                case 992: // Nhẫn thời không
                     doneTask(player, ConstTask.TASK_31_0);
                     break;
-                case 865: //em bé
+                case 865: // Kiếm z
                     doneTask(player, ConstTask.TASK_31_1);
                     break;
-                case 874: //em bé
+                case 874: // Rùa con
                     doneTask(player, ConstTask.TASK_31_2);
                     break;
-                case 725: //em bé
+                case 725: // Siêu thần thủy
                     doneTask(player, ConstTask.TASK_31_3);
                     break;
             }
@@ -1323,7 +1323,7 @@ public class TaskService {
         }
     }
 
-    private boolean isCurrentTask(Player player, int idTaskCustom) {
+    public boolean isCurrentTask(Player player, int idTaskCustom) {
         return idTaskCustom == (player.playerTask.taskMain.id << 10) + player.playerTask.taskMain.index << 1;
     }
 

@@ -209,11 +209,11 @@ public class UseItem {
                 }
                 default:
                     switch (item.template.id) {
-                        case 992:
-                            pl.type = 1;
-                            pl.maxTime = 5;
-                            Service.gI().Transport(pl);
-                            break;
+//                        case 992:
+//                            pl.type = 1;
+//                            pl.maxTime = 5;
+//                            Service.gI().Transport(pl);
+//                            break;
                         case 361:
                             if (pl.idNRNM != -1) {
                                 Service.gI().sendThongBao(pl, "Không thể thực hiện");

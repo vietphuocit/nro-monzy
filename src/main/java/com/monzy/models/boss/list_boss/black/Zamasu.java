@@ -9,20 +9,20 @@ import com.monzy.models.player.Player;
 import com.monzy.services.Service;
 import com.monzy.services.TaskService;
 
-public class Black extends Boss {
+public class Zamasu extends Boss {
 
-    public Black() throws Exception {
-        super(BossID.BLACK, BossesData.BLACK_GOKU, BossesData.SUPER_BLACK_GOKU);
+    public Zamasu() throws Exception {
+        super(BossID.ZAMASU, BossesData.ZAMASU, BossesData.THAN_ZAMASU);
     }
 
     @Override
     public void reward(Player plKill) {
         rewardDTL(plKill);
         rewardItem(plKill, 1142, 16);
-        if (TaskService.gI().isCurrentTask(plKill, ConstTask.TASK_31_0) && this.name.equals("Black Goku"))
-            Service.gI().dropItemMap(this.zone, new ItemMap(this.zone, 992, 1, plKill.location.x, plKill.location.y, plKill.id));
-        else if (TaskService.gI().isCurrentTask(plKill, ConstTask.TASK_31_1) && this.name.equals("Super Black Goku"))
-            Service.gI().dropItemMap(this.zone, new ItemMap(this.zone, 865, 1, plKill.location.x, plKill.location.y, plKill.id));
+        if (TaskService.gI().isCurrentTask(plKill, ConstTask.TASK_31_2) && this.name.equals("Zamasu"))
+            Service.gI().dropItemMap(this.zone, new ItemMap(this.zone, 874, 1, plKill.location.x, plKill.location.y, plKill.id));
+        else if (TaskService.gI().isCurrentTask(plKill, ConstTask.TASK_31_3) && this.name.equals("Thần Zamasu"))
+            Service.gI().dropItemMap(this.zone, new ItemMap(this.zone, 725, 1, plKill.location.x, plKill.location.y, plKill.id));
     }
 
     @Override

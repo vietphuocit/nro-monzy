@@ -546,8 +546,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
     public boolean rewardItem(Player plKill, int... ids) {
         for (int i = 0; i < ids.length; i++) {
             if (Util.isTrue(getRatioById(ids[i]), 100)) {
-                ItemMap it = new ItemMap(this.zone, ids[i], 1, this.location.x, this.zone.map.yPhysicInTop(plKill.location.x,
-                        plKill.location.y), plKill.id);
+                ItemMap it = new ItemMap(this.zone, ids[i], 1, plKill.location.x, plKill.location.y, plKill.id);
                 Service.gI().dropItemMap(this.zone, it);
                 return true;
             }

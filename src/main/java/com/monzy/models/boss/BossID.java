@@ -96,7 +96,8 @@ public class BossID {
     public static final int WISH = -2002;
     public static final int COOLER = -2003;
     public static final int COOLER_2 = -2004;
-
+    public static final int ZAMASU = -2005;
+    public static final int THAN_ZAMASU = -2006;
 }
 
 

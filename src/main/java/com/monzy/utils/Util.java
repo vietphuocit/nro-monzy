@@ -111,13 +111,13 @@ public class Util {
         return rand.nextInt(max);
     }
 
-    public static int nextInt(int[] percen) {
+    public static int nextInt(int[] percent) {
         int next = nextInt(1000), i;
-        for (i = 0; i < percen.length; i++) {
-            if (next < percen[i]) {
+        for (i = 0; i < percent.length; i++) {
+            if (next < percent[i]) {
                 return i;
             }
-            next -= percen[i];
+            next -= percent[i];
         }
         return i;
     }
