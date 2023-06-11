@@ -2033,7 +2033,7 @@ public class NpcFactory {
                         }
                     } else if (player.iDMark.getIndexMenu() == ConstNpc.OPEN_POWER_PET) {
                         if (select == 0) {
-                            if ((player.nPoint.limitPower == 7 || player.nPoint.limitPower == 8) && player.nPoint.power < player.nPoint.getPowerLimit()) {
+                            if ((player.pet.nPoint.limitPower == 7 || player.pet.nPoint.limitPower == 8) && player.pet.nPoint.power < player.pet.nPoint.getPowerLimit()) {
                                 Service.gI().sendThongBao(player, "Sức mạnh của đệ tử chưa đạt yêu cầu");
                                 return;
                             }
