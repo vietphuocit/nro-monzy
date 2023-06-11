@@ -301,17 +301,17 @@ public class TaskService {
     public void checkDoneTaskPickItem(Player player, ItemMap item) {
         if (!player.isBoss && !player.isPet && item != null) {
             switch (item.itemTemplate.id) {
-                case 73: //đùi gà
+                case 73: // đùi gà
                     doneTask(player, ConstTask.TASK_2_0);
                     break;
                 case 78: //em bé
                     doneTask(player, ConstTask.TASK_3_1);
                     Service.gI().sendFlagBag(player);
                     break;
-                case 380: //đùi gà
+                case 380: // đùi gà
                     doneTask(player, ConstTask.TASK_26_3);
                     break;
-                case 15: //đùi gà
+                case 16: // 3s
                     doneTask(player, ConstTask.TASK_27_3);
                     break;
 //                case 16: //em bé

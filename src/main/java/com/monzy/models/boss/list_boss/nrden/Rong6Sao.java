@@ -20,31 +20,6 @@ public class Rong6Sao extends Boss {
         Service.gI().dropItemMap(this.zone, it);
     }
 
-    @Override
-    public int injured(Player plAtt, int damage, boolean piercing, boolean isMobAttack) {
-        if (!this.isDie()) {
-            if (!piercing && Util.isTrue(this.nPoint.tlNeDon, 1000)) {
-                this.chat("Xí hụt");
-                return 0;
-            }
-            damage = this.nPoint.subDameInjureWithDeff(damage / 7);
-            if (!piercing && effectSkill.isShielding) {
-                if (damage > nPoint.hpMax) {
-                    EffectSkillService.gI().breakShield(this);
-                }
-                damage = damage / 4;
-            }
-            this.nPoint.subHP(damage);
-            if (isDie()) {
-                this.setDie(plAtt);
-                die(plAtt);
-            }
-            return damage;
-        } else {
-            return 0;
-        }
-    }
-
 }
 
 

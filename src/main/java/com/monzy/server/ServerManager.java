@@ -1,6 +1,7 @@
 package com.monzy.server;
 
 import com.database.Database;
+import com.monzy.giftcode.GiftCode;
 import com.monzy.giftcode.GiftCodeManager;
 import com.monzy.jdbc.daos.HistoryTransactionDAO;
 import com.monzy.kygui.ShopKyGuiManager;
@@ -10,10 +11,7 @@ import com.monzy.models.matches.pvp.DaiHoiVoThuat;
 import com.monzy.models.player.Player;
 import com.monzy.server.io.MyKeyHandler;
 import com.monzy.server.io.MySession;
-import com.monzy.services.ClanService;
-import com.monzy.services.InventoryServiceNew;
-import com.monzy.services.NgocRongNamecService;
-import com.monzy.services.Service;
+import com.monzy.services.*;
 import com.monzy.services.func.ChonAiDay;
 import com.monzy.services.func.TopService;
 import com.monzy.utils.Logger;
@@ -68,12 +66,23 @@ public class ServerManager {
         activeCommandLine();
         activeGame();
         activeServerSocket();
-        new Thread(DaiHoiVoThuat.gI(), "Thread DHVT").start();
-        ChonAiDay.gI().lastTimeEnd = System.currentTimeMillis() + 300000;
-        new Thread(ChonAiDay.gI(), "Thread CAD").start();
-        NgocRongNamecService.gI().initNgocRongNamec((byte) 0);
-        new Thread(NgocRongNamecService.gI(), "Thread NRNM").start();
-        new Thread(TopService.gI(), "Thread TOP").start();
+//        new Thread(DaiHoiVoThuat.gI(), "Thread DHVT").start();
+//        ChonAiDay.gI().lastTimeEnd = System.currentTimeMillis() + 300000;
+//        new Thread(ChonAiDay.gI(), "Thread CAD").start();
+//        NgocRongNamecService.gI().initNgocRongNamec((byte) 0);
+//        new Thread(NgocRongNamecService.gI(), "Thread NRNM").start();
+        new Thread(() -> TopService.gI().run()).start();
+        new Thread(() -> {
+            while (true) {
+                try {
+                    GiftCodeManager.gI().saveGiftCode();
+                    GiftCodeManager.gI();
+                    Thread.sleep(1000 * 60 * 5);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
         try {
             Thread.sleep(1000);
             BossManager.gI().loadBoss();
@@ -111,14 +120,11 @@ public class ServerManager {
     }
 
     private void activeServerSocket() {
-        if (true) {
-            try {
-                this.act();
-            } catch (Exception e) {
-            }
-            return;
+        try {
+            this.act();
+        } catch (Exception e) {
         }
-//        try {
+        //        try {
 //            Logger.log(Logger.PURPLE, "Start server......... Current thread: " + Thread.activeCount() + "\n");
 //            listenSocket = new ServerSocket(PORT);
 //            while (isRunning) {

@@ -3,16 +3,10 @@ package com.monzy.services.func;
 import com.database.Database;
 import com.monzy.server.Manager;
 import com.monzy.utils.Logger;
-import com.monzy.utils.TimeUtil;
-import com.monzy.utils.Util;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.time.LocalDateTime;
-import java.util.Date;
 
-public class TopService implements Runnable {
+public class TopService {
 
     private static TopService i;
 
@@ -23,7 +17,6 @@ public class TopService implements Runnable {
         return i;
     }
 
-    @Override
     public void run() {
         while (true) {
             try {

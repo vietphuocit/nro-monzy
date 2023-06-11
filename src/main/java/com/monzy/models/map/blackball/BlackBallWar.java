@@ -77,7 +77,7 @@ public class BlackBallWar {
             player.iDMark.setHoldBlackBall(false);
             ItemMap itemMap = new ItemMap(player.zone,
                     player.iDMark.getTempIdBlackBallHold(), 1, player.location.x,
-                    player.zone.map.yPhysicInTop(player.location.x, player.location.y - 24),
+                    player.location.y,
                     -1);
             Service.gI().dropItemMap(itemMap.zone, itemMap);
             player.iDMark.setTempIdBlackBallHold(-1);
@@ -168,8 +168,7 @@ public class BlackBallWar {
         try {
             long now = System.currentTimeMillis();
             if (now > TIME_OPEN && now < TIME_CLOSE) {
-                ChangeMapService.gI().changeMap(player,
-                        player.mapBlackBall.get(index).map.mapId, -1, 50, 50);
+                ChangeMapService.gI().changeMap(player, player.mapBlackBall.get(index).map.mapId, -1, 50, 50);
             } else {
                 Service.gI().sendThongBao(player, "Đại chiến ngọc rồng đen chưa mở");
                 Service.gI().hideWaitDialog(player);

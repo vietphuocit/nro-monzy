@@ -35,11 +35,6 @@ public class OpenPowerService {
     }
 
     public boolean openPowerSpeed(Player player) {
-        if((player.nPoint.limitPower == 7 || player.nPoint.limitPower == 8) && player.nPoint.power < player.nPoint.getPowerLimit()) {
-            String message = player.isPet ? "Sức mạnh của đệ tử chưa đạt yêu cầu" : "Sức mạnh của bạn chưa đạt yêu cầu";
-            Service.gI().sendThongBao(player, message);
-            return false;
-        }
         if (player.nPoint.limitPower < NPoint.MAX_LIMIT) {
             player.nPoint.limitPower++;
             String message = player.isPet ? "Giới hạn sức mạnh của đệ tử đã được tăng lên 1 bậc" : "Giới hạn sức mạnh của bạn đã được tăng lên 1 bậc";

@@ -32,6 +32,114 @@ public class BossesData {
     private static final int REST_30_M = 1800;
     private static final int REST_24_H = 86400000;
     /**
+     * Boss NRSD
+     */
+    public static final BossData Rong_1Sao = new BossData(
+            "Rồng Syn 1 Sao", //name
+            ConstPlayer.XAYDA, //gender
+            new short[]{204, 205, 206, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
+            1000000, //dame
+            new int[]{1000000000}, //hp
+            new int[]{85}, //map join
+            new int[][]{
+                    {Skill.LIEN_HOAN, 7, 1000},
+                    {Skill.KAMEJOKO, 7, 1000}}, //skill
+            new String[]{}, //text chat 1
+            new String[]{}, //text chat 2
+            new String[]{}, //text chat 3
+            REST_24_H //second rest
+    );
+    public static final BossData Rong_2Sao = new BossData(
+            "Rồng Haze 2 Sao", //name
+            ConstPlayer.XAYDA, //gender
+            new short[]{219, 220, 221, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
+            1000000, //dame
+            new int[]{1000000000}, //hp
+            new int[]{86}, //map join
+            new int[][]{
+                    {Skill.LIEN_HOAN, 7, 1000},
+                    {Skill.KAMEJOKO, 7, 1000}}, //skill
+            new String[]{}, //text chat 1
+            new String[]{}, //text chat 2
+            new String[]{}, //text chat 3
+            REST_24_H //second rest
+    );
+    public static final BossData Rong_3Sao = new BossData(
+            "Rồng Eis 3 Sao", //name
+            ConstPlayer.XAYDA, //gender
+            new short[]{207, 208, 209, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
+            1000000, //dame
+            new int[]{1000000000}, //hp
+            new int[]{87}, //map join
+            new int[][]{
+                    {Skill.LIEN_HOAN, 7, 1000},
+                    {Skill.KAMEJOKO, 7, 1000}}, //skill
+            new String[]{}, //text chat 1
+            new String[]{}, //text chat 2
+            new String[]{}, //text chat 3
+            REST_24_H //second rest
+    );
+    public static final BossData Rong_4Sao = new BossData(
+            "Rồng Nuova 4 Sao", //name
+            ConstPlayer.XAYDA, //gender
+            new short[]{210, 211, 212, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
+            1000000, //dame
+            new int[]{1000000000}, //hp
+            new int[]{88}, //map join
+            new int[][]{
+                    {Skill.LIEN_HOAN, 7, 1000},
+                    {Skill.KAMEJOKO, 7, 1000}}, //skill
+            new String[]{}, //text chat 1
+            new String[]{}, //text chat 2
+            new String[]{}, //text chat 3
+            REST_24_H //second rest
+    );
+    public static final BossData Rong_5Sao = new BossData(
+            "Rồng Rage 5 Sao", //name
+            ConstPlayer.XAYDA, //gender
+            new short[]{213, 214, 215, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
+            1000000, //dame
+            new int[]{1000000000}, //hp
+            new int[]{89}, //map join
+            new int[][]{
+                    {Skill.LIEN_HOAN, 7, 1000},
+                    {Skill.KAMEJOKO, 7, 1000}}, //skill
+            new String[]{}, //text chat 1
+            new String[]{}, //text chat 2
+            new String[]{}, //text chat 3
+            REST_24_H //second rest
+    );
+    public static final BossData Rong_6Sao = new BossData(
+            "Rồng Oceanus 6 Sao", //name
+            ConstPlayer.XAYDA, //gender
+            new short[]{222, 223, 224, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
+            1000000, //dame
+            new int[]{1000000000}, //hp
+            new int[]{90}, //map join
+            new int[][]{
+                    {Skill.LIEN_HOAN, 7, 1000},
+                    {Skill.KAMEJOKO, 7, 1000}}, //skill
+            new String[]{}, //text chat 1
+            new String[]{}, //text chat 2
+            new String[]{}, //text chat 3
+            REST_24_H //second rest
+    );
+    public static final BossData Rong_7Sao = new BossData(
+            "Rồng Naturon 7 Sao", //name
+            ConstPlayer.XAYDA, //gender
+            new short[]{216, 217, 218, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
+            1000000, //dame
+            new int[]{1000000000}, //hp
+            new int[]{91}, //map join
+            new int[][]{
+                    {Skill.LIEN_HOAN, 7, 1000},
+                    {Skill.KAMEJOKO, 7, 1000}}, //skill
+            new String[]{}, //text chat 1
+            new String[]{}, //text chat 2
+            new String[]{}, //text chat 3
+            REST_24_H //second rest
+    );
+    /**
      * Boss nappa
      */
     public static final BossData KUKU = new BossData(
@@ -1279,160 +1387,6 @@ public class BossesData {
             REST_15_M //second rest
     );
     //************************************************************************** Boss nrd
-    public static final BossData Rong_1Sao = new BossData(
-            "Rồng Syn 1 Sao", //name
-            ConstPlayer.XAYDA, //gender
-            new short[]{204, 205, 206, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
-            1000000, //dame
-            new int[]{200000000}, //hp
-            new int[]{85}, //map join
-            new int[][]{
-                    {Skill.LIEN_HOAN, 7, 10000},
-                    {Skill.KAMEJOKO, 5, 10000}}, //skill
-            new String[]{"|-1|Gaaaaaa !!!!!!!!",
-                    "|-2|Tên kia là ai vậy",
-                    "|-1|Sức mạnh tà ác !"
-            }, //text chat 1
-            new String[]{"|-1|Ta muốn tìm một đối thủ xứng tầm",
-                    "|-1|Đi chết đi!",
-                    "|-1|Các ngươi không phải đối thủ của ta đâu",
-                    "|-1|trạng thái Tà Ác sẽ thiêu rụi mày"
-            }, //text chat 2
-            new String[]{"|-2|Tên đó mạnh thật!"}, //text chat 3
-            REST_24_H //second rest
-    );
-    public static final BossData Rong_2Sao = new BossData(
-            "Rồng Haze 2 Sao", //name
-            ConstPlayer.XAYDA, //gender
-            new short[]{219, 220, 221, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
-            1000000, //dame
-            new int[]{20000000}, //hp
-            new int[]{86}, //map join
-            new int[][]{
-                    {Skill.LIEN_HOAN, 7, 1000},
-                    {Skill.KAMEJOKO, 5, 1000}}, //skill
-            new String[]{"|-1|Gaaaaaa !!!!!!!!",
-                    "|-2|Tên kia là ai vậy",
-                    "|-1|Sức mạnh tà ác !"
-            }, //text chat 1
-            new String[]{"|-1|Ta muốn tìm một đối thủ xứng tầm",
-                    "|-1|Đi chết đi!",
-                    "|-1|Các ngươi không phải đối thủ của ta đâu",
-                    "|-1|trạng thái Tà Ác sẽ thiêu rụi mày"
-            }, //text chat 2
-            new String[]{"|-2|Tên đó mạnh thật!"}, //text chat 3
-            REST_24_H //second rest
-    );
-    public static final BossData Rong_3Sao = new BossData(
-            "Rồng Eis 3 Sao", //name
-            ConstPlayer.XAYDA, //gender
-            new short[]{207, 208, 209, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
-            1200000, //dame
-            new int[]{40000000}, //hp
-            new int[]{87}, //map join
-            new int[][]{
-                    {Skill.THOI_MIEN, 4, 125000},
-                    {Skill.THAI_DUONG_HA_SAN, 3, 50000},
-                    {Skill.DICH_CHUYEN_TUC_THOI, 7, 10000}}, //skill
-            new String[]{"|-1|Gaaaaaa !!!!!!!!",
-                    "|-2|Tên kia là ai vậy",
-                    "|-1|Sức mạnh tà ác !"
-            }, //text chat 1
-            new String[]{"|-1|Ta muốn tìm một đối thủ xứng tầm",
-                    "|-1|Đi chết đi!",
-                    "|-1|Các ngươi không phải đối thủ của ta đâu",
-                    "|-1|trạng thái Tà Ác sẽ thiêu rụi mày"
-            }, //text chat 2
-            new String[]{"|-2|Tên đó mạnh thật!"}, //text chat 3
-            REST_24_H //second rest
-    );
-    public static final BossData Rong_4Sao = new BossData(
-            "Rồng Nuova 4 Sao", //name
-            ConstPlayer.XAYDA, //gender
-            new short[]{210, 211, 212, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
-            1000000, //dame
-            new int[]{180000000}, //hp
-            new int[]{88}, //map join
-            new int[][]{
-                    {Skill.LIEN_HOAN, 7, 10000},
-                    {Skill.TROI, 7, 100000},
-                    {Skill.KAMEJOKO, 5, 10000}}, //skill
-            new String[]{"|-1|Gaaaaaa !!!!!!!!",
-                    "|-2|Tên kia là ai vậy",
-                    "|-1|Sức mạnh tà ác !"
-            }, //text chat 1
-            new String[]{"|-1|Ta muốn tìm một đối thủ xứng tầm",
-                    "|-1|Đi chết đi!",
-                    "|-1|Các ngươi không phải đối thủ của ta đâu",
-                    "|-1|trạng thái Tà Ác sẽ thiêu rụi mày"
-            }, //text chat 2
-            new String[]{"|-2|Tên đó mạnh thật!"}, //text chat 3
-            REST_24_H //second rest
-    );
-    public static final BossData Rong_5Sao = new BossData(
-            "Rồng Rage 5 Sao", //name
-            ConstPlayer.XAYDA, //gender
-            new short[]{213, 214, 215, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
-            1000000, //dame
-            new int[]{200000000}, //hp
-            new int[]{89}, //map join
-            new int[][]{
-                    {Skill.KAMEJOKO, 5, 10000}}, //skill
-            new String[]{"|-1|Gaaaaaa !!!!!!!!",
-                    "|-2|Tên kia là ai vậy",
-                    "|-1|Sức mạnh tà ác !"
-            }, //text chat 1
-            new String[]{"|-1|Ta muốn tìm một đối thủ xứng tầm",
-                    "|-1|Đi chết đi!",
-                    "|-1|Các ngươi không phải đối thủ của ta đâu",
-                    "|-1|trạng thái Tà Ác sẽ thiêu rụi mày"
-            }, //text chat 2
-            new String[]{"|-2|Tên đó mạnh thật!"}, //text chat 3
-            REST_24_H //second rest
-    );
-    public static final BossData Rong_6Sao = new BossData(
-            "Rồng Oceanus 6 Sao", //name
-            ConstPlayer.XAYDA, //gender
-            new short[]{222, 223, 224, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
-            3000000, //dame
-            new int[]{200000000}, //hp
-            new int[]{90}, //map join
-            new int[][]{
-                    {Skill.LIEN_HOAN, 7, 4000},
-                    {Skill.KAMEJOKO, 5, 10000}}, //skill
-            new String[]{"|-1|Gaaaaaa !!!!!!!!",
-                    "|-2|Tên kia là ai vậy",
-                    "|-1|Sức mạnh tà ác !"
-            }, //text chat 1
-            new String[]{"|-1|Ta muốn tìm một đối thủ xứng tầm",
-                    "|-1|Đi chết đi!",
-                    "|-1|Các ngươi không phải đối thủ của ta đâu",
-                    "|-1|trạng thái Tà Ác sẽ thiêu rụi mày"
-            }, //text chat 2
-            new String[]{"|-2|Tên đó mạnh thật!"}, //text chat 3
-            REST_24_H //second rest
-    );
-    public static final BossData Rong_7Sao = new BossData(
-            "Rồng Naturon 7 Sao", //name
-            ConstPlayer.XAYDA, //gender
-            new short[]{216, 217, 218, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
-            1000000, //dame
-            new int[]{200000000}, //hp
-            new int[]{91}, //map join
-            new int[][]{
-                    {Skill.KAMEJOKO, 5, 1000}}, //skill
-            new String[]{"|-1|Gaaaaaa !!!!!!!!",
-                    "|-2|Tên kia là ai vậy",
-                    "|-1|Sức mạnh tà ác !"
-            }, //text chat 1
-            new String[]{"|-1|Ta muốn tìm một đối thủ xứng tầm",
-                    "|-1|Đi chết đi!",
-                    "|-1|Các ngươi không phải đối thủ của ta đâu",
-                    "|-1|trạng thái Tà Ác sẽ thiêu rụi mày"
-            }, //text chat 2
-            new String[]{"|-2|Tên đó mạnh thật!"}, //text chat 3
-            REST_24_H //second rest
-    );
     //**************************************************************************Team Mabu 12h
     public static final BossData MABU_12H = new BossData(
             "Mabư",
