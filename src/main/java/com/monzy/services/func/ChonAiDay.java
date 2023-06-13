@@ -5,7 +5,7 @@ package com.monzy.services.func;
 import com.monzy.models.item.Item;
 import com.monzy.models.player.Player;
 import com.monzy.services.ChatGlobalService;
-import com.monzy.services.InventoryServiceNew;
+import com.monzy.services.InventoryService;
 import com.monzy.services.ItemService;
 import com.monzy.services.Service;
 import com.monzy.utils.Util;
@@ -71,8 +71,8 @@ public class ChonAiDay implements Runnable {
                             int goldC = ChonAiDay.gI().goldNormar * 80 / 100;
                             Service.gI().sendThongBao(pl, "Chúc mừng bạn đã dành chiến thắng và nhận được " + goldC + " thỏi vàng");
                             Item it = ItemService.gI().createNewItem((short) 457, goldC);
-                            InventoryServiceNew.gI().addItemBag(pl, it);
-                            InventoryServiceNew.gI().sendItemBags(pl);
+                            InventoryService.gI().addItemBag(pl, it);
+                            InventoryService.gI().sendItemBags(pl);
                         }
                     } else if (!listN.isEmpty()) {
                         Player pl = listN.get(Util.nextInt(0, listN.size() - 1));
@@ -81,8 +81,8 @@ public class ChonAiDay implements Runnable {
                             int goldC = ChonAiDay.gI().goldNormar * 80 / 100;
                             Service.gI().sendThongBao(pl, "Chúc mừng bạn đã dành chiến thắng và nhận được " + goldC + " thỏi vàng");
                             Item it = ItemService.gI().createNewItem((short) 457, goldC);
-                            InventoryServiceNew.gI().addItemBag(pl, it);
-                            InventoryServiceNew.gI().sendItemBags(pl);
+                            InventoryService.gI().addItemBag(pl, it);
+                            InventoryService.gI().sendItemBags(pl);
                         }
                     }
                     listN.clear();
@@ -94,8 +94,8 @@ public class ChonAiDay implements Runnable {
                             int goldC = ChonAiDay.gI().goldVip * 90 / 100;
                             Service.gI().sendThongBao(pl, "Chúc mừng bạn đã dành chiến thắng và nhận được " + goldC + " thỏi vàng");
                             Item it = ItemService.gI().createNewItem((short) 457, goldC);
-                            InventoryServiceNew.gI().addItemBag(pl, it);
-                            InventoryServiceNew.gI().sendItemBags(pl);
+                            InventoryService.gI().addItemBag(pl, it);
+                            InventoryService.gI().sendItemBags(pl);
                         }
                     } else if (!listN.isEmpty()) {
                         Player pl = listN.get(Util.nextInt(0, listN.size() - 1));
@@ -104,8 +104,8 @@ public class ChonAiDay implements Runnable {
                             int goldC = ChonAiDay.gI().goldVip * 90 / 100;
                             Service.gI().sendThongBao(pl, "Chúc mừng bạn đã dành chiến thắng và nhận được " + goldC + " thỏi vàng");
                             Item it = ItemService.gI().createNewItem((short) 457, goldC);
-                            InventoryServiceNew.gI().addItemBag(pl, it);
-                            InventoryServiceNew.gI().sendItemBags(pl);
+                            InventoryService.gI().addItemBag(pl, it);
+                            InventoryService.gI().sendItemBags(pl);
                         }
                     }
                     for (int i = 0; i < ChonAiDay.gI().PlayersNormar.size(); i++) {

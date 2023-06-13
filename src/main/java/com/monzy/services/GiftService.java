@@ -42,7 +42,7 @@ public class GiftService {
         } else if (giftcode.timeCode()) {
             Service.gI().sendThongBao(player, "Code đã hết hạn");
         } else {
-            InventoryServiceNew.gI().addItemGiftCodeToPlayer(player, giftcode);
+            InventoryService.gI().addItemGiftCodeToPlayer(player, giftcode);
         }
     }
 

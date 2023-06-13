@@ -6,7 +6,6 @@ import com.monzy.models.player.Enemy;
 import com.monzy.models.player.Friend;
 import com.monzy.models.player.Player;
 import com.monzy.server.Client;
-import com.monzy.services.func.ChangeMapService;
 import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
 import com.network.io.Message;
@@ -205,7 +204,7 @@ public class FriendAndEnemyService {
                 try {
                     msg = new Message(-80);
                     msg.writer().writeByte(REMOVE_FRIEND);
-                    msg.writer().writeInt((int) player.friends.get(i).id);
+                    msg.writer().writeInt(player.friends.get(i).id);
                     player.sendMessage(msg);
                     msg.cleanup();
                 } catch (Exception e) {

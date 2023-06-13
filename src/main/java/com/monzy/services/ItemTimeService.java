@@ -90,7 +90,7 @@ public class ItemTimeService {
         player.itemTime.lastTimeUseTDLT = System.currentTimeMillis();
         sendCanAutoPlay(player);
         sendItemTime(player, 4387, player.itemTime.timeTDLT / 1000);
-        InventoryServiceNew.gI().sendItemBags(player);
+        InventoryService.gI().sendItemBags(player);
     }
 
     //tắt tđlt
@@ -104,7 +104,7 @@ public class ItemTimeService {
         }
         sendCanAutoPlay(player);
         removeItemTime(player, 4387);
-        InventoryServiceNew.gI().sendItemBags(player);
+        InventoryService.gI().sendItemBags(player);
     }
 
     public void sendCanAutoPlay(Player player) {

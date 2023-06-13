@@ -11,6 +11,7 @@ import com.monzy.models.map.ItemMap;
 import com.monzy.models.map.Zone;
 import com.monzy.models.mob.Mob;
 import com.monzy.models.npc.Npc;
+import com.monzy.models.player.Inventory;
 import com.monzy.models.player.Player;
 import com.monzy.models.task.SideTaskTemplate;
 import com.monzy.models.task.SubTaskMain;
@@ -28,7 +29,7 @@ public class TaskService {
     /**
      * Làm cùng số người trong bang
      */
-    private static final byte NMEMBER_DO_TASK_TOGETHER = 1;
+    private static final byte N_MEMBER_DO_TASK_TOGETHER = 1;
     private static com.monzy.services.TaskService i;
 
     public static com.monzy.services.TaskService gI() {
@@ -531,7 +532,7 @@ public class TaskService {
                                 list.add(pl);
                             }
                         }
-                        if (list.size() >= NMEMBER_DO_TASK_TOGETHER) {
+                        if (list.size() >= N_MEMBER_DO_TASK_TOGETHER) {
                             for (Player pl : list) {
                                 switch (mob.tempId) {
                                     case ConstMob.HEO_RUNG:
@@ -559,7 +560,7 @@ public class TaskService {
                                 list.add(pl);
                             }
                         }
-                        if (list.size() >= NMEMBER_DO_TASK_TOGETHER) {
+                        if (list.size() >= N_MEMBER_DO_TASK_TOGETHER) {
                             for (Player pl : list) {
                                 switch (mob.tempId) {
                                     case ConstMob.BULON:
@@ -697,10 +698,10 @@ public class TaskService {
                     break;
                 case ConstTask.TASK_2_1:
                     try {
-                        InventoryServiceNew.gI().subQuantityItemsBag(player, InventoryServiceNew.gI().findItemBag(player, 73), 10);
+                        InventoryService.gI().subQuantityItemsBag(player, InventoryService.gI().findItemBag(player, 73), 10);
                     } catch (Exception ex) {
                     }
-                    InventoryServiceNew.gI().sendItemBags(player);
+                    InventoryService.gI().sendItemBags(player);
                     Service.gI().dropItemMapForMe(player, player.zone.getItemMapByTempId(74));
                     npcSay(player, ConstTask.NPC_NHA,
                             "Tốt lắm, đùi gà đây rồi, haha. Ông sẽ nướng tại đống lửa gần kia con có thể ăn bất cứ lúc nào nếu muốn\n"
@@ -714,10 +715,10 @@ public class TaskService {
                     break;
                 case ConstTask.TASK_3_2:
                     try {
-                        InventoryServiceNew.gI().subQuantityItemsBag(player, InventoryServiceNew.gI().findItemBag(player, 78), 1);
+                        InventoryService.gI().subQuantityItemsBag(player, InventoryService.gI().findItemBag(player, 78), 1);
                     } catch (Exception ex) {
                     }
-                    InventoryServiceNew.gI().sendItemBags(player);
+                    InventoryService.gI().sendItemBags(player);
                     Service.gI().sendFlagBag(player);
                     npcSay(player, ConstTask.NPC_NHA,
                             "Có em bé trong phi thuyền rơi xuống à, ông cứ tưởng là sao băng chứ\n"
@@ -787,7 +788,7 @@ public class TaskService {
                     break;
                 case ConstTask.TASK_8_1:
                     Item capsule = ItemService.gI().createNewItem((short) 193, 75);
-                    InventoryServiceNew.gI().addItemBag(player, capsule);
+                    InventoryService.gI().addItemBag(player, capsule);
                     npcSay(player, ConstTask.NPC_SHOP_LANG,
                             "Hiện tại em vẫn khỏe anh ạ, hơi bị trầy xước tí thôi nhưng không sao\n"
                                     + "Em thực sự cảm ơn anh đã cứu em, nếu không có anh thì giờ này cũng không biết em sẽ thế nào nữa\n"
@@ -818,7 +819,7 @@ public class TaskService {
                     break;
                 case ConstTask.TASK_10_2:
                     Item skill2 = ItemService.gI().createNewItem((short) (player.gender == 0 ? 94 : player.gender == 1 ? 101 : 108), 1);
-                    InventoryServiceNew.gI().addItemBag(player, skill2);
+                    InventoryService.gI().addItemBag(player, skill2);
                     npcSay(player, ConstTask.NPC_QUY_LAO,
                             "Tốt lắm, bây giờ con đã chính thức trở thành đệ tử của ta\n"
                                     + "Ta sẽ dạy con 1 tuyệt chiêu đặc biệt của ta\n"
@@ -1142,7 +1143,7 @@ public class TaskService {
                                     + "Độc Quyền Bởi User Thâm Đít");
                     break;
             }
-            InventoryServiceNew.gI().sendItemBags(player);
+            InventoryService.gI().sendItemBags(player);
             return true;
         }
         return false;
@@ -1190,11 +1191,8 @@ public class TaskService {
 //                break;
 //        }
         if (player.playerTask.taskMain.id > 0 && player.playerTask.taskMain.id < 25) {
-            Service.gI().addSMTN(player, (byte) 2, 500 * (player.playerTask.taskMain.id + 1), false);
-            player.inventory.gold += (player.playerTask.taskMain.id < 5 && player.playerTask.taskMain.id >= 0) ? 100000 * (player.playerTask.taskMain.id + 1) : 500000;
-            if (player.inventory.gold > 2000000000) {
-                player.inventory.gold = 2000000000;
-            }
+            Service.gI().addSMTN(player, (byte) 2, 500L * (player.playerTask.taskMain.id + 1), false);
+            player.inventory.gold = Math.min(Inventory.LIMIT_GOLD, player.inventory.gold + ((player.playerTask.taskMain.id < 5 && player.playerTask.taskMain.id >= 0) ? 100000 * (player.playerTask.taskMain.id + 1) : 500000));
             Service.gI().sendMoney(player);
         }
     }
@@ -1312,15 +1310,6 @@ public class TaskService {
                 ? "Bunma" : (player.gender == ConstPlayer.NAMEC
                 ? "Dende" : "Appule"));
         return text;
-    }
-
-    public static void main(String[] args) {
-        for (int i = 0; i < 100; i++) {
-            for (int j = 0; j <= 10; j++) {
-                System.out.println("case ConstTask.TASK_" + i + "_" + j + ":");
-                System.out.println("return player.playerTask.taskMain.id == " + i + " && player.playerTask.taskMain.index == " + j + ";");
-            }
-        }
     }
 
     public boolean isCurrentTask(Player player, int idTaskCustom) {

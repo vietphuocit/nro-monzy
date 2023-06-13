@@ -84,7 +84,7 @@ public class MonzyResultSetImpl implements MonzyResultSet {
             map = null;
         }
 
-        this.values = (Object[][]) null;
+        this.values = null;
     }
 
     public boolean next() throws Exception {

@@ -5,7 +5,7 @@ import com.monzy.models.matches.TYPE_LOSE_PVP;
 import com.monzy.models.matches.TYPE_PVP;
 import com.monzy.models.player.Player;
 import com.monzy.services.Service;
-import com.monzy.services.func.ChangeMapService;
+import com.monzy.services.ChangeMapService;
 import com.monzy.utils.Util;
 
 /**

@@ -1,24 +1,20 @@
 package com.monzy.server;
 
 import com.database.Database;
-import com.monzy.giftcode.GiftCode;
 import com.monzy.giftcode.GiftCodeManager;
 import com.monzy.jdbc.daos.HistoryTransactionDAO;
 import com.monzy.kygui.ShopKyGuiManager;
 import com.monzy.models.boss.BossManager;
 import com.monzy.models.item.Item;
-import com.monzy.models.matches.pvp.DaiHoiVoThuat;
 import com.monzy.models.player.Player;
 import com.monzy.server.io.MyKeyHandler;
 import com.monzy.server.io.MySession;
 import com.monzy.services.*;
-import com.monzy.services.func.ChonAiDay;
-import com.monzy.services.func.TopService;
+import com.monzy.services.TopService;
 import com.monzy.utils.Logger;
 import com.monzy.utils.TimeUtil;
 import com.monzy.utils.Util;
 import com.network.example.MessageSendCollect;
-import com.network.server.IServerClose;
 import com.network.server.ISessionAcceptHandler;
 import com.network.server.MonzyServer;
 import com.network.session.ISession;
@@ -72,17 +68,6 @@ public class ServerManager {
 //        NgocRongNamecService.gI().initNgocRongNamec((byte) 0);
 //        new Thread(NgocRongNamecService.gI(), "Thread NRNM").start();
         new Thread(() -> TopService.gI().run()).start();
-        new Thread(() -> {
-            while (true) {
-                try {
-                    GiftCodeManager.gI().saveGiftCode();
-                    GiftCodeManager.gI();
-                    Thread.sleep(1000 * 60 * 5);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
         try {
             Thread.sleep(1000);
             BossManager.gI().loadBoss();
@@ -219,8 +204,8 @@ public class ServerManager {
                                 }
                                 Item i = Util.sendDo(Integer.parseInt(pagram1[2]), Integer.parseInt(pagram1[3]), ios);
                                 i.quantity = Integer.parseInt(pagram1[1]);
-                                InventoryServiceNew.gI().addItemBag(p, i);
-                                InventoryServiceNew.gI().sendItemBags(p);
+                                InventoryService.gI().addItemBag(p, i);
+                                InventoryService.gI().sendItemBags(p);
                                 Service.gI().sendThongBao(p, "Admin trả đồ. anh em thông cảm nhé...");
                             } else {
                                 System.out.println("Người chơi không online");

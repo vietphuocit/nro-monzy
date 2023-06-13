@@ -4,7 +4,7 @@ import com.monzy.models.clan.Clan;
 import com.monzy.models.map.Zone;
 import com.monzy.models.mob.Mob;
 import com.monzy.models.player.Player;
-import com.monzy.services.func.ChangeMapService;
+import com.monzy.services.ChangeMapService;
 import lombok.Data;
 
 import java.util.ArrayList;

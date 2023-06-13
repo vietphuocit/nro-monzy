@@ -15,6 +15,7 @@ import org.json.simple.JSONValue;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -37,6 +38,7 @@ public class GiftCodeManager {
     }
 
     public void init() {
+        listGiftCode.clear();
         try (Connection con = Database.getConnection()) {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM giftcode", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs = ps.executeQuery();
@@ -91,8 +93,8 @@ public class GiftCodeManager {
     public void checkInformationGiftCode(Player p) {
         StringBuilder sb = new StringBuilder();
         for (GiftCode giftCode : listGiftCode) {
-            sb.append("Code: ").append(giftCode.code).append(", Số lượng: ").append(giftCode.countLeft).append("\b").append(", Ngày tạo: ")
-                    .append(giftCode.dateCreate).append("Ngày hết hạn").append(giftCode.dateExpired);
+            sb.append("Code: ").append(giftCode.code).append(", Số lượng: ").append(giftCode.countLeft)
+                    .append("\bHạn sử dụng: ").append(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(giftCode.dateCreate)).append(" -> ").append(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(giftCode.dateExpired)).append("\b");
         }
         NpcService.gI().createTutorial(p, 5073, sb.toString());
     }

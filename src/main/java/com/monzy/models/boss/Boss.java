@@ -11,11 +11,10 @@ import com.monzy.models.skill.Skill;
 import com.monzy.server.Manager;
 import com.monzy.server.ServerNotify;
 import com.monzy.services.*;
-import com.monzy.services.func.ChangeMapService;
+import com.monzy.services.ChangeMapService;
 import com.monzy.utils.SkillUtil;
 import com.monzy.utils.Util;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 

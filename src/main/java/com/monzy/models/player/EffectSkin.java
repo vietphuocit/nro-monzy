@@ -87,7 +87,7 @@ public class EffectSkin {
                     }
                 }
                 if (!pl.isPet && !pl.isNewPet && Util.canDoWithTime(lastTimeUpdateCTHT, 5000)) {
-                    InventoryServiceNew.gI().sendItemBody(pl);
+                    InventoryService.gI().sendItemBody(pl);
                 }
                 pl.effectSkin.lastTimeUpdateCTHT = System.currentTimeMillis();
             }
@@ -211,7 +211,7 @@ public class EffectSkin {
                     if (io.optionTemplate.id == 9) {
                         if (io.param < 1000) {
                             io.param++;
-                            InventoryServiceNew.gI().sendItemBody(player);
+                            InventoryService.gI().sendItemBody(player);
                         }
                         break;
                     }
@@ -251,7 +251,7 @@ public class EffectSkin {
                 }
             }
             this.lastTimeSubTimeTrainArmor = System.currentTimeMillis();
-            InventoryServiceNew.gI().sendItemBags(player);
+            InventoryService.gI().sendItemBags(player);
             Service.gI().point(this.player);
         }
     }

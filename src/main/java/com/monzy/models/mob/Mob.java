@@ -11,6 +11,7 @@ import com.monzy.models.player.Pet;
 import com.monzy.models.player.Player;
 import com.monzy.server.Maintenance;
 import com.monzy.server.Manager;
+import com.monzy.server.ServerNotify;
 import com.monzy.services.*;
 import com.monzy.utils.Util;
 import com.network.io.Message;
@@ -303,7 +304,7 @@ public class Mob {
     }
 
     public float getRateTrangBi(int level) {
-        float dropRate = 2f - (level - 2.0f) * 0.5f;
+        float dropRate = 3f - (level - 2.0f) * 0.5f;
         if (dropRate < 0.2) {
             dropRate = 0.2f;
         }
@@ -324,7 +325,7 @@ public class Mob {
                 }
                 ItemMap itemMap = new ItemMap(zone, itemId, 1, x, player.location.y, player.id);
                 itemMap.options.addAll(ItemService.gI().getListOptionItemShop(itemId));
-                if (Util.isTrue(2, 1000) && MapService.gI().isMapUpSKH(zone.map.mapId)) {
+                if (Util.isTrue(1, 100) && MapService.gI().isMapUpSKH(zone.map.mapId)) {
                     int skhId = ItemService.gI().randomSKHId(player.gender);
                     itemMap.options.add(new Item.ItemOption(skhId, 1));
                     itemMap.options.add(new Item.ItemOption(skhId + 9, 1));
@@ -335,12 +336,13 @@ public class Mob {
             }
         }
         // đồ thần linh
-        if (MapService.gI().isMapCold(this.zone.map) && Util.isTrue(1, 200)) {
+        if (MapService.gI().isMapCold(this.zone.map) && Util.isTrue(1, 100)) {
             int idItem = Manager.IDS_DO_THAN[Util.nextInt(Manager.IDS_DO_THAN.length)];
             Item item = ItemService.gI().randomCSDTL(idItem, ItemService.MOB_DROP);
             ItemMap itemMap = new ItemMap(zone, idItem, 1, x, player.location.y, player.id);
             itemMap.options.addAll(item.itemOptions);
             list.add(itemMap);
+            ServerNotify.gI().sendThongBaoBenDuoi(player.name + " đã đánh rơi " + item.template.name + " ở " + zone.map.mapName);
         }
         // thức ăn
         if (Util.nextInt(0, 100) < 5 && MapService.gI().isMapCold(this.zone.map) && ((!player.isPet && player.getSession().actived && player.setClothes.setGOD == 5) || (player.isPet && ((Pet) player).master.getSession().actived && player.setClothes.setGOD == 5))) {

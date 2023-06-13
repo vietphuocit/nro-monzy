@@ -1,4 +1,4 @@
-package com.monzy.services.func;
+package com.monzy.services;
 
 import com.database.Database;
 import com.monzy.server.Manager;

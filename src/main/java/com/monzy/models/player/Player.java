@@ -27,7 +27,7 @@ import com.monzy.models.task.TaskPlayer;
 import com.monzy.server.Client;
 import com.monzy.server.io.MySession;
 import com.monzy.services.*;
-import com.monzy.services.func.ChangeMapService;
+import com.monzy.services.ChangeMapService;
 import com.monzy.services.func.ChonAiDay;
 import com.monzy.services.func.CombineNew;
 import com.monzy.utils.Logger;
@@ -763,11 +763,11 @@ public class Player {
                     }
                 }
                 if (tv != null) {
-                    InventoryServiceNew.gI().subQuantityItemsBag(player, tv, 1);
+                    InventoryService.gI().subQuantityItemsBag(player, tv, 1);
                     player.inventory.gold += 500000000;
                     lasttimebanv = System.currentTimeMillis();
                     PlayerService.gI().sendInfoHpMpMoney(player);
-                    InventoryServiceNew.gI().sendItemBags(player);
+                    InventoryService.gI().sendItemBags(player);
                 } else {
                     Service.getInstance().sendThongBao(player, "Hết thỏi vàng rồi, đã tắt lệnh bán vàng");
                     this.banv = false;
@@ -781,14 +781,14 @@ public class Player {
     public void muav(Player player) {
         try {
             if (this.muav && player != null) {
-                if (InventoryServiceNew.gI().getCountEmptyBag(player) > 1) {
+                if (InventoryService.gI().getCountEmptyBag(player) > 1) {
                     if (player.inventory.gold >= 500000000) {
                         player.inventory.gold -= 500000000;
                         Item tv = ItemService.gI().createNewItem((short) 457);
-                        InventoryServiceNew.gI().addItemBag(player, tv);
+                        InventoryService.gI().addItemBag(player, tv);
                         lasttimemuav = System.currentTimeMillis();
                         PlayerService.gI().sendInfoHpMpMoney(player);
-                        InventoryServiceNew.gI().sendItemBags(player);
+                        InventoryService.gI().sendItemBags(player);
                     }
                 } else {
                     this.muav = false;

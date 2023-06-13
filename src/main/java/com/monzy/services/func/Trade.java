@@ -4,10 +4,7 @@ import com.monzy.jdbc.daos.HistoryTransactionDAO;
 import com.monzy.models.item.Item;
 import com.monzy.models.player.Inventory;
 import com.monzy.models.player.Player;
-import com.monzy.services.InventoryServiceNew;
-import com.monzy.services.ItemService;
-import com.monzy.services.PlayerService;
-import com.monzy.services.Service;
+import com.monzy.services.*;
 import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
 import com.network.io.Message;
@@ -40,10 +37,10 @@ public class Trade {
         this.player2 = pl2;
         this.gold1Before = pl1.inventory.gold;
         this.gold2Before = pl2.inventory.gold;
-        this.bag1Before = InventoryServiceNew.gI().copyItemsBag(player1);
-        this.bag2Before = InventoryServiceNew.gI().copyItemsBag(player2);
-        this.itemsBag1 = InventoryServiceNew.gI().copyItemsBag(player1);
-        this.itemsBag2 = InventoryServiceNew.gI().copyItemsBag(player2);
+        this.bag1Before = InventoryService.gI().copyItemsBag(player1);
+        this.bag2Before = InventoryService.gI().copyItemsBag(player2);
+        this.itemsBag1 = InventoryService.gI().copyItemsBag(player1);
+        this.itemsBag2 = InventoryService.gI().copyItemsBag(player2);
         this.itemsTrade1 = new ArrayList<>();
         this.itemsTrade2 = new ArrayList<>();
         TransactionService.PLAYER_TRADE.put(pl1, this);
@@ -101,10 +98,10 @@ public class Trade {
                             Item itemTrade = ItemService.gI().copyItem(item);
                             itemTrade.quantity = 99;
                             if (pl.equals(this.player1)) {
-                                InventoryServiceNew.gI().subQuantityItem(itemsBag1, item, itemTrade.quantity);
+                                InventoryService.gI().subQuantityItem(itemsBag1, item, itemTrade.quantity);
                                 itemsTrade1.add(itemTrade);
                             } else {
-                                InventoryServiceNew.gI().subQuantityItem(itemsBag2, item, itemTrade.quantity);
+                                InventoryService.gI().subQuantityItem(itemsBag2, item, itemTrade.quantity);
                                 itemsTrade2.add(itemTrade);
                             }
                         }
@@ -112,10 +109,10 @@ public class Trade {
                             Item itemTrade = ItemService.gI().copyItem(item);
                             itemTrade.quantity = left;
                             if (pl.equals(this.player1)) {
-                                InventoryServiceNew.gI().subQuantityItem(itemsBag1, item, itemTrade.quantity);
+                                InventoryService.gI().subQuantityItem(itemsBag1, item, itemTrade.quantity);
                                 itemsTrade1.add(itemTrade);
                             } else {
-                                InventoryServiceNew.gI().subQuantityItem(itemsBag2, item, itemTrade.quantity);
+                                InventoryService.gI().subQuantityItem(itemsBag2, item, itemTrade.quantity);
                                 itemsTrade2.add(itemTrade);
                             }
                         }
@@ -123,10 +120,10 @@ public class Trade {
                         Item itemTrade = ItemService.gI().copyItem(item);
                         itemTrade.quantity = quantity != 0 ? quantity : 1;
                         if (pl.equals(this.player1)) {
-                            InventoryServiceNew.gI().subQuantityItem(itemsBag1, item, itemTrade.quantity);
+                            InventoryService.gI().subQuantityItem(itemsBag1, item, itemTrade.quantity);
                             itemsTrade1.add(itemTrade);
                         } else {
-                            InventoryServiceNew.gI().subQuantityItem(itemsBag2, item, itemTrade.quantity);
+                            InventoryService.gI().subQuantityItem(itemsBag2, item, itemTrade.quantity);
                             itemsTrade2.add(itemTrade);
                         }
                     }
@@ -280,7 +277,7 @@ public class Trade {
             sendNotifyTrade(tradeStatus);
         } else {
             for (Item item : itemsTrade1) {
-                if (!InventoryServiceNew.gI().addItemList(itemsBag2, item)) {
+                if (!InventoryService.gI().addItemList(itemsBag2, item)) {
                     tradeStatus = FAIL_NOT_ENOUGH_BAG_P1;
                     break;
                 }
@@ -289,7 +286,7 @@ public class Trade {
                 sendNotifyTrade(tradeStatus);
             } else {
                 for (Item item : itemsTrade2) {
-                    if (!InventoryServiceNew.gI().addItemList(itemsBag1, item)) {
+                    if (!InventoryService.gI().addItemList(itemsBag1, item)) {
                         tradeStatus = FAIL_NOT_ENOUGH_BAG_P2;
                         break;
                     }
@@ -301,8 +298,8 @@ public class Trade {
                     player2.inventory.gold -= goldTrade2;
                     player1.inventory.itemsBag = itemsBag1;
                     player2.inventory.itemsBag = itemsBag2;
-                    InventoryServiceNew.gI().sendItemBags(player1);
-                    InventoryServiceNew.gI().sendItemBags(player2);
+                    InventoryService.gI().sendItemBags(player1);
+                    InventoryService.gI().sendItemBags(player2);
                     PlayerService.gI().sendInfoHpMpMoney(player1);
                     PlayerService.gI().sendInfoHpMpMoney(player2);
                     HistoryTransactionDAO.insert(player1, player2, goldTrade1, goldTrade2, itemsTrade1, itemsTrade2,

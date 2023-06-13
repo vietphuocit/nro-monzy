@@ -177,11 +177,11 @@ public class SummonDragon {
                     }
                     for (int i = begin; i <= NGOC_RONG_7_SAO; i++) {
                         try {
-                            InventoryServiceNew.gI().subQuantityItemsBag(pl, InventoryServiceNew.gI().findItemBag(pl, i), 1);
+                            InventoryService.gI().subQuantityItemsBag(pl, InventoryService.gI().findItemBag(pl, i), 1);
                         } catch (Exception ex) {
                         }
                     }
-                    InventoryServiceNew.gI().sendItemBags(pl);
+                    InventoryService.gI().sendItemBags(pl);
                     sendNotifyShenronAppear();
                     activeShenron(pl, true, SummonDragon.DRAGON_SHENRON);
                     sendWhishesShenron(pl);
@@ -250,33 +250,33 @@ public class SummonDragon {
     private boolean checkShenronBall(Player pl) {
         byte dragonStar = (byte) this.pl_dragonStar.get(pl);
         if (dragonStar == 1) {
-            if (!InventoryServiceNew.gI().isExistItemBag(pl, NGOC_RONG_2_SAO)) {
+            if (!InventoryService.gI().isExistItemBag(pl, NGOC_RONG_2_SAO)) {
                 Service.getInstance().sendThongBao(pl, "Bạn còn thiếu 1 viên ngọc rồng 2 sao");
                 return false;
             }
-            if (!InventoryServiceNew.gI().isExistItemBag(pl, NGOC_RONG_3_SAO)) {
+            if (!InventoryService.gI().isExistItemBag(pl, NGOC_RONG_3_SAO)) {
                 Service.getInstance().sendThongBao(pl, "Bạn còn thiếu 1 viên ngọc rồng 3 sao");
                 return false;
             }
         } else if (dragonStar == 2) {
-            if (!InventoryServiceNew.gI().isExistItemBag(pl, NGOC_RONG_3_SAO)) {
+            if (!InventoryService.gI().isExistItemBag(pl, NGOC_RONG_3_SAO)) {
                 Service.getInstance().sendThongBao(pl, "Bạn còn thiếu 1 viên ngọc rồng 3 sao");
                 return false;
             }
         }
-        if (!InventoryServiceNew.gI().isExistItemBag(pl, NGOC_RONG_4_SAO)) {
+        if (!InventoryService.gI().isExistItemBag(pl, NGOC_RONG_4_SAO)) {
             Service.getInstance().sendThongBao(pl, "Bạn còn thiếu 1 viên ngọc rồng 4 sao");
             return false;
         }
-        if (!InventoryServiceNew.gI().isExistItemBag(pl, NGOC_RONG_5_SAO)) {
+        if (!InventoryService.gI().isExistItemBag(pl, NGOC_RONG_5_SAO)) {
             Service.getInstance().sendThongBao(pl, "Bạn còn thiếu 1 viên ngọc rồng 5 sao");
             return false;
         }
-        if (!InventoryServiceNew.gI().isExistItemBag(pl, NGOC_RONG_6_SAO)) {
+        if (!InventoryService.gI().isExistItemBag(pl, NGOC_RONG_6_SAO)) {
             Service.getInstance().sendThongBao(pl, "Bạn còn thiếu 1 viên ngọc rồng 6 sao");
             return false;
         }
-        if (!InventoryServiceNew.gI().isExistItemBag(pl, NGOC_RONG_7_SAO)) {
+        if (!InventoryService.gI().isExistItemBag(pl, NGOC_RONG_7_SAO)) {
             Service.getInstance().sendThongBao(pl, "Bạn còn thiếu 1 viên ngọc rồng 7 sao");
             return false;
         }
@@ -388,14 +388,14 @@ public class SummonDragon {
                 switch (this.select) {
                     case 0: //đẹp trai nhất vũ trụ
                     {
-                        if (InventoryServiceNew.gI().getCountEmptyBag(playerSummonShenron) > 0) {
+                        if (InventoryService.gI().getCountEmptyBag(playerSummonShenron) > 0) {
                             byte gender = this.playerSummonShenron.gender;
                             Item avtVip = ItemService.gI().createNewItem((short) (gender == ConstPlayer.TRAI_DAT ? 227
                                     : gender == ConstPlayer.NAMEC ? 228 : 229));
                             avtVip.itemOptions.add(new ItemOption(97, Util.nextInt(5, 10)));
                             avtVip.itemOptions.add(new ItemOption(77, Util.nextInt(10, 20)));
-                            InventoryServiceNew.gI().addItemBag(playerSummonShenron, avtVip);
-                            InventoryServiceNew.gI().sendItemBags(playerSummonShenron);
+                            InventoryService.gI().addItemBag(playerSummonShenron, avtVip);
+                            InventoryService.gI().sendItemBags(playerSummonShenron);
                         } else {
                             Service.getInstance().sendThongBao(playerSummonShenron, "Hành trang đã đầy");
                             reOpenShenronWishes(playerSummonShenron);
@@ -438,7 +438,7 @@ public class SummonDragon {
                                         break;
                                     }
                                 }
-                                InventoryServiceNew.gI().sendItemBody(playerSummonShenron);
+                                InventoryService.gI().sendItemBody(playerSummonShenron);
                             } else {
                                 Service.getInstance().sendThongBao(playerSummonShenron, "Găng tay của ngươi đã đạt cấp tối đa");
                                 reOpenShenronWishes(playerSummonShenron);
@@ -546,14 +546,14 @@ public class SummonDragon {
                                 Player p = Client.gI().getPlayer(m.id);
                                 Item it = ItemService.gI().createNewItem((short) 16);
                                 it.quantity = 20;
-                                InventoryServiceNew.gI().addItemBag(p, it);
-                                InventoryServiceNew.gI().sendItemBags(p);
+                                InventoryService.gI().addItemBag(p, it);
+                                InventoryService.gI().sendItemBags(p);
                             } else {
                                 Player p = GodGK.loadById(m.id);
                                 if (p != null) {
                                     Item it = ItemService.gI().createNewItem((short) 16);
                                     it.quantity = 20;
-                                    InventoryServiceNew.gI().addItemBag(p, it);
+                                    InventoryService.gI().addItemBag(p, it);
                                     PlayerDAO.updatePlayer(p);
                                 }
                             }
@@ -561,8 +561,8 @@ public class SummonDragon {
                     } else {
                         Item it = ItemService.gI().createNewItem((short) 16);
                         it.quantity = 20;
-                        InventoryServiceNew.gI().addItemBag(playerSummonShenron, it);
-                        InventoryServiceNew.gI().sendItemBags(playerSummonShenron);
+                        InventoryService.gI().addItemBag(playerSummonShenron, it);
+                        InventoryService.gI().sendItemBags(playerSummonShenron);
                     }
                 }
                 break;

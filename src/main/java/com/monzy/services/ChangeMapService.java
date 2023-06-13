@@ -1,4 +1,4 @@
-package com.monzy.services.func;
+package com.monzy.services;
 
 import com.monzy.consts.ConstMap;
 import com.monzy.consts.ConstPlayer;
@@ -11,7 +11,7 @@ import com.monzy.models.map.blackball.BlackBallWar;
 import com.monzy.models.matches.TYPE_LOSE_PVP;
 import com.monzy.models.mob.Mob;
 import com.monzy.models.player.Player;
-import com.monzy.services.*;
+import com.monzy.services.func.UseItem;
 import com.monzy.utils.Logger;
 import com.monzy.utils.TimeUtil;
 import com.monzy.utils.Util;
@@ -452,7 +452,7 @@ public class ChangeMapService {
             if (player.pet != null && player.pet.mobMe != null) {
                 msg = new Message(-95);
                 msg.writer().writeByte(0);//type
-                msg.writer().writeInt((int) player.pet.mobMe.id);
+                msg.writer().writeInt(player.pet.mobMe.id);
                 msg.writer().writeShort(player.pet.mobMe.tempId);
                 msg.writer().writeInt(player.pet.mobMe.point.gethp());// hp mob
                 Service.gI().sendMessAnotherNotMeInMap(player, msg);

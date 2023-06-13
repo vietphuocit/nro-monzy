@@ -4,7 +4,6 @@ import com.monzy.consts.ConstPlayer;
 import com.monzy.models.player.NewPet;
 import com.monzy.models.player.Pet;
 import com.monzy.models.player.Player;
-import com.monzy.services.func.ChangeMapService;
 import com.monzy.utils.SkillUtil;
 import com.monzy.utils.Util;
 
@@ -221,7 +220,7 @@ public class PetService {
 
     public void changeNamePet(Player player, String name) {
         try {
-            if (!InventoryServiceNew.gI().isExistItemBag(player, 400)) {
+            if (!InventoryService.gI().isExistItemBag(player, 400)) {
                 Service.gI().sendThongBao(player, "Bạn cần thẻ đặt tên đệ tử, mua tại Santa");
                 return;
             } else if (Util.haveSpecialCharacter(name)) {
@@ -233,7 +232,7 @@ public class PetService {
             }
             ChangeMapService.gI().exitMap(player.pet);
             player.pet.name = "$" + name.toLowerCase().trim();
-            InventoryServiceNew.gI().subQuantityItemsBag(player, InventoryServiceNew.gI().findItemBag(player, 400), 1);
+            InventoryService.gI().subQuantityItemsBag(player, InventoryService.gI().findItemBag(player, 400), 1);
             new Thread(() -> {
                 try {
                     Thread.sleep(1000);

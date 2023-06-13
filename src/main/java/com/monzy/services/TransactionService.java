@@ -1,11 +1,11 @@
-package com.monzy.services.func;
+package com.monzy.services;
 
 import com.database.Database;
 import com.monzy.jdbc.daos.PlayerDAO;
 import com.monzy.models.player.Player;
 import com.monzy.server.Client;
 import com.monzy.server.Maintenance;
-import com.monzy.services.Service;
+import com.monzy.services.func.Trade;
 import com.monzy.utils.Logger;
 import com.monzy.utils.TimeUtil;
 import com.monzy.utils.Util;
@@ -18,7 +18,7 @@ import java.util.Map;
 public class TransactionService implements Runnable {
 
     private static final int TIME_DELAY_TRADE = 1000;
-    static final Map<Player, Trade> PLAYER_TRADE = new HashMap<Player, Trade>();
+    public static final Map<Player, Trade> PLAYER_TRADE = new HashMap<>();
     private static final byte SEND_INVITE_TRADE = 0;
     private static final byte ACCEPT_TRADE = 1;
     private static final byte ADD_ITEM_TRADE = 2;

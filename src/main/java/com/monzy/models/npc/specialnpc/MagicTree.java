@@ -4,7 +4,7 @@ import com.monzy.consts.ConstNpc;
 import com.monzy.models.item.Item;
 import com.monzy.models.npc.NpcManager;
 import com.monzy.models.player.Player;
-import com.monzy.services.InventoryServiceNew;
+import com.monzy.services.InventoryService;
 import com.monzy.services.ItemService;
 import com.monzy.services.PlayerService;
 import com.monzy.services.Service;
@@ -152,7 +152,7 @@ public class MagicTree {
                 return;
             }
             this.lastTimeHarvest = System.currentTimeMillis();
-            InventoryServiceNew.gI().sendItemBags(player);
+            InventoryService.gI().sendItemBags(player);
             Message msg;
             try {
                 msg = new Message(-34);
@@ -268,9 +268,9 @@ public class MagicTree {
     public int addPeaHarvest(byte level, int quantity) {
         Item pea = ItemService.gI().createNewItem(MagicTree.PEA_TEMP[level - 1], quantity);
         pea.itemOptions.add(new Item.ItemOption(level - 1 > 1 ? 2 : 48, MagicTree.PEA_PARAM[level - 1]));
-        InventoryServiceNew.gI().addItemBag(player, pea);
+        InventoryService.gI().addItemBag(player, pea);
         if (pea.quantity > 0) {
-            InventoryServiceNew.gI().addItemBox(player, pea);
+            InventoryService.gI().addItemBox(player, pea);
         }
         if (pea.quantity < quantity) {
             Service.gI().sendThongBao(player, "Bạn vừa thu hoạch được " + (quantity - pea.quantity) + " hạt " + pea.template.name);

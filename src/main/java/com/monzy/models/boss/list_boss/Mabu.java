@@ -9,7 +9,7 @@ import com.monzy.models.boss.Boss;
 import com.monzy.models.boss.BossID;
 import com.monzy.models.boss.BossesData;
 import com.monzy.models.player.Player;
-import com.monzy.services.InventoryServiceNew;
+import com.monzy.services.InventoryService;
 import com.monzy.services.ItemService;
 import com.monzy.services.Service;
 
@@ -24,8 +24,8 @@ public class Mabu extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        InventoryServiceNew.gI().addItemBag(plKill, ItemService.gI().createNewItem(((short) 568)));
-        InventoryServiceNew.gI().sendItemBags(plKill);
+        InventoryService.gI().addItemBag(plKill, ItemService.gI().createNewItem(((short) 568)));
+        InventoryService.gI().sendItemBags(plKill);
         Service.gI().sendThongBao(plKill, "Bạn nhận được Trứng Bư!");
     }
 

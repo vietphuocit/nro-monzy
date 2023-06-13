@@ -1,4 +1,4 @@
-package com.monzy.services.func;
+package com.monzy.services;
 
 import com.monzy.consts.ConstNpc;
 import com.monzy.models.item.Item;
@@ -8,10 +8,6 @@ import com.monzy.models.npc.NpcManager;
 import com.monzy.models.player.Player;
 import com.monzy.server.Manager;
 import com.monzy.server.ServerNotify;
-import com.monzy.services.InventoryServiceNew;
-import com.monzy.services.ItemService;
-import com.monzy.services.RewardService;
-import com.monzy.services.Service;
 import com.monzy.utils.Util;
 import com.network.io.Message;
 
@@ -22,7 +18,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class CombineServiceNew {
+public class CombineService {
 
     private static final int COST_DOI_VE_DOI_DO_HUY_DIET = 500000000;
     private static final int COST_DAP_DO_KICH_HOAT = 500000000;
@@ -69,18 +65,18 @@ public class CombineServiceNew {
     private final Npc npsthiensu64;
     private final Npc khidaumoi;
     private final Npc trungLinhThu;
-    private static CombineServiceNew i;
+    private static CombineService i;
 
-    public CombineServiceNew() {
+    public CombineService() {
         this.baHatMit = NpcManager.getNpc(ConstNpc.BA_HAT_MIT);
         this.npsthiensu64 = NpcManager.getNpc(ConstNpc.NPC_64);
         this.khidaumoi = NpcManager.getNpc(ConstNpc.KHI_DAU_MOI);
         this.trungLinhThu = NpcManager.getNpc(ConstNpc.TRUNG_LINH_THU);
     }
 
-    public static CombineServiceNew gI() {
+    public static CombineService gI() {
         if (i == null) {
-            i = new CombineServiceNew();
+            i = new CombineService();
         }
         return i;
     }
@@ -435,7 +431,7 @@ public class CombineServiceNew {
                 }
                 break;
             case NHAP_NGOC_RONG:
-                if (InventoryServiceNew.gI().getCountEmptyBag(player) == 0) {
+                if (InventoryService.gI().getCountEmptyBag(player) == 0) {
                     this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Hành trang cần ít nhất 1 chỗ trống", "Đóng");
                     break;
                 }
@@ -537,6 +533,9 @@ public class CombineServiceNew {
                 String daNPC = player.combineNew.itemsCombine.size() == 3 && itemDBV != null ? String.format("\nCần tốn %s đá bảo vệ", player.combineNew.countDaBaoVe) : "";
                 if ((level == 2 || level == 4 || level == 6) && !(player.combineNew.itemsCombine.size() == 3 && itemDBV != null)) {
                     npcSayNCVP += "\nNếu thất bại sẽ rớt xuống (+" + (level - 1) + ")";
+                }
+                if ((level == 7) && !(player.combineNew.itemsCombine.size() == 3 && itemDBV != null)) {
+                    npcSayNCVP += "\nNếu thất bại sẽ không giảm cấp nhưng sẽ bị giảm chỉ số.";
                 }
                 if (player.combineNew.countDaNangCap > itemDNC.quantity) {
                     this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
@@ -761,8 +760,8 @@ public class CombineServiceNew {
                 item.itemOptions.add(new ItemOption(30, 0));
             }
         }
-        InventoryServiceNew.gI().addItemBag(player, item);
-        InventoryServiceNew.gI().sendItemBags(player);
+        InventoryService.gI().addItemBag(player, item);
+        InventoryService.gI().sendItemBags(player);
     }
 
     public void GetTrangBiKichHoatthiensu(Player player, int id) {
@@ -799,8 +798,8 @@ public class CombineServiceNew {
                 item.itemOptions.add(new ItemOption(30, 0));
             }
         }
-        InventoryServiceNew.gI().addItemBag(player, item);
-        InventoryServiceNew.gI().sendItemBags(player);
+        InventoryService.gI().addItemBag(player, item);
+        InventoryService.gI().sendItemBags(player);
     }
 
     public void layChiSoCTKhi(Player player, Item ctkhi, int lvkhi) {
@@ -811,7 +810,7 @@ public class CombineServiceNew {
         ctkhi.itemOptions.add(new ItemOption(5, 10 + 2 * lvkhi));//sd cm
         ctkhi.itemOptions.add(new ItemOption(106, 0));
         ctkhi.itemOptions.add(new ItemOption(34, 0));
-        InventoryServiceNew.gI().sendItemBags(player);
+        InventoryService.gI().sendItemBags(player);
     }
 
     public void chiSoChienLinh(Player player, Item chienLinh) {
@@ -819,7 +818,7 @@ public class CombineServiceNew {
         chienLinh.itemOptions.add(new ItemOption(77, Util.nextInt(20, 20)));//hp
         chienLinh.itemOptions.add(new ItemOption(103, Util.nextInt(20, 20)));//ki
         randomCSA(chienLinh);
-        InventoryServiceNew.gI().sendItemBags(player);
+        InventoryService.gI().sendItemBags(player);
     }
 
     private void randomCSA(Item chienLinh) {
@@ -868,7 +867,7 @@ public class CombineServiceNew {
                 }
             }
             if (keo != null && keo.quantity >= 99 && luoiKiem != null && chuoiKiem != null) {
-                if (InventoryServiceNew.gI().getCountEmptyBag(player) > 0) {
+                if (InventoryService.gI().getCountEmptyBag(player) > 0) {
                     sendEffectSuccessCombine(player);
                     Item item = ItemService.gI().createNewItem((short) 2018);
                     item.itemOptions.add(new Item.ItemOption(50, Util.nextInt(9, 15)));
@@ -877,11 +876,11 @@ public class CombineServiceNew {
                     if (Util.isTrue(80, 100)) {
                         item.itemOptions.add(new Item.ItemOption(93, Util.nextInt(1, 15)));
                     }
-                    InventoryServiceNew.gI().addItemBag(player, item);
-                    InventoryServiceNew.gI().subQuantityItemsBag(player, keo, 99);
-                    InventoryServiceNew.gI().subQuantityItemsBag(player, luoiKiem, 1);
-                    InventoryServiceNew.gI().subQuantityItemsBag(player, chuoiKiem, 1);
-                    InventoryServiceNew.gI().sendItemBags(player);
+                    InventoryService.gI().addItemBag(player, item);
+                    InventoryService.gI().subQuantityItemsBag(player, keo, 99);
+                    InventoryService.gI().subQuantityItemsBag(player, luoiKiem, 1);
+                    InventoryService.gI().subQuantityItemsBag(player, chuoiKiem, 1);
+                    InventoryService.gI().sendItemBags(player);
                     Service.gI().sendMoney(player);
                     reOpenItemCombine(player);
                 }
@@ -893,12 +892,12 @@ public class CombineServiceNew {
         if (player.combineNew.itemsCombine.size() == 1) {
             Item manhNhua = player.combineNew.itemsCombine.get(0);
             if (manhNhua.template.id == 2014 && manhNhua.quantity >= 99) {
-                if (InventoryServiceNew.gI().getCountEmptyBag(player) > 0) {
+                if (InventoryService.gI().getCountEmptyBag(player) > 0) {
                     sendEffectSuccessCombine(player);
                     Item item = ItemService.gI().createNewItem((short) 2016);
-                    InventoryServiceNew.gI().addItemBag(player, item);
-                    InventoryServiceNew.gI().subQuantityItemsBag(player, manhNhua, 99);
-                    InventoryServiceNew.gI().sendItemBags(player);
+                    InventoryService.gI().addItemBag(player, item);
+                    InventoryService.gI().subQuantityItemsBag(player, manhNhua, 99);
+                    InventoryService.gI().sendItemBags(player);
                     Service.gI().sendMoney(player);
                     reOpenItemCombine(player);
                 }
@@ -910,12 +909,12 @@ public class CombineServiceNew {
         if (player.combineNew.itemsCombine.size() == 1) {
             Item manhSat = player.combineNew.itemsCombine.get(0);
             if (manhSat.template.id == 2013 && manhSat.quantity >= 99) {
-                if (InventoryServiceNew.gI().getCountEmptyBag(player) > 0) {
+                if (InventoryService.gI().getCountEmptyBag(player) > 0) {
                     sendEffectSuccessCombine(player);
                     Item item = ItemService.gI().createNewItem((short) 2017);
-                    InventoryServiceNew.gI().addItemBag(player, item);
-                    InventoryServiceNew.gI().subQuantityItemsBag(player, manhSat, 99);
-                    InventoryServiceNew.gI().sendItemBags(player);
+                    InventoryService.gI().addItemBag(player, item);
+                    InventoryService.gI().subQuantityItemsBag(player, manhSat, 99);
+                    InventoryService.gI().sendItemBags(player);
                     Service.gI().sendMoney(player);
                     reOpenItemCombine(player);
                 }
@@ -936,7 +935,7 @@ public class CombineServiceNew {
                 }
             }
             if (nr1s != null && doThan != null) {
-                if (InventoryServiceNew.gI().getCountEmptyBag(player) > 0
+                if (InventoryService.gI().getCountEmptyBag(player) > 0
                         && player.inventory.gold >= COST_DOI_MANH_KICH_HOAT) {
                     player.inventory.gold -= COST_DOI_MANH_KICH_HOAT;
                     int tiLe = buaBaoVe != null ? 100 : 50;
@@ -944,16 +943,16 @@ public class CombineServiceNew {
                         sendEffectSuccessCombine(player);
                         Item item = ItemService.gI().createNewItem((short) 2009);
                         item.itemOptions.add(new Item.ItemOption(30, 0));
-                        InventoryServiceNew.gI().addItemBag(player, item);
+                        InventoryService.gI().addItemBag(player, item);
                     } else {
                         sendEffectFailCombine(player);
                     }
-                    InventoryServiceNew.gI().subQuantityItemsBag(player, nr1s, 1);
-                    InventoryServiceNew.gI().subQuantityItemsBag(player, doThan, 1);
+                    InventoryService.gI().subQuantityItemsBag(player, nr1s, 1);
+                    InventoryService.gI().subQuantityItemsBag(player, doThan, 1);
                     if (buaBaoVe != null) {
-                        InventoryServiceNew.gI().subQuantityItemsBag(player, buaBaoVe, 1);
+                        InventoryService.gI().subQuantityItemsBag(player, buaBaoVe, 1);
                     }
-                    InventoryServiceNew.gI().sendItemBags(player);
+                    InventoryService.gI().sendItemBags(player);
                     Service.gI().sendMoney(player);
                     reOpenItemCombine(player);
                 }
@@ -972,9 +971,9 @@ public class CombineServiceNew {
             sendEffectSuccessCombine(player);
             player.inventory.coupon += couponAdd;
             this.baHatMit.npcChat(player, "Con đã nhận được " + couponAdd + " điểm");
-            InventoryServiceNew.gI().subQuantityItemsBag(player, item, 1);
+            InventoryService.gI().subQuantityItemsBag(player, item, 1);
             player.combineNew.itemsCombine.clear();
-            InventoryServiceNew.gI().sendItemBags(player);
+            InventoryService.gI().sendItemBags(player);
             Service.gI().sendMoney(player);
             reOpenItemCombine(player);
         }
@@ -991,7 +990,7 @@ public class CombineServiceNew {
             Service.gI().sendThongBao(player, "Ảo ít thôi con...");
             return;
         }
-        if (InventoryServiceNew.gI().getCountEmptyBag(player) < 1) {
+        if (InventoryService.gI().getCountEmptyBag(player) < 1) {
             Service.gI().sendThongBao(player, "Bạn phải có ít nhất 1 ô trống hành trang");
             return;
         }
@@ -1001,11 +1000,11 @@ public class CombineServiceNew {
         player.inventory.gold -= COST;
         sendEffectSuccessCombine(player);
         Item itemTS = ItemService.gI().randomCSDTS(Manager.IDS_DO_THIEN_SU[itemTL.template.gender > 2 ? player.gender : itemTL.template.gender][itemManh.typeIdManh()], itemTL.template.gender);
-        InventoryServiceNew.gI().addItemBag(player, itemTS);
-        InventoryServiceNew.gI().subQuantityItemsBag(player, itemTL, 1);
-        InventoryServiceNew.gI().subQuantityItemsBag(player, itemManh, 5);
-        itemHDs.forEach(item -> InventoryServiceNew.gI().subQuantityItemsBag(player, item, 1));
-        InventoryServiceNew.gI().sendItemBags(player);
+        InventoryService.gI().addItemBag(player, itemTS);
+        InventoryService.gI().subQuantityItemsBag(player, itemTL, 1);
+        InventoryService.gI().subQuantityItemsBag(player, itemManh, 5);
+        itemHDs.forEach(item -> InventoryService.gI().subQuantityItemsBag(player, item, 1));
+        InventoryService.gI().sendItemBags(player);
         Service.gI().sendMoney(player);
         Service.gI().sendThongBao(player, "Bạn đã nhận được " + itemTS.template.name);
         player.combineNew.itemsCombine.clear();
@@ -1021,7 +1020,7 @@ public class CombineServiceNew {
             Service.gI().sendThongBao(player, "Thiếu đồ thần linh!");
             return;
         }
-        if (InventoryServiceNew.gI().getCountEmptyBag(player) > 0) {
+        if (InventoryService.gI().getCountEmptyBag(player) > 0) {
             if (player.inventory.gold < COST) {
                 Service.gI().sendThongBao(player, "Con cần thêm vàng để đổi...");
                 return;
@@ -1029,7 +1028,7 @@ public class CombineServiceNew {
             player.inventory.gold -= COST;
             Item firstItemCombine = player.combineNew.itemsCombine.stream().filter(Item::isDTL).findFirst().get();
             List<Item> itemsCombine = player.combineNew.itemsCombine.stream().filter(item -> item.isNotNullItem() && item.isDTL()).collect(Collectors.toList());
-            CombineServiceNew.gI().sendEffectOpenItem(player, firstItemCombine.template.iconID, firstItemCombine.template.iconID);
+            CombineService.gI().sendEffectOpenItem(player, firstItemCombine.template.iconID, firstItemCombine.template.iconID);
             short itemId;
             if (firstItemCombine.template.gender == 3 || firstItemCombine.template.type == 4) {
                 itemId = Manager.ID_RADAR_HD;
@@ -1040,10 +1039,10 @@ public class CombineServiceNew {
             if (new Item(itemId).isDHD()) {
                 itemHD = ItemService.gI().randomCSDHD(itemId, player.gender);
             }
-            InventoryServiceNew.gI().addItemBag(player, itemHD);
-            InventoryServiceNew.gI().subQuantityItemsBag(player, firstItemCombine, 1);
-            itemsCombine.forEach(i -> InventoryServiceNew.gI().subQuantityItemsBag(player, i, 1));
-            InventoryServiceNew.gI().sendItemBags(player);
+            InventoryService.gI().addItemBag(player, itemHD);
+            InventoryService.gI().subQuantityItemsBag(player, firstItemCombine, 1);
+            itemsCombine.forEach(i -> InventoryService.gI().subQuantityItemsBag(player, i, 1));
+            InventoryService.gI().sendItemBags(player);
             Service.gI().sendMoney(player);
             player.combineNew.itemsCombine.clear();
             reOpenItemCombine(player);
@@ -1061,7 +1060,7 @@ public class CombineServiceNew {
             Service.gI().sendThongBao(player, "Thiếu đồ thiên sứ");
             return;
         }
-        if (InventoryServiceNew.gI().getCountEmptyBag(player) > 0) {
+        if (InventoryService.gI().getCountEmptyBag(player) > 0) {
             if (player.inventory.gold < 1) {
                 Service.gI().sendThongBao(player, "Con cần thêm vàng để đổi...");
                 return;
@@ -1069,7 +1068,7 @@ public class CombineServiceNew {
             player.inventory.gold -= COST;
             Item itemTS = player.combineNew.itemsCombine.stream().filter(Item::isDTS).findFirst().get();
             List<Item> itemSKH = player.combineNew.itemsCombine.stream().filter(item -> item.isNotNullItem() && item.isSKH()).collect(Collectors.toList());
-            CombineServiceNew.gI().sendEffectOpenItem(player, itemTS.template.iconID, itemTS.template.iconID);
+            CombineService.gI().sendEffectOpenItem(player, itemTS.template.iconID, itemTS.template.iconID);
             short itemId;
             if (itemTS.template.gender == 3 || itemTS.template.type == 4) {
                 itemId = Manager.IDS_RADAR[Util.nextInt(8, 11)];
@@ -1078,10 +1077,10 @@ public class CombineServiceNew {
             }
             int skhId = ItemService.gI().randomSKHId(itemTS.template.gender);
             Item item = ItemService.gI().newItemSKH(itemId, skhId);
-            InventoryServiceNew.gI().addItemBag(player, item);
-            InventoryServiceNew.gI().subQuantityItemsBag(player, itemTS, 1);
-            itemSKH.forEach(i -> InventoryServiceNew.gI().subQuantityItemsBag(player, i, 1));
-            InventoryServiceNew.gI().sendItemBags(player);
+            InventoryService.gI().addItemBag(player, item);
+            InventoryService.gI().subQuantityItemsBag(player, itemTS, 1);
+            itemSKH.forEach(i -> InventoryService.gI().subQuantityItemsBag(player, i, 1));
+            InventoryService.gI().sendItemBags(player);
             Service.gI().sendMoney(player);
             player.combineNew.itemsCombine.clear();
             reOpenItemCombine(player);
@@ -1103,7 +1102,7 @@ public class CombineServiceNew {
                 }
             }
             if (dhd != null) {
-                if (InventoryServiceNew.gI().getCountEmptyBag(player) > 0 //check chỗ trống hành trang
+                if (InventoryService.gI().getCountEmptyBag(player) > 0 //check chỗ trống hành trang
                         && player.inventory.gold >= COST_DAP_DO_KICH_HOAT) {
                     player.inventory.gold -= COST_DAP_DO_KICH_HOAT;
                     int tiLe = dtl != null ? 100 : 50;
@@ -1112,15 +1111,15 @@ public class CombineServiceNew {
                         Item item = ItemService.gI().createNewItem((short) getTempIdItemC0(dhd.template.gender, dhd.template.type));
                         RewardService.gI().initBaseOptionClothes(item.template.id, item.template.type, item.itemOptions);
                         RewardService.gI().initActivationOption(item.template.gender < 3 ? item.template.gender : player.gender, item.template.type, item.itemOptions);
-                        InventoryServiceNew.gI().addItemBag(player, item);
+                        InventoryService.gI().addItemBag(player, item);
                     } else {
                         sendEffectFailCombine(player);
                     }
-                    InventoryServiceNew.gI().subQuantityItemsBag(player, dhd, 1);
+                    InventoryService.gI().subQuantityItemsBag(player, dhd, 1);
                     if (dtl != null) {
-                        InventoryServiceNew.gI().subQuantityItemsBag(player, dtl, 1);
+                        InventoryService.gI().subQuantityItemsBag(player, dtl, 1);
                     }
-                    InventoryServiceNew.gI().sendItemBags(player);
+                    InventoryService.gI().sendItemBags(player);
                     Service.gI().sendMoney(player);
                     reOpenItemCombine(player);
                 }
@@ -1132,15 +1131,15 @@ public class CombineServiceNew {
         if (player.combineNew.itemsCombine.size() == 1) {
             Item item = player.combineNew.itemsCombine.get(0);
             if (item.isNotNullItem() && item.template.id >= 555 && item.template.id <= 567) {
-                if (InventoryServiceNew.gI().getCountEmptyBag(player) > 0
+                if (InventoryService.gI().getCountEmptyBag(player) > 0
                         && player.inventory.gold >= COST_DOI_VE_DOI_DO_HUY_DIET) {
                     player.inventory.gold -= COST_DOI_VE_DOI_DO_HUY_DIET;
                     Item ticket = ItemService.gI().createNewItem((short) (2001 + item.template.type));
                     ticket.itemOptions.add(new Item.ItemOption(30, 0));
-                    InventoryServiceNew.gI().subQuantityItemsBag(player, item, 1);
-                    InventoryServiceNew.gI().addItemBag(player, ticket);
+                    InventoryService.gI().subQuantityItemsBag(player, item, 1);
+                    InventoryService.gI().addItemBag(player, ticket);
                     sendEffectOpenItem(player, item.template.iconID, ticket.template.iconID);
-                    InventoryServiceNew.gI().sendItemBags(player);
+                    InventoryService.gI().sendItemBags(player);
                     Service.gI().sendMoney(player);
                     reOpenItemCombine(player);
                 }
@@ -1176,7 +1175,7 @@ public class CombineServiceNew {
                 }
                 player.inventory.gold -= gold;
                 player.inventory.ruby -= ruby;
-                InventoryServiceNew.gI().subQuantityItemsBag(player, ttt, 99);
+                InventoryService.gI().subQuantityItemsBag(player, ttt, 99);
                 if (Util.isTrue(player.combineNew.ratioCombine, 100)) {
                     short[] chienlinh = {2038, 2039, 2040, 2041, 2042};
                     linhthu.template = ItemService.gI().getTemplate(chienlinh[Util.nextInt(0, 4)]);
@@ -1186,7 +1185,7 @@ public class CombineServiceNew {
                 } else {
                     sendEffectFailCombine(player);
                 }
-                InventoryServiceNew.gI().sendItemBags(player);
+                InventoryService.gI().sendItemBags(player);
                 Service.gI().sendMoney(player);
                 reOpenItemCombine(player);
             }
@@ -1223,7 +1222,7 @@ public class CombineServiceNew {
                 }
                 player.inventory.gold -= gold;
                 player.inventory.ruby -= ruby;
-                InventoryServiceNew.gI().subQuantityItemsBag(player, dns, countdns);
+                InventoryService.gI().subQuantityItemsBag(player, dns, countdns);
                 if (Util.isTrue(player.combineNew.ratioCombine, 200)) {
                     short idctkhisaunc = getidctkhisaukhilencap(lvkhi);
                     ctkhi.template = ItemService.gI().getTemplate(idctkhisaunc);
@@ -1234,7 +1233,7 @@ public class CombineServiceNew {
                 } else {
                     sendEffectFailCombine(player);
                 }
-                InventoryServiceNew.gI().sendItemBags(player);
+                InventoryService.gI().sendItemBags(player);
                 Service.gI().sendMoney(player);
                 reOpenItemCombine(player);
             }
@@ -1277,14 +1276,14 @@ public class CombineServiceNew {
         }
         player.inventory.gold -= gold;
         player.inventory.ruby -= ruby;
-        InventoryServiceNew.gI().subQuantityItemsBag(player, manhVoBTNC, getCountMVBT);
+        InventoryService.gI().subQuantityItemsBag(player, manhVoBTNC, getCountMVBT);
         if (Util.isTrue(player.combineNew.ratioCombine, 100)) {
             bongTaiNC.template = ItemService.gI().getTemplate(getIDNewBongTai(levelBongTai));
             sendEffectSuccessCombine(player);
         } else {
             sendEffectFailCombine(player);
         }
-        InventoryServiceNew.gI().sendItemBags(player);
+        InventoryService.gI().sendItemBags(player);
         Service.gI().sendMoney(player);
         reOpenItemCombine(player);
     }
@@ -1318,8 +1317,8 @@ public class CombineServiceNew {
         if (bongTai != null && daXanhLam != null && manhHon != null && manhHon.quantity >= getCountMHBTMCSABT(levelBongTai(bongTai))) {
             player.inventory.gold -= gold;
             player.inventory.ruby -= ruby;
-            InventoryServiceNew.gI().subQuantityItemsBag(player, manhHon, getCountMHBTMCSABT(levelBongTai(bongTai)));
-            InventoryServiceNew.gI().subQuantityItemsBag(player, daXanhLam, 1);
+            InventoryService.gI().subQuantityItemsBag(player, manhHon, getCountMHBTMCSABT(levelBongTai(bongTai)));
+            InventoryService.gI().subQuantityItemsBag(player, daXanhLam, 1);
             if (Util.isTrue(player.combineNew.ratioCombine, 100)) {
                 bongTai.itemOptions.clear();
                 bongTai.itemOptions.add(new Item.ItemOption(Stream.of(50, 77, 103, 108, 94, 14, 80, 81).skip((long) (8 * Math.random())).findFirst().get(), Util.nextInt(5, levelBongTai(bongTai) * 5)));
@@ -1327,7 +1326,7 @@ public class CombineServiceNew {
             } else {
                 sendEffectFailCombine(player);
             }
-            InventoryServiceNew.gI().sendItemBags(player);
+            InventoryService.gI().sendItemBags(player);
             Service.gI().sendMoney(player);
             reOpenItemCombine(player);
         }
@@ -1361,7 +1360,7 @@ public class CombineServiceNew {
         }
         player.inventory.gold -= gold;
         player.inventory.ruby -= ruby;
-        InventoryServiceNew.gI().subQuantityItemsBag(player, daMaThuat, 99);
+        InventoryService.gI().subQuantityItemsBag(player, daMaThuat, 99);
         if (Util.isTrue(player.combineNew.ratioCombine, 100)) {
             chienLinh.itemOptions.remove(chienLinh.itemOptions.size() - 2);
             chienLinh.itemOptions.remove(chienLinh.itemOptions.size() - 1);
@@ -1370,7 +1369,7 @@ public class CombineServiceNew {
         } else {
             sendEffectFailCombine(player);
         }
-        InventoryServiceNew.gI().sendItemBags(player);
+        InventoryService.gI().sendItemBags(player);
         Service.gI().sendMoney(player);
         reOpenItemCombine(player);
     }
@@ -1424,10 +1423,10 @@ public class CombineServiceNew {
                     } else {
                         trangBi.itemOptions.add(new Item.ItemOption(102, 1));
                     }
-                    InventoryServiceNew.gI().subQuantityItemsBag(player, daPhaLe, 1);
+                    InventoryService.gI().subQuantityItemsBag(player, daPhaLe, 1);
                     sendEffectSuccessCombine(player);
                 }
-                InventoryServiceNew.gI().sendItemBags(player);
+                InventoryService.gI().sendItemBags(player);
                 Service.gI().sendMoney(player);
                 reOpenItemCombine(player);
             }
@@ -1475,7 +1474,7 @@ public class CombineServiceNew {
                         sendEffectFailCombine(player);
                     }
                 }
-                InventoryServiceNew.gI().sendItemBags(player);
+                InventoryService.gI().sendItemBags(player);
                 Service.gI().sendMoney(player);
                 reOpenItemCombine(player);
             }
@@ -1483,15 +1482,15 @@ public class CombineServiceNew {
     }
 
     private void nhapNgocRong(Player player) {
-        if (InventoryServiceNew.gI().getCountEmptyBag(player) > 0) {
+        if (InventoryService.gI().getCountEmptyBag(player) > 0) {
             if (!player.combineNew.itemsCombine.isEmpty()) {
                 Item item = player.combineNew.itemsCombine.get(0);
                 if (item != null && item.isNotNullItem() && (item.template.id > 14 && item.template.id <= 20) && item.quantity >= 7) {
                     Item nr = ItemService.gI().createNewItem((short) (item.template.id - 1));
                     sendEffectSuccessCombine(player);
-                    InventoryServiceNew.gI().addItemBag(player, nr);
-                    InventoryServiceNew.gI().subQuantityItemsBag(player, item, 7);
-                    InventoryServiceNew.gI().sendItemBags(player);
+                    InventoryService.gI().addItemBag(player, nr);
+                    InventoryService.gI().subQuantityItemsBag(player, item, 7);
+                    InventoryService.gI().sendItemBags(player);
                     reOpenItemCombine(player);
 //                    sendEffectCombineDB(player, item.template.iconID);
                 }
@@ -1604,10 +1603,10 @@ public class CombineServiceNew {
                         sendEffectFailCombine(player);
                     }
                     if (player.combineNew.itemsCombine.size() == 3) {
-                        InventoryServiceNew.gI().subQuantityItemsBag(player, itemDBV, countDaBaoVe);
+                        InventoryService.gI().subQuantityItemsBag(player, itemDBV, countDaBaoVe);
                     }
-                    InventoryServiceNew.gI().subQuantityItemsBag(player, itemDNC, player.combineNew.countDaNangCap);
-                    InventoryServiceNew.gI().sendItemBags(player);
+                    InventoryService.gI().subQuantityItemsBag(player, itemDNC, player.combineNew.countDaNangCap);
+                    InventoryService.gI().sendItemBags(player);
                     Service.gI().sendMoney(player);
                     reOpenItemCombine(player);
                 }
@@ -2324,7 +2323,7 @@ public class CombineServiceNew {
             case NHAP_NGOC_RONG:
                 return "Ta sẽ phù phép\ncho 7 viên Ngọc Rồng\nthành 1 viên Ngọc Rồng cấp cao";
             case NANG_CAP_VAT_PHAM:
-                return "Ta sẽ phù phép cho trang bị của ngươi trở lên mạnh mẽ";
+                return "Ta sẽ phù phép cho trang bị của ngươi trở nên mạnh mẽ";
             case PHAN_RA_DO_THAN_LINH:
                 return "Ta sẽ phân rã \n  trang bị của người thành điểm!";
             case NANG_CAP_DO_TS:

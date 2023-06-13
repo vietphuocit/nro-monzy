@@ -5,7 +5,7 @@ import com.monzy.models.mob.Mob;
 import com.monzy.models.skill.Skill;
 import com.monzy.server.Manager;
 import com.monzy.services.*;
-import com.monzy.services.func.ChangeMapService;
+import com.monzy.services.ChangeMapService;
 import com.monzy.utils.SkillUtil;
 import com.monzy.utils.TimeUtil;
 import com.monzy.utils.Util;
@@ -367,7 +367,7 @@ public class Pet extends Player {
                                     PlayerService.gI().playerMove(this, 452, 336);
                                     directAtHome = -1;
                                 }
-                            } else if (this.zone.map.mapId == 22) {
+                            } else if (this.zone.map.mapId == 23) {
                                 if (directAtHome == -1) {
                                     PlayerService.gI().playerMove(this, 250, 336);
                                     directAtHome = 1;

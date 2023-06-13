@@ -4,7 +4,7 @@ import com.monzy.models.item.Item;
 import com.monzy.models.player.Inventory;
 import com.monzy.models.player.Player;
 import com.monzy.server.Manager;
-import com.monzy.services.InventoryServiceNew;
+import com.monzy.services.InventoryService;
 import com.monzy.services.ItemService;
 import com.monzy.services.Service;
 import com.monzy.utils.Logger;
@@ -352,8 +352,8 @@ public class ShopServiceNew {
         if (!subMoneyByItemShop(player, is)) {
             return;
         }
-        InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createItemFromItemShop(is));
-        InventoryServiceNew.gI().sendItemBags(player);
+        InventoryService.gI().addItemBag(player, ItemService.gI().createItemFromItemShop(is));
+        InventoryService.gI().sendItemBags(player);
         opendShop(player, shop.tagName, true);
     }
 
@@ -370,7 +370,7 @@ public class ShopServiceNew {
             Service.gI().sendThongBao(player, "Không thể thực hiện");
             return;
         }
-        if (InventoryServiceNew.gI().getCountEmptyBag(player) == 0) {
+        if (InventoryService.gI().getCountEmptyBag(player) == 0) {
             Service.gI().sendThongBao(player, "Hành trang đã đầy");
             return;
         }
@@ -384,8 +384,8 @@ public class ShopServiceNew {
             }
         }
         Item item = ItemService.gI().createItemFromItemShop(is);
-        InventoryServiceNew.gI().addItemBag(player, item);
-        InventoryServiceNew.gI().sendItemBags(player);
+        InventoryService.gI().addItemBag(player, item);
+        InventoryService.gI().sendItemBags(player);
         Service.gI().sendThongBao(player, "Mua thành công " + is.temp.name);
     }
 
@@ -421,14 +421,14 @@ public class ShopServiceNew {
                 }
                 break;
             default:
-                if (InventoryServiceNew.gI().findItemBag(pl, itSpec) == null || !InventoryServiceNew.gI().findItemBag(pl, itSpec).isNotNullItem()) {
+                if (InventoryService.gI().findItemBag(pl, itSpec) == null || !InventoryService.gI().findItemBag(pl, itSpec).isNotNullItem()) {
                     Service.gI().sendThongBao(pl, "Không tìm thấy " + itS.template.name);
                     isBuy = false;
-                } else if (InventoryServiceNew.gI().findItemBag(pl, itSpec).quantity < buySpec) {
+                } else if (InventoryService.gI().findItemBag(pl, itSpec).quantity < buySpec) {
                     Service.gI().sendThongBao(pl, "Bạn không có đủ " + buySpec + " " + itS.template.name);
                     isBuy = false;
                 } else {
-                    InventoryServiceNew.gI().subQuantityItemsBag(pl, InventoryServiceNew.gI().findItemBag(pl, itSpec), buySpec);
+                    InventoryService.gI().subQuantityItemsBag(pl, InventoryService.gI().findItemBag(pl, itSpec), buySpec);
                     isBuy = true;
                 }
                 break;
@@ -503,12 +503,12 @@ public class ShopServiceNew {
             Service.gI().sendThongBao(pl, "Đã bán " + item.template.name
                     + " thu được " + Util.numberToMoney(cost) + " vàng");
             if (where == 0) {
-                InventoryServiceNew.gI().subQuantityItemsBody(pl, item, quantity);
-                InventoryServiceNew.gI().sendItemBody(pl);
+                InventoryService.gI().subQuantityItemsBody(pl, item, quantity);
+                InventoryService.gI().sendItemBody(pl);
                 Service.gI().Send_Caitrang(pl);
             } else {
-                InventoryServiceNew.gI().subQuantityItemsBag(pl, item, quantity);
-                InventoryServiceNew.gI().sendItemBags(pl);
+                InventoryService.gI().subQuantityItemsBag(pl, item, quantity);
+                InventoryService.gI().sendItemBags(pl);
             }
         } else {
             Service.gI().sendThongBao(pl, "Không thể thực hiện");
@@ -527,12 +527,12 @@ public class ShopServiceNew {
         switch (type) {
             case 0: //nhận
                 if (item.isNotNullItem()) {
-                    if (InventoryServiceNew.gI().getCountEmptyBag(player) != 0) {
-                        InventoryServiceNew.gI().addItemBag(player, item);
+                    if (InventoryService.gI().getCountEmptyBag(player) != 0) {
+                        InventoryService.gI().addItemBag(player, item);
                         Service.gI().sendThongBao(player,
                                 "Bạn nhận được " + (item.template.id == 189
                                         ? Util.numberToMoney(item.quantity) + " vàng" : item.template.name));
-                        InventoryServiceNew.gI().sendItemBags(player);
+                        InventoryService.gI().sendItemBags(player);
                         items.remove(index);
                     } else {
                         Service.gI().sendThongBao(player, "Hành trang đã đầy");
@@ -548,14 +548,14 @@ public class ShopServiceNew {
             case 2: //nhận hết
                 for (int i = items.size() - 1; i >= 0; i--) {
                     item = items.get(i);
-                    if (InventoryServiceNew.gI().addItemBag(player, item)) {
+                    if (InventoryService.gI().addItemBag(player, item)) {
                         Service.gI().sendThongBao(player,
                                 "Bạn nhận được " + (item.template.id == 189
                                         ? Util.numberToMoney(item.quantity) + " vàng" : item.template.name));
                         items.remove(i);
                     }
                 }
-                InventoryServiceNew.gI().sendItemBags(player);
+                InventoryService.gI().sendItemBags(player);
                 break;
         }
         openShopType4(player, player.iDMark.getTagNameShop(), items);

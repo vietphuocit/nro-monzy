@@ -6,7 +6,7 @@ import com.monzy.models.npc.NpcManager;
 import com.monzy.models.player.Player;
 import com.monzy.server.io.MySession;
 import com.monzy.services.Service;
-import com.monzy.services.func.TransactionService;
+import com.monzy.services.TransactionService;
 
 import java.io.IOException;
 

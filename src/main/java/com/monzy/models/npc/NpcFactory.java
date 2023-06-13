@@ -77,7 +77,7 @@ public class NpcFactory {
                                 case 0: {
                                     Item honLinhThu = null;
                                     try {
-                                        honLinhThu = InventoryServiceNew.gI().findItemBag(player, 2029);
+                                        honLinhThu = InventoryService.gI().findItemBag(player, 2029);
                                     } catch (Exception e) {
 //                                        throw new RuntimeException(e);
                                     }
@@ -85,32 +85,32 @@ public class NpcFactory {
                                         this.npcChat(player, "Bạn không đủ 99 Hồn Linh thú");
                                     } else if (player.inventory.gold < 1_000_000_000) {
                                         this.npcChat(player, "Bạn không đủ 1 Tỷ vàng");
-                                    } else if (InventoryServiceNew.gI().getCountEmptyBag(player) == 0) {
+                                    } else if (InventoryService.gI().getCountEmptyBag(player) == 0) {
                                         this.npcChat(player, "Hành trang của bạn không đủ chỗ trống");
                                     } else {
                                         player.inventory.gold -= 1_000_000_000;
-                                        InventoryServiceNew.gI().subQuantityItemsBag(player, honLinhThu, 99);
+                                        InventoryService.gI().subQuantityItemsBag(player, honLinhThu, 99);
                                         Service.gI().sendMoney(player);
                                         Item trungLinhThu = ItemService.gI().createNewItem((short) 2028);
-                                        InventoryServiceNew.gI().addItemBag(player, trungLinhThu);
-                                        InventoryServiceNew.gI().sendItemBags(player);
+                                        InventoryService.gI().addItemBag(player, trungLinhThu);
+                                        InventoryService.gI().sendItemBags(player);
                                         this.npcChat(player, "Bạn nhận được 1 Trứng Linh thú");
                                     }
                                     break;
                                 }
                                 case 1:
-                                    CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.NANG_CHIEN_LINH);
+                                    CombineService.gI().openTabCombine(player, CombineService.NANG_CHIEN_LINH);
                                     break;
                                 case 2:
-                                    CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.DOI_CHI_SO_AN_CHIEN_LINH);
+                                    CombineService.gI().openTabCombine(player, CombineService.DOI_CHI_SO_AN_CHIEN_LINH);
                                     break;
                             }
                         } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_START_COMBINE) {
                             switch (player.combineNew.typeCombine) {
-                                case CombineServiceNew.NANG_CHIEN_LINH:
-                                case CombineServiceNew.DOI_CHI_SO_AN_CHIEN_LINH:
+                                case CombineService.NANG_CHIEN_LINH:
+                                case CombineService.DOI_CHI_SO_AN_CHIEN_LINH:
                                     if (select == 0) {
-                                        CombineServiceNew.gI().startCombine(player);
+                                        CombineService.gI().startCombine(player);
                                     }
                                     break;
                             }
@@ -301,8 +301,8 @@ public class NpcFactory {
                                                 "Đóng");
                                     } else {
                                         Item honBerus = ItemService.gI().createNewItem((short) 1068, 20);
-                                        InventoryServiceNew.gI().addItemBag(player, honBerus);
-                                        InventoryServiceNew.gI().sendItemBags(player);
+                                        InventoryService.gI().addItemBag(player, honBerus);
+                                        InventoryService.gI().sendItemBags(player);
                                         PlayerService.gI().quaVip1(player);
                                         player.getSession().vip1 = true;
                                     }
@@ -319,8 +319,8 @@ public class NpcFactory {
                                                 "Đóng");
                                     } else {
                                         Item honBerus = ItemService.gI().createNewItem((short) 1066, 20);
-                                        InventoryServiceNew.gI().addItemBag(player, honBerus);
-                                        InventoryServiceNew.gI().sendItemBags(player);
+                                        InventoryService.gI().addItemBag(player, honBerus);
+                                        InventoryService.gI().sendItemBags(player);
                                         PlayerService.gI().quaVip2(player);
                                         player.getSession().vip2 = true;
                                     }
@@ -337,10 +337,10 @@ public class NpcFactory {
                                                 "Đóng");
                                     } else {
                                         Item honBerus = ItemService.gI().createNewItem((short) 1067, 20);
-                                        InventoryServiceNew.gI().addItemBag(player, honBerus);
+                                        InventoryService.gI().addItemBag(player, honBerus);
                                         player.inventory.ruby += 20000;
                                         Service.gI().sendMoney(player);
-                                        InventoryServiceNew.gI().sendItemBags(player);
+                                        InventoryService.gI().sendItemBags(player);
                                         PlayerService.gI().quaVip3(player);
                                         player.getSession().vip3 = true;
                                     }
@@ -357,12 +357,12 @@ public class NpcFactory {
                                                 "Đóng");
                                     } else {
                                         Item honBerus = ItemService.gI().createNewItem((short) 1069, 20);
-                                        InventoryServiceNew.gI().addItemBag(player, honBerus);
+                                        InventoryService.gI().addItemBag(player, honBerus);
                                         player.inventory.ruby += 50000;
                                         Item nr = ItemService.gI().createNewItem((short) 16, 50);
-                                        InventoryServiceNew.gI().addItemBag(player, nr);
+                                        InventoryService.gI().addItemBag(player, nr);
                                         Service.gI().sendMoney(player);
-                                        InventoryServiceNew.gI().sendItemBags(player);
+                                        InventoryService.gI().sendItemBags(player);
                                         PlayerService.gI().quaVip4(player);
                                         player.getSession().vip4 = true;
                                     }
@@ -379,20 +379,20 @@ public class NpcFactory {
                                                 "Đóng");
                                     } else {
                                         Item hopquabian = ItemService.gI().createNewItem((short) 1070, 50);
-                                        InventoryServiceNew.gI().addItemBag(player, hopquabian);
+                                        InventoryService.gI().addItemBag(player, hopquabian);
                                         Item hopquabian1 = ItemService.gI().createNewItem((short) 1069, 50);
-                                        InventoryServiceNew.gI().addItemBag(player, hopquabian1);
+                                        InventoryService.gI().addItemBag(player, hopquabian1);
                                         Item hopquabian2 = ItemService.gI().createNewItem((short) 1068, 50);
-                                        InventoryServiceNew.gI().addItemBag(player, hopquabian2);
+                                        InventoryService.gI().addItemBag(player, hopquabian2);
                                         Item hopquabian3 = ItemService.gI().createNewItem((short) 1067, 50);
-                                        InventoryServiceNew.gI().addItemBag(player, hopquabian3);
+                                        InventoryService.gI().addItemBag(player, hopquabian3);
                                         Item hopquabian4 = ItemService.gI().createNewItem((short) 1066, 50);
-                                        InventoryServiceNew.gI().addItemBag(player, hopquabian4);
+                                        InventoryService.gI().addItemBag(player, hopquabian4);
                                         Item nr = ItemService.gI().createNewItem((short) 16, 50);
-                                        InventoryServiceNew.gI().addItemBag(player, nr);
+                                        InventoryService.gI().addItemBag(player, nr);
                                         player.inventory.ruby += 100000;
                                         Service.gI().sendMoney(player);
-                                        InventoryServiceNew.gI().sendItemBags(player);
+                                        InventoryService.gI().sendItemBags(player);
                                         PlayerService.gI().quaVip5(player);
                                         player.getSession().vip5 = true;
                                     }
@@ -1042,19 +1042,19 @@ public class NpcFactory {
                             switch (select) {
                                 case 0:
 //                                                CombineService.gI().openTabCombine(player, CombineService.EP_SAO_TRANG_BI);
-                                    CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.EP_SAO_TRANG_BI);
+                                    CombineService.gI().openTabCombine(player, CombineService.EP_SAO_TRANG_BI);
                                     break;
                                 case 1:
-                                    CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.PHA_LE_HOA_TRANG_BI);
+                                    CombineService.gI().openTabCombine(player, CombineService.PHA_LE_HOA_TRANG_BI);
                                     break;
                             }
                         } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_START_COMBINE) {
                             switch (player.combineNew.typeCombine) {
-                                case CombineServiceNew.EP_SAO_TRANG_BI:
-                                case CombineServiceNew.PHA_LE_HOA_TRANG_BI:
-                                case CombineServiceNew.CHUYEN_HOA_TRANG_BI:
+                                case CombineService.EP_SAO_TRANG_BI:
+                                case CombineService.PHA_LE_HOA_TRANG_BI:
+                                case CombineService.CHUYEN_HOA_TRANG_BI:
                                     if (select == 0) {
-                                        CombineServiceNew.gI().startCombine(player);
+                                        CombineService.gI().startCombine(player);
                                     }
                                     break;
                             }
@@ -1075,22 +1075,22 @@ public class NpcFactory {
                                             "Bùa\n1 giờ", "Bùa\n8 giờ", "Bùa\n1 tháng", "Đóng");
                                     break;
                                 case 1:
-                                    CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.NANG_CAP_VAT_PHAM);
+                                    CombineService.gI().openTabCombine(player, CombineService.NANG_CAP_VAT_PHAM);
                                     break;
                                 case 2: //NANG_CAP_BONG_TAI
-                                    CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.NANG_CAP_BONG_TAI);
+                                    CombineService.gI().openTabCombine(player, CombineService.NANG_CAP_BONG_TAI);
                                     break;
                                 case 3: //MO_CHI_SO_BONG_TAI
-                                    CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.MO_CHI_SO_BONG_TAI);
+                                    CombineService.gI().openTabCombine(player, CombineService.MO_CHI_SO_BONG_TAI);
                                     break;
                                 case 4: //NHAP_NGOC_RONG
-                                    CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.NHAP_NGOC_RONG);
+                                    CombineService.gI().openTabCombine(player, CombineService.NHAP_NGOC_RONG);
                                     break;
                                 case 5: //NANG_CAP_DO_HD
-                                    CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.NANG_CAP_DO_HD);
+                                    CombineService.gI().openTabCombine(player, CombineService.NANG_CAP_DO_HD);
                                     break;
                                 case 6: //NANG_CAP_DO_TS
-                                    CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.NANG_CAP_DO_TS);
+                                    CombineService.gI().openTabCombine(player, CombineService.NANG_CAP_DO_TS);
                                     break;
                             }
                         } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_OPTION_SHOP_BUA) {
@@ -1107,25 +1107,25 @@ public class NpcFactory {
                             }
                         } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_START_COMBINE) {
                             switch (player.combineNew.typeCombine) {
-                                case CombineServiceNew.NANG_CAP_VAT_PHAM:
-                                case CombineServiceNew.NHAP_NGOC_RONG:
-                                case CombineServiceNew.NANG_CAP_DO_HD:
-                                case CombineServiceNew.NANG_CAP_DO_TS:
-                                case CombineServiceNew.NANG_CAP_SKH_VIP:
-                                case CombineServiceNew.NANG_CAP_BONG_TAI:
-                                case CombineServiceNew.MO_CHI_SO_BONG_TAI:
+                                case CombineService.NANG_CAP_VAT_PHAM:
+                                case CombineService.NHAP_NGOC_RONG:
+                                case CombineService.NANG_CAP_DO_HD:
+                                case CombineService.NANG_CAP_DO_TS:
+                                case CombineService.NANG_CAP_SKH_VIP:
+                                case CombineService.NANG_CAP_BONG_TAI:
+                                case CombineService.MO_CHI_SO_BONG_TAI:
                                     if (select == 0) {
-                                        CombineServiceNew.gI().startCombine(player);
+                                        CombineService.gI().startCombine(player);
                                     }
                                     break;
                             }
                         } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_NANG_CAP_DO_HD) {
                             if (select == 0) {
-                                CombineServiceNew.gI().startCombine(player);
+                                CombineService.gI().startCombine(player);
                             }
                         } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_NANG_CAP_DO_TS) {
                             if (select == 0) {
-                                CombineServiceNew.gI().startCombine(player);
+                                CombineService.gI().startCombine(player);
                             }
                         }
                     }
@@ -1139,7 +1139,7 @@ public class NpcFactory {
             @Override
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player)) {
-                    InventoryServiceNew.gI().sendItemBox(player);
+                    InventoryService.gI().sendItemBox(player);
                 }
             }
 
@@ -1210,7 +1210,7 @@ public class NpcFactory {
                                 item.itemOptions.add(new Item.ItemOption(207, 0));
                                 item.itemOptions.add(new Item.ItemOption(33, 0));
 //                                      
-                                InventoryServiceNew.gI().addItemBag(player, item);
+                                InventoryService.gI().addItemBag(player, item);
                                 Service.gI().sendThongBao(player, "Chúc Mừng Bạn Đổi Vật Phẩm Thành Công !");
                             } else {
                                 Service.gI().sendThongBao(player, "Không đủ điểm, bạn còn " + (500 - player.pointPvp) + " điểm nữa");
@@ -1443,9 +1443,9 @@ public class NpcFactory {
                                     break;
                                 case 1: {
                                     try {
-                                        if (InventoryServiceNew.gI().findItemBag(pl, 457).isNotNullItem() && InventoryServiceNew.gI().findItemBag(pl, 457).quantity >= 20) {
-                                            InventoryServiceNew.gI().subQuantityItemsBag(pl, InventoryServiceNew.gI().findItemBag(pl, 457), 20);
-                                            InventoryServiceNew.gI().sendItemBags(pl);
+                                        if (InventoryService.gI().findItemBag(pl, 457).isNotNullItem() && InventoryService.gI().findItemBag(pl, 457).quantity >= 20) {
+                                            InventoryService.gI().subQuantityItemsBag(pl, InventoryService.gI().findItemBag(pl, 457), 20);
+                                            InventoryService.gI().sendItemBags(pl);
                                             pl.goldNormar += 20;
                                             ChonAiDay.gI().goldNormar += 20;
                                             ChonAiDay.gI().addPlayerNormar(pl);
@@ -1460,9 +1460,9 @@ public class NpcFactory {
                                 break;
                                 case 2: {
                                     try {
-                                        if (InventoryServiceNew.gI().findItemBag(pl, 457).isNotNullItem() && InventoryServiceNew.gI().findItemBag(pl, 457).quantity >= 200) {
-                                            InventoryServiceNew.gI().subQuantityItemsBag(pl, InventoryServiceNew.gI().findItemBag(pl, 457), 200);
-                                            InventoryServiceNew.gI().sendItemBags(pl);
+                                        if (InventoryService.gI().findItemBag(pl, 457).isNotNullItem() && InventoryService.gI().findItemBag(pl, 457).quantity >= 200) {
+                                            InventoryService.gI().subQuantityItemsBag(pl, InventoryService.gI().findItemBag(pl, 457), 200);
+                                            InventoryService.gI().sendItemBags(pl);
                                             pl.goldVIP += 200;
                                             ChonAiDay.gI().goldVip += 200;
                                             ChonAiDay.gI().addPlayerVIP(pl);
@@ -1509,7 +1509,7 @@ public class NpcFactory {
                                             "Con muốn làm gì nào?", "Quay bằng\nvàng", "Quay bằng\n hồng ngọc",
                                             "Rương phụ\n("
                                                     + (player.inventory.itemsBoxCrackBall.size()
-                                                    - InventoryServiceNew.gI().getCountEmptyListItem(player.inventory.itemsBoxCrackBall))
+                                                    - InventoryService.gI().getCountEmptyListItem(player.inventory.itemsBoxCrackBall))
                                                     + " món)",
                                             "Xóa hết\ntrong rương", "Đóng");
                                     break;
@@ -2286,13 +2286,13 @@ public class NpcFactory {
                                     NpcService.gI().createTutorial(player, this.avartar, ConstNpc.HUONG_DAN_DOI_SKH_VIP);
                                 }
                                 if (select == 1) {
-                                    CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.NANG_CAP_SKH_VIP);
+                                    CombineService.gI().openTabCombine(player, CombineService.NANG_CAP_SKH_VIP);
                                 }
                             }
                         }
                     } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_NANG_DOI_SKH_VIP) {
                         if (select == 0) {
-                            CombineServiceNew.gI().startCombine(player);
+                            CombineService.gI().startCombine(player);
                         }
                     }
                 }
@@ -2561,7 +2561,7 @@ public class NpcFactory {
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player)) {
                     try {
-                        Item biKiep = InventoryServiceNew.gI().findItem(player.inventory.itemsBag, 590);
+                        Item biKiep = InventoryService.gI().findItem(player.inventory.itemsBag, 590);
                         if (biKiep != null) {
                             this.createOtherMenu(player, ConstNpc.BASE_MENU, "Bạn đang có " + biKiep.quantity + " bí kiếp.\n"
                                     + "Hãy kiếm đủ 10000 bí kiếp tôi sẽ dạy bạn cách dịch chuyển tức thời của người Yardart", "Học dịch\nchuyển", "Đóng");
@@ -2576,15 +2576,15 @@ public class NpcFactory {
             public void confirmMenu(Player player, int select) {
                 if (canOpenNpc(player)) {
                     try {
-                        Item biKiep = InventoryServiceNew.gI().findItem(player.inventory.itemsBag, 590);
+                        Item biKiep = InventoryService.gI().findItem(player.inventory.itemsBag, 590);
                         if (biKiep != null) {
-                            if (biKiep.quantity >= 10000 && InventoryServiceNew.gI().getCountEmptyBag(player) > 0) {
+                            if (biKiep.quantity >= 10000 && InventoryService.gI().getCountEmptyBag(player) > 0) {
                                 Item yardart = ItemService.gI().createNewItem((short) (player.gender + 592));
                                 yardart.itemOptions.add(new Item.ItemOption(47, 400));
                                 yardart.itemOptions.add(new Item.ItemOption(108, 10));
-                                InventoryServiceNew.gI().addItemBag(player, yardart);
-                                InventoryServiceNew.gI().subQuantityItemsBag(player, biKiep, 10000);
-                                InventoryServiceNew.gI().sendItemBags(player);
+                                InventoryService.gI().addItemBag(player, yardart);
+                                InventoryService.gI().subQuantityItemsBag(player, biKiep, 10000);
+                                InventoryService.gI().sendItemBags(player);
                                 Service.gI().sendThongBao(player, "Bạn vừa nhận được trang phục tộc Yardart");
                             }
                         }
@@ -2624,16 +2624,16 @@ public class NpcFactory {
                         } else if (player.iDMark.getIndexMenu() == 1) {
                             switch (select) {
                                 case 0:
-                                    CombineServiceNew.gI().openTabCombine(player, CombineServiceNew.NANG_CAP_KHI);
+                                    CombineService.gI().openTabCombine(player, CombineService.NANG_CAP_KHI);
                                     break;
                                 case 1:
                                     break;
                             }
                         } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_NANG_KHI) {
                             switch (player.combineNew.typeCombine) {
-                                case CombineServiceNew.NANG_CAP_KHI:
+                                case CombineService.NANG_CAP_KHI:
                                     if (select == 0) {
-                                        CombineServiceNew.gI().startCombine(player);
+                                        CombineService.gI().startCombine(player);
                                     }
                                     break;
                             }
@@ -2739,7 +2739,7 @@ public class NpcFactory {
                                         item.itemOptions.add(new Item.ItemOption(207, 0));
                                         item.itemOptions.add(new Item.ItemOption(33, 0));
 //                                      
-                                        InventoryServiceNew.gI().addItemBag(player, item);
+                                        InventoryService.gI().addItemBag(player, item);
                                         Service.gI().sendThongBao(player, "Chúc Mừng Bạn Đổi Cải Trang Thành Công !");
                                     } else {
                                         Service.gI().sendThongBao(player, "Không đủ điểm bạn còn " + (500 - player.pointPvp) + " Điểm nữa");
@@ -3129,6 +3129,9 @@ public class NpcFactory {
                                 break;
                             case 4:
                                 Input.gI().createFormMTV(player);
+                                break;
+                            case 5:
+                                Input.gI().createFormSendRuby(player);
                                 break;
                         }
                         break;

@@ -52,7 +52,7 @@ public class ServerNotify extends Thread {
         }
     }
 
-    private void sendThongBaoBenDuoi(String text) {
+    public void sendThongBaoBenDuoi(String text) {
         Message msg;
         try {
             msg = new Message(93);

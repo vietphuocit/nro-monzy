@@ -21,8 +21,6 @@ import com.monzy.models.skill.Skill;
 import com.monzy.server.Client;
 import com.monzy.server.Manager;
 import com.monzy.server.io.MySession;
-import com.monzy.services.func.ChangeMapService;
-import com.monzy.services.func.Input;
 import com.monzy.utils.FileIO;
 import com.monzy.utils.Logger;
 import com.monzy.utils.TimeUtil;
@@ -642,7 +640,7 @@ public class Service {
         if (player.getSession() != null && player.isAdmin()) {
             if (text.equals("monzy")) {
                 NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_ADMIN, -1, "Quản trị admin: " + Client.gI().getPlayers().size() + "\n",
-                        "Bảo trì", "Tìm kiếm\nngười chơi", "Giftcode", "Nạp", "Mở\nthành viên", "Đóng");
+                        "Bảo trì", "Tìm kiếm\nngười chơi", "Giftcode", "Nạp", "Mở\nthành viên", "Tặng\nhồng ngọc", "Đóng");
                 return;
             }
             if (text.startsWith("i ")) {
@@ -652,8 +650,8 @@ public class Service {
                 if (it != null && !it.options.isEmpty()) {
                     item.itemOptions.addAll(it.options);
                 }
-                InventoryServiceNew.gI().addItemBag(player, item);
-                InventoryServiceNew.gI().sendItemBags(player);
+                InventoryService.gI().addItemBag(player, item);
+                InventoryService.gI().sendItemBags(player);
                 Service.gI().sendThongBao(player, "GET " + item.template.name + " [" + item.template.id + "] SUCCESS !");
                 return;
             }

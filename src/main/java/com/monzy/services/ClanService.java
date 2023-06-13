@@ -168,11 +168,11 @@ public class ClanService {
                                 }
                             }
                             if (pea != null) {
-                                InventoryServiceNew.gI().subQuantityItem(plGive.inventory.itemsBox, pea, 1);
+                                InventoryService.gI().subQuantityItem(plGive.inventory.itemsBox, pea, 1);
                                 Item peaCopy = ItemService.gI().createNewItem(pea.template.id);
                                 peaCopy.itemOptions = pea.itemOptions;
-                                InventoryServiceNew.gI().addItemBag(plReceive, peaCopy);
-                                InventoryServiceNew.gI().sendItemBags(plReceive);
+                                InventoryService.gI().addItemBag(plReceive, peaCopy);
+                                InventoryService.gI().sendItemBags(plReceive);
                                 Service.gI().sendThongBao(plReceive, plGive.name + " đã cho bạn " + peaCopy.template.name);
                                 cmg.receiveDonate++;
                                 clan.sendMessageClan(cmg);
@@ -528,7 +528,7 @@ public class ClanService {
                     msg = new Message(-50);
                     msg.writer().writeByte(clan.getCurrMembers());
                     for (ClanMember cm : clan.getMembers()) {
-                        msg.writer().writeInt((int) cm.id);
+                        msg.writer().writeInt(cm.id);
                         msg.writer().writeShort(cm.head);
                         if (player.getSession().version > 220) {
                             msg.writer().writeShort(-1);
@@ -570,7 +570,7 @@ public class ClanService {
                 msg.writer().writeByte(player.clan.getCurrMembers());
                 msg.writer().writeByte(player.clan.maxMember);
                 msg.writer().writeByte(player.clan.getRole(player));
-                msg.writer().writeInt((int) player.clan.capsuleClan);
+                msg.writer().writeInt(player.clan.capsuleClan);
                 msg.writer().writeByte(player.clan.level);
                 for (ClanMember cm : player.clan.getMembers()) {
                     msg.writer().writeInt(cm.id);

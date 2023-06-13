@@ -1,8 +1,7 @@
-package com.monzy.services.func;
+package com.monzy.services;
 
 import com.monzy.models.map.Zone;
 import com.monzy.models.player.Player;
-import com.monzy.services.Service;
 import com.network.io.Message;
 
 public class EffectMapService {

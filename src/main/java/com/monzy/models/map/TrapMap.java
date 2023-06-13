@@ -2,7 +2,7 @@ package com.monzy.models.map;
 
 import com.monzy.models.player.Player;
 import com.monzy.services.PlayerService;
-import com.monzy.services.func.EffectMapService;
+import com.monzy.services.EffectMapService;
 import com.monzy.utils.Util;
 
 public class TrapMap {

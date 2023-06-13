@@ -9,22 +9,21 @@ import com.monzy.models.npc.specialnpc.MabuEgg;
 import com.monzy.models.player.Inventory;
 import com.monzy.models.player.Pet;
 import com.monzy.models.player.Player;
-import com.monzy.services.func.ChangeMapService;
 import com.network.io.Message;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class InventoryServiceNew {
+public class InventoryService {
 
-    private static InventoryServiceNew I;
+    private static InventoryService I;
 
-    public static InventoryServiceNew gI() {
-        if (InventoryServiceNew.I == null) {
-            InventoryServiceNew.I = new InventoryServiceNew();
+    public static InventoryService gI() {
+        if (InventoryService.I == null) {
+            InventoryService.I = new InventoryService();
         }
-        return InventoryServiceNew.I;
+        return InventoryService.I;
     }
 
     /**
@@ -36,34 +35,23 @@ public class InventoryServiceNew {
         for (Integer key : keySet) {
             int idItem = key;
             int quantity = giftcode.details.get(key);
-            if (idItem == -1) {
-                p.inventory.gold = Math.min(p.inventory.gold + (long) quantity, 2000000000L);
-                textGift += quantity + " vàng\b";
-            } else if (idItem == -2) {
-                p.inventory.gem = Math.min(p.inventory.gem + quantity, 200000000);
-                textGift += quantity + " ngọc\b";
-            } else if (idItem == -3) {
-                p.inventory.ruby = Math.min(p.inventory.ruby + quantity, 200000000);
-                textGift += quantity + " ngọc khóa\b";
-            } else {
-                Item itemGiftTemplate = ItemService.gI().createNewItem((short) idItem);
-                if (itemGiftTemplate != null) {
-                    Item itemGift = new Item((short) idItem);
-                    if (itemGift.template.type == 0 || itemGift.template.type == 1 || itemGift.template.type == 2 || itemGift.template.type == 3
-                            || itemGift.template.type == 4 || itemGift.template.type == 5) {
-                        if (itemGift.template.id == 457) {
-                            itemGift.itemOptions.add(new ItemOption(30, 0));
-                        } else {
-                            itemGift.itemOptions = giftcode.option;
-                            itemGift.quantity = quantity;
-                            addItemBag(p, itemGift);
-                        }
+            Item itemGiftTemplate = ItemService.gI().createNewItem((short) idItem);
+            if (itemGiftTemplate != null) {
+                Item itemGift = new Item((short) idItem);
+                if (itemGift.template.type == 0 || itemGift.template.type == 1 || itemGift.template.type == 2 || itemGift.template.type == 3
+                        || itemGift.template.type == 4 || itemGift.template.type == 5) {
+                    if (itemGift.template.id == 457) {
+                        itemGift.itemOptions.add(new ItemOption(30, 0));
                     } else {
+                        itemGift.itemOptions = giftcode.option;
                         itemGift.quantity = quantity;
                         addItemBag(p, itemGift);
                     }
-                    textGift += "x" + quantity + " " + itemGift.template.name + "\b";
+                } else {
+                    itemGift.quantity = quantity;
+                    addItemBag(p, itemGift);
                 }
+                textGift += "x" + quantity + " " + itemGift.template.name + "\b";
             }
         }
         sendItemBags(p);

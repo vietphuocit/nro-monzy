@@ -193,7 +193,7 @@ public class Zone {
                 Item item = ItemService.gI().createItemFromItemMap(itemMap);
                 boolean picked = true;
                 if (!ItemMapService.gI().isNamecBall(item.template.id)) {
-                    picked = InventoryServiceNew.gI().addItemBag(player, item);
+                    picked = InventoryService.gI().addItemBag(player, item);
                 }
                 if (picked) {
                     int itemType = item.template.type;
@@ -263,7 +263,7 @@ public class Zone {
                                         } else {
                                             msg.writer().writeUTF("Bạn mới nhặt được " + item.template.name);
                                         }
-                                        InventoryServiceNew.gI().sendItemBags(player);
+                                        InventoryService.gI().sendItemBags(player);
                                         break;
                                 }
                         }

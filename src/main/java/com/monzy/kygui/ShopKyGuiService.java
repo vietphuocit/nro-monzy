@@ -7,7 +7,7 @@ import com.monzy.consts.ConstNpc;
 import com.monzy.models.item.Item;
 import com.monzy.models.item.Item.ItemOption;
 import com.monzy.models.player.Player;
-import com.monzy.services.InventoryServiceNew;
+import com.monzy.services.InventoryService;
 import com.monzy.services.ItemService;
 import com.monzy.services.NpcService;
 import com.monzy.services.Service;
@@ -113,8 +113,8 @@ public class ShopKyGuiService {
             item.itemOptions.addAll(it.options);
             it.isBuy = true;
             if (it.isBuy) {
-                InventoryServiceNew.gI().addItemBag(pl, item);
-                InventoryServiceNew.gI().sendItemBags(pl);
+                InventoryService.gI().addItemBag(pl, item);
+                InventoryService.gI().sendItemBags(pl);
                 Service.gI().sendThongBao(pl, "Bạn đã nhận được " + item.template.name);
                 openShopKyGui(pl);
             }
@@ -222,8 +222,8 @@ public class ShopKyGuiService {
                 item.quantity = it.quantity;
                 item.itemOptions.addAll(it.options);
                 if (ShopKyGuiManager.gI().listItem.remove(it)) {
-                    InventoryServiceNew.gI().addItemBag(pl, item);
-                    InventoryServiceNew.gI().sendItemBags(pl);
+                    InventoryService.gI().addItemBag(pl, item);
+                    InventoryService.gI().sendItemBags(pl);
                     Service.gI().sendMoney(pl);
                     Service.gI().sendThongBao(pl, "Hủy bán vật phẩm thành công");
                     openShopKyGui(pl);
@@ -256,7 +256,7 @@ public class ShopKyGuiService {
     public List<ItemKyGui> getItemCanKiGui(Player pl) {
         List<ItemKyGui> its = new ArrayList<>();
         ShopKyGuiManager.gI().listItem.stream().filter((it) -> (it != null && it.player_sell == pl.id)).forEachOrdered(its::add);
-        pl.inventory.itemsBag.stream().filter((it) -> (it.isNotNullItem() && ((it.template.type < 5 && it.template.type >= 0) || it.template.type == 12 || it.template.type == 33 || it.template.type == 29))).forEachOrdered((it) -> its.add(new ItemKyGui(InventoryServiceNew.gI().getIndexBag(pl, it), it.template.id, (int) pl.id, (byte) 4, -1, -1, it.quantity, (byte) -1, it.itemOptions, false)));
+        pl.inventory.itemsBag.stream().filter((it) -> (it.isNotNullItem() && ((it.template.type < 5 && it.template.type >= 0) || it.template.type == 12 || it.template.type == 33 || it.template.type == 29))).forEachOrdered((it) -> its.add(new ItemKyGui(InventoryService.gI().getIndexBag(pl, it), it.template.id, (int) pl.id, (byte) 4, -1, -1, it.quantity, (byte) -1, it.itemOptions, false)));
         return its;
     }
 
@@ -307,17 +307,17 @@ public class ShopKyGuiService {
             pl.inventory.ruby -= 5;
             switch (moneyType) {
                 case 0:// vàng
-                    InventoryServiceNew.gI().subQuantityItemsBag(pl, pl.inventory.itemsBag.get(id), quantity);
+                    InventoryService.gI().subQuantityItemsBag(pl, pl.inventory.itemsBag.get(id), quantity);
                     ShopKyGuiManager.gI().listItem.add(new ItemKyGui(getMaxId() + 1, it.template.id, (int) pl.id, getTabKiGui(it), money, -1, quantity, (byte) 0, it.itemOptions, false));
-                    InventoryServiceNew.gI().sendItemBags(pl);
+                    InventoryService.gI().sendItemBags(pl);
                     openShopKyGui(pl);
                     Service.gI().sendMoney(pl);
                     Service.gI().sendThongBao(pl, "Đăng bán thành công");
                     break;
                 case 1:// hồng ngọc
-                    InventoryServiceNew.gI().subQuantityItemsBag(pl, pl.inventory.itemsBag.get(id), quantity);
+                    InventoryService.gI().subQuantityItemsBag(pl, pl.inventory.itemsBag.get(id), quantity);
                     ShopKyGuiManager.gI().listItem.add(new ItemKyGui(getMaxId() + 1, it.template.id, (int) pl.id, getTabKiGui(it), -1, money, quantity, (byte) 0, it.itemOptions, false));
-                    InventoryServiceNew.gI().sendItemBags(pl);
+                    InventoryService.gI().sendItemBags(pl);
                     openShopKyGui(pl);
                     Service.gI().sendMoney(pl);
                     Service.gI().sendThongBao(pl, "Đăng bán thành công");
