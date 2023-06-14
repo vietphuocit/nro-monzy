@@ -429,7 +429,7 @@ public class Zone {
         }
         Service.gI().sendFlagPlayerToMe(plReceive, plInfo);
         if (!plInfo.isBoss && !plInfo.isPet && !plInfo.isNewPet) {
-            Service.gI().sendPetFollowToMe(plReceive, plInfo);
+            Service.gI().sendPetFollowToMe(plInfo);
         }
         try {
             if (plInfo.isDie()) {

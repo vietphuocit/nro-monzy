@@ -35,11 +35,11 @@ public class Util {
             MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] messageDigest = md.digest(input.getBytes());
             BigInteger no = new BigInteger(1, messageDigest);
-            String hashtext = no.toString(16);
-            while (hashtext.length() < 32) {
-                hashtext = "0" + hashtext;
+            String hashText = no.toString(16);
+            while (hashText.length() < 32) {
+                hashText = "0" + hashText;
             }
-            return hashtext;
+            return hashText;
         } catch (Exception e) {
         }
         return "";
@@ -103,23 +103,46 @@ public class Util {
         return getDistance(mob1.location.x, mob1.location.y, mob2.location.x, mob2.location.y);
     }
 
+    /**
+     *
+     * @param from
+     * @param to
+     * @return [form, to]
+     */
     public static int nextInt(int from, int to) {
         return from + rand.nextInt(to - from + 1);
     }
 
+    /**
+     *
+     * @param max
+     * @return [0, max-1]
+     */
     public static int nextInt(int max) {
         return rand.nextInt(max);
     }
 
-    public static int nextInt(int[] percent) {
-        int next = nextInt(1000), i;
-        for (i = 0; i < percent.length; i++) {
-            if (next < percent[i]) {
-                return i;
-            }
-            next -= percent[i];
-        }
-        return i;
+    /**
+     *
+     * @param ratio
+     * @param typeRatio
+     * @return true or false :v
+     */
+    public static boolean isTrue(int ratio, int typeRatio) {
+        int num = nextInt(1, typeRatio);
+        return num <= ratio;
+    }
+
+    /**
+     *
+     * @param ratio
+     * @param typeRatio
+     * @return true or false :v
+     */
+    public static boolean isTrue(float ratio, int typeRatio) {
+        if(ratio < 1)
+            return isTrue(1, (int)(typeRatio * (1 / ratio)));
+        return isTrue(1, (int)(typeRatio / ratio));
     }
 
     public static int getOne(int n1, int n2) {
@@ -132,19 +155,6 @@ public class Util {
 
     public static String replace(String text, String regex, String replacement) {
         return text.replace(regex, replacement);
-    }
-
-    public static boolean isTrue(int ratio, int typeRatio) {
-        int num = Util.nextInt(1, typeRatio);
-        return num < ratio;
-    }
-
-    public static boolean isTrue(float ratio, int typeRatio) {
-        while (ratio < 1) {
-            ratio *= 10;
-            typeRatio *= 10;
-        }
-        return isTrue((int) ratio, typeRatio);
     }
 
     public static boolean haveSpecialCharacter(String text) {

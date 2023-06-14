@@ -29,7 +29,7 @@ import com.monzy.server.io.MySession;
 import com.monzy.services.*;
 import com.monzy.services.ChangeMapService;
 import com.monzy.services.func.ChonAiDay;
-import com.monzy.services.func.CombineNew;
+import com.monzy.services.func.Conbine;
 import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
 import com.network.io.Message;
@@ -74,7 +74,7 @@ public class Player {
     public IntrinsicPlayer playerIntrinsic;
     public Inventory inventory;
     public PlayerSkill playerSkill;
-    public CombineNew combineNew;
+    public Conbine conbine;
     public IDMark iDMark;
     public Charms charms;
     public EffectSkin effectSkin;
@@ -130,7 +130,7 @@ public class Player {
         fightMabu = new FightMabu(this);
         //----------------------------------------------------------------------
         iDMark = new IDMark();
-        combineNew = new CombineNew();
+        conbine = new Conbine();
         playerTask = new TaskPlayer();
         friends = new ArrayList<>();
         enemies = new ArrayList<>();
@@ -711,9 +711,9 @@ public class Player {
             playerSkill.dispose();
             playerSkill = null;
         }
-        if (combineNew != null) {
-            combineNew.dispose();
-            combineNew = null;
+        if (conbine != null) {
+            conbine.dispose();
+            conbine = null;
         }
         if (iDMark != null) {
             iDMark.dispose();

@@ -247,9 +247,9 @@ public class Service {
         }
     }
 
-    public void sendPetFollowToMe(Player me, Player pl) {
+    public void sendPetFollowToMe(Player pl) {
         Item linhThu = pl.inventory.itemsBody.get(10);
-        if (!linhThu.isNotNullItem()) {
+        if (linhThu == null || !linhThu.isNotNullItem()) {
             return;
         }
         short smallId = (short) (linhThu.template.iconID - 1);
@@ -260,7 +260,7 @@ public class Service {
             msg.writer().writeByte(1);
             msg.writer().writeShort(smallId);
             msg.writer().writeByte(1);
-            int[] fr = new int[]{};
+            int[] fr;
             switch (smallId) {
                 case 14420:
                     fr = new int[]{0, 1, 2, 3, 4, 5};

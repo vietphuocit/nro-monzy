@@ -318,7 +318,7 @@ public class Mob {
             float rateTrangBi = getRateTrangBi(Math.min(level, 13));
             if (Util.isTrue(rateTrangBi, 100)) {
                 short itemId;
-                if (Util.isTrue(4, 100)) {
+                if (Util.isTrue(10, 100)) {
                     itemId = Manager.IDS_RADAR[Math.min(11, level - 2)];
                 } else {
                     itemId = Manager.IDS_TRANG_BI_SHOP[player.gender][Util.nextInt(0, 3)][Math.min(11, level - 2)];
@@ -336,7 +336,7 @@ public class Mob {
             }
         }
         // đồ thần linh
-        if (MapService.gI().isMapCold(this.zone.map) && Util.isTrue(1, 100)) {
+        if (MapService.gI().isMapCold(this.zone.map) && Util.isTrue(0.005f, 100)) {
             int idItem = Manager.IDS_DO_THAN[Util.nextInt(Manager.IDS_DO_THAN.length)];
             Item item = ItemService.gI().randomCSDTL(idItem, ItemService.MOB_DROP);
             ItemMap itemMap = new ItemMap(zone, idItem, 1, x, player.location.y, player.id);

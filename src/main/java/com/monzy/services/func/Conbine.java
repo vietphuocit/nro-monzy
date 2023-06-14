@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @Stole By Arriety 💖
  */
-public class CombineNew {
+public class Conbine {
 
     public long lastTimeCombine;
     public List<Item> itemsCombine;
@@ -20,7 +20,7 @@ public class CombineNew {
     public short countDaBaoVe;
     public int rubyCombine;
 
-    public CombineNew() {
+    public Conbine() {
         this.itemsCombine = new ArrayList<>();
     }
 
