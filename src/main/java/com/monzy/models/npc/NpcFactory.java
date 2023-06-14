@@ -496,7 +496,7 @@ public class NpcFactory {
                                     Service.gI().sendThongBao(player, "Có đủ Point đâu mà mở ~~\n Cần 100");
                                     return;
                                 }
-                                if (PlayerDAO.subvnd(player, 20000)) {
+                                if (PlayerDAO.subVND(player, 20000)) {
                                     player.getSession().actived = true;
                                     if (PlayerDAO.activedUser(player)) {
                                         Service.gI().sendThongBao(player, "Bạn đã mở thành viên thành công");
@@ -944,10 +944,10 @@ public class NpcFactory {
                         } else if (player.iDMark.getIndexMenu() == ConstNpc.QUY_DOI) {
                             switch (select) {
                                 case 0:
-                                    Input.gI().createFormQDTV(player);
+                                    Input.gI().createFormQDHN(player);
                                     break;
                                 case 1:
-                                    Input.gI().createFormQDHN(player);
+                                    Input.gI().createFormQDTV(player);
                                     break;
                             }
                         }
@@ -3125,13 +3125,32 @@ public class NpcFactory {
                                 GiftCodeManager.gI().checkInformationGiftCode(player);
                                 break;
                             case 3:
-                                Input.gI().createFormNapCoin(player);
+                                Input.gI().createFormNapForAdmin(player);
                                 break;
                             case 4:
                                 Input.gI().createFormMTV(player);
                                 break;
                             case 5:
                                 Input.gI().createFormSendRuby(player);
+                                break;
+                        }
+                        break;
+                    case ConstNpc.MENU_MOD:
+                        switch (select) {
+//                            case 1:
+//                                if (player.pet == null) {
+//                                    PetService.gI().createNormalPet(player);
+//                                } else {
+//                                    if (player.pet.typePet == 1) {
+//                                        PetService.gI().changePicPet(player);
+//                                    } else if (player.pet.typePet == 2) {
+//                                        PetService.gI().changeMabuPet(player);
+//                                    }
+//                                    PetService.gI().changeBerusPet(player);
+//                                }
+//                                break;
+                            case 0:
+                                Input.gI().createFormMTV(player);
                                 break;
                         }
                         break;

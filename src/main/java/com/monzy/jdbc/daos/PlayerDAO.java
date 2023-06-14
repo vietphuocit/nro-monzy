@@ -674,46 +674,7 @@ public class PlayerDAO {
         }
     }
 
-    public static boolean subGoldBar(Player player, int num) {
-        PreparedStatement ps = null;
-        try (Connection con = Database.getConnection()) {
-            ps = con.prepareStatement("update account set thoi_vang = (thoi_vang - ?), active = ? where id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ps.setInt(1, num);
-            ps.setInt(2, player.getSession().actived ? 1 : 0);
-            ps.setInt(3, player.getSession().userId);
-            ps.executeUpdate();
-            ps.close();
-            player.getSession().goldBar -= num;
-        } catch (Exception e) {
-            Logger.logException(PlayerDAO.class, e, "Lỗi update thỏi vàng " + player.name);
-            return false;
-        } finally {
-        }
-        return false;
-    }
-
-    public static boolean subcoinBar(Player player, int num) {
-        PreparedStatement ps = null;
-        try (Connection con = Database.getConnection()) {
-            ps = con.prepareStatement("update account set coin = (coin - ?), active = ? where id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ps.setInt(1, num);
-            ps.setInt(2, player.getSession().actived ? 1 : 0);
-            ps.setInt(3, player.getSession().userId);
-            ps.executeUpdate();
-            ps.close();
-            player.getSession().coinBar -= num;
-        } catch (Exception e) {
-            Logger.logException(PlayerDAO.class, e, "Lỗi update Coin " + player.name);
-            return false;
-        } finally {
-        }
-        if (num > 1000) {
-            insertHistoryGold(player, num);
-        }
-        return true;
-    }
-
-    public static boolean subvnd(Player player, int num) {
+    public static boolean subVND(Player player, int num) {
         PreparedStatement ps = null;
         try (Connection con = Database.getConnection()) {
             ps = con.prepareStatement("update account set vnd = (vnd - ?), active = ? where id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -726,7 +687,6 @@ public class PlayerDAO {
         } catch (Exception e) {
             Logger.logException(PlayerDAO.class, e, "Lỗi update Coin " + player.name);
             return false;
-        } finally {
         }
         if (num > 1000) {
             insertHistoryGold(player, num);
@@ -747,7 +707,6 @@ public class PlayerDAO {
         } catch (Exception e) {
             Logger.logException(PlayerDAO.class, e, "Lỗi update Tổng nạp " + player.name);
             return false;
-        } finally {
         }
         if (num > 1000) {
             insertHistoryGold(player, num);
@@ -755,7 +714,7 @@ public class PlayerDAO {
         return true;
     }
 
-    public static boolean addvnd(Player player, int num) {
+    public static boolean addVND(Player player, int num) {
         PreparedStatement ps = null;
         try (Connection con = Database.getConnection()) {
             ps = con.prepareStatement("update account set vnd = (vnd + ?), active = ? where id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);

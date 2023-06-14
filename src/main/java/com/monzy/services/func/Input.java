@@ -32,8 +32,8 @@ public class Input {
     public static final int NAP_THE = 505;
     public static final int CHANGE_NAME_BY_ITEM = 506;
     public static final int GIVE_IT = 507;
-    public static final int QUY_DOI_COIN = 508;
-    public static final int QUY_DOI_HONG_NGOC = 509;
+    public static final int VND_TO_HONG_NGOC = 508;
+    public static final int VND_TO_THOI_VANG = 509;
     public static final int NAP = 516;
     public static final int MTV = 517;
     public static final int SEND_RUBY = 518;
@@ -89,7 +89,7 @@ public class Input {
                     Player playerNap = Client.gI().getPlayer(text[0]);
                     int vnd = Integer.parseInt(text[1]);
                     if (playerNap != null) {
-                        PlayerDAO.addvnd(playerNap, vnd * Manager.RATE_PAY);
+                        PlayerDAO.addVND(playerNap, vnd * Manager.RATE_PAY);
                         PlayerDAO.addTongNap(playerNap, vnd);
                         Service.gI().sendThongBao(player, "Đã nạp cho " + playerNap + " " + vnd + " vnd");
                         Service.gI().sendThongBao(playerNap, "Bạn nhận được " + vnd + " vnd. Đến Santa để kiểm tra số dư!");
@@ -425,14 +425,14 @@ public class Input {
                         Service.getInstance().sendThongBao(player, "Không đủ Bông Hồng bạn còn thiếu " + (sldongxuvangbitru - dongxuvang.quantity) + " Đồng Xu Vàng nữa!");
                     }
                     break;
-                case QUY_DOI_COIN:
+                case VND_TO_HONG_NGOC:
                     int ratioGold = 1; // tỉ lệ đổi tv
                     int coinGold = 1; // là cái loz
                     int goldTrade = Integer.parseInt(text[0]);
                     if (goldTrade <= 0 || goldTrade >= 50000000) {
                         Service.gI().sendThongBao(player, "giới hạn");
                     } else if (player.getSession().vnd >= goldTrade * coinGold) {
-                        PlayerDAO.subvnd(player, goldTrade * coinGold);
+                        PlayerDAO.subVND(player, goldTrade * coinGold);
                         Item thoiVang = ItemService.gI().createNewItem((short) 861, goldTrade * 1);// x3
                         InventoryService.gI().addItemBag(player, thoiVang);
                         InventoryService.gI().sendItemBags(player);
@@ -443,14 +443,14 @@ public class Input {
                                 + " đổi " + goldTrade + " Hồng Ngọc " + " " + "bạn cần thêm" + (player.getSession().vnd - goldTrade));
                     }
                     break;
-                case QUY_DOI_HONG_NGOC:
+                case VND_TO_THOI_VANG:
                     int ratioGem = 4; // tỉ lệ đổi tv
                     int coinGem = 1000; // là cái loz
                     int gemTrade = Integer.parseInt(text[0]);
                     if (gemTrade <= 0 || gemTrade >= 50000000) {
                         Service.gI().sendThongBao(player, "giới hạn");
                     } else if (player.getSession().vnd >= gemTrade * coinGem) {
-                        PlayerDAO.subvnd(player, gemTrade * coinGem);
+                        PlayerDAO.subVND(player, gemTrade * coinGem);
                         Item thoiVang = ItemService.gI().createNewItem((short) 457, gemTrade * 4);// x4
                         InventoryService.gI().addItemBag(player, thoiVang);
                         InventoryService.gI().sendItemBags(player);
@@ -509,7 +509,7 @@ public class Input {
         createForm(pl, GIVE_IT, "Tặng vật phẩm", new SubInput("Tên", ANY), new SubInput("Id Item", ANY), new SubInput("Số lượng", ANY));
     }
 
-    public void createFormNapCoin(Player pl) {
+    public void createFormNapForAdmin(Player pl) {
         createForm(pl, NAP, "Nạp coin", new SubInput("Tên", ANY), new SubInput("Số lượng", ANY));
     }
 
@@ -551,14 +551,14 @@ public class Input {
         createForm(pl, NAP_THE, "Nạp thẻ", new SubInput("Số Seri", ANY), new SubInput("Mã thẻ", ANY));
     }
 
-    public void createFormQDTV(Player pl) {
-        createForm(pl, QUY_DOI_COIN, "Quy đổi Hồng Ngọc tỉ lệ 1-1"
+    public void createFormQDHN(Player pl) {
+        createForm(pl, VND_TO_HONG_NGOC, "Quy đổi Hồng Ngọc tỉ lệ 1-1"
                 + "\n50.000 Vnd = 50.000 Hồng ngọc "
                 + "\nNạp tiền Tại: MONZY ", new SubInput("Nhập số lượng muốn đổi", NUMERIC));
     }
 
-    public void createFormQDHN(Player pl) {
-        createForm(pl, QUY_DOI_HONG_NGOC, "Quy đổi Thỏi Vàng"
+    public void createFormQDTV(Player pl) {
+        createForm(pl, VND_TO_THOI_VANG, "Quy đổi Thỏi Vàng"
                 + "\nNhập 10 Có nghĩa là  10.000đ"
                 + "\nTỉ Lệ Quy Đổi 10.000đ = 40 Thỏi Vàng"
                 + "\nNạp tiền Tại: MONZY ", new SubInput("Nhập số lượng muốn đổi", NUMERIC));

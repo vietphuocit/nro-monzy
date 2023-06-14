@@ -639,7 +639,7 @@ public class Service {
         }
         if (player.getSession() != null && player.isAdmin()) {
             if (text.equals("monzy")) {
-                NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_ADMIN, -1, "Quản trị admin: " + Client.gI().getPlayers().size() + "\n",
+                NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_ADMIN, -1, "Số lượng người chơi đang online: " + Client.gI().getPlayers().size() + "\n",
                         "Bảo trì", "Tìm kiếm\nngười chơi", "Giftcode", "Nạp", "Mở\nthành viên", "Tặng\nhồng ngọc", "Đóng");
                 return;
             }
@@ -653,6 +653,13 @@ public class Service {
                 InventoryService.gI().addItemBag(player, item);
                 InventoryService.gI().sendItemBags(player);
                 Service.gI().sendThongBao(player, "GET " + item.template.name + " [" + item.template.id + "] SUCCESS !");
+                return;
+            }
+        }
+        if (player.getSession() != null && player.isMod()) {
+            if (text.equals("monzy")) {
+                NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_MOD, -1, "Số lượng người chơi đang online: " + Client.gI().getPlayers().size() + "\n",
+                        "Mở\nthành viên", "Đóng");
                 return;
             }
         }

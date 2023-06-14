@@ -621,6 +621,10 @@ public class Player {
         return this.session.isAdmin;
     }
 
+    public boolean isMod() {
+        return this.session.isMod;
+    }
+
     public void setJustRevivaled() {
         this.justRevived = true;
         this.lastTimeRevived = System.currentTimeMillis();

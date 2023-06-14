@@ -64,12 +64,11 @@ public class GodGK {
             if (rs.first()) {
                 session.userId = rs.getInt("account.id");
                 session.isAdmin = rs.getBoolean("is_admin");
+                session.isMod = rs.getBoolean("is_mod");
                 session.lastTimeLogout = rs.getTimestamp("last_time_logout").getTime();
                 session.actived = rs.getBoolean("active");
-                session.goldBar = rs.getInt("account.thoi_vang");
                 session.bdPlayer = rs.getDouble("account.bd_player");
                 session.vnd = rs.getInt("vnd");
-                session.coinBar = rs.getInt("account.coin");
                 session.vnd = rs.getInt("account.vnd");
                 long lastTimeLogin = rs.getTimestamp("last_time_login").getTime();
                 int secondsPass1 = (int) ((System.currentTimeMillis() - lastTimeLogin) / 1000);
@@ -120,10 +119,9 @@ public class GodGK {
                             if (plInGame != null) {
                                 Client.gI().kickSession(plInGame.getSession());
                             }
-                            int plHp = 200000000;
-                            int plMp = 200000000;
-                            JSONValue jv = new JSONValue();
-                            JSONArray dataArray = null;
+                            int plHp;
+                            int plMp;
+                            JSONArray dataArray;
                             player = new Player();
                             //base info
                             player.id = rs.getInt("id");

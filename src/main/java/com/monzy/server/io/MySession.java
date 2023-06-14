@@ -32,6 +32,7 @@ public class MySession extends Session {
     public byte curR, curW;
     public String ipAddress;
     public boolean isAdmin;
+    public boolean isMod;
     public int userId;
     public String uu;
     public String pp;
@@ -47,15 +48,12 @@ public class MySession extends Session {
     public boolean vip3;
     public boolean vip4;
     public boolean vip5;
-    public int goldBar;
-    public int coinBar;
     public List<Item> itemsReward;
     public String dataReward;
     public boolean is_gift_box;
     public double bdPlayer;
     public int version;
     public int vnd;
-    public int Bar;
 
     public MySession(Socket socket) {
         super(socket);
@@ -137,9 +135,7 @@ public class MySession extends Session {
                     + "cư dân vui lòng di chuyển sang máy chủ khác.");
             return;
         }
-        if (this.player != null) {
-            return;
-        } else {
+        if (this.player == null) {
             Player player = null;
             try {
                 long st = System.currentTimeMillis();
