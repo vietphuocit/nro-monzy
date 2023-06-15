@@ -127,7 +127,3 @@ public class TransactionMomoService implements Runnable {
     }
 
 }
-/**
- * mtv ingame
- * nap id
- */
