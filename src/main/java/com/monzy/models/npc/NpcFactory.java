@@ -962,6 +962,10 @@ public class NpcFactory {
             @Override
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player)) {
+                    if(!player.getSession().actived) {
+                        Service.gI().sendThongBao(player, "Mở tài khoản mới chơi được bạn ơi. :)");
+                        return;
+                    }
                     createOtherMenu(player, ConstNpc.BASE_MENU,
                             "Đưa cho ta Hồng Ngọc hoặc Thỏi Vàng và ngươi sẽ mua đc oto\nĐây không phải chẵn lẻ tài xỉu đâu=)))",
                             "Tài\n hồng ngọc", "Xỉu\n hồng ngọc", "Tài\n thỏi vàng", "Xỉu\n thỏi vàng");

@@ -106,30 +106,30 @@ public class Controller implements IMessageHandler {
                         byte actionRadar = _msg.reader().readByte();
                         switch (actionRadar) {
                             case 0:
-                                RadarService.gI().sendRadar(player, player.Cards);
+                                RadarService.gI().sendRadar(player, player.cards);
                                 break;
                             case 1:
                                 short idC = _msg.reader().readShort();
-                                Card card = player.Cards.stream().filter(r -> r != null && r.Id == idC).findFirst().orElse(null);
+                                Card card = player.cards.stream().filter(r -> r != null && r.id == idC).findFirst().orElse(null);
                                 if (card != null) {
-                                    if (card.Level == 0) {
+                                    if (card.level == 0) {
                                         return;
                                     }
-                                    if (card.Used == 0) {
-                                        if (player.Cards.stream().anyMatch(c -> c != null && c.Used == 1)) {
+                                    if (card.used == 0) {
+                                        if (player.cards.stream().anyMatch(c -> c != null && c.used == 1)) {
                                             Service.gI().sendThongBao(player, "Số thẻ sử dụng đã đạt tối đa");
                                             return;
                                         }
-                                        card.Used = 1;
+                                        card.used = 1;
                                         RadarCard radarTemplate = RadarService.gI().RADAR_TEMPLATE.stream().filter(r -> r.Id == idC).findFirst().orElse(null);
-                                        if (radarTemplate != null && card.Level >= 2) {
+                                        if (radarTemplate != null && card.level >= 2) {
                                             player.idAura = radarTemplate.AuraId;
                                         }
                                     } else {
-                                        card.Used = 0;
+                                        card.used = 0;
                                         player.idAura = -1;
                                     }
-                                    RadarService.gI().Radar1(player, idC, card.Used);
+                                    RadarService.gI().Radar1(player, idC, card.used);
                                     Service.gI().point(player);
                                 }
                                 break;

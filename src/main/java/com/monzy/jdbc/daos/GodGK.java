@@ -166,7 +166,7 @@ public class GodGK {
                             dataArray = (JSONArray) JSONValue.parse(rs.getString("data_card"));
                             for (int i = 0; i < dataArray.size(); i++) {
                                 JSONObject obj = (JSONObject) dataArray.get(i);
-                                player.Cards.add(new Card(Short.parseShort(obj.get("id").toString()), Byte.parseByte(obj.get("amount").toString()), Byte.parseByte(obj.get("max").toString()), Byte.parseByte(obj.get("level").toString()), loadOptionCard((JSONArray) JSONValue.parse(obj.get("option").toString())), Byte.parseByte(obj.get("used").toString())));
+                                player.cards.add(new Card(Short.parseShort(obj.get("id").toString()), Byte.parseByte(obj.get("amount").toString()), Byte.parseByte(obj.get("max").toString()), Byte.parseByte(obj.get("level").toString()), loadOptionCard((JSONArray) JSONValue.parse(obj.get("option").toString())), Byte.parseByte(obj.get("used").toString())));
                             }
                             dataArray.clear();
                             //data tọa độ

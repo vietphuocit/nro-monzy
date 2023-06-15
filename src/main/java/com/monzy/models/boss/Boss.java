@@ -571,19 +571,34 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
         return false;
     }
 
+    public boolean rewardManhThienSu(Player plKill) {
+        for (Map.Entry<Integer, Integer> entry : MANH_THIEN_SU.entrySet()) {
+            if (Util.isTrue(entry.getValue(), 100)) {
+                ItemMap it = new ItemMap(this.zone, entry.getKey(), 1, plKill.location.x, plKill.location.y, plKill.id);
+                Service.gI().dropItemMap(this.zone, it);
+                return true;
+            }
+        }
+        return false;
+    }
+
     public int getRatioById(int id) {
         return ITEM_REWARD.getOrDefault(id, 0);
     }
 
     private final Map<Integer, Integer> ITEM_REWARD = new HashMap<Integer, Integer>() {{
+        put(859, 10);
+        put(956, 10);
+        put(1142, 10);
+        put(15, 5);
+        put(16, 10);
+    }};
+    private final Map<Integer, Integer> MANH_THIEN_SU = new HashMap<Integer, Integer>() {{
         put(1066, 33);
         put(1067, 33);
         put(1068, 33);
         put(1069, 10);
         put(1070, 10);
-        put(1142, 10);
-        put(15, 5);
-        put(16, 10);
     }};
 
 }

@@ -14,7 +14,7 @@ public class Cooler extends Boss {
     @Override
     public void reward(Player plKill) {
         rewardDTL(plKill);
-        rewardItem(plKill, 1142, 16);
+        rewardItem(plKill, 859, 956, 1142, 16);
     }
 
 }

@@ -27,15 +27,15 @@ public class RadarService {
             m.writer().writeByte(0);
             m.writer().writeShort(RadarService.gI().RADAR_TEMPLATE.size());
             for (RadarCard radar : RadarService.gI().RADAR_TEMPLATE) {
-                Card card = cards.stream().filter(c -> c.Id == radar.Id).findFirst().orElse(null);
+                Card card = cards.stream().filter(c -> c.id == radar.Id).findFirst().orElse(null);
                 if (card == null) {
                     card = new Card(radar.Max, radar.Options);
                 }
                 m.writer().writeShort(radar.Id);
                 m.writer().writeShort(radar.IconId);
                 m.writer().writeByte(radar.Rank);
-                m.writer().writeByte(card.Amount);  //amount
-                m.writer().writeByte(card.MaxAmount);  //max_amount
+                m.writer().writeByte(card.amount);  //amount
+                m.writer().writeByte(card.maxAmount);  //max_amount
                 m.writer().writeByte(radar.Type);  //type 0: monster, 1: charpart
                 switch (radar.Type) {
                     case 0:
@@ -50,8 +50,8 @@ public class RadarService {
                 }
                 m.writer().writeUTF(radar.Name);  //name
                 m.writer().writeUTF(radar.Info);  //info
-                m.writer().writeByte(card.Level);  //LEvel
-                m.writer().writeByte(card.Used);  //use
+                m.writer().writeByte(card.level);  //LEvel
+                m.writer().writeByte(card.used);  //use
                 m.writer().writeByte(radar.Options.size());  //option radar
                 for (OptionCard option : radar.Options) {
                     m.writer().writeByte(option.id);  //id

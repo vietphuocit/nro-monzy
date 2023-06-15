@@ -402,38 +402,38 @@ public class UseItem {
         if (radarTemplate.Require != -1) {
             RadarCard radarRequireTemplate = RadarService.gI().RADAR_TEMPLATE.stream().filter(r -> r.Id == radarTemplate.Require).findFirst().orElse(null);
             if (radarRequireTemplate == null) return;
-            Card cardRequire = pl.Cards.stream().filter(r -> r.Id == radarRequireTemplate.Id).findFirst().orElse(null);
-            if (cardRequire == null || cardRequire.Level < radarTemplate.RequireLevel) {
+            Card cardRequire = pl.cards.stream().filter(r -> r.id == radarRequireTemplate.Id).findFirst().orElse(null);
+            if (cardRequire == null || cardRequire.level < radarTemplate.RequireLevel) {
                 Service.gI().sendThongBao(pl, "Bạn cần sưu tầm " + radarRequireTemplate.Name + " ở cấp độ " + radarTemplate.RequireLevel + " mới có thể sử dụng thẻ này");
                 return;
             }
         }
-        Card card = pl.Cards.stream().filter(r -> r.Id == item.template.id).findFirst().orElse(null);
+        Card card = pl.cards.stream().filter(r -> r.id == item.template.id).findFirst().orElse(null);
         if (card == null) {
             Card newCard = new Card(item.template.id, (byte) 1, radarTemplate.Max, (byte) -1, radarTemplate.Options);
-            if (pl.Cards.add(newCard)) {
-                RadarService.gI().RadarSetAmount(pl, newCard.Id, newCard.Amount, newCard.MaxAmount);
-                RadarService.gI().RadarSetLevel(pl, newCard.Id, newCard.Level);
+            if (pl.cards.add(newCard)) {
+                RadarService.gI().RadarSetAmount(pl, newCard.id, newCard.amount, newCard.maxAmount);
+                RadarService.gI().RadarSetLevel(pl, newCard.id, newCard.level);
                 InventoryService.gI().subQuantityItemsBag(pl, item, 1);
                 InventoryService.gI().sendItemBags(pl);
             }
         } else {
-            if (card.Level >= 2) {
+            if (card.level >= 2) {
                 Service.gI().sendThongBao(pl, "Thẻ này đã đạt cấp tối đa");
                 return;
             }
-            card.Amount++;
-            if (card.Amount >= card.MaxAmount) {
-                card.Amount = 0;
-                if (card.Level == -1) {
-                    card.Level = 1;
+            card.amount++;
+            if (card.amount >= card.maxAmount) {
+                card.amount = 0;
+                if (card.level == -1) {
+                    card.level = 1;
                 } else {
-                    card.Level++;
+                    card.level++;
                 }
                 Service.gI().point(pl);
             }
-            RadarService.gI().RadarSetAmount(pl, card.Id, card.Amount, card.MaxAmount);
-            RadarService.gI().RadarSetLevel(pl, card.Id, card.Level);
+            RadarService.gI().RadarSetAmount(pl, card.id, card.amount, card.maxAmount);
+            RadarService.gI().RadarSetLevel(pl, card.id, card.level);
             InventoryService.gI().subQuantityItemsBag(pl, item, 1);
             InventoryService.gI().sendItemBags(pl);
         }

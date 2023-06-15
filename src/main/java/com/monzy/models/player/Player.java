@@ -112,7 +112,7 @@ public class Player {
     public int goldVIP;
     public long lastTimeWin;
     public boolean isWin;
-    public List<Card> Cards = new ArrayList<>();
+    public List<Card> cards = new ArrayList<>();
     public short idAura = -1;
 
     public Player() {

@@ -664,7 +664,7 @@ public class PlayerDAO {
                         skillShortcut,
                         player.pointPvp,
                         player.NguHanhSonPoint,
-                        JSONValue.toJSONString(player.Cards),
+                        JSONValue.toJSONString(player.cards),
                         billEgg,
                         player.id);
                 Logger.success("Total time save player " + player.name + " thành công! " + (System.currentTimeMillis() - st) + "\n");
