@@ -878,10 +878,10 @@ public class PlayerDAO {
 
     public static boolean activedUser(Player player) {
         try {
-            PreparedStatement ps = null;
+            PreparedStatement ps;
             Connection con = Database.getConnection();
             ps = con.prepareStatement("update account set active = ? where id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ps.setInt(1, player.getSession().actived ? 1 : 0);
+            ps.setInt(1, 1);
             ps.setInt(2, player.getSession().userId);
             ps.executeUpdate();
             ps.close();

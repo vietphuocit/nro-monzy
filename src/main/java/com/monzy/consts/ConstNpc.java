@@ -34,11 +34,27 @@ public class ConstNpc {
             + "Lưu ý SKH VIP sẽ tạo ra dưa vào món Thiên Sứ\n"
             + "Ví dụ nguyên liệu gồm : Quần Xayda Thiên Tứ + 2 món SKH thường ngẫu nhiên\n"
             + "Bạn sẽ nhận lại được Quần Xayda với chỉ số SKH VIP";
-    public static final String HUONG_DAN_CAY = "Cách để bạn có 1 lượng vàng lớn :\n"
+    public static final String HUONG_DAN_CAY = "Cách để bạn có 1 lượng vàng lớn :\b"
             + "Có thể cày ở nv bò mộng hàng ngày"
-            + "Lưu ý mỗi ngày có 20nv Nhiệm vụ càng khó lượng vàng nhận được càng nhiều \n"
-            + "Hoặc bạn có thể nạp lần đầu ở npc santa =)))\n"
+            + "Lưu ý mỗi ngày có 20nv Nhiệm vụ càng khó lượng vàng nhận được càng nhiều \b"
+            + "Hoặc bạn có thể nạp lần đầu ở npc santa =)))\b"
             + "1k VND = 1k coin ; 1k coin = 3 thỏi vàng";
+    public static final String HUONG_DAN_NAP_TU_DONG = "Hướng dẫn nạp tự động qua Momo\b" +
+            "Chuyển khoản Momo đến số điện thoại: 0367850360.\b" +
+            "Với nội dung: nap ten_nhan_vat\b" +
+            "Ví dụ: nap monzy\b" +
+            "LƯU Ý:\b" +
+            "1. Tối thiểu 10k VND.\b" +
+            "2. Sai cú pháp sẽ không được cộng tiền vào tài khoản.\b" +
+            "3. Sau khi chuyển khoản vui lòng chờ 3-5p.";
+    public static final String HUONG_DAN_MO_THANH_VIEN = "Hướng dẫn mở thành viên tự động qua Momo\b" +
+            "Chuyển khoản Momo đến số điện thoại: 0367850360.\b" +
+            "Với nội dung: mtv ten_nhan_vat\b" +
+            "Ví dụ: mtv monzy\b" +
+            "LƯU Ý:\b" +
+            "1. Mở thành viên với phí 20k.\b" +
+            "2. Sai cú pháp sẽ không thể mở thành viên.\b" +
+            "3. Sau khi chuyển khoản vui lòng chờ 3-5p.";
     public static final String HUONG_DAN_SK = "Cách Làm Sự Kiện :\n"
             + "Có thể kiếm đồng xu vàng bằng cách fam quái"
             + "sau khi đủ x99 đồng xu vàng bạn có thể đem đến npc unkown \n"

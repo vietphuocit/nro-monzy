@@ -68,6 +68,7 @@ public class ServerManager {
 //        NgocRongNamecService.gI().initNgocRongNamec((byte) 0);
 //        new Thread(NgocRongNamecService.gI(), "Thread NRNM").start();
         new Thread(() -> TopService.gI().run()).start();
+        new Thread(() -> TransactionMomoService.gI().run()).start();
         try {
             Thread.sleep(1000);
             BossManager.gI().loadBoss();

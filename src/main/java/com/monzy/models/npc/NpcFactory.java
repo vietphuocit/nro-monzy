@@ -454,7 +454,7 @@ public class NpcFactory {
                                 "Nạp Lần Đầu Đi Con!"
                                         .replaceAll("%1", player.gender == ConstPlayer.TRAI_DAT ? "Quy lão Kamê"
                                                 : player.gender == ConstPlayer.NAMEC ? "Trưởng lão Guru" : "Vua Vegeta"),
-                                "Đổi mật khẩu", "Nhận ngọc xanh", "Nhận đệ tử", "Cách kiếm vàng", "Kích hoạt\n Tài khoản", "GiftCode");
+                                "Đổi mật khẩu", "Nhận ngọc xanh", "Nhận đệ tử", "Cách kiếm vàng", "Hướng dẫn\nnạp tự động", "Hướng dẫn\nmở thành viên", "GiftCode");
                     }
                 }
             }
@@ -488,24 +488,12 @@ public class NpcFactory {
                                 NpcService.gI().createTutorial(player, this.avartar, ConstNpc.HUONG_DAN_CAY);
                                 break;
                             case 4:
-                                if (player.getSession().actived) {
-                                    Service.gI().sendThongBao(player, "Bạn đã mở thành viên rồi");
-                                    return;
-                                }
-                                if (player.getSession().vnd < 20000) {
-                                    Service.gI().sendThongBao(player, "Có đủ Point đâu mà mở ~~\n Cần 100");
-                                    return;
-                                }
-                                if (PlayerDAO.subVND(player, 20000)) {
-                                    player.getSession().actived = true;
-                                    if (PlayerDAO.activedUser(player)) {
-                                        Service.gI().sendThongBao(player, "Bạn đã mở thành viên thành công");
-                                    } else {
-                                        Service.gI().sendThongBao(player, "Đã có lỗi xẩy ra khi kích hoạt tài khoản, vui long liên hệ admin nếu bị trừ tiền mà không kích hoạt được, chụp lại thông báo này");
-                                    }
-                                }
+                                NpcService.gI().createTutorial(player, this.avartar, ConstNpc.HUONG_DAN_NAP_TU_DONG);
                                 break;
                             case 5:
+                                NpcService.gI().createTutorial(player, this.avartar, ConstNpc.HUONG_DAN_MO_THANH_VIEN);
+                                break;
+                            case 6:
                                 Input.gI().createFormGiftCode(player);
                                 break;
                         }
