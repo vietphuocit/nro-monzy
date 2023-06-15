@@ -1458,7 +1458,7 @@ public class CombineService {
                 if (star < MAX_STAR_ITEM) {
                     player.inventory.gold -= gold;
                     player.inventory.gem -= gem;
-                    if (Util.isTrue(player.conbine.ratioCombine, 100)) {
+                    if (Util.isTrue(player.conbine.ratioCombine, (star == 6 || star == 7) ? 1000 : 100)) {
                         if (optionStar == null) {
                             item.itemOptions.add(new Item.ItemOption(107, 1));
                         } else {
@@ -1735,15 +1735,7 @@ public class CombineService {
             case 7:
                 return 500000000;
             case 8:
-                return 100000000;
-            case 9:
-                return 120000000;
-            case 10:
-                return 150000000;
-            case 11:
-                return 200000000;
-            case 12:
-                return 220000000;
+                return 1000000000;
         }
         return 0;
     }
@@ -1766,16 +1758,6 @@ public class CombineService {
                 return 1f;
             case 7:
                 return 0.5f;
-//            case 8:
-//                return 2;    
-//            case 9:
-//                return 1.8f;    
-//            case 10:
-//                return 1.4f;
-//            case 11:
-//                return 1.5f;
-//             case 12:
-//                return 1.2f;    
         }
         return 0;
     }
@@ -1973,16 +1955,6 @@ public class CombineService {
                 return 70;
             case 7:
                 return 80;
-            case 8:
-                return 90;
-            case 9:
-                return 100;
-            case 10:
-                return 150;
-            case 11:
-                return 170;
-            case 12:
-                return 200;
         }
         return 0;
     }
@@ -2005,12 +1977,6 @@ public class CombineService {
                 return 100;
             case 7:
                 return 120;
-            case 8:
-                return 150;
-            case 9:
-            case 10:
-            case 11:
-            case 12:
         }
         return 0;
     }
@@ -2033,16 +1999,6 @@ public class CombineService {
                 return 3f;
             case 7:
                 return 1f;
-            case 8:
-                return 0.5f;
-//            case 9:
-//                return 0.3;
-//            case 10:
-//                return 0.2;
-//            case 11:
-//                return 0.1;
-//            case 12:
-//                return 0.05;
         }
         return 0;
     }
@@ -2064,16 +2020,6 @@ public class CombineService {
             case 6:
                 return 50;
             case 7:
-                return 70;
-            case 8:
-                return 70;
-            case 9:
-                return 70;
-            case 10:
-                return 70;
-            case 11:
-                return 70;
-            case 12:
                 return 70;
         }
         return 0;
