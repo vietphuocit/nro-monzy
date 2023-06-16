@@ -5,7 +5,6 @@ import com.monzy.consts.ConstNpc;
 import com.monzy.consts.ConstPlayer;
 import com.monzy.consts.ConstTask;
 import com.monzy.giftcode.GiftCodeManager;
-import com.monzy.jdbc.daos.PlayerDAO;
 import com.monzy.kygui.ShopKyGuiService;
 import com.monzy.models.boss.Boss;
 import com.monzy.models.boss.BossData;
@@ -2282,7 +2281,7 @@ public class NpcFactory {
                                 }
                             }
                         }
-                    } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_NANG_DOI_SKH_VIP) {
+                    } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_NANG_CAP_SKH_VIP) {
                         if (select == 0) {
                             CombineService.gI().startCombine(player);
                         }
@@ -3030,18 +3029,18 @@ public class NpcFactory {
                             IntrinsicService.gI().setTSXD(player);
                         }
                         break;
-//                    case ConstNpc.MENU_OPTION_USE_ITEM2000:
-//                    case ConstNpc.MENU_OPTION_USE_ITEM2001:
-//                    case ConstNpc.MENU_OPTION_USE_ITEM2002:
-//                        // Hòm tiếp tế -> Set KH
-//                        ItemService.gI().OpenSKH(player, player.iDMark.getIndexMenu(), select);
-//                        break;
-//                    case ConstNpc.MENU_OPTION_USE_ITEM2003:
-//                    case ConstNpc.MENU_OPTION_USE_ITEM2004:
-//                    case ConstNpc.MENU_OPTION_USE_ITEM2005:
-//                        // Rương hủy diệt -> Set HD
-//                        ItemService.gI().OpenDHD(player, player.iDMark.getIndexMenu(), select);
-//                        break;
+                    case ConstNpc.MENU_OPTION_USE_ITEM2000:
+                    case ConstNpc.MENU_OPTION_USE_ITEM2001:
+                    case ConstNpc.MENU_OPTION_USE_ITEM2002:
+                        // Hòm tiếp tế -> Set KH
+                        ItemService.gI().sendDKH(player, player.iDMark.getIndexMenu(), select);
+                        break;
+                    case ConstNpc.MENU_OPTION_USE_ITEM2003:
+                    case ConstNpc.MENU_OPTION_USE_ITEM2004:
+                    case ConstNpc.MENU_OPTION_USE_ITEM2005:
+                        // Rương hủy diệt -> Set HD
+                        ItemService.gI().sendDHD(player, player.iDMark.getIndexMenu(), select);
+                        break;
                     case ConstNpc.INTRINSIC:
                         // Nội tại
                         if (select == 0) {
@@ -3093,18 +3092,6 @@ public class NpcFactory {
                         break;
                     case ConstNpc.MENU_ADMIN:
                         switch (select) {
-//                            case 1:
-//                                if (player.pet == null) {
-//                                    PetService.gI().createNormalPet(player);
-//                                } else {
-//                                    if (player.pet.typePet == 1) {
-//                                        PetService.gI().changePicPet(player);
-//                                    } else if (player.pet.typePet == 2) {
-//                                        PetService.gI().changeMabuPet(player);
-//                                    }
-//                                    PetService.gI().changeBerusPet(player);
-//                                }
-//                                break;
                             case 0:
                                 if (player.isAdmin()) {
                                     Maintenance.gI().start(15);
@@ -3129,18 +3116,6 @@ public class NpcFactory {
                         break;
                     case ConstNpc.MENU_MOD:
                         switch (select) {
-//                            case 1:
-//                                if (player.pet == null) {
-//                                    PetService.gI().createNormalPet(player);
-//                                } else {
-//                                    if (player.pet.typePet == 1) {
-//                                        PetService.gI().changePicPet(player);
-//                                    } else if (player.pet.typePet == 2) {
-//                                        PetService.gI().changeMabuPet(player);
-//                                    }
-//                                    PetService.gI().changeBerusPet(player);
-//                                }
-//                                break;
                             case 0:
                                 Input.gI().createFormMTV(player);
                                 break;

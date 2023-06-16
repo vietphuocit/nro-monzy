@@ -74,8 +74,8 @@ public class GiftCodeManager {
                 }
                 listGiftCode.add(giftcode);
             }
-        } catch (Exception error) {
-            error.printStackTrace();
+        } catch (Exception e) {
+            Logger.error(this.getClass().getName() + ": " + e.getMessage());
         }
     }
 

@@ -48,11 +48,11 @@ public class CombineService {
     public static final int NANG_CHIEN_LINH = 517;
     public static final int DOI_CHI_SO_AN_CHIEN_LINH = 518;
     public static final int NANG_CAP_SKH_VIP = 519;
+    public static final long GOLD_NANG_CAP_SKH_VIP = 30000000000L;
+    public static final int RUBY_NANG_CAP_SKH_VIP = 10000;
     private static final int[] GOLD_NANG_BONG_TAI = {300_000_000, 500_000_000, 1_000_000_000};
     private static final int RUBY_NANG_BONG_TAI = 1000;
     private static final int GOLD_MOCS_BONG_TAI = 500_000_000;
-    private static final int RUBY_MOCS_BONG_TAI = 1000;
-    private static final int RATIO_MOCS_BONG_TAI = 1000;
     private static final int RATIO_NANG_CHIEN_LINH = 20;
     private static final int GOLD_NANG_CHIEN_LINH = 1_000_000_000;
     private static final int RUBY_NANG_CHIEN_LINH = 5000;
@@ -657,13 +657,13 @@ public class CombineService {
                     }
                     String npcSay = "|2|Con có muốn đổi các món nguyên liệu ?\n|7|"
                             + "Và nhận được " + player.conbine.itemsCombine.stream().filter(Item::isDTS).findFirst().get().typeName() + " kích hoạt VIP tương ứng\n"
-                            + "|1|Cần " + Util.numberToMoney(COST) + " vàng";
-                    if (player.inventory.gold < COST) {
+                            + "|1|Cần " + Util.numberToMoney(GOLD_NANG_CAP_SKH_VIP) + " vàng và " + Util.numberToMoney(RUBY_NANG_CAP_SKH_VIP) + " hồng ngọc";
+                    if (player.inventory.gold < GOLD_NANG_CAP_SKH_VIP) {
                         this.npsthiensu64.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Hết tiền rồi\nẢo ít thôi con", "Đóng");
                         return;
                     }
-                    this.npsthiensu64.createOtherMenu(player, ConstNpc.MENU_NANG_DOI_SKH_VIP,
-                            npcSay, "Nâng cấp\n" + Util.numberToMoney(COST) + " vàng", "Từ chối");
+                    this.npsthiensu64.createOtherMenu(player, ConstNpc.MENU_NANG_CAP_SKH_VIP,
+                            npcSay, "Nâng cấp", "Từ chối");
                 } else {
                     this.npsthiensu64.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Nguyên liệu không phù hợp", "Đóng");
                     return;
@@ -1053,7 +1053,7 @@ public class CombineService {
 
     public void openSKHVIP(Player player) {
         if (player.conbine.itemsCombine.size() != 1) {
-            Service.gI().sendThongBao(player, "Thiếu nguyên liệu");
+            Service.gI().sendThongBao(player, "Tao chỉ cần 1 đồ thiên sứ.");
             return;
         }
         if (player.conbine.itemsCombine.stream().filter(item -> item.isNotNullItem() && item.isDTS()).count() != 1) {
@@ -1061,11 +1061,16 @@ public class CombineService {
             return;
         }
         if (InventoryService.gI().getCountEmptyBag(player) > 0) {
-            if (player.inventory.gold < 1) {
+            if (player.inventory.gold < GOLD_NANG_CAP_SKH_VIP) {
                 Service.gI().sendThongBao(player, "Con cần thêm vàng để đổi...");
                 return;
             }
-            player.inventory.gold -= COST;
+            if (player.inventory.ruby < RUBY_NANG_CAP_SKH_VIP) {
+                Service.gI().sendThongBao(player, "Con cần thêm hồng ngọc để đổi...");
+                return;
+            }
+            player.inventory.gold -= GOLD_NANG_CAP_SKH_VIP;
+            player.inventory.ruby -= RUBY_NANG_CAP_SKH_VIP;
             Item itemTS = player.conbine.itemsCombine.stream().filter(Item::isDTS).findFirst().get();
             List<Item> itemSKH = player.conbine.itemsCombine.stream().filter(item -> item.isNotNullItem() && item.isSKH()).collect(Collectors.toList());
             CombineService.gI().sendEffectOpenItem(player, itemTS.template.iconID, itemTS.template.iconID);
@@ -1458,7 +1463,7 @@ public class CombineService {
                 if (star < MAX_STAR_ITEM) {
                     player.inventory.gold -= gold;
                     player.inventory.gem -= gem;
-                    if (Util.isTrue(player.conbine.ratioCombine, (star == 6 || star == 7) ? 1000 : 100)) {
+                    if (Util.isTrue(player.conbine.ratioCombine, (star == 6 || star == 7) ? 2000 : 100)) {
                         if (optionStar == null) {
                             item.itemOptions.add(new Item.ItemOption(107, 1));
                         } else {

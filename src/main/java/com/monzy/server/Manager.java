@@ -76,15 +76,26 @@ public class Manager {
     public static final List<String> NOTIFY = new ArrayList<>();
     public static final ArrayList<DaiHoiVoThuat> LIST_DHVT = new ArrayList<>();
     public static final List<Item> RUBY_REWARDS = new ArrayList<>();
-    public static final String QUERY_TOP_SM = "SELECT player.id, CAST( split_str(data_point,',',2) AS UNSIGNED) AS sm FROM player JOIN account ON player.account_id = account.id WHERE account.create_time > Date('2023-5-1') ORDER BY CAST( split_str(data_point,',',2)  AS UNSIGNED) DESC LIMIT 20;";
+    public static final String QUERY_TOP_SM = "SELECT player.id, CAST( split_str(data_point,',',2) AS UNSIGNED) AS sm\n" +
+            "FROM player JOIN account ON player.account_id = account.id\n" +
+            "WHERE account.create_time > DATE('2023-6-19')\n" +
+            "ORDER BY CAST( split_str(data_point,',',2)  AS UNSIGNED) DESC\n" +
+            "LIMIT 20;";
     //    public static final String queryTopSD = "SELECT id, CAST( split_str(data_point,',',8) AS UNSIGNED) AS sd FROM player ORDER BY CAST( split_str(data_point,',',8)  AS UNSIGNED) DESC LIMIT 20;";
 //    public static final String queryTopHP = "SELECT id, CAST( split_str(data_point,',',6) AS UNSIGNED) AS hp FROM player ORDER BY CAST( split_str(data_point,',',6)  AS UNSIGNED) DESC LIMIT 20;";
 //    public static final String queryTopKI = "SELECT id, CAST( split_str(data_point,',',7) AS UNSIGNED) AS ki FROM player ORDER BY CAST( split_str(data_point,',',7)  AS UNSIGNED) DESC LIMIT 20;";
-    public static final String QUERY_TOP_NV = "SELECT player.id, CAST( split_str(split_str(data_task,',',1),'[',2)  AS UNSIGNED) AS nv FROM player JOIN account on player.account_id = account.id WHERE account.create_time > Date('2023-5-1') ORDER BY CAST( split_str(split_str(data_task,',',1),'[',2)  AS UNSIGNED) DESC, CAST(split_str(data_task,',',2)  AS UNSIGNED) DESC, CAST( split_str(data_point,',',2) AS UNSIGNED) DESC LIMIT 20;";
+    public static final String QUERY_TOP_NV = "SELECT player.id, CAST( split_str(split_str(data_task,',',1),'[',2)  AS UNSIGNED) AS nv\n" +
+            "FROM player JOIN account on player.account_id = account.id\n" +
+            "WHERE account.create_time > DATE('2023-6-19')\n" +
+            "ORDER BY CAST( split_str(split_str(data_task,',',1),'[',2)  AS UNSIGNED) DESC, CAST(split_str(data_task,',',2)  AS UNSIGNED) DESC, CAST( split_str(data_point,',',2) AS UNSIGNED) DESC\n" +
+            "LIMIT 20;";
     //    public static final String queryTopSK = "SELECT id, CAST( split_str( data_inventory,',',5)  AS UNSIGNED) AS event FROM player ORDER BY CAST( split_str( data_inventory,',',5)  AS UNSIGNED) DESC LIMIT 20;";
 //    public static final String queryTopPVP = "SELECT id, CAST( pointPvp AS UNSIGNED) AS pointPvp FROM player ORDER BY CAST( pointPvp AS UNSIGNED) DESC LIMIT 50;";
 //    public static final String queryTopNHS = "SELECT id, CAST( NguHanhSonPoint AS UNSIGNED) AS nhs FROM player ORDER BY CAST( NguHanhSonPoint AS UNSIGNED) DESC LIMIT 20;";
-    public static final String QUERY_TOP_NAP = "SELECT player.id, tongnap FROM account join player on account.id = player.account_id ORDER BY tongnap DESC LIMIT 20;";
+    public static final String QUERY_TOP_NAP = "SELECT player_id as id, SUM(amount) as tong FROM tran_his\n" +
+            "WHERE command = 'nap' AND DATE('2023-6-19 00:00:00') > create_at > DATE('2023-6-25 00:00:00')\n" +
+            "GROUP BY player_id\n" +
+            "limit 10;";
     public static List<TOP> TOP_SM;
     //    public static List<TOP> topSD;
 //    public static List<TOP> topHP;
@@ -804,8 +815,8 @@ public class Manager {
                         top.setInfo2(rs.getByte("nv") + "");
                         break;
                     case QUERY_TOP_NAP:
-                        top.setInfo1(rs.getInt("tongnap") + " vnd");
-                        top.setInfo2(rs.getInt("tongnap") + " vnd");
+                        top.setInfo1(rs.getInt("tong") + " vnd");
+                        top.setInfo2(rs.getInt("tong") + " vnd");
                         break;
 //                    case queryTopSK:
 //                        top.setInfo1(rs.getInt("event") + " điểm");

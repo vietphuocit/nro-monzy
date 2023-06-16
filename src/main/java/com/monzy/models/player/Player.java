@@ -758,7 +758,7 @@ public class Player {
 
     public void banv(Player player) {
         try {
-            if (this.banv && player.inventory.gold <= 10000000000L && player != null) {
+            if (this.banv && player.inventory.gold <= 10000000000L) {
                 Item tv = null;
                 for (Item item : player.inventory.itemsBag) {
                     if (item.isNotNullItem() && item.template.id == 457) {
@@ -766,9 +766,9 @@ public class Player {
                         break;
                     }
                 }
-                if (tv != null) {
-                    InventoryService.gI().subQuantityItemsBag(player, tv, 1);
-                    player.inventory.gold += 500000000;
+                if (tv != null && tv.quantity > 20) {
+                    InventoryService.gI().subQuantityItemsBag(player, tv, 20);
+                    player.inventory.gold += 10000000000L;
                     lasttimebanv = System.currentTimeMillis();
                     PlayerService.gI().sendInfoHpMpMoney(player);
                     InventoryService.gI().sendItemBags(player);

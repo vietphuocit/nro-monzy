@@ -1,11 +1,23 @@
 package com.monzy.services;
 
+import com.google.gson.Gson;
 import com.monzy.jdbc.daos.PlayerDAO;
 import com.monzy.models.player.Player;
+import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
 import okhttp3.*;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.InetSocketAddress;
+import java.nio.charset.StandardCharsets;
 
 public class NapThe {
 
@@ -18,9 +30,41 @@ public class NapThe {
         return NapThe.I;
     }
 
-    public void napThe(Player pl, String maThe, String seri) {
-        System.out.println(maThe);
-        System.out.println(seri);
+    public static void callbackAPI() {
+        try {
+            HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0",8080), 0);
+            server.createContext("/info", new InfoHandler());
+            server.setExecutor(null);
+            server.start();
+            System.out.println("Server started on port 8080");
+        } catch (Exception e) {
+            Logger.error("callbackAPI: " + e.getMessage() + '\n');
+        }
+    }
+
+    static class InfoHandler implements HttpHandler {
+        @Override
+        public void handle(HttpExchange httpExchange) throws IOException {
+            if ("POST".equalsIgnoreCase(httpExchange.getRequestMethod())) {
+                InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), StandardCharsets.UTF_8);
+                BufferedReader br = new BufferedReader(isr);
+                StringBuilder requestBody = new StringBuilder();
+                String line;
+
+                while ((line = br.readLine()) != null) {
+                    requestBody.append(line);
+                }
+                br.close();
+                isr.close();
+
+                String response = requestBody.toString();
+                httpExchange.getResponseHeaders().set("Content-Type", "application/json");
+                httpExchange.sendResponseHeaders(200, response.length());
+                OutputStream os = httpExchange.getResponseBody();
+                os.write(response.getBytes());
+                os.close();
+            }
+        }
     }
 
     public static final void SendCard(Player p, String loaiThe, String menhGia, String soSeri, String maPin) {
@@ -48,7 +92,7 @@ public class NapThe {
                     .post(body)
                     .addHeader("Content-Type", "application/json")
                     .build();
-            okhttp3.Response response = client.newCall(request).execute();
+            Response response = client.newCall(request).execute();
             String jsonString = response.body().string();
             Object obj = JSONValue.parse(jsonString);
             JSONObject jsonObject = (JSONObject) obj;

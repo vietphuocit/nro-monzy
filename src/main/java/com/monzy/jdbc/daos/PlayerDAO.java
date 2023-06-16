@@ -688,14 +688,11 @@ public class PlayerDAO {
             Logger.logException(PlayerDAO.class, e, "Lỗi update Coin " + player.name);
             return false;
         }
-        if (num > 1000) {
-            insertHistoryGold(player, num);
-        }
         return true;
     }
 
     public static boolean addTongNap(Player player, int num) {
-        PreparedStatement ps = null;
+        PreparedStatement ps;
         try (Connection con = Database.getConnection()) {
             ps = con.prepareStatement("update account set tongnap = (tongnap + ?), active = ? where id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ps.setInt(1, num);
@@ -708,14 +705,11 @@ public class PlayerDAO {
             Logger.logException(PlayerDAO.class, e, "Lỗi update Tổng nạp " + player.name);
             return false;
         }
-        if (num > 1000) {
-            insertHistoryGold(player, num);
-        }
         return true;
     }
 
     public static boolean addVND(Player player, int num) {
-        PreparedStatement ps = null;
+        PreparedStatement ps;
         try (Connection con = Database.getConnection()) {
             ps = con.prepareStatement("update account set vnd = (vnd + ?), active = ? where id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ps.setInt(1, num);
@@ -727,10 +721,6 @@ public class PlayerDAO {
         } catch (Exception e) {
             Logger.logException(PlayerDAO.class, e, "Lỗi update Coin " + player.name);
             return false;
-        } finally {
-        }
-        if (num > 1000) {
-            insertHistoryGold(player, num);
         }
         return true;
     }
@@ -749,78 +739,6 @@ public class PlayerDAO {
         return true;
     }
 
-    public static void addHistoryReceiveGoldBar(Player player, int goldBefore, int goldAfter,
-                                                int goldBagBefore, int goldBagAfter, int goldBoxBefore, int goldBoxAfter) {
-        PreparedStatement ps = null;
-        try (Connection con = Database.getConnection()) {
-            ps = con.prepareStatement("insert into history_receive_goldbar(player_id,player_name,gold_before_receive,"
-                    + "gold_after_receive,gold_bag_before,gold_bag_after,gold_box_before,gold_box_after) values (?,?,?,?,?,?,?,?)");
-            ps.setInt(1, (int) player.id);
-            ps.setString(2, player.name);
-            ps.setInt(3, goldBefore);
-            ps.setInt(4, goldAfter);
-            ps.setInt(5, goldBagBefore);
-            ps.setInt(6, goldBagAfter);
-            ps.setInt(7, goldBoxBefore);
-            ps.setInt(8, goldBoxAfter);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            Logger.logException(PlayerDAO.class, e, "Lỗi update thỏi vàng " + player.name);
-        } finally {
-            try {
-                ps.close();
-            } catch (Exception e) {
-            }
-        }
-    }
-
-    public static void updateItemReward(Player player) {
-        String dataItemReward = "";
-        for (Item item : player.getSession().itemsReward) {
-            if (item.isNotNullItem()) {
-                dataItemReward += "{" + item.template.id + ":" + item.quantity;
-                if (!item.itemOptions.isEmpty()) {
-                    dataItemReward += "|";
-                    for (Item.ItemOption io : item.itemOptions) {
-                        dataItemReward += "[" + io.optionTemplate.id + ":" + io.param + "],";
-                    }
-                    dataItemReward = dataItemReward.substring(0, dataItemReward.length() - 1) + "};";
-                }
-            }
-        }
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try (Connection con = Database.getConnection()) {
-            ps = con.prepareStatement("update account set reward = ? where id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ps.setString(1, dataItemReward);
-            ps.setInt(2, player.getSession().userId);
-            ps.executeUpdate();
-            ps.close();
-        } catch (Exception e) {
-            Logger.logException(PlayerDAO.class, e, "Lỗi update phần thưởng " + player.name);
-        } finally {
-            try {
-                ps.close();
-            } catch (Exception e) {
-            }
-        }
-    }
-
-    public static boolean insertHistoryGold(Player player, int quantily) {
-        PreparedStatement ps = null;
-        try (Connection con = Database.getConnection()) {
-            ps = con.prepareStatement("insert into history_gold(name,gold) values (?,?)", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ps.setString(1, player.name);
-            ps.setInt(2, quantily);
-            ps.executeUpdate();
-            ps.close();
-        } catch (Exception e) {
-            Logger.logException(PlayerDAO.class, e, "Lỗi insert history_gold " + player.name);
-            return false;
-        }
-        return true;
-    }
-
     public static boolean checkLogout(Connection con, Player player) {
         long lastTimeLogout = 0;
         long lastTimeLogin = 0;
@@ -833,13 +751,9 @@ public class PlayerDAO {
                 lastTimeLogin = rs.getTimestamp("last_time_login").getTime();
             }
             try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (ps != null) {
-                    ps.close();
-                }
-            } catch (SQLException ex) {
+                rs.close();
+                ps.close();
+            } catch (Exception ignored) {
             }
         } catch (Exception e) {
             return false;
@@ -877,17 +791,15 @@ public class PlayerDAO {
     }
 
     public static boolean activedUser(Player player) {
-        try {
-            PreparedStatement ps;
-            Connection con = Database.getConnection();
-            ps = con.prepareStatement("update account set active = ? where id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ps.setInt(1, 1);
+        try (Connection con = Database.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("update account set active = ? where id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ps.setInt(1, player.getSession().actived ? 1 : 0);
             ps.setInt(2, player.getSession().userId);
             ps.executeUpdate();
             ps.close();
-            con.close();
             return true;
         } catch (Exception e) {
+            Logger.error("Lỗi active user: " + e.getMessage());
             return false;
         }
     }

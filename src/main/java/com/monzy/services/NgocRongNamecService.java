@@ -59,54 +59,51 @@ public class NgocRongNamecService implements Runnable {
             Zone zone = Manager.MAPS.get(listMap.get(index)).zones.get(idZone);
             int x = 0;
             int y = 0;
-            if (null != listMap.get(index)) switch (listMap.get(index)) {
-                case 8:
-                    x = (short) 553;
-                    y = (short) 288;
-                    break;
-                case 9:
-                    x = (short) 634;
-                    y = (short) 432;
-                    break;
-                case 10:
-                    x = (short) 711;
-                    y = (short) 288;
-                    break;
-                case 11:
-                    x = (short) 1078;
-                    y = (short) 336;
-                    break;
-                case 12:
-                    x = (short) 1300;
-                    y = (short) 288;
-                    break;
-                case 13:
-                    x = (short) 323;
-                    y = (short) 432;
-                    break;
-                case 31:
-                    x = (short) 606;
-                    y = (short) 312;
-                    break;
-                case 32:
-                    x = (short) 650;
-                    y = (short) 360;
-                    break;
-                case 33:
-                    x = (short) 1325;
-                    y = (short) 360;
-                    break;
-                case 34:
-                    x = (short) 643;
-                    y = (short) 432;
-                    break;
-                case 7:
-                    x = (short) 643;
-                    y = (short) 432;
-                    break;
-                default:
-                    break;
-            }
+            if (null != listMap.get(index))
+                switch (listMap.get(index)) {
+                    case 8:
+                        x = (short) 553;
+                        y = (short) 288;
+                        break;
+                    case 9:
+                        x = (short) 634;
+                        y = (short) 432;
+                        break;
+                    case 10:
+                        x = (short) 711;
+                        y = (short) 288;
+                        break;
+                    case 11:
+                        x = (short) 1078;
+                        y = (short) 336;
+                        break;
+                    case 12:
+                        x = (short) 1300;
+                        y = (short) 288;
+                        break;
+                    case 13:
+                        x = (short) 323;
+                        y = (short) 432;
+                        break;
+                    case 31:
+                        x = (short) 606;
+                        y = (short) 312;
+                        break;
+                    case 32:
+                        x = (short) 650;
+                        y = (short) 360;
+                        break;
+                    case 33:
+                        x = (short) 1325;
+                        y = (short) 360;
+                        break;
+                    case 34:
+                        x = (short) 643;
+                        y = (short) 432;
+                        break;
+                    default:
+                        break;
+                }
             if (type == (byte) 0) {
                 ItemMap itemMap = new ItemMap(zone, i + 353, 1, x, y, -1);
                 Service.gI().dropItemMap(zone, itemMap);

@@ -3,62 +3,64 @@ package com.monzy.consts;
 public class ConstNpc {
 
     public static final String CALICK_KE_CHUYEN = "20 năm trước bọn Android sát thủ đã đánh bại nhóm bảo vệ trái đất của Sôngoku và Cađíc, Pôcôlô ...\n"
-            + "Riêng Sôngoku vì bệnh tim nên đã chết trước đó nên không thể tham gia trận đánh...\n"
-            + "Từ đó đến nay bọn chúng tàn phá Trái Đất không hề thương tiếc\n"
-            + "Cháu và mẹ may mắn sống sót nhờ lẩn trốn tại tần hầm của công ty Capsule...\n"
-            + "Cháu tuy cũng là siêu xayda nhưng cũng không thể làm gì được bọn Android sát thủ...\n"
-            + "Chỉ có Sôngoku mới có thể đánh bại bọn chúng\n"
-            + "mẹ cháu đã chế tạo thành công cỗ máy thời gian\n"
-            + "và cháu quay về quá khứ để cứu Sôngoku...\n"
-            + "Bệnh của Gôku ở quá khứ là nan y, nhưng với trình độ y học tương lai chỉ cần uống thuốc là khỏi...\n"
-            + "Hãy đi theo cháu đến tương lai giúp nhóm của Gôku đánh bạn bọn Android sát thủ\n"
+            + "Riêng Sôngoku vì bệnh tim nên đã chết trước đó nên không thể tham gia trận đánh...\b"
+            + "Từ đó đến nay bọn chúng tàn phá Trái Đất không hề thương tiếc\b"
+            + "Cháu và mẹ may mắn sống sót nhờ lẩn trốn tại tần hầm của công ty Capsule...\b"
+            + "Cháu tuy cũng là siêu xayda nhưng cũng không thể làm gì được bọn Android sát thủ...\b"
+            + "Chỉ có Sôngoku mới có thể đánh bại bọn chúng\b"
+            + "mẹ cháu đã chế tạo thành công cỗ máy thời gian\b"
+            + "và cháu quay về quá khứ để cứu Sôngoku...\b"
+            + "Bệnh của Gôku ở quá khứ là nan y, nhưng với trình độ y học tương lai chỉ cần uống thuốc là khỏi...\b"
+            + "Hãy đi theo cháu đến tương lai giúp nhóm của Gôku đánh bạn bọn Android sát thủ\b"
             + "Khi nào chú cần sự giúp đỡ của cháu hãy đến đây nhé";
-    public static final String HUONG_DAN_DOANH_TRAI = "1) Trại độc nhãn là nơi các ngươi không nên vào vì những tướng tá rất mạnh. Hahaha\n"
-            + "2) Trong trại độc nhãn, mỗi vị tướng đều giữ ngọc rồng từ 4 sao đến 6 sao, tùy lúc\n"
-            + "3) Nếu ngươi thích chết thì cứ việc vào. Nhưng ta chỉ cho vào mỗi ngày một lần thôi, để ngươi khỏi phải chết nhiều, hahaha.\n"
-            + "4) Các vị tướng trong trại rất mạnh nhé, các ngươi không đơn giản có thể đánh bại họ bằng cách bình thường như đánh quái được đâu\n"
-            + "5) Muốn vào, ngươi phải đi cùng một người đồng đội cùng bang (phải đứng gần ngươi). Nhưng ta khuyên là nên đi 3-4 người cùng.\n"
+    public static final String HUONG_DAN_DOANH_TRAI = "1) Trại độc nhãn là nơi các ngươi không nên vào vì những tướng tá rất mạnh. Hahaha\b"
+            + "2) Trong trại độc nhãn, mỗi vị tướng đều giữ ngọc rồng từ 4 sao đến 6 sao, tùy lúc\b"
+            + "3) Nếu ngươi thích chết thì cứ việc vào. Nhưng ta chỉ cho vào mỗi ngày một lần thôi, để ngươi khỏi phải chết nhiều, hahaha.\b"
+            + "4) Các vị tướng trong trại rất mạnh nhé, các ngươi không đơn giản có thể đánh bại họ bằng cách bình thường như đánh quái được đâu\b"
+            + "5) Muốn vào, ngươi phải đi cùng một người đồng đội cùng bang (phải đứng gần ngươi). Nhưng ta khuyên là nên đi 3-4 người cùng.\b"
             + "6) Mỗi lần vào, ngươi chỉ có 30 phút để đánh. Sau 30 phút mà ngươi vẫn không thắng, ta sẽ cho máy bay chở ngươi về nhà.";
-    public static final String HUONG_DAN_BLACK_BALL_WAR = "Mỗi ngày từ 20h đến 21h các hành tinh có Ngọc Rồng Sao Đen sẽ xảy ra 1 cuộc đại chiến\n"
-            + "Người nào tìm thấy và giữ được Ngọc Rồng Sao Đen sẽ mang phần thưởng về cho bang của mình trong vòng 1 ngày\n"
-            + "Lưu ý mỗi bang có thể chiếm hữu nhiều viên khác nhau nhưng nếu cùng loại cũng chỉ nhận được 1 lần phần thưởng đó. Có 2 cách để thắng:\n"
-            + "1) Giữ ngọc sao đen trên người hơn 5 phút liên tục\n"
+    public static final String HUONG_DAN_BLACK_BALL_WAR = "Mỗi ngày từ 20h đến 21h các hành tinh có Ngọc Rồng Sao Đen sẽ xảy ra 1 cuộc đại chiến\b"
+            + "Người nào tìm thấy và giữ được Ngọc Rồng Sao Đen sẽ mang phần thưởng về cho bang của mình trong vòng 1 ngày\b"
+            + "Lưu ý mỗi bang có thể chiếm hữu nhiều viên khác nhau nhưng nếu cùng loại cũng chỉ nhận được 1 lần phần thưởng đó. Có 2 cách để thắng:\b"
+            + "1) Giữ ngọc sao đen trên người hơn 5 phút liên tục\b"
             + "2)Sau 30 phút tham gia tàu sẽ đón về và đang giữ ngọc sao đen trên người";
-    public static final String HUONG_DAN_MAP_MA_BU = "Mỗi ngày từ 12h đến 13h tại đại hội võ thuật sẽ xảy ra 1 cuộc đại chiến\n"
-            + "Người nào đánh bại các boss ở map sẽ nhận được những món đồ giá trị\n"
-            + "Lưu ý khi vào map sẽ chia làm 2 phe riêng biệt\n"
-            + "Cố gắng tồn tại và chiến đấu đến Boss cuối cùng\n"
+    public static final String HUONG_DAN_MAP_MA_BU = "Mỗi ngày từ 12h đến 13h tại đại hội võ thuật sẽ xảy ra 1 cuộc đại chiến\b"
+            + "Người nào đánh bại các boss ở map sẽ nhận được những món đồ giá trị\b"
+            + "Lưu ý khi vào map sẽ chia làm 2 phe riêng biệt\b"
+            + "Cố gắng tồn tại và chiến đấu đến Boss cuối cùng\b"
             + "Càng vào sâu trong map sẽ có những vật phẩm đặc biệt";
-    public static final String HUONG_DAN_DOI_SKH_VIP = "Nguyên liệu cần để làm SKH VIP là :\n"
-            + "1 món Thiên Sứ và 2 món SKH thường\n"
-            + "Lưu ý SKH VIP sẽ tạo ra dưa vào món Thiên Sứ\n"
-            + "Ví dụ nguyên liệu gồm : Quần Xayda Thiên Tứ + 2 món SKH thường ngẫu nhiên\n"
+    public static final String HUONG_DAN_DOI_SKH_VIP = "Nguyên liệu cần để làm SKH VIP là :\b"
+            + "1 món Thiên Sứ và 2 món SKH thường\b"
+            + "Lưu ý SKH VIP sẽ tạo ra dưa vào món Thiên Sứ\b"
+            + "Ví dụ nguyên liệu gồm : Quần Xayda Thiên Tứ + 2 món SKH thường ngẫu nhiên\b"
             + "Bạn sẽ nhận lại được Quần Xayda với chỉ số SKH VIP";
     public static final String HUONG_DAN_CAY = "Cách để bạn có 1 lượng vàng lớn :\b"
             + "Có thể cày ở nv bò mộng hàng ngày"
             + "Lưu ý mỗi ngày có 20nv Nhiệm vụ càng khó lượng vàng nhận được càng nhiều \b"
             + "Hoặc bạn có thể nạp lần đầu ở npc santa =)))\b"
             + "1k VND = 1k coin ; 1k coin = 3 thỏi vàng";
-    public static final String HUONG_DAN_NAP_TU_DONG = "Hướng dẫn nạp tự động qua Momo\b" +
-            "Chuyển khoản Momo đến số điện thoại: 0367850360.\b" +
-            "Với nội dung: nap ten_nhan_vat\b" +
-            "Ví dụ: nap monzy\b" +
-            "LƯU Ý:\b" +
-            "1. Tối thiểu 10k VND.\b" +
-            "2. Sai cú pháp sẽ không được cộng tiền vào tài khoản.\b" +
-            "3. Sau khi chuyển khoản vui lòng chờ 3-5p.";
-    public static final String HUONG_DAN_MO_THANH_VIEN = "Hướng dẫn mở thành viên tự động qua Momo\b" +
-            "Chuyển khoản Momo đến số điện thoại: 0367850360.\b" +
-            "Với nội dung: mtv ten_nhan_vat\b" +
-            "Ví dụ: mtv monzy\b" +
-            "LƯU Ý:\b" +
-            "1. Mở thành viên với phí 20k.\b" +
-            "2. Sai cú pháp sẽ không thể mở thành viên.\b" +
-            "3. Sau khi chuyển khoản vui lòng chờ 3-5p.";
-    public static final String HUONG_DAN_SK = "Cách Làm Sự Kiện :\n"
+    public static final String HUONG_DAN_NAP_TU_DONG =
+            "Hướng dẫn nạp tự động\b" +
+                    "Chuyển khoản Momo: 0367850360 hoặc MB Bank: 0583217667.\b" +
+                    "Với nội dung: nap ten_nhan_vat\b" +
+                    "Ví dụ: nap monzy\b" +
+                    "LƯU Ý:\b" +
+                    "1. Tối thiểu 10k VND.\b" +
+                    "2. Sai cú pháp sẽ không được cộng tiền vào tài khoản.\b" +
+                    "3. Sau khi chuyển khoản vui lòng chờ 3-5p.";
+    public static final String HUONG_DAN_MO_THANH_VIEN =
+            "Hướng dẫn mở thành viên tự động\b" +
+                    "Chuyển khoản Momo: 0367850360 hoặc MB Bank: 0583217667.\b" +
+                    "Nội dung chuyển khoản: mtv ten_nhan_vat\b" +
+                    "Ví dụ: mtv monzy\b" +
+                    "LƯU Ý:\b" +
+                    "1. Mở thành viên với phí 20k.\b" +
+                    "2. Sai nội dung sẽ không thể mở thành viên.\b" +
+                    "3. Sau khi chuyển khoản vui lòng chờ 3-5p.";
+    public static final String HUONG_DAN_SK = "Cách Làm Sự Kiện :\b"
             + "Có thể kiếm đồng xu vàng bằng cách fam quái"
-            + "sau khi đủ x99 đồng xu vàng bạn có thể đem đến npc unkown \n"
-            + "để đổi rương vàng=)))\n"
+            + "sau khi đủ x99 đồng xu vàng bạn có thể đem đến npc unkown \b"
+            + "để đổi rương vàng=)))\b"
             + "mở ra để nhận ngẫu nhiên các vp như hồng ngọc vv... ";
     //npcid
     public static final byte ONG_GOHAN = 0;
@@ -160,7 +162,7 @@ public class ConstNpc {
     public static final int MENU_PHAN_RA_DO_THAN_LINH = 504;
     public static final int MENU_NANG_CAP_DO_TS = 505;
     public static final int MENU_NANG_CAP_DO_HD = 508;
-    public static final int MENU_NANG_DOI_SKH_VIP = 506;
+    public static final int MENU_NANG_CAP_SKH_VIP = 506;
     public static final int MENU_NANG_KHI = 507;
     //index menu mabu Bill
     public static final int CAN_NOT_OPEN_BILL = 500;

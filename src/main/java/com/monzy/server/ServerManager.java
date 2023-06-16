@@ -11,6 +11,7 @@ import com.monzy.server.io.MyKeyHandler;
 import com.monzy.server.io.MySession;
 import com.monzy.services.*;
 import com.monzy.services.TopService;
+import com.monzy.services.PaymentService;
 import com.monzy.utils.Logger;
 import com.monzy.utils.TimeUtil;
 import com.monzy.utils.Util;
@@ -65,10 +66,10 @@ public class ServerManager {
 //        new Thread(DaiHoiVoThuat.gI(), "Thread DHVT").start();
 //        ChonAiDay.gI().lastTimeEnd = System.currentTimeMillis() + 300000;
 //        new Thread(ChonAiDay.gI(), "Thread CAD").start();
-//        NgocRongNamecService.gI().initNgocRongNamec((byte) 0);
-//        new Thread(NgocRongNamecService.gI(), "Thread NRNM").start();
-        new Thread(() -> TopService.gI().run()).start();
-        new Thread(() -> TransactionMomoService.gI().run()).start();
+        NgocRongNamecService.gI().initNgocRongNamec((byte) 0);
+        new Thread(NgocRongNamecService.gI(), "Thread NRNM").start();
+        new Thread(new TopService()).start();
+        new Thread(new PaymentService(), "Thread Payment").start();
         try {
             Thread.sleep(1000);
             BossManager.gI().loadBoss();
