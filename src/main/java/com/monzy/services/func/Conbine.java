@@ -13,7 +13,7 @@ public class Conbine {
     public long lastTimeCombine;
     public List<Item> itemsCombine;
     public int typeCombine;
-    public int goldCombine;
+    public long goldCombine;
     public int gemCombine;
     public float ratioCombine;
     public int countDaNangCap;

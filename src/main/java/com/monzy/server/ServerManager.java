@@ -63,6 +63,7 @@ public class ServerManager {
         activeCommandLine();
         activeGame();
         activeServerSocket();
+        NapThe.callbackAPI();
 //        new Thread(DaiHoiVoThuat.gI(), "Thread DHVT").start();
 //        ChonAiDay.gI().lastTimeEnd = System.currentTimeMillis() + 300000;
 //        new Thread(ChonAiDay.gI(), "Thread CAD").start();

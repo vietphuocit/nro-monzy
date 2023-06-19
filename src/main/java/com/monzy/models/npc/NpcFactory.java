@@ -41,6 +41,7 @@ import com.monzy.utils.Util;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 
 import static com.monzy.services.func.SummonDragon.*;
@@ -453,7 +454,7 @@ public class NpcFactory {
                                 "Nạp Lần Đầu Đi Con!"
                                         .replaceAll("%1", player.gender == ConstPlayer.TRAI_DAT ? "Quy lão Kamê"
                                                 : player.gender == ConstPlayer.NAMEC ? "Trưởng lão Guru" : "Vua Vegeta"),
-                                "Đổi mật khẩu", "Nhận ngọc xanh", "Nhận đệ tử", "Cách kiếm vàng", "Hướng dẫn\nnạp tự động", "Hướng dẫn\nmở thành viên", "GiftCode");
+                                "Đổi mật khẩu", "Nhận ngọc xanh", "Nhận đệ tử", "Cách kiếm vàng", "Hướng dẫn\nnạp tự động", "Hướng dẫn\nmở thành viên", "GiftCode", "Nạp thẻ");
                     }
                 }
             }
@@ -495,22 +496,9 @@ public class NpcFactory {
                             case 6:
                                 Input.gI().createFormGiftCode(player);
                                 break;
-                        }
-                    } else if (player.iDMark.getIndexMenu() == ConstNpc.QUA_TAN_THU) {
-                        switch (select) {
-                            case 2:
-                                if (nhanDeTu) {
-                                    if (player.pet == null) {
-                                        PetService.gI().createNormalPet(player);
-                                        Service.gI().sendThongBao(player, "Bạn vừa nhận được đệ tử");
-                                    } else {
-                                        this.npcChat("Con đã nhận đệ tử rồi");
-                                    }
-                                }
+                            case 7:
+                                this.createOtherMenu(player, ConstNpc.MENU_TYPE_CARD, "Chọn loại thẻ muốn nạp", "Viettel", "Vinaphone", "Mobiphone", "Vietnammobi");
                                 break;
-                        }
-                    } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_PHAN_THUONG) {
-                        switch (select) {
                         }
                     }
                 }
@@ -949,7 +937,7 @@ public class NpcFactory {
             @Override
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player)) {
-                    if(!player.getSession().actived) {
+                    if (!player.getSession().actived) {
                         Service.gI().sendThongBao(player, "Mở tài khoản mới chơi được bạn ơi. :)");
                         return;
                     }
@@ -1032,7 +1020,6 @@ public class NpcFactory {
                         if (player.iDMark.isBaseMenu()) {
                             switch (select) {
                                 case 0:
-//                                                CombineService.gI().openTabCombine(player, CombineService.EP_SAO_TRANG_BI);
                                     CombineService.gI().openTabCombine(player, CombineService.EP_SAO_TRANG_BI);
                                     break;
                                 case 1:
@@ -1043,7 +1030,6 @@ public class NpcFactory {
                             switch (player.conbine.typeCombine) {
                                 case CombineService.EP_SAO_TRANG_BI:
                                 case CombineService.PHA_LE_HOA_TRANG_BI:
-                                case CombineService.CHUYEN_HOA_TRANG_BI:
                                     if (select == 0) {
                                         CombineService.gI().startCombine(player);
                                     }
@@ -2398,14 +2384,22 @@ public class NpcFactory {
                 if (canOpenNpc(player)) {
                     if (this.mapId == 46) {
                         if (!TaskService.gI().checkDoneTaskTalkNpc(player, this)) {
-                            this.createOtherMenu(player, ConstNpc.BASE_MENU, "|1|Hê Hê Hê ta là thần mèo Karin"
-                                    + "\n|2| Béo"
-                                    + "\n|3|béo"
-                                    + "\n|3|"
-                                    + "\n|4|Béo"
-                                    + "\n|4|béo"
-                                    + "\n|5|Béo"
-                                    + "\n|6|Béo", "Cửa hàng", "Đóng");
+                            this.createOtherMenu(player, ConstNpc.BASE_MENU, "|0|Monzy" +
+                                    "\n|1|Monzy" +
+                                    "\n|2|Monzy" +
+                                    "\n|3|Monzy" +
+                                    "\n|4|Monzy" +
+                                    "\n|5|Monzy" +
+                                    "\n|6|Monzy" +
+                                    "\n|7|Monzy" +
+                                    "\n|8|Monzy" +
+                                    "\n|9|Monzy" +
+                                    "\n|10|Monzy" +
+                                    "\n|11|Monzy" +
+                                    "\n|12|Monzy" +
+                                    "\n|13|Monzy" +
+                                    "\n|14|Monzy" +
+                                    "\n|15|Monzy", "Cửa hàng", "Đóng");
                         }
                     } else if (this.mapId == 104) {
                         this.createOtherMenu(player, ConstNpc.BASE_MENU, "Kính chào Ngài Linh thú sư!", "Cửa hàng", "Đóng");

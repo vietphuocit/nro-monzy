@@ -844,13 +844,13 @@ public class UseItem {
             }
         }
         if (tv != null) {
-            if (player.inventory.gold <= 1500000000) {
+            if (player.inventory.gold <= Inventory.LIMIT_GOLD - 500000000) {
                 InventoryService.gI().subQuantityItemsBag(player, tv, 1);
                 player.inventory.gold += 500000000;
                 PlayerService.gI().sendInfoHpMpMoney(player);
                 InventoryService.gI().sendItemBags(player);
             } else {
-                Service.getInstance().sendThongBao(player, "không được vượt quá 2 tỷ vàng");
+                Service.getInstance().sendThongBao(player, "không được vượt quá " + Util.numberToMoney(Inventory.LIMIT_GOLD) + " vàng");
             }
         }
     }

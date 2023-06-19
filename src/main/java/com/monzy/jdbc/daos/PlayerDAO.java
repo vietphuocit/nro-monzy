@@ -761,7 +761,7 @@ public class PlayerDAO {
         return lastTimeLogout > lastTimeLogin;
     }
 
-    public static void LogNapTIen(String uid, String menhgia, String seri, String code, String tranid) {
+    public static void LogNapTien(String uid, String menhgia, String seri, String code, String tranid) {
         String UPDATE_PASS = "INSERT INTO naptien(uid,sotien,seri,code,loaithe,time,noidung,tinhtrang,tranid,magioithieu) VALUES(?,?,?,?,?,?,?,?,?,?)";
         try {
             Connection conn = Database.getConnection();

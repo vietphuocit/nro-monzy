@@ -1,6 +1,5 @@
 package com.monzy.services;
 
-import com.google.gson.Gson;
 import com.monzy.jdbc.daos.PlayerDAO;
 import com.monzy.models.player.Player;
 import com.monzy.utils.Logger;
@@ -18,6 +17,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 
 public class NapThe {
 
@@ -32,8 +32,8 @@ public class NapThe {
 
     public static void callbackAPI() {
         try {
-            HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0",8080), 0);
-            server.createContext("/info", new InfoHandler());
+            HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0", 8080), 0);
+            server.createContext("/callback", new InfoHandler());
             server.setExecutor(null);
             server.start();
             System.out.println("Server started on port 8080");
@@ -61,28 +61,26 @@ public class NapThe {
                 httpExchange.getResponseHeaders().set("Content-Type", "application/json");
                 httpExchange.sendResponseHeaders(200, response.length());
                 OutputStream os = httpExchange.getResponseBody();
-                os.write(response.getBytes());
+                os.write(response.getBytes(StandardCharsets.UTF_8));
                 os.close();
             }
         }
     }
 
-    public static final void SendCard(Player p, String loaiThe, String menhGia, String soSeri, String maPin) {
-        String partnerId = "72461046463"; //0086879143
-        String partnerKey = "16502d49bf5e949c3f27238c2a762115"; //edc3a8086e2db06925438495b0cf88df
-        String api = MD5Hash(partnerKey + maPin + soSeri);
-        int requestID = Util.nextInt(100000000, 999999999);
-        String t = String.valueOf(requestID);
+    public static final void SendCard(Player player, String telco, String amount, String serial, String code) {
+        String partnerId = "1079293661";
+        String partnerKey = "bc6a0cf61ea9028d34b10ca2b1db7f1e";
+        String api = MD5Hash(partnerKey + code + serial);
+        String requestID = String.valueOf(System.currentTimeMillis() + Util.nextInt(1000, 9999));
         try {
             OkHttpClient client = new OkHttpClient().newBuilder()
                     .build();
-            MediaType mediaType = MediaType.parse("application/json");
             RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                    .addFormDataPart("telco", loaiThe)
-                    .addFormDataPart("code", maPin)
-                    .addFormDataPart("serial", soSeri)
-                    .addFormDataPart("amount", menhGia)
-                    .addFormDataPart("request_id", t)
+                    .addFormDataPart("telco", telco)
+                    .addFormDataPart("code", code)
+                    .addFormDataPart("serial", serial)
+                    .addFormDataPart("amount", amount)
+                    .addFormDataPart("request_id", requestID)
                     .addFormDataPart("partner_id", partnerId)
                     .addFormDataPart("sign", api)
                     .addFormDataPart("command", "charging")
@@ -99,37 +97,35 @@ public class NapThe {
             long name = (long) jsonObject.get("status");
 //        
             if (name == 99) {
-                PlayerDAO.LogNapTIen(p.getSession().uu, menhGia, soSeri, maPin, t);
-                Service.gI().sendThongBaoOK(p, "Gửi thẻ thành công \n"
-                        + "Seri :" + soSeri + "\n Mã thẻ :" + maPin + "\n Mệnh giá : " + menhGia + "\n"
-                        + "Thời gia : " + java.time.LocalDate.now() + " " + java.time.LocalTime.now() + "\n"
+                PlayerDAO.LogNapTien(player.getSession().uu, amount, serial, code, requestID);
+                Service.gI().sendThongBaoOK(player, "Gửi thẻ thành công \n"
+                        + "Seri :" + serial + "\n Mã thẻ :" + code + "\n Mệnh giá : " + amount + "\n"
+                        + "Thời gian : " + java.time.LocalDate.now() + " " + java.time.LocalTime.now() + "\n"
                         + "Vui lòng thoát game để update lại số tiền");
             }
             if (name == 1) {
-                PlayerDAO.LogNapTIen(p.getSession().uu, menhGia, soSeri, maPin, t);
-                Service.gI().sendThongBaoOK(p, "Gửi thẻ thành công \n"
-                        + "Seri :" + soSeri + "\n Mã thẻ :" + maPin + "\n Mệnh giá : " + menhGia + "\n"
-                        + "Thời gia : " + java.time.LocalDate.now() + " " + java.time.LocalTime.now() + "\n"
+                PlayerDAO.LogNapTien(player.getSession().uu, amount, serial, code, requestID);
+                Service.gI().sendThongBaoOK(player, "Gửi thẻ thành công \n"
+                        + "Seri :" + serial + "\n Mã thẻ :" + code + "\n Mệnh giá : " + amount + "\n"
+                        + "Thời gian : " + java.time.LocalDate.now() + " " + java.time.LocalTime.now() + "\n"
                         + "Vui lòng thoát game để update lại số tiền");
             } else if (name == 2) {
-                Service.gI().sendThongBao(p, "nạp thành công nhưng sai mệnh giá.con sẽ ko dc cộng tiền \n lần sau ông khóa mẹ acc con cho chừa nhé");
+                Service.gI().sendThongBao(player, "Nạp thành công nhưng sai mệnh giá.\nCon sẽ ko dc cộng tiền lần sau ông khóa mẹ acc con cho chừa nhé");
             } else if (name == 3) {
-                Service.gI().sendThongBao(p, "Bạn đã nhập sai giá trị, hãy nhập đúng nhóe :3");
+                Service.gI().sendThongBao(player, "Bạn đã nhập sai giá trị, hãy nhập đúng nhóe :3");
             } else if (name == 4) {
-                Service.gI().sendThongBao(p, "Hệ thống nạp bảo trì rồi con");
+                Service.gI().sendThongBao(player, "Hệ thống nạp bảo trì rồi con");
             } else if (name == 100) {
-                Service.gI().sendThongBao(p, "Sai seri và mã ping ồi con ơi");
+                Service.gI().sendThongBao(player, "Sai seri và mã pin rồi con ơi");
             }
-            System.out.println(name + "\n" + menhGia + soSeri + "\n" + maPin);
         } catch (Exception e) {
             e.printStackTrace();
-            //Logger.error("lỗi ở nạp thẻ mất ồi");
         }
     }
 
     public static String MD5Hash(String input) {
         try {
-            java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
+            MessageDigest md = java.security.MessageDigest.getInstance("MD5");
             byte[] array = md.digest(input.getBytes());
             StringBuffer sb = new StringBuffer();
             for (int i = 0; i < array.length; ++i) {

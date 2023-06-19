@@ -136,7 +136,7 @@ public class Input {
                         Service.gI().sendThongBao(player, "Người chơi không tồn tại hoặc đang offline!");
                     }
                     break;
-                case CHANGE_NAME: {
+                case CHANGE_NAME:
                     Player plChanged = (Player) PLAYER_ID_OBJECT.get((int) player.id);
                     if (plChanged != null) {
                         if (Database.executeQuery("select * from player where name = ?", text[0]).next()) {
@@ -153,28 +153,25 @@ public class Input {
                             Service.gI().sendThongBao(player, "Đổi tên người chơi thành công");
                         }
                     }
-                }
-                break;
+                    break;
                 case CHANGE_NAME_BY_ITEM: {
-                    if (player != null) {
-                        if (Database.executeQuery("select * from player where name = ?", text[0]).next()) {
-                            Service.gI().sendThongBao(player, "Tên nhân vật đã tồn tại");
-                            createFormChangeNameByItem(player);
+                    if (Database.executeQuery("select * from player where name = ?", text[0]).next()) {
+                        Service.gI().sendThongBao(player, "Tên nhân vật đã tồn tại");
+                        createFormChangeNameByItem(player);
+                    } else {
+                        Item theDoiTen = InventoryService.gI().findItem(player.inventory.itemsBag, 2006);
+                        if (theDoiTen == null) {
+                            Service.gI().sendThongBao(player, "Không tìm thấy thẻ đổi tên");
                         } else {
-                            Item theDoiTen = InventoryService.gI().findItem(player.inventory.itemsBag, 2006);
-                            if (theDoiTen == null) {
-                                Service.gI().sendThongBao(player, "Không tìm thấy thẻ đổi tên");
-                            } else {
-                                InventoryService.gI().subQuantityItemsBag(player, theDoiTen, 1);
-                                player.name = text[0];
-                                Database.executeUpdate("update player set name = ? where id = ?", player.name, player.id);
-                                Service.gI().player(player);
-                                Service.gI().Send_Caitrang(player);
-                                Service.gI().sendFlagBag(player);
-                                Zone zone = player.zone;
-                                ChangeMapService.gI().changeMap(player, zone, player.location.x, player.location.y);
-                                Service.gI().sendThongBao(player, "Chúc mừng bạn đã có cái tên mới đẹp đẽ hơn tên ban đầu");
-                            }
+                            InventoryService.gI().subQuantityItemsBag(player, theDoiTen, 1);
+                            player.name = text[0];
+                            Database.executeUpdate("update player set name = ? where id = ?", player.name, player.id);
+                            Service.gI().player(player);
+                            Service.gI().Send_Caitrang(player);
+                            Service.gI().sendFlagBag(player);
+                            Zone zone = player.zone;
+                            ChangeMapService.gI().changeMap(player, zone, player.location.x, player.location.y);
+                            Service.gI().sendThongBao(player, "Chúc mừng bạn đã có cái tên mới đẹp đẽ hơn tên ban đầu");
                         }
                     }
                 }
