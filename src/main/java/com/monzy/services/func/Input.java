@@ -7,6 +7,7 @@ import com.monzy.models.item.Item;
 import com.monzy.models.map.Zone;
 import com.monzy.models.npc.Npc;
 import com.monzy.models.npc.NpcManager;
+import com.monzy.models.payment.TransactionHistory;
 import com.monzy.models.player.Player;
 import com.monzy.server.Client;
 import com.monzy.server.Manager;
@@ -89,6 +90,8 @@ public class Input {
                     Player playerNap = Client.gI().getPlayer(text[0]);
                     int vnd = Integer.parseInt(text[1]);
                     if (playerNap != null) {
+                        TransactionHistory transactionHistory = new TransactionHistory(String.valueOf(System.currentTimeMillis() + Util.nextInt(1000, 9999)), vnd, "nap " + playerNap.name, "IN");
+                        PaymentService.gI().insertTranHis(transactionHistory, "nap", playerNap);
                         PlayerDAO.addVND(playerNap, vnd * Manager.RATE_PAY);
                         PlayerDAO.addTongNap(playerNap, vnd);
                         playerNap.event += vnd / 1000;

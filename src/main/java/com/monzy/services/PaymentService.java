@@ -22,6 +22,15 @@ import java.sql.ResultSet;
 
 public class PaymentService implements Runnable {
 
+    public static PaymentService i;
+
+    public static PaymentService gI() {
+        if (i == null) {
+            return new PaymentService();
+        }
+        return i;
+    }
+
     @Override
     public void run() {
         while (true) {
