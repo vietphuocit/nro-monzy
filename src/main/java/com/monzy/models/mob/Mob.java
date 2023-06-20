@@ -325,7 +325,7 @@ public class Mob {
                 }
                 ItemMap itemMap = new ItemMap(zone, itemId, 1, x, player.location.y, player.id);
                 itemMap.options.addAll(ItemService.gI().getListOptionItemShop(itemId));
-                if (Util.isTrue(1, 100) && MapService.gI().isMapUpSKH(zone.map.mapId)) {
+                if (Util.isTrue(1, 1000) && MapService.gI().isMapUpSKH(zone.map.mapId)) {
                     int skhId = ItemService.gI().randomSKHId(player.gender);
                     itemMap.options.add(new Item.ItemOption(skhId, 1));
                     itemMap.options.add(new Item.ItemOption(skhId + 9, 1));
@@ -358,7 +358,7 @@ public class Mob {
             list.add(new ItemMap(zone, 2036, 1, x, player.location.y, player.id));
         }
         // up hồng ngọc bdkb
-        if (MapService.gI().isMapBanDoKhoBau(player.zone.map.mapId) && Util.isTrue(50, 100)) {
+        if (MapService.gI().isMapBanDoKhoBau(player.zone.map.mapId) && Util.isTrue(20, 100)) {
             list.add(new ItemMap(zone, 861, Util.nextInt(10, 100), x, player.location.y, player.id));
         }
         // vàng
