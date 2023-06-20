@@ -644,6 +644,9 @@ public class CombineService {
                 option2.param += (option2.param * 10 / 100);
             }
             optionLevel.param++;
+            if(optionLevel.optionTemplate.id == 72 && optionLevel.param == 1) {
+                trangBi.itemOptions.add(optionLevel);
+            }
             sendEffectSuccessCombine(player);
         } else {
             if ((optionLevel.param == 2 || optionLevel.param == 4 || optionLevel.param == 6) && (player.conbine.itemsCombine.size() != 3)) {
@@ -679,7 +682,7 @@ public class CombineService {
         if (InventoryService.gI().getCountEmptyBag(player) == 0) {
             return;
         }
-        if (!player.conbine.itemsCombine.isEmpty()) {
+        if (player.conbine.itemsCombine.isEmpty()) {
             return;
         }
         Item item = player.conbine.itemsCombine.get(0);

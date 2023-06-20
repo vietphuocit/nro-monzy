@@ -2,13 +2,11 @@ package com.monzy.models.item;
 
 import com.monzy.models.Template;
 import com.monzy.models.Template.ItemTemplate;
+import com.monzy.server.Manager;
 import com.monzy.services.ItemService;
 import com.monzy.utils.Util;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Item {
 
@@ -113,6 +111,18 @@ public class Item {
         return false;
     }
 
+    public boolean isDShop() {
+        for (short[][] ids_by_gender : Manager.IDS_TRANG_BI_SHOP) {
+            for (short[] ids_by_type : ids_by_gender) {
+                for (short id : ids_by_type) {
+                    if(id == template.id)
+                        return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public boolean isDTS() {
         return this.template.id >= 1048 && this.template.id <= 1062;
     }
@@ -127,6 +137,113 @@ public class Item {
 
     public boolean isManhTS() {
         return this.template.id >= 1066 && this.template.id <= 1070;
+    }
+
+    public void isBugItem() {
+        if (!isNotNullItem())
+            return;
+        isBugDTL();
+        isBugDHD();
+        isBugDTS();
+        isBugDShop();
+    }
+
+    public void isBugDTL() {
+        if (!isDTL() || itemOptions.stream().filter(itemOption -> itemOption.optionTemplate.id == 72).findFirst().orElse(null) != null) {
+            return;
+        }
+        for (ItemOption option : itemOptions) {
+            if (template.type == 0 && option.optionTemplate.id == 47 && option.param > 1500 * 1.1) {
+                option.param = Util.nextInt(1000, 1500);
+                return;
+            }
+            if (template.type == 1 && option.optionTemplate.id == 22 && option.param > 60 * 1.1) {
+                option.param = Util.nextInt(45, 60);
+                return;
+            }
+            if (template.type == 2 && option.optionTemplate.id == 0 && option.param > 4500 * 1.1) {
+                option.param = Util.nextInt(3500, 4500);
+                return;
+            }
+            if (template.type == 3 && option.optionTemplate.id == 23 && option.param > 60 * 1.1) {
+                option.param = Util.nextInt(45, 60);
+                return;
+            }
+            if (template.type == 4 && option.optionTemplate.id == 14 && option.param > 18 * 1.1) {
+                option.param = Util.nextInt(16, 18);
+                return;
+            }
+        }
+    }
+
+    public void isBugDHD() {
+        if (!isDHD() || itemOptions.stream().filter(itemOption -> itemOption.optionTemplate.id == 72).findFirst().orElse(null) != null) {
+            return;
+        }
+        for (ItemOption option : itemOptions) {
+            if (template.type == 0 && option.optionTemplate.id == 47 && option.param > 2500 * 1.1) {
+                option.param = Util.nextInt(2000, 2500);
+                return;
+            }
+            if (template.type == 1 && option.optionTemplate.id == 22 && option.param > 90 * 1.1) {
+                option.param = Util.nextInt(75, 90);
+                return;
+            }
+            if (template.type == 2 && option.optionTemplate.id == 0 && option.param > 6500 * 1.1) {
+                option.param = Util.nextInt(5500, 6500);
+                return;
+            }
+            if (template.type == 3 && option.optionTemplate.id == 23 && option.param > 90 * 1.1) {
+                option.param = Util.nextInt(75, 90);
+                return;
+            }
+            if (template.type == 4 && option.optionTemplate.id == 14 && option.param > 22 * 1.1) {
+                option.param = Util.nextInt(19, 22);
+                return;
+            }
+        }
+    }
+
+    public void isBugDTS() {
+        if (!isDTS() || itemOptions.stream().filter(itemOption -> itemOption.optionTemplate.id == 72).findFirst().orElse(null) != null) {
+            return;
+        }
+        for (ItemOption option : itemOptions) {
+            if (template.type == 0 && option.optionTemplate.id == 47 && option.param > 3500 * 1.1) {
+                option.param = Util.nextInt(3000, 3500);
+                return;
+            }
+            if (template.type == 1 && option.optionTemplate.id == 22 && option.param > 120 * 1.1) {
+                option.param = Util.nextInt(105, 120);
+                return;
+            }
+            if (template.type == 2 && option.optionTemplate.id == 0 && option.param > 8500 * 1.1) {
+                option.param = Util.nextInt(7500, 8500);
+                return;
+            }
+            if (template.type == 3 && option.optionTemplate.id == 23 && option.param > 120 * 1.1) {
+                option.param = Util.nextInt(105, 120);
+                return;
+            }
+            if (template.type == 4 && option.optionTemplate.id == 14 && option.param > 26 * 1.1) {
+                option.param = Util.nextInt(23, 26);
+                return;
+            }
+        }
+    }
+
+    public void isBugDShop() {
+        if (!isDShop() || itemOptions.stream().filter(itemOption -> itemOption.optionTemplate.id == 72).findFirst().orElse(null) != null) {
+            return;
+        }
+        for (ItemOption itemOption : ItemService.gI().getListOptionItemShop(template.id)) {
+            System.out.println(itemOption.optionTemplate.id + " " + itemOption.param + " - ");
+            ItemOption io = itemOptions.stream().filter(itemO -> itemO.optionTemplate.id == itemOption.optionTemplate.id).findFirst().orElse(null);
+            if (io != null) {
+                System.out.println(io.optionTemplate.id + " " + io.param);
+                io.param = itemOption.param;
+            }
+        }
     }
 
     public String typeName() {

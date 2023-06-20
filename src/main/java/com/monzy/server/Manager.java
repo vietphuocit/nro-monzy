@@ -124,7 +124,7 @@ public class Manager {
     public static final short[] IDS_GANG_NM = {22, 46, 25, 45, 160, 161, 162, 163, 258, 259, 260, 261};
     public static final short[] IDS_GIAY_NM = {28, 47, 31, 48, 164, 165, 166, 167, 270, 271, 272, 273};
     public static final short[] IDS_RADAR = {12, 57, 58, 59, 184, 185, 186, 187, 278, 279, 280, 281};
-    public static final short[][][] IDS_TRANG_BI_SHOP = {{IDS_AO_TD, IDS_QUAN_TD, IDS_GANG_TD, IDS_GIAY_TD}, {IDS_AO_NM, IDS_QUAN_NM, IDS_GANG_NM, IDS_GIAY_NM}, {IDS_AO_XD, IDS_QUAN_XD, IDS_GANG_XD, IDS_GIAY_XD}};
+    public static final short[][][] IDS_TRANG_BI_SHOP = {{IDS_AO_TD, IDS_QUAN_TD, IDS_GANG_TD, IDS_GIAY_TD}, {IDS_AO_NM, IDS_QUAN_NM, IDS_GANG_NM, IDS_GIAY_NM}, {IDS_AO_XD, IDS_QUAN_XD, IDS_GANG_XD, IDS_GIAY_XD}, {IDS_RADAR}};
     // id đồ thần
     public static final int[] IDS_DO_THAN = {555, 557, 559, 556, 558, 560, 563, 565, 567, 562, 564, 566, 561};
     // id đồ hủy diệt

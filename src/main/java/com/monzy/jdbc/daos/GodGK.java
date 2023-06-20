@@ -246,6 +246,7 @@ public class GodGK {
                                 } else {
                                     item = ItemService.gI().createItemNull();
                                 }
+                                item.isBugItem();
                                 player.inventory.itemsBody.add(item);
                             }
                             if (player.inventory.itemsBody.size() == 10) {
@@ -273,6 +274,7 @@ public class GodGK {
                                 } else {
                                     item = ItemService.gI().createItemNull();
                                 }
+                                item.isBugItem();
                                 player.inventory.itemsBag.add(item);
                             }
                             dataArray.clear();
@@ -297,6 +299,7 @@ public class GodGK {
                                 } else {
                                     item = ItemService.gI().createItemNull();
                                 }
+                                item.isBugItem();
                                 player.inventory.itemsBox.add(item);
                             }
                             dataArray.clear();
