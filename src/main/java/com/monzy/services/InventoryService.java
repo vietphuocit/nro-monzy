@@ -770,8 +770,8 @@ public class InventoryService {
                         || itemAdd.template.id == 590
                         || itemAdd.template.id == 610
                         || itemAdd.template.type == 14
-                        || itemAdd.template.type == 933
-                        || itemAdd.template.type == 934) {
+                        || itemAdd.template.id == 933
+                        || itemAdd.template.id == 934) {
                     it.quantity += itemAdd.quantity;
                     itemAdd.quantity = 0;
                     return true;

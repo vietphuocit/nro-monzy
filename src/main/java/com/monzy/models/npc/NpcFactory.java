@@ -41,7 +41,6 @@ import com.monzy.utils.Util;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.logging.Level;
 
 import static com.monzy.services.func.SummonDragon.*;
@@ -49,10 +48,8 @@ import static com.monzy.services.func.SummonDragon.*;
 public class NpcFactory {
 
     private static final int COST_HD = 50000000;
-    private static final boolean nhanVang = false;
-    private static final boolean nhanDeTu = false;
     //playerid - object
-    public static final java.util.Map<Long, Object> PLAYERID_OBJECT = new HashMap<Long, Object>();
+    public static final java.util.Map<Long, Object> PLAYER_ID_OBJECT = new HashMap<>();
 
     private NpcFactory() {
     }
@@ -454,7 +451,7 @@ public class NpcFactory {
                                 "Nạp Lần Đầu Đi Con!"
                                         .replaceAll("%1", player.gender == ConstPlayer.TRAI_DAT ? "Quy lão Kamê"
                                                 : player.gender == ConstPlayer.NAMEC ? "Trưởng lão Guru" : "Vua Vegeta"),
-                                "Đổi mật khẩu", "Nhận ngọc xanh", "Nhận đệ tử", "Cách kiếm vàng", "Hướng dẫn\nnạp tự động", "Hướng dẫn\nmở thành viên", "GiftCode", "Nạp thẻ");
+                                "Đổi mật khẩu", "Nhận ngọc xanh", "Nhận đệ tử", "Cách kiếm vàng", "Hướng dẫn\nnạp tự động", "Hướng dẫn\nmở thành viên", "GiftCode");
                     }
                 }
             }
@@ -495,9 +492,6 @@ public class NpcFactory {
                                 break;
                             case 6:
                                 Input.gI().createFormGiftCode(player);
-                                break;
-                            case 7:
-                                this.createOtherMenu(player, ConstNpc.MENU_TYPE_CARD, "Chọn loại thẻ muốn nạp", "Viettel", "Vinaphone", "Mobiphone", "Vietnammobi");
                                 break;
                         }
                     }
@@ -1144,7 +1138,7 @@ public class NpcFactory {
                         this.createOtherMenu(player, 0, "Bạn Muốn Quay Trở Lại Làng Ảru?", "OK", "Từ chối");
                     }
                     if (mapId == 122) {
-                        this.createOtherMenu(player, 0, "Xia xia thua phùa\b|7|Thí chủ đang có: " + player.NguHanhSonPoint + " điểm ngũ hành sơn\b|1|Thí chủ muốn đổi cải trang x4 chưởng ko?", "Âu kê", "Top Ngu Hanh Son", "No");
+                        this.createOtherMenu(player, 0, "Xia xia thua phùa\b|7|Thí chủ đang có: " + player.event + " điểm ngũ hành sơn\b|1|Thí chủ muốn đổi cải trang x4 chưởng ko?", "Âu kê", "Top Ngu Hanh Son", "No");
                     }
                 }
             }
@@ -1178,8 +1172,8 @@ public class NpcFactory {
                     }
                     if (mapId == 122) {
                         if (select == 0) {
-                            if (player.NguHanhSonPoint >= 500) {
-                                player.NguHanhSonPoint -= 500;
+                            if (player.event >= 500) {
+                                player.event -= 500;
                                 Item item = ItemService.gI().createNewItem((short) (711));
                                 item.itemOptions.add(new Item.ItemOption(5, 10));
                                 item.itemOptions.add(new Item.ItemOption(5, 10));
@@ -2808,6 +2802,37 @@ public class NpcFactory {
             }
         };
     }
+
+    public static Npc event(int mapId, int status, int cx, int cy, int tempId, int avartar) {
+        return new Npc(mapId, status, cx, cy, tempId, avartar) {
+            @Override
+            public void openBaseMenu(Player player) {
+                if (canOpenNpc(player)) {
+                    this.createOtherMenu(player, ConstNpc.MENU_EVENT, "Nạp đi rồi lấy điểm đổi bạn ơi.\nBạn đang có " + player.event + " điểm", "Đổi quà", "Hướng Dẫn\nSự Kiện", "Hướng dẫn\nnạp tự động", "Hướng dẫn\nmở thành viên");
+                }
+            }
+
+            @Override
+            public void confirmMenu(Player player, int select) {
+                if (canOpenNpc(player)) {
+                    switch (select) {
+                        case 0:
+                            UseItem.gI().doiDiemSukien(player);
+                            break;
+                        case 1:
+                            NpcService.gI().createTutorial(player, avartar, ConstNpc.HUONG_DAN_SK_NAP);
+                            break;
+                        case 2:
+                            NpcService.gI().createTutorial(player, this.avartar, ConstNpc.HUONG_DAN_NAP_TU_DONG);
+                            break;
+                        case 3:
+                            NpcService.gI().createTutorial(player, this.avartar, ConstNpc.HUONG_DAN_MO_THANH_VIEN);
+                            break;
+                    }
+                }
+            }
+        };
+    }
 //    Service.gI().showListTop(player, Manager.topNV);
 
     public static Npc createNPC(int mapId, int status, int cx, int cy, int tempId) {
@@ -2914,6 +2939,8 @@ public class NpcFactory {
                     return gokuSSJ_2(mapId, status, cx, cy, tempId, avatar);
                 case ConstNpc.DUONG_TANG:
                     return duongtank(mapId, status, cx, cy, tempId, avatar);
+                case 78:
+                    return event(mapId, status, cx, cy, tempId, avatar);
                 default:
                     return new Npc(mapId, status, cx, cy, tempId, avatar) {
                         @Override
@@ -2987,7 +3014,7 @@ public class NpcFactory {
                     case ConstNpc.MAKE_FRIEND:
                         // Kết bạn
                         if (select == 0) {
-                            Object playerId = PLAYERID_OBJECT.get(player.id);
+                            Object playerId = PLAYER_ID_OBJECT.get(player.id);
                             if (playerId != null) {
                                 FriendAndEnemyService.gI().acceptMakeFriend(player, Integer.parseInt(String.valueOf(playerId)));
                             }
@@ -3064,21 +3091,21 @@ public class NpcFactory {
                         break;
                     case ConstNpc.CONFIRM_NHUONG_PC:
                         if (select == 0) {
-                            ClanService.gI().phongPc(player, (int) PLAYERID_OBJECT.get(player.id));
+                            ClanService.gI().phongPc(player, (int) PLAYER_ID_OBJECT.get(player.id));
                         }
                         break;
                     case ConstNpc.BAN_PLAYER:
                         if (select == 0) {
-                            PlayerService.gI().banPlayer((Player) PLAYERID_OBJECT.get(player.id));
-                            Service.gI().sendThongBao(player, "Ban người chơi " + ((Player) PLAYERID_OBJECT.get(player.id)).name + " thành công");
+                            PlayerService.gI().banPlayer((Player) PLAYER_ID_OBJECT.get(player.id));
+                            Service.gI().sendThongBao(player, "Ban người chơi " + ((Player) PLAYER_ID_OBJECT.get(player.id)).name + " thành công");
                         }
                         break;
                     case ConstNpc.BUFF_PET:
                         if (select == 0) {
-                            Player pl = (Player) PLAYERID_OBJECT.get(player.id);
+                            Player pl = (Player) PLAYER_ID_OBJECT.get(player.id);
                             if (pl.pet == null) {
                                 PetService.gI().createNormalPet(pl);
-                                Service.gI().sendThongBao(player, "Phát đệ tử cho " + ((Player) PLAYERID_OBJECT.get(player.id)).name + " thành công");
+                                Service.gI().sendThongBao(player, "Phát đệ tử cho " + ((Player) PLAYER_ID_OBJECT.get(player.id)).name + " thành công");
                             }
                         }
                         break;
@@ -3194,7 +3221,7 @@ public class NpcFactory {
                         }
                         break;
                     case ConstNpc.MENU_FIND_PLAYER:
-                        Player p = (Player) PLAYERID_OBJECT.get(player.id);
+                        Player p = (Player) PLAYER_ID_OBJECT.get(player.id);
                         if (p != null) {
                             switch (select) {
                                 case 0:

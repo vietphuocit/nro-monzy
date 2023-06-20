@@ -64,7 +64,7 @@ public abstract class Npc implements IActionNpc {
     }
 
     public void createOtherMenu(Player player, int indexMenu, String npcSay, String[] menuSelect, Object object) {
-        NpcFactory.PLAYERID_OBJECT.put(player.id, object);
+        NpcFactory.PLAYER_ID_OBJECT.put(player.id, object);
         Message msg;
         try {
             player.iDMark.setIndexMenu(indexMenu);

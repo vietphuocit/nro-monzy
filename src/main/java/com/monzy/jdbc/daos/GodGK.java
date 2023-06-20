@@ -129,10 +129,8 @@ public class GodGK {
                             player.head = rs.getShort("head");
                             player.gender = rs.getByte("gender");
                             player.haveTennisSpaceShip = rs.getBoolean("have_tennis_space_ship");
-                            player.violate = rs.getInt("violate");
                             player.pointPvp = rs.getInt("pointPvp");
-                            player.NguHanhSonPoint = rs.getInt("NguHanhSonPoint");
-                            player.totalPlayerViolate = 0;
+                            player.event = rs.getInt("event");
                             int clanId = rs.getInt("clan_id_sv" + Manager.SERVER);
                             if (clanId != -1) {
                                 Clan clan = ClanService.gI().getClanById(clanId);

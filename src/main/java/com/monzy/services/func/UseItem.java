@@ -12,6 +12,7 @@ import com.monzy.models.map.Zone;
 import com.monzy.models.player.Inventory;
 import com.monzy.models.player.Player;
 import com.monzy.models.skill.Skill;
+import com.monzy.server.ServerNotify;
 import com.monzy.server.io.MySession;
 import com.monzy.services.*;
 import com.monzy.utils.Logger;
@@ -898,6 +899,44 @@ public class UseItem {
         }
     }
 
+    public void doiDiemSukien(Player player) {
+        if (InventoryService.gI().getCountEmptyBag(player) <= 1) {
+            Service.getInstance().sendThongBao(player, "Bạn phải có ít nhất 2 ô trống hành trang");
+            return;
+        }
+        if (player.event < 5) {
+            Service.getInstance().sendThongBao(player, "Hết điểm rồi phên");
+            return;
+        }
+        player.event -= 5;
+        if (Util.isTrue(10, 100)) {
+            sendItemEvent((short) 1281, player);
+        } else if (Util.isTrue(10, 100)) {
+            sendItemEvent((short) 995, player);
+        } else {
+            int hongNgoc = Util.nextInt(500, 5000);
+            player.inventory.ruby += hongNgoc;
+            PlayerService.gI().sendInfoHpMpMoney(player);
+            Service.getInstance().sendThongBao(player, "Bạn đã nhận được " + hongNgoc + " hồng ngọc");
+        }
+    }
+
+    public Item sendItemEvent(short idItem, Player player) {
+        Item item = ItemService.gI().createNewItem(idItem);
+        item.itemOptions.add(new Item.ItemOption(147, 15));//sd 50%
+        item.itemOptions.add(new Item.ItemOption(77, 15));//hp 50%
+        item.itemOptions.add(new Item.ItemOption(103, 15));//ki 50%
+        if (Util.isTrue(99, 100)) {// tỉ lệ ra hsd
+            item.itemOptions.add(new Item.ItemOption(93, Util.nextInt(10) + 3));//hsd
+        } else {
+            ServerNotify.gI().sendThongBaoBenDuoi("Chúc mừng người chơi " + player.name + " nhận được " + item.template.name + " vĩnh viễn");
+        }
+        InventoryService.gI().addItemBag(player, item);
+        InventoryService.gI().sendItemBags(player);
+        Service.getInstance().sendThongBao(player, "Bạn đã nhận được " + item.template.name);
+        return item;
+    }
+
     public Item randomRac() {
         short[] racs = {20, 19, 18, 17, 16};
         Item item = ItemService.gI().createNewItem(racs[Util.nextInt(racs.length - 1)], 1);
@@ -906,12 +945,14 @@ public class UseItem {
 
     public Item caitrangrdv(boolean rating) {
         Item item = ItemService.gI().createNewItem((short) 2043);
-        item.itemOptions.add(new Item.ItemOption(76, 1));//VIP
-        item.itemOptions.add(new Item.ItemOption(77, Util.nextInt(30, 30)));//hp 50%
-        item.itemOptions.add(new Item.ItemOption(103, Util.nextInt(30, 30)));//ki 50%
-        item.itemOptions.add(new Item.ItemOption(147, Util.nextInt(25, 25)));//sd 50%
-        item.itemOptions.add(new Item.ItemOption(101, Util.nextInt(100, 100)));//smtn + 500%
-        item.itemOptions.add(new Item.ItemOption(106, 0)); //k ảnh hưởng bới cái lạnh
+        item.itemOptions.add(new Item.ItemOption(147, 20));//sd 50%
+        item.itemOptions.add(new Item.ItemOption(77, 20));//hp 50%
+        item.itemOptions.add(new Item.ItemOption(103, 20));//ki 50%
+        if (Util.isTrue(50, 100)) {
+            item.itemOptions.add(new Item.ItemOption(101, 100));//smtn + 500%
+        } else {
+            item.itemOptions.add(new Item.ItemOption(106, 0)); //k ảnh hưởng bới cái lạnh
+        }
         if (Util.isTrue(995, 1000) && rating) {// tỉ lệ ra hsd
             item.itemOptions.add(new Item.ItemOption(93, Util.nextInt(30) + 3));//hsd
         }

@@ -47,7 +47,7 @@ public class Player {
     public boolean isNewPet;
     //    public boolean isNewPet1;
     public boolean isBoss;
-    public int NguHanhSonPoint = 0;
+    public int event;
     public IPVP pvp;
     public int pointPvp;
     public byte maxTime = 30;
@@ -101,8 +101,6 @@ public class Player {
     public long lasttimemuav;
     public boolean justRevived;
     public long lastTimeRevived;
-    public int violate;
-    public byte totalPlayerViolate;
     public long timeChangeZone;
     public long lastTimeUseOption;
     public short idNRNM = -1;

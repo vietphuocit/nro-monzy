@@ -28,7 +28,7 @@ public class NpcService {
     }
 
     public void createMenuConMeo(Player player, int indexMenu, int avatar, String npcSay, String[] menuSelect, Object object) {
-        NpcFactory.PLAYERID_OBJECT.put(player.id, object);
+        NpcFactory.PLAYER_ID_OBJECT.put(player.id, object);
         createMenuConMeo(player, indexMenu, avatar, npcSay, menuSelect);
     }
 

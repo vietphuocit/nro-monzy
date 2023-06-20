@@ -636,7 +636,7 @@ public class PlayerDAO {
                         + "items_body = ?, items_bag = ?, items_box = ?, items_box_lucky_round = ?, friends = ?,"
                         + "enemies = ?, data_intrinsic = ?, data_item_time = ?, data_item_time_sieu_cap = ?, data_task = ?, data_mabu_egg = ?, pet = ?,"
                         + "data_black_ball = ?, data_side_task = ?, data_charm = ?, skills = ?,"
-                        + " skills_shortcut = ?, pointPvp=?, NguHanhSonPoint=?,data_card=?,bill_data =? where id = ?";
+                        + " skills_shortcut = ?, pointPvp=?, event=?,data_card=?,bill_data =? where id = ?";
                 Database.executeUpdate(query,
                         player.head,
                         player.haveTennisSpaceShip,
@@ -663,7 +663,7 @@ public class PlayerDAO {
                         skills,
                         skillShortcut,
                         player.pointPvp,
-                        player.NguHanhSonPoint,
+                        player.event,
                         JSONValue.toJSONString(player.cards),
                         billEgg,
                         player.id);

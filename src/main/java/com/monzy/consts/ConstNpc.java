@@ -62,6 +62,11 @@ public class ConstNpc {
             + "sau khi đủ x99 đồng xu vàng bạn có thể đem đến npc unkown \b"
             + "để đổi rương vàng=)))\b"
             + "mở ra để nhận ngẫu nhiên các vp như hồng ngọc vv... ";
+    public static final String HUONG_DAN_SK_NAP = "Cách Làm Sự Kiện :\b"
+            + "Nạp để nhận điểm sự kiện\b"
+            + "Tỉ lệ 10k vnd = 10 điểm\b"
+            + "Đổi thưởng 1 lần cần 5 điểm\b"
+            + "Nhận ngẫu nhiên các vật phẩm như hồng ngọc, cải trang (hsd, vv), ... ";
     //npcid
     public static final byte ONG_GOHAN = 0;
     public static final byte ONG_PARAGUS = 1;

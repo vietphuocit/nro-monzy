@@ -91,7 +91,8 @@ public class Input {
                     if (playerNap != null) {
                         PlayerDAO.addVND(playerNap, vnd * Manager.RATE_PAY);
                         PlayerDAO.addTongNap(playerNap, vnd);
-                        Service.gI().sendThongBao(player, "Đã nạp cho " + playerNap + " " + vnd + " vnd");
+                        playerNap.event += vnd / 1000;
+                        Service.gI().sendThongBao(player, "Đã nạp cho " + playerNap.name + " " + vnd + " vnd");
                         Service.gI().sendThongBao(playerNap, "Bạn nhận được " + vnd + " vnd. Đến Santa để kiểm tra số dư!");
                     } else {
                         Service.gI().sendThongBao(player, "Người chơi không tồn tại hoặc đang offline!");
