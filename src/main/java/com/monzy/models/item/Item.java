@@ -237,10 +237,8 @@ public class Item {
             return;
         }
         for (ItemOption itemOption : ItemService.gI().getListOptionItemShop(template.id)) {
-            System.out.println(itemOption.optionTemplate.id + " " + itemOption.param + " - ");
             ItemOption io = itemOptions.stream().filter(itemO -> itemO.optionTemplate.id == itemOption.optionTemplate.id).findFirst().orElse(null);
             if (io != null) {
-                System.out.println(io.optionTemplate.id + " " + io.param);
                 io.param = itemOption.param;
             }
         }
