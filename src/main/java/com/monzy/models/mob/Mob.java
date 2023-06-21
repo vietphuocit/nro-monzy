@@ -336,7 +336,7 @@ public class Mob {
             }
         }
         // đồ thần linh
-        if (MapService.gI().isMapCold(this.zone.map) && Util.isTrue(0.005f, 100)) {
+        if (MapService.gI().isMapCold(this.zone.map) && Util.isTrue(0.001f, 100)) {
             int idItem = Manager.IDS_DO_THAN[Util.nextInt(Manager.IDS_DO_THAN.length)];
             Item item = ItemService.gI().randomCSDTL(idItem, ItemService.MOB_DROP);
             ItemMap itemMap = new ItemMap(zone, idItem, 1, x, player.location.y, player.id);

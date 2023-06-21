@@ -271,11 +271,11 @@ public class UseItem {
                         case 454: //bông tai
                             UseItem.gI().usePorata(pl);
                             break;
-                        case 1153:
-                            UseItem.gI().usehpbuff(pl);
-                            break;
                         case 1152:
                             UseItem.gI().usesdbuff(pl);
+                            break;
+                        case 1153:
+                            UseItem.gI().usehpbuff(pl);
                             break;
                         case 1154:
                             UseItem.gI().usekibuff(pl);

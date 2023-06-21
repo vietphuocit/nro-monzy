@@ -36,6 +36,8 @@ import com.network.io.Message;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Player {
 
@@ -267,10 +269,18 @@ public class Player {
      * {2030,2031,2032}: ht c3 nm
      * {2027,2028,2029}: ht c3 xd*/
     private static final short[][] idOutfitFusion = {
-            {380, 381, 382}, {870, 871, 872}, {391, 392, 393},
-            {2048, 2049, 2050}, {873, 874, 875}, {867, 868, 869},
-            {2057, 2058, 2059}, {2060, 2061, 2062}, {2063, 2064, 2065},
-            {2045, 2046, 2047}, {2051, 2052, 2053}, {2054, 2055, 2056},
+            {380, 381, 382},    // thuong xd, td
+            {383, 384, 385},    // porata xd, td
+            {391, 392, 393},    // thuong, porata namec
+            {870, 871, 872},    // porata 2 td
+            {873, 874, 875},    // porata 2 nm
+            {867, 868, 869},    // porata 2 xd
+            {2048, 2049, 2050}, // porata 3 td
+            {2051, 2052, 2053}, // porata 3 nm
+            {2054, 2055, 2056}, // porata 3 xd
+            {2057, 2058, 2059}, // porata 4 td
+            {2060, 2061, 2062}, // porata 4 nm
+            {2063, 2064, 2065}, // porata 4 xd
     };
 
     // Sua id vat pham muon co aura lai
@@ -284,12 +294,6 @@ public class Player {
         }
         if (item.template.id == 1121) {
             return 10;
-        } else if (item.template.id == 1128) {
-            return 15;
-        } else if (item.template.id == 1125) {
-            return 14;
-        } else if (item.template.id == 2092) {
-            return 13;
         } else {
             return -1;
         }
@@ -300,70 +304,33 @@ public class Player {
         if (this.inventory.itemsBody.isEmpty() || this.inventory.itemsBody.size() < 10) {
             return -1;
         }
-        int levelAo = 0;
-        Item.ItemOption optionLevelAo = null;
-        int levelQuan = 0;
-        Item.ItemOption optionLevelQuan = null;
-        int levelGang = 0;
-        Item.ItemOption optionLevelGang = null;
-        int levelGiay = 0;
-        Item.ItemOption optionLevelGiay = null;
-        int levelNhan = 0;
-        Item.ItemOption optionLevelNhan = null;
-        Item itemAo = this.inventory.itemsBody.get(0);
-        Item itemQuan = this.inventory.itemsBody.get(1);
-        Item itemGang = this.inventory.itemsBody.get(2);
-        Item itemGiay = this.inventory.itemsBody.get(3);
-        Item itemNhan = this.inventory.itemsBody.get(4);
-        for (Item.ItemOption io : itemAo.itemOptions) {
-            if (io.optionTemplate.id == 72) {
-                levelAo = io.param;
-                optionLevelAo = io;
-                break;
-            }
+
+        List<Item> items = this.inventory.itemsBody.subList(0, 5);
+        List<Item.ItemOption> itemOptions = items.stream()
+                .map(item -> item.itemOptions.stream()
+                        .filter(io -> io.optionTemplate.id == 72)
+                        .findFirst()
+                        .orElse(null))
+                .collect(Collectors.toList());
+
+        if (itemOptions.stream().anyMatch(Objects::isNull)) {
+            return -1;
         }
-        for (Item.ItemOption io : itemQuan.itemOptions) {
-            if (io.optionTemplate.id == 72) {
-                levelQuan = io.param;
-                optionLevelQuan = io;
-                break;
-            }
-        }
-        for (Item.ItemOption io : itemGang.itemOptions) {
-            if (io.optionTemplate.id == 72) {
-                levelGang = io.param;
-                optionLevelGang = io;
-                break;
-            }
-        }
-        for (Item.ItemOption io : itemGiay.itemOptions) {
-            if (io.optionTemplate.id == 72) {
-                levelGiay = io.param;
-                optionLevelGiay = io;
-                break;
-            }
-        }
-        for (Item.ItemOption io : itemNhan.itemOptions) {
-            if (io.optionTemplate.id == 72) {
-                levelNhan = io.param;
-                optionLevelNhan = io;
-                break;
-            }
-        }
-        if (optionLevelAo != null && optionLevelQuan != null && optionLevelGang != null && optionLevelGiay != null && optionLevelNhan != null
-                && levelAo >= 8 && levelQuan >= 8 && levelGang >= 8 && levelGiay >= 8 && levelNhan >= 8) {
+
+        int minLevel = itemOptions.stream()
+                .mapToInt(io -> io.param)
+                .min()
+                .orElse(-1);
+
+        if (minLevel >= 8) {
             return 8;
-        } else if (optionLevelAo != null && optionLevelQuan != null && optionLevelGang != null && optionLevelGiay != null && optionLevelNhan != null
-                && levelAo >= 7 && levelQuan >= 7 && levelGang >= 7 && levelGiay >= 7 && levelNhan >= 7) {
+        } else if (minLevel == 7) {
             return 7;
-        } else if (optionLevelAo != null && optionLevelQuan != null && optionLevelGang != null && optionLevelGiay != null && optionLevelNhan != null
-                && levelAo >= 6 && levelQuan >= 6 && levelGang >= 6 && levelGiay >= 6 && levelNhan >= 6) {
+        } else if (minLevel == 6) {
             return 6;
-        } else if (optionLevelAo != null && optionLevelQuan != null && optionLevelGang != null && optionLevelGiay != null && optionLevelNhan != null
-                && levelAo >= 5 && levelQuan >= 5 && levelGang >= 5 && levelGiay >= 5 && levelNhan >= 5) {
+        } else if (minLevel == 5) {
             return 5;
-        } else if (optionLevelAo != null && optionLevelQuan != null && optionLevelGang != null && optionLevelGiay != null && optionLevelNhan != null
-                && levelAo >= 4 && levelQuan >= 4 && levelGang >= 4 && levelGiay >= 4 && levelNhan >= 4) {
+        } else if (minLevel == 4) {
             return 4;
         } else {
             return -1;
@@ -379,24 +346,12 @@ public class Player {
             if (fusion.typeFusion == ConstPlayer.LUONG_LONG_NHAT_THE) {
                 return idOutfitFusion[this.gender == ConstPlayer.NAMEC ? 2 : 0][0];
             } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA) {
-//                if (this.pet.typePet == 1) {
-//                    return idOutfitFusion[3 + this.gender][0];
-//                }
                 return idOutfitFusion[this.gender == ConstPlayer.NAMEC ? 2 : 1][0];
             } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2) {
-//                if (this.pet.typePet == 1) {
-//                    return idOutfitFusion[3 + this.gender][0];
-//                }
                 return idOutfitFusion[3 + this.gender][0];
             } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3) {
-//                if (this.pet.typePet == 1) {
-//                    return idOutfitFusion[3 + this.gender][0];
-//                }
                 return idOutfitFusion[6 + this.gender][0];
             } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4) {
-//                if (this.pet.typePet == 1) {
-//                    return idOutfitFusion[3 + this.gender][0];
-//                }
                 return idOutfitFusion[9 + this.gender][0];
             }
         } else if (inventory != null && inventory.itemsBody.get(5).isNotNullItem()) {
@@ -417,22 +372,12 @@ public class Player {
             if (fusion.typeFusion == ConstPlayer.LUONG_LONG_NHAT_THE) {
                 return idOutfitFusion[this.gender == ConstPlayer.NAMEC ? 2 : 0][1];
             } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA) {
-//                if (this.pet.typePet == 1) {
-//                    return idOutfitFusion[3 + this.gender][1];
-//                }
                 return idOutfitFusion[this.gender == ConstPlayer.NAMEC ? 2 : 1][1];
             } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2) {
-//                if (this.pet.typePet == 1) {
-//                    return idOutfitFusion[3 + this.gender][1];
                 return idOutfitFusion[3 + this.gender][1];
             } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3) {
-//                if (this.pet.typePet == 1) {
-//                    return idOutfitFusion[3 + this.gender][1];
-//                }
                 return idOutfitFusion[6 + this.gender][1];
             } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4) {
-//                if (this.pet.typePet == 1) {
-//                    return idOutfitFusion[3 + this.gender][1];
                 return idOutfitFusion[9 + this.gender][1];
             }
         } else if (inventory != null && inventory.itemsBody.get(5).isNotNullItem()) {
@@ -456,24 +401,12 @@ public class Player {
             if (fusion.typeFusion == ConstPlayer.LUONG_LONG_NHAT_THE) {
                 return idOutfitFusion[this.gender == ConstPlayer.NAMEC ? 2 : 0][2];
             } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA) {
-//                if (this.pet.typePet == 1) {
-//                    return idOutfitFusion[3 + this.gender][2];
-//                }
                 return idOutfitFusion[this.gender == ConstPlayer.NAMEC ? 2 : 1][2];
             } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2) {
-//                if (this.pet.typePet == 1) {
-//                    return idOutfitFusion[3 + this.gender][2];
-//                }
                 return idOutfitFusion[3 + this.gender][2];
             } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3) {
-//                if (this.pet.typePet == 1) {
-//                    return idOutfitFusion[3 + this.gender][2];
-//                }
                 return idOutfitFusion[6 + this.gender][2];
             } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4) {
-//                if (this.pet.typePet == 1) {
-//                    return idOutfitFusion[3 + this.gender][2];
-//                }
                 return idOutfitFusion[9 + this.gender][2];
             }
         } else if (inventory != null && inventory.itemsBody.get(5).isNotNullItem()) {

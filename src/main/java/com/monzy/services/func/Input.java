@@ -162,22 +162,27 @@ public class Input {
                     if (Database.executeQuery("select * from player where name = ?", text[0]).next()) {
                         Service.gI().sendThongBao(player, "Tên nhân vật đã tồn tại");
                         createFormChangeNameByItem(player);
-                    } else {
-                        Item theDoiTen = InventoryService.gI().findItem(player.inventory.itemsBag, 2006);
-                        if (theDoiTen == null) {
-                            Service.gI().sendThongBao(player, "Không tìm thấy thẻ đổi tên");
-                        } else {
-                            InventoryService.gI().subQuantityItemsBag(player, theDoiTen, 1);
-                            player.name = text[0];
-                            Database.executeUpdate("update player set name = ? where id = ?", player.name, player.id);
-                            Service.gI().player(player);
-                            Service.gI().Send_Caitrang(player);
-                            Service.gI().sendFlagBag(player);
-                            Zone zone = player.zone;
-                            ChangeMapService.gI().changeMap(player, zone, player.location.x, player.location.y);
-                            Service.gI().sendThongBao(player, "Chúc mừng bạn đã có cái tên mới đẹp đẽ hơn tên ban đầu");
-                        }
+                        break;
                     }
+                    if (text[0].contains(" ")) {
+                        Service.gI().sendThongBao(player, "Tên nhân vật không được chứa dấu cách");
+                        createFormChangeNameByItem(player);
+                        break;
+                    }
+                    Item theDoiTen = InventoryService.gI().findItem(player.inventory.itemsBag, 2006);
+                    if (theDoiTen == null) {
+                        Service.gI().sendThongBao(player, "Không tìm thấy thẻ đổi tên");
+                        break;
+                    }
+                    InventoryService.gI().subQuantityItemsBag(player, theDoiTen, 1);
+                    player.name = text[0];
+                    Database.executeUpdate("update player set name = ? where id = ?", player.name, player.id);
+                    Service.gI().player(player);
+                    Service.gI().Send_Caitrang(player);
+                    Service.gI().sendFlagBag(player);
+                    Zone zone = player.zone;
+                    ChangeMapService.gI().changeMap(player, zone, player.location.x, player.location.y);
+                    Service.gI().sendThongBao(player, "Chúc mừng bạn đã có cái tên mới đẹp đẽ hơn tên ban đầu");
                 }
                 break;
                 case TAIHN:
