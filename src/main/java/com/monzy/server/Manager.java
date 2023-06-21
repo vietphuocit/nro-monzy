@@ -93,7 +93,7 @@ public class Manager {
 //    public static final String queryTopPVP = "SELECT id, CAST( pointPvp AS UNSIGNED) AS pointPvp FROM player ORDER BY CAST( pointPvp AS UNSIGNED) DESC LIMIT 50;";
 //    public static final String queryTopNHS = "SELECT id, CAST( NguHanhSonPoint AS UNSIGNED) AS nhs FROM player ORDER BY CAST( NguHanhSonPoint AS UNSIGNED) DESC LIMIT 20;";
     public static final String QUERY_TOP_NAP = "SELECT player_id as id, SUM(amount) as tong FROM tran_his\n" +
-            "WHERE command = 'nap' AND DATE('2023-6-20 12:00:00') > create_at > DATE('2023-6-26 23:59:00')\n" +
+            "WHERE command = 'nap' AND create_at between DATE('2023-6-20 12:00:00') and DATE('2023-6-26 23:59:00')\n" +
             "GROUP BY player_id\n" +
             "limit 10;";
     public static List<TOP> TOP_SM;
