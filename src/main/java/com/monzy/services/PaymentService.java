@@ -120,6 +120,7 @@ public class PaymentService implements Runnable {
                 if (playerNap != null && vnd >= 10000) {
                     PlayerDAO.addTongNap(playerNap, vnd);
                     PlayerDAO.addVND(playerNap, vnd);
+                    playerNap.event += vnd / 1000;
                     Service.gI().sendThongBao(playerNap, "Bạn nhận được " + vnd + " vnd. Đến Santa để kiểm tra số dư!");
                     insertTranHis(transactionHistory, "nap", playerNap);
                 }
