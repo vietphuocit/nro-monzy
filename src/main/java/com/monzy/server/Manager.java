@@ -95,6 +95,7 @@ public class Manager {
     public static final String QUERY_TOP_NAP = "SELECT player_id as id, SUM(amount) as tong FROM tran_his\n" +
             "WHERE command = 'nap' AND create_at between DATE('2023-6-20 12:00:00') and DATE('2023-6-26 23:59:00')\n" +
             "GROUP BY player_id\n" +
+            "ORDER BY SUM(amount) DESC \n" +
             "limit 10;";
     public static List<TOP> TOP_SM;
     //    public static List<TOP> topSD;
@@ -772,13 +773,6 @@ public class Manager {
                 RadarService.gI().RADAR_TEMPLATE.add(rd);
             }
             Logger.success("Load radar template thành công (" + RadarService.gI().RADAR_TEMPLATE.size() + ")\n");
-            TOP_SM = readTop(QUERY_TOP_SM, con);
-            Logger.success("Load top sm thành công (" + TOP_SM.size() + ")\n");
-            TOP_NV = readTop(QUERY_TOP_NV, con);
-            Logger.success("Load top nv thành công (" + TOP_NV.size() + ")\n");
-            TOP_NAP = readTop(QUERY_TOP_NAP, con);
-            Logger.success("Load top nap thành công (" + TOP_NV.size() + ")\n");
-            Manager.TIME_READ_TOP = System.currentTimeMillis();
             rs.close();
             ps.close();
         } catch (Exception e) {
@@ -798,9 +792,9 @@ public class Manager {
         Logger.log(Logger.GREEN_BOLD_BRIGHT, "Tổng thời gian load database: " + (System.currentTimeMillis() - st) + "(ms)\n");
     }
 
-    public static List<TOP> readTop(String query, Connection con) {
+    public static List<TOP> readTop(String query) {
         List<TOP> tops = new ArrayList<>();
-        try {
+        try (Connection con = Database.getConnection()) {
             PreparedStatement ps = con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -818,18 +812,6 @@ public class Manager {
                         top.setInfo1(rs.getInt("tong") + " vnd");
                         top.setInfo2(rs.getInt("tong") + " vnd");
                         break;
-//                    case queryTopSK:
-//                        top.setInfo1(rs.getInt("event") + " điểm");
-//                        top.setInfo2(rs.getInt("event") + " điểm");
-//                        break;
-//                    case queryTopPVP:
-//                        top.setInfo1(rs.getInt("pointPvp") + " điểm");
-//                        top.setInfo2(rs.getInt("pointPvp") + " điểm");
-//                        break;
-//                    case queryTopNHS:
-//                        top.setInfo1(rs.getInt("NguHanhSonPoin") + " điểm");
-//                        top.setInfo2(rs.getInt("NguHanhSonPoin") + " điểm");
-//                        break;
                 }
                 tops.add(top);
             }
