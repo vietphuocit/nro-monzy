@@ -12,12 +12,11 @@ import java.util.List;
 public class nguhs {
 
     public static final byte HOUR_OPEN_MAP_NHS = 0;
-    public static final byte MIN_OPEN_MAP_NHS = 30;
+    public static final byte MIN_OPEN_MAP_NHS = 0;
     public static final byte SECOND_OPEN_MAP_NHS = 0;
-    public static final byte HOUR_CLOSE_MAP_NHS = 24;
-    public static final byte MIN_CLOSE_MAP_NHS = 30;
-    public static final byte SECOND_CLOSE_MAP_NHS = 0;
-    public static final int AVAILABLE = 7;
+    public static final byte HOUR_CLOSE_MAP_NHS = 23;
+    public static final byte MIN_CLOSE_MAP_NHS = 59;
+    public static final byte SECOND_CLOSE_MAP_NHS = 59;
     private static nguhs i;
     public static long TIME_OPEN_NHS;
     public static long TIME_CLOSE_NHS;

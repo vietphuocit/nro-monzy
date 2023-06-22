@@ -23,6 +23,8 @@ import java.sql.ResultSet;
 
 public class PaymentService implements Runnable {
 
+    private final String TOKEN_MOMO = "737f922623d9dd2dc9f0d7-fdd3-335c-0b14-2cd27c84c0ea";
+    private final String TOKEN_MB_BANK = "08CEBDCF-A1EA-F5B5-5F77-F77C46F3C607";
     public static PaymentService i;
 
     public static PaymentService gI() {
@@ -57,8 +59,7 @@ public class PaymentService implements Runnable {
         int amount = Integer.parseInt(json.get("amount").toString());
         String description = json.get("comment").toString();
         String type = (Integer.parseInt(json.get("io").toString()) > 0) ? "IN" : "OUT";
-        TransactionHistory transactionHistory = new TransactionHistory(transactionID, amount, description, type);
-        return transactionHistory;
+        return new TransactionHistory(transactionID, amount, description, type);
     }
 
     public TransactionHistory convertMBBank(Object transaction) {
@@ -67,15 +68,14 @@ public class PaymentService implements Runnable {
         int amount = Integer.parseInt(json.get("amount").toString());
         String description = json.get("description").toString();
         String type = json.get("type").toString();
-        TransactionHistory transactionHistory = new TransactionHistory(transactionID, amount, description, type);
-        return transactionHistory;
+        return new TransactionHistory(transactionID, amount, description, type);
     }
 
     public Object getListTransactionHistoryMomo() {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         Request request = new Request.Builder()
-                .url("https://api.web2m.com/historyapimomo/2483de084fc82418cd0164-94e6-cf39-8749-06aa22051626")
+                .url("https://api.web2m.com/historyapimomo/" + TOKEN_MOMO)
                 .get()
                 .build();
         try (Response response = client.newCall(request).execute()) {
@@ -91,7 +91,7 @@ public class PaymentService implements Runnable {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         Request request = new Request.Builder()
-                .url("https://api.web2m.com/historyapimbv3/Vietphuocit2019@/0583217667/08CEBDCF-A1EA-F5B5-5F77-F77C46F3C607")
+                .url("https://api.web2m.com/historyapimbv3/Vietphuocit2019@/0583217667/" + TOKEN_MB_BANK)
                 .get()
                 .build();
         try (Response response = client.newCall(request).execute()) {
