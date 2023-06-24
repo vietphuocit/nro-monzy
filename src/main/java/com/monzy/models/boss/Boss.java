@@ -560,7 +560,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
         } else {
             randomIdDoThan = Manager.IDS_DO_THAN[Util.nextInt(0, 8)];
         }
-        if (Util.isTrue(20, 100)) {
+        if (Util.isTrue(5, 100)) {
             Item item = ItemService.gI().randomCSDTL(randomIdDoThan, ItemService.BOSS_DROP);
             ItemMap itemMap = new ItemMap(zone, randomIdDoThan, 1, plKill.location.x, plKill.location.y, plKill.id);
             itemMap.options.clear();

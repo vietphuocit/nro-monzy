@@ -110,6 +110,8 @@ public class Input {
                         }
                         playerMTV.getSession().actived = true;
                         PlayerDAO.activedUser(playerMTV);
+                        TransactionHistory transactionHistory = new TransactionHistory(String.valueOf(System.currentTimeMillis() + Util.nextInt(1000, 9999)), 20000, player.name + " mtv " + playerMTV.name, "IN");
+                        PaymentService.gI().insertTranHis(transactionHistory, "mvt", playerMTV);
                         Service.gI().sendThongBao(player, "Đã mở thành viên cho " + playerMTV.name + "!");
                         Service.gI().sendThongBao(playerMTV, "Đã mở thành viên!");
                         playerMTV.inventory.ruby += 20000;

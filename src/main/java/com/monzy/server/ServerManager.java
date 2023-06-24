@@ -67,8 +67,8 @@ public class ServerManager {
 //        new Thread(DaiHoiVoThuat.gI(), "Thread DHVT").start();
 //        ChonAiDay.gI().lastTimeEnd = System.currentTimeMillis() + 300000;
 //        new Thread(ChonAiDay.gI(), "Thread CAD").start();
-        NgocRongNamecService.gI().initNgocRongNamec((byte) 0);
-        new Thread(NgocRongNamecService.gI(), "Thread NRNM").start();
+//        NgocRongNamecService.gI().initNgocRongNamec((byte) 0);
+//        new Thread(NgocRongNamecService.gI(), "Thread NRNM").start();
         new Thread(new TopService()).start();
         new Thread(new PaymentService(), "Thread Payment").start();
         try {
