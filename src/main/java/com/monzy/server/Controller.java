@@ -53,7 +53,7 @@ public class Controller implements IMessageHandler {
 //            }
 //            System.out.println("***************************CMD receive: " + cmd);
             switch (cmd) {
-                /*case -100: {
+                case -100: {
                     byte action = _msg.reader().readByte();
                     switch (action) {
                         case 0:
@@ -101,7 +101,7 @@ public class Controller implements IMessageHandler {
                         // hủy ký gửi
                     }
                     break;
-                }*/
+                }
                 case 127:
                     if (player != null) {
                         byte actionRadar = _msg.reader().readByte();

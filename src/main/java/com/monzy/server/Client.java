@@ -2,16 +2,14 @@ package com.monzy.server;
 
 import com.database.Database;
 import com.monzy.jdbc.daos.PlayerDAO;
+import com.monzy.models.item.Item;
 import com.monzy.models.map.ItemMap;
 import com.monzy.models.matches.pvp.DaiHoiVoThuat;
 import com.monzy.models.matches.pvp.DaiHoiVoThuatService;
 import com.monzy.models.player.Player;
 import com.monzy.server.io.MySession;
-import com.monzy.services.NgocRongNamecService;
-import com.monzy.services.Service;
-import com.monzy.services.ChangeMapService;
+import com.monzy.services.*;
 import com.monzy.services.func.SummonDragon;
-import com.monzy.services.TransactionService;
 import com.monzy.utils.Logger;
 import com.network.server.MonzySessionManager;
 import com.network.session.ISession;
@@ -102,7 +100,7 @@ public class Client implements Runnable {
 //            if (player.itemTime != null && player.itemTime.isUseTDLT) {
 //                Item tdlt = null;
 //                try {
-//                    tdlt = InventoryServiceNew.gI().findItemBag(player, 521);
+//                    tdlt = InventoryService.gI().findItemBag(player, 521);
 //                } catch (Exception ex) {
 //                }
 //                if (tdlt != null) {
@@ -147,10 +145,6 @@ public class Client implements Runnable {
 
     public void close() {
         Logger.error("BEGIN KICK OUT SESSION.............................." + players.size() + "\n");
-//        while(!MonzySessionManager.gI().getSessions().isEmpty()){
-//            Logger.error("LEFT PLAYER: " + this.players.size() + ".........................\n");
-//            this.kickSession((MySession) MonzySessionManager.gI().getSessions().remove(0));
-//        }
         while (!players.isEmpty()) {
             this.kickSession(players.remove(0).getSession());
         }

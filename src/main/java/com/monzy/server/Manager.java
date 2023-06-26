@@ -93,7 +93,7 @@ public class Manager {
 //    public static final String queryTopPVP = "SELECT id, CAST( pointPvp AS UNSIGNED) AS pointPvp FROM player ORDER BY CAST( pointPvp AS UNSIGNED) DESC LIMIT 50;";
 //    public static final String queryTopNHS = "SELECT id, CAST( NguHanhSonPoint AS UNSIGNED) AS nhs FROM player ORDER BY CAST( NguHanhSonPoint AS UNSIGNED) DESC LIMIT 20;";
     public static final String QUERY_TOP_NAP = "SELECT player_id as id, SUM(amount) as tong FROM tran_his\n" +
-            "WHERE command = 'nap' AND create_at between DATE('2023-6-20 12:00:00') and DATE('2023-6-26 23:59:00')\n" +
+            "WHERE command = 'nap' AND create_at between DATE('2023-6-20 12:00:00') and DATE('2023-6-27 00:00:00')\n" +
             "GROUP BY player_id\n" +
             "ORDER BY SUM(amount) DESC \n" +
             "limit 10;";
@@ -726,6 +726,7 @@ public class Manager {
                 int quantity = rs.getInt("quantity");
                 byte isUp = rs.getByte("isUpTop");
                 boolean isBuy = rs.getByte("isBuy") == 1;
+                int idPlBuy = rs.getInt("player_buy");
                 List<Item.ItemOption> op = new ArrayList<>();
                 JSONArray jsa2 = (JSONArray) JSONValue.parse(rs.getString("itemOption"));
                 for (int j = 0; j < jsa2.size(); ++j) {
@@ -734,7 +735,7 @@ public class Manager {
                     int param = Integer.parseInt(jso2.get("param").toString());
                     op.add(new Item.ItemOption(idOptions, param));
                 }
-                ShopKyGuiManager.gI().listItem.add(new ItemKyGui(i, itemId, idPl, tab, gold, gem, quantity, isUp, op, isBuy));
+                ShopKyGuiManager.gI().listItem.add(new ItemKyGui(i, itemId, idPl, tab, gold, gem, quantity, isUp, op, isBuy, idPlBuy));
             }
             Logger.log(Logger.YELLOW_BOLD_BRIGHT, "Finish load item ky gui [" + ShopKyGuiManager.gI().listItem.size() + "]!\n");
             ps = con.prepareStatement("select * from radar", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);

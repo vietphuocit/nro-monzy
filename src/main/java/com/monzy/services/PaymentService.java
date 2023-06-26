@@ -2,6 +2,7 @@ package com.monzy.services;
 
 import com.database.Database;
 import com.monzy.jdbc.daos.PlayerDAO;
+import com.monzy.kygui.ShopKyGuiManager;
 import com.monzy.models.player.Player;
 import com.monzy.server.Client;
 import com.monzy.server.Manager;
@@ -25,6 +26,7 @@ public class PaymentService implements Runnable {
 
     private final String TOKEN_MOMO = "737f922623d9dd2dc9f0d7-fdd3-335c-0b14-2cd27c84c0ea";
     private final String TOKEN_MB_BANK = "08CEBDCF-A1EA-F5B5-5F77-F77C46F3C607";
+    private static long lastTimeUpdate;
     public static PaymentService i;
 
     public static PaymentService gI() {
@@ -38,14 +40,24 @@ public class PaymentService implements Runnable {
     public void run() {
         while (true) {
             try {
-                Thread.sleep(1000 * 30);
-                // Momo
-                for (Object o : (JSONArray) getListTransactionHistoryMomo()) {
-                    processTransactionHistory(convertMomo(o));
+                // Kiểm tra nếu đã trôi qua 30 giây kể từ lần cuối cùng thực hiện
+                if (System.currentTimeMillis() - lastTimeUpdate >= 30 * 1000) {
+                    // Momo
+                    for (Object o : (JSONArray) getListTransactionHistoryMomo()) {
+                        processTransactionHistory(convertMomo(o));
+                    }
+                    // MBBank
+                    for (Object o : (JSONArray) getListTransactionHistoryMBBank()) {
+                        processTransactionHistory(convertMBBank(o));
+                    }
+                    // Cập nhật thời gian thực hiện cuối cùng
+                    lastTimeUpdate = System.currentTimeMillis();
                 }
-                // MBBank
-                for (Object o : (JSONArray) getListTransactionHistoryMBBank()) {
-                    processTransactionHistory(convertMBBank(o));
+                // Tạm dừng 1 giây trước khi kiểm tra lại
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             } catch (Exception e) {
                 Logger.error("\nLỗi nạp tự động: " + e.getMessage());

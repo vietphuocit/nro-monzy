@@ -4,6 +4,7 @@ import com.database.Database;
 import com.monzy.giftcode.GiftCodeManager;
 import com.monzy.jdbc.daos.HistoryTransactionDAO;
 import com.monzy.kygui.ShopKyGuiManager;
+import com.monzy.kygui.ShopKyGuiService;
 import com.monzy.models.boss.BossManager;
 import com.monzy.models.item.Item;
 import com.monzy.models.player.Player;
@@ -69,8 +70,9 @@ public class ServerManager {
 //        new Thread(ChonAiDay.gI(), "Thread CAD").start();
 //        NgocRongNamecService.gI().initNgocRongNamec((byte) 0);
 //        new Thread(NgocRongNamecService.gI(), "Thread NRNM").start();
-        new Thread(new TopService()).start();
+        new Thread(new TopService() , "Thread Top").start();
         new Thread(new PaymentService(), "Thread Payment").start();
+        new Thread(new ShopKyGuiService(), "Thread Shop Ky Gui").start();
         try {
             Thread.sleep(1000);
             BossManager.gI().loadBoss();

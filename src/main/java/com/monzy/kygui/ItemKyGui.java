@@ -25,11 +25,12 @@ public class ItemKyGui {
     public byte isUpTop;
     public List<ItemOption> options = new ArrayList<>();
     public boolean isBuy;
+    public int player_buy;
 
     public ItemKyGui() {
     }
 
-    public ItemKyGui(int i, short id, int plId, int t, int gold, int ruby, int q, byte isUp, List<ItemOption> op, boolean b) {
+    public ItemKyGui(int i, short id, int plId, int t, int gold, int ruby, int q, byte isUp, List<ItemOption> op, boolean b, int player_buy) {
         this.id = i;
         itemId = id;
         player_sell = plId;

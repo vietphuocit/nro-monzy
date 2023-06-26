@@ -18,9 +18,10 @@ import java.util.*;
 /**
  * Stole By Arriety
  */
-public class ShopKyGuiService {
+public class ShopKyGuiService implements Runnable {
 
     private static ShopKyGuiService instance;
+    private static long lastTimeUpdate;
 
     public static ShopKyGuiService gI() {
         if (instance == null) {
@@ -29,14 +30,32 @@ public class ShopKyGuiService {
         return instance;
     }
 
+    @Override
+    public void run() {
+        while (true) {
+            // Kiểm tra nếu đã trôi qua 15 phút kể từ lần cuối cùng thực hiện
+            if (System.currentTimeMillis() - lastTimeUpdate >= 15 * 60 * 1000) {
+                // Thực hiện đoạn mã ở đây
+                ShopKyGuiManager.gI().save();
+                // Cập nhật thời gian thực hiện cuối cùng
+                lastTimeUpdate = System.currentTimeMillis();
+                System.err.println("Cập nhật shop kí gửi");
+            }
+            // Tạm dừng 1 giây trước khi kiểm tra lại
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     private List<ItemKyGui> getItemKyGui(Player pl, byte tab, byte... max) {
         List<ItemKyGui> its = new ArrayList<>();
         List<ItemKyGui> listSort = new ArrayList<>();
         List<ItemKyGui> listSort2 = new ArrayList<>();
-        ShopKyGuiManager.gI().listItem.stream().filter((it) -> (it != null && it.tab == tab && !it.isBuy && it.player_sell != pl.id)).forEachOrdered((it) -> {
-            its.add(it);
-        });
-        its.stream().filter(i -> i != null).sorted(Comparator.comparing(i -> i.isUpTop, Comparator.reverseOrder())).forEach(i -> listSort.add(i));
+        ShopKyGuiManager.gI().listItem.stream().filter((it) -> (it != null && it.tab == tab && !it.isBuy && it.player_sell != pl.id)).forEachOrdered(its::add);
+        its.stream().filter(Objects::nonNull).sorted(Comparator.comparing(i -> i.isUpTop, Comparator.reverseOrder())).forEach(listSort::add);
         if (max.length == 2) {
             if (listSort.size() > max[1]) {
                 for (int i = max[0]; i < max[1]; i++) {
@@ -112,12 +131,11 @@ public class ShopKyGuiService {
             item.quantity = it.quantity;
             item.itemOptions.addAll(it.options);
             it.isBuy = true;
-            if (it.isBuy) {
-                InventoryService.gI().addItemBag(pl, item);
-                InventoryService.gI().sendItemBags(pl);
-                Service.gI().sendThongBao(pl, "Bạn đã nhận được " + item.template.name);
-                openShopKyGui(pl);
-            }
+            it.player_buy = (int) pl.id;
+            InventoryService.gI().addItemBag(pl, item);
+            InventoryService.gI().sendItemBags(pl);
+            Service.gI().sendThongBao(pl, "Bạn đã nhận được " + item.template.name);
+            openShopKyGui(pl);
         }
     }
 
@@ -256,7 +274,7 @@ public class ShopKyGuiService {
     public List<ItemKyGui> getItemCanKiGui(Player pl) {
         List<ItemKyGui> its = new ArrayList<>();
         ShopKyGuiManager.gI().listItem.stream().filter((it) -> (it != null && it.player_sell == pl.id)).forEachOrdered(its::add);
-        pl.inventory.itemsBag.stream().filter((it) -> (it.isNotNullItem() && ((it.template.type < 5 && it.template.type >= 0) || it.template.type == 12 || it.template.type == 33 || it.template.type == 29))).forEachOrdered((it) -> its.add(new ItemKyGui(InventoryService.gI().getIndexBag(pl, it), it.template.id, (int) pl.id, (byte) 4, -1, -1, it.quantity, (byte) -1, it.itemOptions, false)));
+        pl.inventory.itemsBag.stream().filter((it) -> (it.isNotNullItem() && ((it.template.type < 5 && it.template.type >= 0) || it.template.type == 12 || it.template.type == 33 || it.template.type == 29))).forEachOrdered((it) -> its.add(new ItemKyGui(InventoryService.gI().getIndexBag(pl, it), it.template.id, (int) pl.id, (byte) 4, -1, -1, it.quantity, (byte) -1, it.itemOptions, false, -1)));
         return its;
     }
 
@@ -308,7 +326,7 @@ public class ShopKyGuiService {
             switch (moneyType) {
                 case 0:// vàng
                     InventoryService.gI().subQuantityItemsBag(pl, pl.inventory.itemsBag.get(id), quantity);
-                    ShopKyGuiManager.gI().listItem.add(new ItemKyGui(getMaxId() + 1, it.template.id, (int) pl.id, getTabKiGui(it), money, -1, quantity, (byte) 0, it.itemOptions, false));
+                    ShopKyGuiManager.gI().listItem.add(new ItemKyGui(getMaxId() + 1, it.template.id, (int) pl.id, getTabKiGui(it), money, -1, quantity, (byte) 0, it.itemOptions, false, -1));
                     InventoryService.gI().sendItemBags(pl);
                     openShopKyGui(pl);
                     Service.gI().sendMoney(pl);
@@ -316,7 +334,7 @@ public class ShopKyGuiService {
                     break;
                 case 1:// hồng ngọc
                     InventoryService.gI().subQuantityItemsBag(pl, pl.inventory.itemsBag.get(id), quantity);
-                    ShopKyGuiManager.gI().listItem.add(new ItemKyGui(getMaxId() + 1, it.template.id, (int) pl.id, getTabKiGui(it), -1, money, quantity, (byte) 0, it.itemOptions, false));
+                    ShopKyGuiManager.gI().listItem.add(new ItemKyGui(getMaxId() + 1, it.template.id, (int) pl.id, getTabKiGui(it), -1, money, quantity, (byte) 0, it.itemOptions, false, -1));
                     InventoryService.gI().sendItemBags(pl);
                     openShopKyGui(pl);
                     Service.gI().sendMoney(pl);
