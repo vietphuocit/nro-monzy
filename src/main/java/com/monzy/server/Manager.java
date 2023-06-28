@@ -817,7 +817,7 @@ public class Manager {
                 tops.add(top);
             }
         } catch (Exception e) {
-            Logger.error(e.getMessage());
+            Logger.error("readTop(): " + e.getMessage());
         }
         return tops;
     }

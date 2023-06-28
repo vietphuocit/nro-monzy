@@ -41,7 +41,7 @@ public class ServerManager {
             if (Manager.LOCAL) return;
             Database.executeUpdate("update account set last_time_login = '2000-01-01', last_time_logout = '2001-01-01'");
         } catch (Exception e) {
-            Logger.log(e.getMessage());
+            Logger.log("ServerManager init(): " + e.getMessage());
         }
         HistoryTransactionDAO.deleteHistory();
     }
