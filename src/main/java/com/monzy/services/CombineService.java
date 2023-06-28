@@ -1428,7 +1428,7 @@ public class CombineService {
         return 0;
     }
 
-    private int getGoldNangBT(int levelBongTai) {
+    private long getGoldNangBT(int levelBongTai) {
         switch (levelBongTai) {
             case 1:
                 return 300000000;
@@ -1446,8 +1446,8 @@ public class CombineService {
         return 1000 + 2000 * (levelBongTai - 1);
     }
 
-    private int getGoldMCSABT(int levelBongTai) {
-        return 500000000 * levelBongTai;
+    private long getGoldMCSABT(int levelBongTai) {
+        return 500000000L * levelBongTai;
     }
 
     private int getRubyMSCABT(int levelBongTai) {
