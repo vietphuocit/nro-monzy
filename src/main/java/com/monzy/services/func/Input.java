@@ -94,7 +94,7 @@ public class Input {
                         PaymentService.gI().insertTranHis(transactionHistory, "nap", playerNap);
                         PlayerDAO.addVND(playerNap, vnd * Manager.RATE_PAY);
                         PlayerDAO.addTongNap(playerNap, vnd);
-                        playerNap.event += vnd / 1000;
+//                        playerNap.event += vnd / 1000;
                         Service.gI().sendThongBao(player, "Đã nạp cho " + playerNap.name + " " + vnd + " vnd");
                         Service.gI().sendThongBao(playerNap, "Bạn nhận được " + vnd + " vnd. Đến Santa để kiểm tra số dư!");
                     } else {
@@ -151,7 +151,7 @@ public class Input {
                             plChanged.name = text[0];
                             Database.executeUpdate("update player set name = ? where id = ?", plChanged.name, plChanged.id);
                             Service.gI().player(plChanged);
-                            Service.gI().Send_Caitrang(plChanged);
+                            Service.gI().sendCaiTrang(plChanged);
                             Service.gI().sendFlagBag(plChanged);
                             Zone zone = plChanged.zone;
                             ChangeMapService.gI().changeMap(plChanged, zone, plChanged.location.x, plChanged.location.y);
@@ -180,7 +180,7 @@ public class Input {
                     player.name = text[0];
                     Database.executeUpdate("update player set name = ? where id = ?", player.name, player.id);
                     Service.gI().player(player);
-                    Service.gI().Send_Caitrang(player);
+                    Service.gI().sendCaiTrang(player);
                     Service.gI().sendFlagBag(player);
                     Zone zone = player.zone;
                     ChangeMapService.gI().changeMap(player, zone, player.location.x, player.location.y);

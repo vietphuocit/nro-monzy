@@ -664,34 +664,37 @@ public class ClanService {
 
     public void changeFlag(Player player, int imgId) {
         Clan clan = player.clan;
-        if (clan != null && clan.isLeader(player) && imgId != clan.imgId) {
-            //sub money
-            FlagBag flagBag = FlagBagService.gI().getFlagBag(imgId);
-            if (flagBag != null) {
-                if (flagBag.gold > 0) {
-                    if (player.inventory.gold >= flagBag.gold) {
-                        player.inventory.gold -= flagBag.gold;
-                    } else {
-                        Service.gI().sendThongBao(player, "Bạn không đủ vàng, còn thiếu "
-                                + Util.numberToMoney(flagBag.gold - player.inventory.gold) + " vàng");
-                        return;
-                    }
-                }
-                if (flagBag.gem > 0) {
-                    if (player.inventory.gem >= flagBag.gem) {
-                        player.inventory.gem -= flagBag.gem;
-                    } else {
-                        Service.gI().sendThongBao(player, "Bạn không đủ ngọc, còn thiếu "
-                                + (flagBag.gem - player.inventory.gem) + " ngọc");
-                        return;
-                    }
-                }
-                PlayerService.gI().sendInfoHpMpMoney(player);
-                player.clan.imgId = imgId;
-//                ClanDAO.saveClan(player.clan);
-                clan.sendFlagBagForAllMember();
-            }
+        if (clan == null || !clan.isLeader(player) || imgId == clan.imgId) {
+            return;
         }
+
+        FlagBag flagBag = FlagBagService.gI().getFlagBag(imgId);
+        if (flagBag == null) {
+            return;
+        }
+
+        if (flagBag.gold > 0 && player.inventory.gold < flagBag.gold) {
+            Service.gI().sendThongBao(player, "Bạn không đủ vàng, còn thiếu " + Util.numberToMoney(flagBag.gold - player.inventory.gold) + " vàng");
+            return;
+        }
+
+        if (flagBag.gem > 0 && player.inventory.gem < flagBag.gem) {
+            Service.gI().sendThongBao(player, "Bạn không đủ ngọc, còn thiếu " + (flagBag.gem - player.inventory.gem) + " ngọc");
+            return;
+        }
+
+        if (flagBag.gold > 0) {
+            player.inventory.gold -= flagBag.gold;
+        }
+
+        if (flagBag.gem > 0) {
+            player.inventory.gem -= flagBag.gem;
+        }
+
+        PlayerService.gI().sendInfoHpMpMoney(player);
+
+        clan.imgId = imgId;
+        clan.sendFlagBagForAllMember();
     }
 
     //Rời khỏi bang

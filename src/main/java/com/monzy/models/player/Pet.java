@@ -113,7 +113,7 @@ public class Pet extends Player {
             this.status = FUSION;
             ChangeMapService.gI().exitMap(this);
             fusionEffect(master.fusion.typeFusion);
-            Service.getInstance().Send_Caitrang(master);
+            Service.getInstance().sendCaiTrang(master);
             master.nPoint.calPoint();
             master.nPoint.setFullHpMp();
             Service.getInstance().point(master);
@@ -139,7 +139,7 @@ public class Pet extends Player {
             this.status = FUSION;
             ChangeMapService.gI().exitMap(this);
             fusionEffect(master.fusion.typeFusion);
-            Service.getInstance().Send_Caitrang(master);
+            Service.getInstance().sendCaiTrang(master);
             master.nPoint.calPoint();
             master.nPoint.setFullHpMp();
             Service.getInstance().point(master);
@@ -165,7 +165,7 @@ public class Pet extends Player {
             this.status = FUSION;
             ChangeMapService.gI().exitMap(this);
             fusionEffect(master.fusion.typeFusion);
-            Service.getInstance().Send_Caitrang(master);
+            Service.getInstance().sendCaiTrang(master);
             master.nPoint.calPoint();
             master.nPoint.setFullHpMp();
             Service.getInstance().point(master);
@@ -191,7 +191,7 @@ public class Pet extends Player {
             this.status = FUSION;
             ChangeMapService.gI().exitMap(this);
             fusionEffect(master.fusion.typeFusion);
-            Service.getInstance().Send_Caitrang(master);
+            Service.getInstance().sendCaiTrang(master);
             master.nPoint.calPoint();
             master.nPoint.setFullHpMp();
             Service.getInstance().point(master);
@@ -207,7 +207,7 @@ public class Pet extends Player {
         Service.gI().point(master);
         joinMapMaster();
         fusionEffect(master.fusion.typeFusion);
-        Service.gI().Send_Caitrang(master);
+        Service.gI().sendCaiTrang(master);
         Service.gI().point(master);
         this.lastTimeUnfusion = System.currentTimeMillis();
     }
@@ -783,12 +783,12 @@ public class Pet extends Player {
     public void transform() {
         if (this.typePet == 1) {
             this.isTransform = !this.isTransform;
-            Service.gI().Send_Caitrang(this);
+            Service.gI().sendCaiTrang(this);
             Service.gI().chat(this, "Ai Am Bư !! Bư..Bư..Bư..Ma..Nhân..Bư....");
         }
         if (this.typePet == 2) {
             this.isTransform = !this.isTransform;
-            Service.gI().Send_Caitrang(this);
+            Service.gI().sendCaiTrang(this);
             Service.gI().chat(this, "Tao là thần");
         }
     }

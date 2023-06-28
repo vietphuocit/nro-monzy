@@ -1437,7 +1437,7 @@ public class Service {
         }
     }
 
-    public void Send_Caitrang(Player player) {
+    public void sendCaiTrang(Player player) {
         if (player != null) {
             Message msg;
             try {

@@ -2817,10 +2817,12 @@ public class NpcFactory {
                 if (canOpenNpc(player)) {
                     switch (select) {
                         case 0:
-                            UseItem.gI().doiDiemSukien(player);
+//                            UseItem.gI().doiDiemSukien(player);
+                            Service.gI().sendThongBao(player, "Sự kiện đã kết thúc.");
                             break;
                         case 1:
-                            NpcService.gI().createTutorial(player, avartar, ConstNpc.HUONG_DAN_SK_NAP);
+//                            NpcService.gI().createTutorial(player, avartar, ConstNpc.HUONG_DAN_SK_NAP);
+                            Service.gI().sendThongBao(player, "Sự kiện đã kết thúc.");
                             break;
                         case 2:
                             NpcService.gI().createTutorial(player, this.avartar, ConstNpc.HUONG_DAN_NAP_TU_DONG);

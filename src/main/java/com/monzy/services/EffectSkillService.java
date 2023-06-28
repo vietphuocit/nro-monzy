@@ -166,7 +166,7 @@ public class EffectSkillService {
     //player trở lại thành người
     public void removeSocola(Player player) {
         player.effectSkill.isSocola = false;
-        Service.gI().Send_Caitrang(player);
+        Service.gI().sendCaiTrang(player);
     }
 
     //quái biến thành socola
@@ -243,7 +243,7 @@ public class EffectSkillService {
         sendEffectEndCharge(player);
         sendEffectMonkey(player);
         Service.gI().setNotMonkey(player);
-        Service.gI().Send_Caitrang(player);
+        Service.gI().sendCaiTrang(player);
         Service.gI().point(player);
         PlayerService.gI().sendInfoHpMp(player);
         Service.gI().Send_Info_NV(player);

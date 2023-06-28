@@ -141,7 +141,7 @@ public class InventoryService {
             itemThrow = player.inventory.itemsBody.get(index);
             removeItemBody(player, index);
             sendItemBody(player);
-            Service.gI().Send_Caitrang(player);
+            Service.gI().sendCaiTrang(player);
         } else if (where == 1) {
             itemThrow = player.inventory.itemsBag.get(index);
             if (itemThrow.template.id != 457) {
@@ -342,38 +342,28 @@ public class InventoryService {
             case 24:
                 if (!player.isPet) {
                     index = 9;
-                    break;
-                } else {
-                    break;
                 }
+                break;
             case 11:
                 if (!player.isPet) {
                     index = 8;
-                    break;
-                } else {
-                    break;
                 }
+                break;
             case 72:
                 if (!player.isPet) {
                     index = 10;
-                    break;
-                } else {
-                    break;
                 }
+                break;
             case 21:
                 if (!player.isPet) {
                     index = 7;
-                    break;
-                } else {
-                    break;
                 }
+                break;
             case 27:
                 if (!player.isPet) {
                     index = 11;
-                    break;
-                } else {
-                    break;
                 }
+                break;
         }
         sItem = player.inventory.itemsBody.get(index);
         player.inventory.itemsBody.set(index, item);
@@ -389,7 +379,7 @@ public class InventoryService {
             Service.getInstance().player(player);
             player.zone.load_Me_To_Another(player);
             player.zone.load_Another_To_Me(player);
-            Service.getInstance().Send_Caitrang(player);
+            Service.getInstance().sendCaiTrang(player);
             Service.getInstance().sendFlagBag(player);
             Service.getInstance().point(player);
         }
@@ -415,7 +405,7 @@ public class InventoryService {
             player.zone.load_Me_To_Another(player);
             player.zone.load_Another_To_Me(player);
             Service.getInstance().sendFlagBag(player);
-            Service.getInstance().Send_Caitrang(player);
+            Service.getInstance().sendCaiTrang(player);
             Service.getInstance().point(player);
         }
     }
@@ -428,8 +418,8 @@ public class InventoryService {
                 player.inventory.itemsBag.set(index, itemSwap);
                 sendItemBags(player);
                 sendItemBody(player);
-                Service.gI().Send_Caitrang(player.pet);
-                Service.gI().Send_Caitrang(player);
+                Service.gI().sendCaiTrang(player.pet);
+                Service.gI().sendCaiTrang(player);
                 if (!itemSwap.equals(item)) {
                     Service.gI().point(player);
                     Service.gI().showInfoPet(player);
@@ -446,8 +436,8 @@ public class InventoryService {
             player.pet.inventory.itemsBody.set(index, putItemBag(player, item));
             sendItemBags(player);
             sendItemBody(player);
-            Service.gI().Send_Caitrang(player.pet);
-            Service.gI().Send_Caitrang(player);
+            Service.gI().sendCaiTrang(player.pet);
+            Service.gI().sendCaiTrang(player);
             Service.gI().point(player);
             Service.gI().showInfoPet(player);
         }
@@ -476,7 +466,7 @@ public class InventoryService {
                             Service.getInstance().player(player);
                             player.zone.load_Me_To_Another(player);
                             player.zone.load_Another_To_Me(player);
-                            Service.getInstance().Send_Caitrang(player);
+                            Service.getInstance().sendCaiTrang(player);
                             Service.getInstance().point(player);
                             Service.getInstance().sendFlagBag(player);
                         }
@@ -532,7 +522,7 @@ public class InventoryService {
             sortItems(player.inventory.itemsBag);
             sendItemBody(player);
             sendItemBox(player);
-            Service.gI().Send_Caitrang(player);
+            Service.gI().sendCaiTrang(player);
             sendItemBody(player);
             Service.gI().point(player);
             Service.gI().sendFlagBag(player);
@@ -600,7 +590,7 @@ public class InventoryService {
             msg.cleanup();
         } catch (Exception e) {
         }
-        Service.gI().Send_Caitrang(player);
+        Service.gI().sendCaiTrang(player);
         Service.gI().sendFlagBag(player);
     }
 

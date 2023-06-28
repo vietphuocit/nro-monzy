@@ -424,16 +424,18 @@ public class Player {
     public short getFlagBag() {
         if (this.iDMark.isHoldBlackBall()) {
             return 31;
-        } else if (this.idNRNM >= 353 && this.idNRNM <= 359) {
-            return 30;
         }
-        if (this.inventory.itemsBody.size() == 11) {
-            if (this.inventory.itemsBody.get(8).isNotNullItem()) {
-                return this.inventory.itemsBody.get(8).template.part;
-            }
+        if (this.idNRNM >= 353 && this.idNRNM <= 359) {
+            return 30;
         }
         if (TaskService.gI().getIdTask(this) == ConstTask.TASK_3_2) {
             return 28;
+        }
+        if (this.inventory.itemsBody.size() > 8) {
+            Item flagBag = inventory.itemsBody.get(8);
+            if (flagBag.isNotNullItem()) {
+                return flagBag.template.part;
+            }
         }
         if (this.clan != null) {
             return (short) this.clan.imgId;

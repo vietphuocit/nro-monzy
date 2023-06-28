@@ -586,7 +586,7 @@ public class Controller implements IMessageHandler {
                         //client ok
                         if (player != null) {
                             Service.gI().player(player);
-                            Service.gI().Send_Caitrang(player);
+                            Service.gI().sendCaiTrang(player);
                             player.zone.load_Another_To_Me(player);
                             // -64 my flag bag
                             Service.gI().sendFlagBag(player);

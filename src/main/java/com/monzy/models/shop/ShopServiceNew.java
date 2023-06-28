@@ -505,7 +505,7 @@ public class ShopServiceNew {
             if (where == 0) {
                 InventoryService.gI().subQuantityItemsBody(pl, item, quantity);
                 InventoryService.gI().sendItemBody(pl);
-                Service.gI().Send_Caitrang(pl);
+                Service.gI().sendCaiTrang(pl);
             } else {
                 InventoryService.gI().subQuantityItemsBag(pl, item, quantity);
                 InventoryService.gI().sendItemBags(pl);

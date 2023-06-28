@@ -203,7 +203,7 @@ public class SkillService {
                 int timeSocola = SkillUtil.getTimeSocola();
                 if (plTarget != null) {
                     EffectSkillService.gI().setSocola(plTarget, System.currentTimeMillis(), timeSocola);
-                    Service.gI().Send_Caitrang(plTarget);
+                    Service.gI().sendCaiTrang(plTarget);
                     ItemTimeService.gI().sendItemTime(plTarget, 3780, timeSocola / 1000);
                 }
                 if (mobTarget != null) {
@@ -316,7 +316,7 @@ public class SkillService {
                 EffectSkillService.gI().setIsMonkey(player);
                 EffectSkillService.gI().sendEffectMonkey(player);
                 Service.gI().sendSpeedPlayer(player, 0);
-                Service.gI().Send_Caitrang(player);
+                Service.gI().sendCaiTrang(player);
                 Service.gI().sendSpeedPlayer(player, -1);
                 if (!player.isPet) {
                     PlayerService.gI().sendInfoHpMp(player);
