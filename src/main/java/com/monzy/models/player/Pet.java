@@ -201,6 +201,32 @@ public class Pet extends Player {
         }
     }
 
+    public void fusion5(boolean porata5) {
+        if (this.isDie()) {
+            Service.getInstance().sendThongBao(master, "Không thể thực hiện");
+            return;
+        }
+        if (Util.canDoWithTime(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION)) {
+            if (porata5) {
+                master.fusion.typeFusion = ConstPlayer.HOP_THE_PORATA5;
+            } else {
+                master.fusion.lastTimeFusion = System.currentTimeMillis();
+                master.fusion.typeFusion = ConstPlayer.LUONG_LONG_NHAT_THE;
+                ItemTimeService.gI().sendItemTime(master, master.gender == ConstPlayer.NAMEC ? 3901 : 3790, Fusion.TIME_FUSION / 1000);
+            }
+            this.status = FUSION;
+            ChangeMapService.gI().exitMap(this);
+            fusionEffect(master.fusion.typeFusion);
+            Service.getInstance().sendCaiTrang(master);
+            master.nPoint.calPoint();
+            master.nPoint.setFullHpMp();
+            Service.getInstance().point(master);
+        } else {
+            Service.getInstance().sendThongBao(this.master, "Vui lòng đợi "
+                    + TimeUtil.getTimeLeft(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION / 1000) + " nữa");
+        }
+    }
+
     public void unFusion() {
         master.fusion.typeFusion = 0;
         this.status = PROTECT;

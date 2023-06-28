@@ -281,6 +281,9 @@ public class Player {
             {2057, 2058, 2059}, // porata 4 td
             {2060, 2061, 2062}, // porata 4 nm
             {2063, 2064, 2065}, // porata 4 xd
+            {1080, 1081, 1082}, // porata 5 td
+            {1086, 1087, 1088}, // porata 5 nm
+            {1083, 1084, 1085}, // porata 5 xd
     };
 
     // Sua id vat pham muon co aura lai
@@ -353,6 +356,8 @@ public class Player {
                 return idOutfitFusion[6 + this.gender][0];
             } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4) {
                 return idOutfitFusion[9 + this.gender][0];
+            } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5) {
+                return idOutfitFusion[12 + this.gender][0];
             }
         } else if (inventory != null && inventory.itemsBody.get(5).isNotNullItem()) {
             int head = inventory.itemsBody.get(5).template.head;
@@ -379,6 +384,8 @@ public class Player {
                 return idOutfitFusion[6 + this.gender][1];
             } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4) {
                 return idOutfitFusion[9 + this.gender][1];
+            } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5) {
+                return idOutfitFusion[12 + this.gender][1];
             }
         } else if (inventory != null && inventory.itemsBody.get(5).isNotNullItem()) {
             int body = inventory.itemsBody.get(5).template.body;
@@ -408,6 +415,8 @@ public class Player {
                 return idOutfitFusion[6 + this.gender][2];
             } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4) {
                 return idOutfitFusion[9 + this.gender][2];
+            } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5) {
+                return idOutfitFusion[12 + this.gender][2];
             }
         } else if (inventory != null && inventory.itemsBody.get(5).isNotNullItem()) {
             int leg = inventory.itemsBody.get(5).template.leg;

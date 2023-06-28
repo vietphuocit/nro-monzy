@@ -330,6 +330,9 @@ public class UseItem {
                         case 1156: //bông tai c4
                             UseItem.gI().usePorata4(pl);
                             break;
+                        case 2047: //bông tai c5
+                            UseItem.gI().usePorata5(pl);
+                            break;
                         case 2000://hop qua skh, item 2000 td
                         case 2001://hop qua skh, item 2001 nm
                         case 2002://hop qua skh, item 2002 xd
@@ -738,7 +741,7 @@ public class UseItem {
     }
 
     private void usePorata(Player pl) {
-        if (pl.pet == null || pl.fusion.typeFusion == 4 || pl.fusion.typeFusion == 8 || pl.fusion.typeFusion == 10 || pl.fusion.typeFusion == 12) {
+        if (pl.pet == null || pl.fusion.typeFusion == 4 || pl.fusion.typeFusion == 8 || pl.fusion.typeFusion == 10 || pl.fusion.typeFusion == 12 || pl.fusion.typeFusion == 14) {
             Service.getInstance().sendThongBao(pl, "Không thể thực hiện");
         } else {
             if (pl.fusion.typeFusion == ConstPlayer.NON_FUSION) {
@@ -750,7 +753,7 @@ public class UseItem {
     }
 
     private void usePorata2(Player pl) {
-        if (pl.pet == null || pl.fusion.typeFusion == 4 || pl.fusion.typeFusion == 6 || pl.fusion.typeFusion == 10 || pl.fusion.typeFusion == 12) {
+        if (pl.pet == null || pl.fusion.typeFusion == 4 || pl.fusion.typeFusion == 6 || pl.fusion.typeFusion == 10 || pl.fusion.typeFusion == 12 || pl.fusion.typeFusion == 14) {
             Service.getInstance().sendThongBao(pl, "Không thể thực hiện");
         } else {
             if (pl.fusion.typeFusion == ConstPlayer.NON_FUSION) {
@@ -762,7 +765,7 @@ public class UseItem {
     }
 
     private void usePorata3(Player pl) {
-        if (pl.pet == null || pl.fusion.typeFusion == 4 || pl.fusion.typeFusion == 6 || pl.fusion.typeFusion == 8 || pl.fusion.typeFusion == 12) {
+        if (pl.pet == null || pl.fusion.typeFusion == 4 || pl.fusion.typeFusion == 6 || pl.fusion.typeFusion == 8 || pl.fusion.typeFusion == 12 || pl.fusion.typeFusion == 14) {
             Service.getInstance().sendThongBao(pl, "Không thể thực hiện");
         } else {
             if (pl.fusion.typeFusion == ConstPlayer.NON_FUSION) {
@@ -774,11 +777,23 @@ public class UseItem {
     }
 
     private void usePorata4(Player pl) {
-        if (pl.pet == null || pl.fusion.typeFusion == 4 || pl.fusion.typeFusion == 6 || pl.fusion.typeFusion == 8 || pl.fusion.typeFusion == 10) {
+        if (pl.pet == null || pl.fusion.typeFusion == 4 || pl.fusion.typeFusion == 6 || pl.fusion.typeFusion == 8 || pl.fusion.typeFusion == 10 || pl.fusion.typeFusion == 14) {
             Service.getInstance().sendThongBao(pl, "Không thể thực hiện");
         } else {
             if (pl.fusion.typeFusion == ConstPlayer.NON_FUSION) {
                 pl.pet.fusion4(true);
+            } else {
+                pl.pet.unFusion();
+            }
+        }
+    }
+
+    private void usePorata5(Player pl) {
+        if (pl.pet == null || pl.fusion.typeFusion == 4 || pl.fusion.typeFusion == 6 || pl.fusion.typeFusion == 8 || pl.fusion.typeFusion == 10 || pl.fusion.typeFusion == 12) {
+            Service.getInstance().sendThongBao(pl, "Không thể thực hiện");
+        } else {
+            if (pl.fusion.typeFusion == ConstPlayer.NON_FUSION) {
+                pl.pet.fusion5(true);
             } else {
                 pl.pet.unFusion();
             }

@@ -22,7 +22,7 @@ public class SieuBoHung extends Boss {
     @Override
     public void reward(Player plKill) {
         rewardItem(plKill, 859, 956, 1142, 15);
-        TaskService.gI().checkDoneTaskKillBoss(plKill, this);
+        super.reward(plKill);
     }
 
     @Override

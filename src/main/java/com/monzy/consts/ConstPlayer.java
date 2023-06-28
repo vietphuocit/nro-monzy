@@ -20,5 +20,6 @@ public class ConstPlayer {
     public static final byte HOP_THE_PORATA2 = 8;
     public static final byte HOP_THE_PORATA3 = 10;
     public static final byte HOP_THE_PORATA4 = 12;
+    public static final byte HOP_THE_PORATA5 = 14;
 
 }

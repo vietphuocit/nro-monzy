@@ -999,6 +999,25 @@ public class BossesData {
             new String[]{"|-1|Nhớ mặt tao đấy", "|-1|Tobe continue.."}, //text chat 3
             REST_15_M
     );
+    /**
+     * Boss Fide Vang
+     */
+    public static final BossData FIDE_GOLD = new BossData(
+            "Fide Vàng",
+            ConstPlayer.XAYDA,
+            new short[]{502, 503, 504, -1, -1, -1},
+            1000000,
+            new int[]{2000000000},
+            new int[]{6},
+            new int[][]{
+                    {Skill.KAMEJOKO, 7, 1000},
+                    {Skill.LIEN_HOAN, 7, 1000}
+            },
+            new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|Vào đây mà húp"}, //text chat 1
+            new String[]{}, //text chat 2
+            new String[]{}, //text chat 3
+            REST_30_M
+    );
     //**************************************************************************Boss doanh trại
     //**************************************************************************
     //**************************************************************************

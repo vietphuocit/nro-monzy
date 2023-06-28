@@ -214,7 +214,7 @@ public class CombineService {
             }
             case NANG_CAP_BONG_TAI: {
                 if (player.conbine.itemsCombine.size() != 2) {
-                    Service.gI().sendThongBaoOK(player, "Cần 1 Bông Tai Porata Cấp 1, 2 Hoặc 3 Và Mảnh Vỡ Bông Tai");
+                    Service.gI().sendThongBaoOK(player, "Cần 1 Bông Tai Porata Cấp 1, 2, 3 Hoặc 4 Và Mảnh Vỡ Bông Tai");
                     break;
                 }
                 Item bongTaiNC = player.conbine.itemsCombine.stream().filter(this::checkBongTai).findFirst().orElse(null);
@@ -228,15 +228,15 @@ public class CombineService {
                     break;
                 }
                 int levelBongTaiNC = levelBongTai(bongTaiNC);
-                int getCountMVBT = getCountMVBTNangBT(levelBongTaiNC);
+                int countManhVoBT = getCountNguyenLieuBT(levelBongTaiNC);
                 player.conbine.goldCombine = getGoldNangBT(levelBongTaiNC);
                 player.conbine.rubyCombine = getRubyNangBT(levelBongTaiNC);
                 player.conbine.ratioCombine = getRatioNangBT(levelBongTaiNC);
                 if (checkInventory(player)) {
                     break;
                 }
-                if (manhVoBTNC.quantity < getCountMVBT) {
-                    Service.gI().sendThongBaoOK(player, "Còn Thiếu " + Util.numberToMoney(getCountMVBT - manhVoBTNC.quantity) + " Mảnh Vỡ Bông Tai");
+                if (manhVoBTNC.quantity < countManhVoBT) {
+                    Service.gI().sendThongBaoOK(player, "Còn Thiếu " + Util.numberToMoney(countManhVoBT - manhVoBTNC.quantity) + " Mảnh Vỡ Bông Tai");
                     break;
                 }
                 StringBuilder npcSay = new StringBuilder("|2|Hiện tại: Bông Tai Porata Cấp: " + levelBongTai(bongTaiNC) + "\n|2|");
@@ -244,15 +244,15 @@ public class CombineService {
                     npcSay.append(option.getOptionString()).append("\n");
                 }
                 npcSay.append("|2|Sau khi nâng cấp: Bông Tai Porata Cấp: ").append(levelBongTai(bongTaiNC) + 1);
-                npcSay.append("\n|7|Sau khi nâng cấp bạn sẽ mất chỉ số ẩn");
                 npcSay.append("\n|7|Tỉ lệ thành công: ").append(player.conbine.ratioCombine).append("%");
+                npcSay.append("\n|1|Cần ").append(countManhVoBT).append(" Mảnh Vỡ Bông Tai.");
                 npcSay.append("\n|1|Cần ").append(Util.numberToMoney(player.conbine.goldCombine)).append(" vàng và ").append(player.conbine.rubyCombine).append(" hồng ngọc");
                 baHatMit.createOtherMenu(player, ConstNpc.MENU_START_COMBINE, WordUtils.capitalize(npcSay.toString()), "Nâng cấp");
                 break;
             }
             case MO_CHI_SO_BONG_TAI: {
                 if (player.conbine.itemsCombine.size() != 3) {
-                    Service.gI().sendThongBaoOK(player, "Cần 1 Bông Tai Porata Cấp 2, 3 Hoặc 4\nMảnh Hồn Bông Tai Và 1 Đá Xanh Lam");
+                    Service.gI().sendThongBaoOK(player, "Cần 1 Bông Tai Porata Cấp 2, 3, 4 Hoặc 5\nMảnh Hồn Bông Tai Và 1 Đá Xanh Lam");
                     break;
                 }
                 Item bongTai = player.conbine.itemsCombine.stream().filter(this::checkBongTaiMCS).findFirst().orElse(null);
@@ -271,20 +271,20 @@ public class CombineService {
                     break;
                 }
                 int levelBongTai = levelBongTai(bongTai);
-                int countMVBTNangBT = getCountMVBTNangBT(levelBongTai);
+                int countManhHonBT = getCountNguyenLieuBT(levelBongTai);
                 player.conbine.goldCombine = getGoldMCSABT(levelBongTai);
                 player.conbine.rubyCombine = getRubyMSCABT(levelBongTai);
                 player.conbine.ratioCombine = getRatioMCSABT(levelBongTai);
                 if (checkInventory(player)) {
                     break;
                 }
-                if (manhHon.quantity < countMVBTNangBT) {
-                    Service.gI().sendThongBaoOK(player, "Thiếu " + (countMVBTNangBT - manhHon.quantity) + " Mảnh Hồn Bông Tai");
+                if (manhHon.quantity < countManhHonBT) {
+                    Service.gI().sendThongBaoOK(player, "Thiếu " + (countManhHonBT - manhHon.quantity) + " Mảnh Hồn Bông Tai");
                     break;
                 }
                 String npcSay = bongTai.template.name;
                 npcSay += "\n|7|Tỉ lệ thành công: " + player.conbine.ratioCombine + "%";
-                npcSay += "\n|1|Cần " + countMVBTNangBT + " Mảnh hồn bông tai và 1 Đá xanh lam";
+                npcSay += "\n|1|Cần " + countManhHonBT + " Mảnh hồn bông tai và 1 Đá xanh lam";
                 npcSay += "\n|1|Cần " + Util.numberToMoney(player.conbine.goldCombine) + " vàng và " + player.conbine.rubyCombine + " hồng ngọc";
                 this.baHatMit.createOtherMenu(player, ConstNpc.MENU_START_COMBINE, WordUtils.capitalize(npcSay), "Nâng cấp");
                 break;
@@ -644,7 +644,7 @@ public class CombineService {
                 option2.param += (option2.param * 10 / 100);
             }
             optionLevel.param++;
-            if(optionLevel.optionTemplate.id == 72 && optionLevel.param == 1) {
+            if (optionLevel.optionTemplate.id == 72 && optionLevel.param == 1) {
                 trangBi.itemOptions.add(optionLevel);
             }
             sendEffectSuccessCombine(player);
@@ -951,7 +951,7 @@ public class CombineService {
             return;
         }
         int levelBongTai = levelBongTai(bongTaiNC);
-        int getCountMVBT = getCountMVBTNangBT(levelBongTai);
+        int getCountMVBT = getCountNguyenLieuBT(levelBongTai);
         if (getCountMVBT > manhVoBTNC.quantity) {
             Service.gI().sendThongBao(player, "Không đủ Mảnh vỡ bông tai");
             return;
@@ -1408,6 +1408,8 @@ public class CombineService {
                 return 30f;
             case 3:
                 return 20f;
+            case 4:
+                return 10f;
         }
         return 0;
     }
@@ -1420,6 +1422,8 @@ public class CombineService {
                 return 50f;
             case 4:
                 return 30f;
+            case 5:
+                return 10f;
         }
         return 0;
     }
@@ -1432,23 +1436,25 @@ public class CombineService {
                 return 500000000;
             case 3:
                 return 1000000000;
+            case 4:
+                return 2000000000;
         }
         return 0;
-    }
-
-    private int getGoldMCSABT(int levelBongTai) {
-        return 500000000 * levelBongTai;
     }
 
     private int getRubyNangBT(int levelBongTai) {
         return 1000 + 2000 * (levelBongTai - 1);
     }
 
+    private int getGoldMCSABT(int levelBongTai) {
+        return 500000000 * levelBongTai;
+    }
+
     private int getRubyMSCABT(int levelBongTai) {
         return 1000 + 2000 * (levelBongTai - 2);
     }
 
-    private int getCountMVBTNangBT(int lvbt) {
+    private int getCountNguyenLieuBT(int lvbt) {
         return 100 + 50 * (lvbt - 1);
     }
 
@@ -1457,11 +1463,11 @@ public class CombineService {
     }
 
     private boolean checkBongTai(Item item) {
-        return item.template.id == 454 || item.template.id == 921 || item.template.id == 1155;
+        return item.template.id == 454 || item.template.id == 921 || item.template.id == 1155 || item.template.id == 1156;
     }
 
     private boolean checkBongTaiMCS(Item item) {
-        return item.template.id == 921 || item.template.id == 1155 || item.template.id == 1156;
+        return item.template.id == 921 || item.template.id == 1155 || item.template.id == 1156 || item.template.id == 2047;
     }
 
     private int levelBongTai(Item bongtai) {
@@ -1474,6 +1480,8 @@ public class CombineService {
                 return 3;
             case 1156:
                 return 4;
+            case 2047:
+                return 5;
         }
         return 0;
     }
@@ -1486,6 +1494,8 @@ public class CombineService {
                 return 1155;
             case 3:
                 return 1156;
+            case 4:
+                return 2047;
         }
         return 0;
     }
@@ -1729,7 +1739,7 @@ public class CombineService {
             case NANG_CAP_BONG_TAI:
                 return "Ta sẽ phù phép\ncho bông tai Porata của ngươi\n Tăng một cấp";
             case MO_CHI_SO_BONG_TAI:
-                return "Ta sẽ phù phép\ncho bông tai Porata +2, +3 hoặc +4 của ngươi\ncó 1 chỉ số ngẫu nhiên";
+                return "Ta sẽ phù phép\ncho bông tai Porata +2, +3, +4 hoặc +5 của ngươi\ncó 1 chỉ số ngẫu nhiên";
             case DOI_CHI_SO_AN_CHIEN_LINH:
                 return "Ta sẽ phù phép\ncho Chiến Linh của ngươi\ncó 1 chỉ số ngẫu nhiên";
             case NANG_CAP_KHI:
@@ -1760,7 +1770,7 @@ public class CombineService {
             case NANG_CAP_BONG_TAI:
                 return "Vào hành trang\nChọn bông tai Porata\nChọn mảnh bông tai để nâng cấp \nSau đó chọn 'Nâng cấp'";
             case MO_CHI_SO_BONG_TAI:
-                return "Vào hành trang\nChọn bông tai Porata +2, +3 hoặc +4\nChọn Mảnh hồn bông tai và Đá xanh lam\nSau đó chọn 'Nâng cấp'";
+                return "Vào hành trang\nChọn bông tai Porata +2, +3, +4 hoặc +5\nChọn Mảnh hồn bông tai và Đá xanh lam\nSau đó chọn 'Nâng cấp'";
             case DOI_CHI_SO_AN_CHIEN_LINH:
                 return "Vào hành trang\nChọn Chiến Linh\nChọn x99 Đá ma thuật\nSau đó chọn 'Nâng cấp'";
             case NANG_CAP_KHI:

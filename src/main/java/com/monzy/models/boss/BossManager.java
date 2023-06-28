@@ -10,6 +10,7 @@ import com.monzy.models.boss.list_boss.cooler.Cooler;
 import com.monzy.models.boss.list_boss.cooler.Cooler2;
 import com.monzy.models.boss.list_boss.doraemon.*;
 import com.monzy.models.boss.list_boss.fide.Fide;
+import com.monzy.models.boss.list_boss.fide.FideGold;
 import com.monzy.models.boss.list_boss.hanhtinhberus.Bill;
 import com.monzy.models.boss.list_boss.hanhtinhberus.Whis;
 import com.monzy.models.boss.list_boss.nappa.Kuku;
@@ -108,6 +109,9 @@ public class BossManager implements Runnable {
             this.createBoss(BossID.ZAMASU);
             this.createBoss(BossID.BILL);
             this.createBoss(BossID.MABU);
+            this.createBoss(BossID.FIDE_GOLD);
+            this.createBoss(BossID.FIDE_GOLD);
+            this.createBoss(BossID.FIDE_GOLD);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -200,6 +204,8 @@ public class BossManager implements Runnable {
                     return new Mabu();
                 case BossID.ZAMASU:
                     return new Zamasu();
+                case BossID.FIDE_GOLD:
+                    return new FideGold();
                 /**
                  case BossID.CUMBERYELLOW:
                  return new cumberYellow();
