@@ -73,6 +73,7 @@ public class ServerManager {
         new Thread(new TopService() , "Thread Top").start();
         new Thread(new PaymentService(), "Thread Payment").start();
         new Thread(new ShopKyGuiService(), "Thread Shop Ky Gui").start();
+        new Thread(new GiftService(), "Thread Gift Code").start();
         try {
             Thread.sleep(1000);
             BossManager.gI().loadBoss();

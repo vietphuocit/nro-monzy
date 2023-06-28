@@ -2,6 +2,7 @@ package com.monzy.services;
 
 import com.monzy.giftcode.GiftCode;
 import com.monzy.giftcode.GiftCodeManager;
+import com.monzy.kygui.ShopKyGuiManager;
 import com.monzy.models.item.Item;
 import com.monzy.models.player.Player;
 
@@ -11,21 +12,13 @@ import java.util.ArrayList;
 /**
  * @Stole By Arriety 💖
  */
-public class GiftService {
+public class GiftService implements Runnable {
 
     private static GiftService i;
+    private static long lastTimeUpdate;
 
-    private GiftService() {
+    public GiftService() {
     }
-
-    public String code;
-    public int idGiftcode;
-    public int gold;
-    public int gem;
-    public int dayexits;
-    public Timestamp timecreate;
-    public ArrayList<Item> listItem = new ArrayList<>();
-    public static ArrayList<GiftService> gifts = new ArrayList<>();
 
     public static GiftService gI() {
         if (i == null) {
@@ -46,4 +39,23 @@ public class GiftService {
         }
     }
 
+    @Override
+    public void run() {
+        while (true) {
+            // Kiểm tra nếu đã trôi qua 1 phút kể từ lần cuối cùng thực hiện
+            if (System.currentTimeMillis() - lastTimeUpdate >= 60 * 1000) {
+                // Thực hiện đoạn mã ở đây
+                GiftCodeManager.gI().saveGiftCode();
+                GiftCodeManager.gI().init();
+                // Cập nhật thời gian thực hiện cuối cùng
+                lastTimeUpdate = System.currentTimeMillis();
+            }
+            // Tạm dừng 1 giây trước khi kiểm tra lại
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
