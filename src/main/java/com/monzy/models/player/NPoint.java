@@ -212,22 +212,22 @@ public class NPoint {
             tlHpHoi += RewardBlackBall.R7S_1;
             tlHutHp += RewardBlackBall.R7S_2;
         }
-        this.player.setClothes.worldcup = 0;
         Card card = player.cards.stream().filter(r -> r != null && r.used == 1).findFirst().orElse(null);
         if (card != null) {
             OptionCard optionCard = card.optionCards.get(Math.max(0, card.level));
             switch (optionCard.id) {
-                case 50: //Sức đánh+#%
+                case 50:    // Sức đánh+#%
                     this.tlDame.add(optionCard.param);
                     break;
-                case 77: //HP+#%
+                case 77:    // HP+#%
                     this.tlHp.add(optionCard.param);
                     break;
-                case 103: //KI +#%
+                case 103:   // KI +#%
                     this.tlMp.add(optionCard.param);
                     break;
             }
         }
+        this.player.setClothes.worldcup = 0;
         for (Item item : this.player.inventory.itemsBody) {
             if (item.isNotNullItem()) {
                 switch (item.template.id) {
@@ -241,227 +241,131 @@ public class NPoint {
                 if (item.template.id >= 592 && item.template.id <= 594) {
                     teleport = true;
                 }
-//                Card card = player.cards.stream().filter(r -> r != null && r.used == 1).findFirst().orElse(null);
-//                System.out.println(card);
-//                if (card != null) {
-//                    for (OptionCard io : card.optionCards) {
-//                        if (io.active == card.level || (card.level == -1 && io.active == 0)) {
-//                            switch (io.id) {
-//                                case 0: //Tấn công +#
-//                                    this.dameAdd += io.param;
-//                                    break;
-//                                case 2: //HP, KI+#000
-//                                    this.hpAdd += io.param * 1000;
-//                                    this.mpAdd += io.param * 1000;
-//                                    break;
-//                                case 3:// fake
-//                                    this.voHieuChuong += io.param;
-//                                    break;
-//                                case 5: //+#% sức đánh chí mạng
-//                                    this.tlDameCrit.add(io.param);
-//                                    break;
-//                                case 6: //HP+#
-//                                    this.hpAdd += io.param;
-//                                    break;
-//                                case 7: //KI+#
-//                                    this.mpAdd += io.param;
-//                                    break;
-//                                case 8: //Hút #% HP, KI xung quanh mỗi 5 giây
-//                                    this.tlHutHpMpXQ += io.param;
-//                                    break;
-//                                case 14: //Chí mạng+#%
-//                                    this.critAdd += io.param;
-//                                    break;
-//                                case 19: //Tấn công+#% khi đánh quái
-//                                    this.tlDameAttMob.add(io.param);
-//                                    break;
-//                                case 22: //HP+#K
-//                                    this.hpAdd += io.param * 1000;
-//                                    break;
-//                                case 23: //MP+#K
-//                                    this.mpAdd += io.param * 1000;
-//                                    break;
-//                                case 27: //+# HP/30s
-//                                    this.hpHoiAdd += io.param;
-//                                    break;
-//                                case 28: //+# KI/30s
-//                                    this.mpHoiAdd += io.param;
-//                                    break;
-//                                case 33: //dịch chuyển tức thời
-//                                    this.teleport = true;
-//                                    break;
-//                                case 47: //Giáp+#
-//                                    this.defAdd += io.param;
-//                                    break;
-//                                case 48: //HP/KI+#
-//                                    this.hpAdd += io.param;
-//                                    this.mpAdd += io.param;
-//                                    break;
-//                                case 49: //Tấn công+#%
-//                                case 50: //Sức đánh+#%
-//                                case 147: //+#% sức đánh
-//                                    this.tlDame.add(io.param);
-//                                    break;
-//                                case 77: //HP+#%
-//                                    this.tlHp.add(io.param);
-//                                    break;
-//                                case 80: //HP+#%/30s
-//                                    this.tlHpHoi += io.param;
-//                                    break;
-//                                case 81: //MP+#%/30s
-//                                    this.tlMpHoi += io.param;
-//                                    break;
-//                                case 88: //Cộng #% exp khi đánh quái
-//                                case 101: //+#% TN,SM
-//                                    this.tlTNSM.add(io.param);
-//                                    break;
-//                                case 94: //Giáp #%
-//                                    this.tlDef.add(io.param);
-//                                    break;
-//                                case 95: //Biến #% tấn công thành HP
-//                                    this.tlHutHp += io.param;
-//                                    break;
-//                                case 96: //Biến #% tấn công thành MP
-//                                    this.tlHutMp += io.param;
-//                                    break;
-//                                case 97: //Phản #% sát thương
-//                                    this.tlPST += io.param;
-//                                    break;
-//                                case 100: //+#% vàng từ quái
-//                                    this.tlGold += io.param;
-//                                    break;
-//                                case 103: //KI +#%
-//                                    this.tlMp.add(io.param);
-//                                    break;
-//                                case 104: //Biến #% tấn công quái thành HP
-//                                    this.tlHutHpMob += io.param;
-//                                    break;
-//                            }
-//                        }
-//                    }
-//                }
                 for (Item.ItemOption io : item.itemOptions) {
+                    if(player.isSkinFusion(item) && !player.isFusion()) {
+                        break;
+                    }
                     switch (io.optionTemplate.id) {
-                        case 0: //Tấn công +#
+                        case 0:     // Tấn công +#
                             this.dameAdd += io.param;
                             break;
-                        case 2: //HP, KI+#000
+                        case 2:     // HP, KI+#000
                             this.hpAdd += io.param * 1000;
                             this.mpAdd += io.param * 1000;
                             break;
-                        case 3:// fake
+                        case 3:     // fake
                             this.voHieuChuong += io.param;
                             break;
-                        case 5: //+#% sức đánh chí mạng
+                        case 5:     // +#% sức đánh chí mạng
                             this.tlDameCrit.add(io.param);
                             break;
-                        case 6: //HP+#
+                        case 6:     // HP+#
                             this.hpAdd += io.param;
                             break;
-                        case 7: //KI+#
+                        case 7:     // KI+#
                             this.mpAdd += io.param;
                             break;
-                        case 8: //Hút #% HP, KI xung quanh mỗi 5 giây
+                        case 8:     // Hút #% HP, KI xung quanh mỗi 5 giây
                             this.tlHutHpMpXQ += io.param;
                             break;
-                        case 14: //Chí mạng+#%
+                        case 14:    // Chí mạng+#%
                             this.critAdd += io.param;
                             break;
-                        case 19: //Tấn công+#% khi đánh quái
+                        case 19:    // Tấn công+#% khi đánh quái
                             this.tlDameAttMob.add(io.param);
                             break;
-                        case 22: //HP+#K
+                        case 22:    // HP+#K
                             this.hpAdd += io.param * 1000;
                             break;
-                        case 23: //MP+#K
+                        case 23:    // MP+#K
                             this.mpAdd += io.param * 1000;
                             break;
-                        case 27: //+# HP/30s
+                        case 27:    // +# HP/30s
                             this.hpHoiAdd += io.param;
                             break;
-                        case 28: //+# KI/30s
+                        case 28:    // +# KI/30s
                             this.mpHoiAdd += io.param;
                             break;
-                        case 33: //dịch chuyển tức thời
+                        case 33:    // dịch chuyển tức thời
                             this.teleport = true;
                             break;
-                        case 47: //Giáp+#
+                        case 47:    // Giáp+#
                             this.defAdd += io.param;
                             break;
-                        case 48: //HP/KI+#
+                        case 48:    // HP/KI+#
                             this.hpAdd += io.param;
                             this.mpAdd += io.param;
                             break;
-                        case 49: //Tấn công+#%
-                        case 50: //Sức đánh+#%
-                        case 147: //+#% sức đánh
+                        case 49:    // Tấn công+#%
+                        case 50:    // Sức đánh+#%
+                        case 147:   // +#% sức đánh
                             this.tlDame.add(io.param);
                             break;
-                        case 77: //HP+#%
+                        case 77:    // HP+#%
                             this.tlHp.add(io.param);
                             break;
-                        case 80: //HP+#%/30s
+                        case 80:    // HP+#%/30s
                             this.tlHpHoi += io.param;
                             break;
-                        case 81: //MP+#%/30s
+                        case 81:    // MP+#%/30s
                             this.tlMpHoi += io.param;
                             break;
-                        case 88: //Cộng #% exp khi đánh quái
-                        case 101: //+#% TN,SM
+                        case 88:    // Cộng #% exp khi đánh quái
+                        case 101:   // +#% TN,SM
                             this.tlTNSM.add(io.param);
                             break;
-                        case 94: //Giáp #%
+                        case 94:    // Giáp #%
                             this.tlDef.add(io.param);
                             break;
-                        case 95: //Biến #% tấn công thành HP
+                        case 95:    // Biến #% tấn công thành HP
                             this.tlHutHp += io.param;
                             break;
-                        case 96: //Biến #% tấn công thành MP
+                        case 96:    // Biến #% tấn công thành MP
                             this.tlHutMp += io.param;
                             break;
-                        case 97: //Phản #% sát thương
+                        case 97:    // Phản #% sát thương
                             this.tlPST += io.param;
                             break;
-                        case 100: //+#% vàng từ quái
+                        case 100:   // +#% vàng từ quái
                             this.tlGold += io.param;
                             break;
-                        case 103: //KI +#%
+                        case 103:   // KI +#%
                             this.tlMp.add(io.param);
                             break;
-                        case 104: //Biến #% tấn công quái thành HP
+                        case 104:   // Biến #% tấn công quái thành HP
                             this.tlHutHpMob += io.param;
                             break;
-                        case 105: //Vô hình khi không đánh quái và boss
+                        case 105:   // Vô hình khi không đánh quái và boss
                             this.wearingVoHinh = true;
                             break;
-                        case 106: //Không ảnh hưởng bởi cái lạnh
+                        case 106:   // Không ảnh hưởng bởi cái lạnh
                             this.isKhongLanh = true;
                             break;
-                        case 108: //#% Né đòn
+                        case 108:   // #% Né đòn
                             this.tlNeDon += io.param;// đối nghịch
                             break;
-                        case 109: //Hôi, giảm #% HP
+                        case 109:   // Hôi, giảm #% HP
                             this.tlHpGiamODo += io.param;
                             break;
-                        case 116: //Kháng thái dương hạ san
+                        case 116:   // Kháng thái dương hạ san
                             this.khangTDHS = true;
                             break;
-                        case 117: //Đẹp +#% SĐ cho mình và người xung quanh
+                        case 117:   // Đẹp +#% SĐ cho mình và người xung quanh
                             this.tlSDDep.add(io.param);
                             break;
-                        case 75: //Giảm 50% sức đánh, HP, KI và +#% SM, TN, vàng từ quái
+                        case 75:    // Giảm 50% sức đánh, HP, KI và +#% SM, TN, vàng từ quái
                             this.tlSubSD += 50;
                             this.tlTNSM.add(io.param);
                             this.tlGold += io.param;
                             break;
-                        case 162: //Cute hồi #% KI/s bản thân và xung quanh
+                        case 162:   // Cute hồi #% KI/s bản thân và xung quanh
                             this.mpHoiCute += io.param;
                             break;
-                        case 173: //Phục hồi #% HP và KI cho đồng đội
+                        case 173:   // Phục hồi #% HP và KI cho đồng đội
                             this.tlHpHoiBanThanVaDongDoi += io.param;
                             this.tlMpHoiBanThanVaDongDoi += io.param;
                             break;
-                        case 211: //test
+                        case 211:   // test
                             this.test += io.param;
                             break;
                     }
@@ -535,65 +439,65 @@ public class NPoint {
     private void setHpMax() {
         this.hpMax = this.hpg;
         this.hpMax += this.hpAdd;
-        //đồ
-        for (Integer tl : this.tlHp) {
+        //  item
+        for (int tl : this.tlHp) {
             this.hpMax += ((long) this.hpMax * tl / 100);
         }
-        //set nappa
+        //  set nappa
         if (this.player.setClothes.nappa == 5) {
             this.hpMax *= 1.8;
         }
-        //set worldcup
+        //  set world cup
         if (this.player.setClothes.worldcup == 2) {
             this.hpMax += ((long) this.hpMax * 10 / 100);
         }
-        //ngọc rồng đen 1 sao
+        //  ngọc rồng đen 1 sao
         if (this.player.rewardBlackBall.timeOutOfDateReward[0] > System.currentTimeMillis()) {
             this.hpMax += ((long) this.hpMax * RewardBlackBall.R1S_1 / 100);
         }
-        //khỉ
+        //  khỉ
         if (this.player.effectSkill.isMonkey) {
             if (!this.player.isPet || ((Pet) this.player).status != Pet.FUSION) {
                 int percent = SkillUtil.getPercentHpMonkey(player.effectSkill.levelMonkey);
                 this.hpMax += ((long) this.hpMax * percent / 100);
             }
         }
-        //pet mabư
+        //  pet mabư
         if (this.player.isPet && ((Pet) this.player).typePet == 1
                 && (((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5)) {
             this.hpMax += ((long) this.hpMax * 20 / 100);
         }
-        //pet berus
+        //  pet berus
         if (this.player.isPet && ((Pet) this.player).typePet == 2
                 && (((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5)) {
             this.hpMax += ((long) this.hpMax * 40 / 100);
         }
-        //pet pic
+        //  pet pic
         if (this.player.isPet && ((Pet) this.player).typePet == 3
                 && (((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5)) {
             this.hpMax += ((long) this.hpMax * 30 / 100);
         }
-        //phù
+        //  phù
         if (this.player.zone != null && MapService.gI().isMapBlackBallWar(this.player.zone.map.mapId)) {
             this.hpMax *= this.player.effectSkin.xHPKI;
         }
-        //+hp đệ
+        //  +hp đệ
         if (this.player.fusion.typeFusion != ConstPlayer.NON_FUSION) {
             this.hpMax += this.player.pet.nPoint.hpMax;
         }
-        //btc2
+        //  porata +2
         if (this.player.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2) {
             this.hpMax *= 1.10;
         }
-        //btc3
+        //  porata +3
         if (this.player.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3) {
             this.hpMax *= 1.20;
         }
-        //btc4
+        //  porata +4
         if (this.player.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4) {
             this.hpMax *= 1.30;
         }
-        //btc5
+        //  porata +5
         if (this.player.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5) {
             this.hpMax *= 1.40;
         }
@@ -605,10 +509,11 @@ public class NPoint {
                 this.hpMax += ((long) this.hpMax * this.player.effectSkill.tiLeHPHuytSao / 100L);
             }
         }
-        //bổ huyết
+        //  bổ huyết
         if (this.player.itemTime != null && this.player.itemTime.isUseBoHuyet) {
             this.hpMax *= 2;
-        }// item sieu cawsp
+        }
+        //  bổ huyết sieu cấp
         if (this.player.itemTime != null && this.player.itemTime.isUseBoHuyet2) {
             this.hpMax *= 2.2;
         }

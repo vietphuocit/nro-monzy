@@ -343,26 +343,43 @@ public class Player {
     public short getHead() {
         if (effectSkill != null && effectSkill.isMonkey) {
             return (short) ConstPlayer.HEADMONKEY[effectSkill.levelMonkey - 1];
-        } else if (effectSkill != null && effectSkill.isSocola) {
+        }
+        if (effectSkill != null && effectSkill.isSocola) {
             return 412;
-        } else if (fusion != null && fusion.typeFusion != ConstPlayer.NON_FUSION) {
+        }
+        if (isFusion()) {
+            if (inventory != null && inventory.itemsBody.get(5).isNotNullItem()) {
+                Item skin = inventory.itemsBody.get(5);
+                if (isSkinFusion(skin)) {
+                    return (short) skin.template.head;
+                }
+            }
             if (fusion.typeFusion == ConstPlayer.LUONG_LONG_NHAT_THE) {
                 return idOutfitFusion[this.gender == ConstPlayer.NAMEC ? 2 : 0][0];
-            } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA) {
+            }
+            if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA) {
                 return idOutfitFusion[this.gender == ConstPlayer.NAMEC ? 2 : 1][0];
-            } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2) {
+            }
+            if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2) {
                 return idOutfitFusion[3 + this.gender][0];
-            } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3) {
+            }
+            if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3) {
                 return idOutfitFusion[6 + this.gender][0];
-            } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4) {
+            }
+            if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4) {
                 return idOutfitFusion[9 + this.gender][0];
-            } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5) {
+            }
+            if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5) {
                 return idOutfitFusion[12 + this.gender][0];
             }
-        } else if (inventory != null && inventory.itemsBody.get(5).isNotNullItem()) {
-            int head = inventory.itemsBody.get(5).template.head;
-            if (head != -1) {
-                return (short) head;
+        }
+        if (inventory != null && inventory.itemsBody.get(5).isNotNullItem()) {
+            Item skin = inventory.itemsBody.get(5);
+            if (isSkinFusion(skin)) {
+                return this.head;
+            }
+            if (skin.template.head != -1) {
+                return (short) skin.template.head;
             }
         }
         return this.head;
@@ -371,26 +388,43 @@ public class Player {
     public short getBody() {
         if (effectSkill != null && effectSkill.isMonkey) {
             return 193;
-        } else if (effectSkill != null && effectSkill.isSocola) {
+        }
+        if (effectSkill != null && effectSkill.isSocola) {
             return 413;
-        } else if (fusion != null && fusion.typeFusion != ConstPlayer.NON_FUSION) {
+        }
+        if (isFusion()) {
+            if (inventory != null && inventory.itemsBody.get(5).isNotNullItem()) {
+                Item skin = inventory.itemsBody.get(5);
+                if (isSkinFusion(skin)) {
+                    return (short) skin.template.body;
+                }
+            }
             if (fusion.typeFusion == ConstPlayer.LUONG_LONG_NHAT_THE) {
                 return idOutfitFusion[this.gender == ConstPlayer.NAMEC ? 2 : 0][1];
-            } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA) {
+            }
+            if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA) {
                 return idOutfitFusion[this.gender == ConstPlayer.NAMEC ? 2 : 1][1];
-            } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2) {
+            }
+            if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2) {
                 return idOutfitFusion[3 + this.gender][1];
-            } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3) {
+            }
+            if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3) {
                 return idOutfitFusion[6 + this.gender][1];
-            } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4) {
+            }
+            if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4) {
                 return idOutfitFusion[9 + this.gender][1];
-            } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5) {
+            }
+            if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5) {
                 return idOutfitFusion[12 + this.gender][1];
             }
-        } else if (inventory != null && inventory.itemsBody.get(5).isNotNullItem()) {
-            int body = inventory.itemsBody.get(5).template.body;
-            if (body != -1) {
-                return (short) body;
+        }
+        if (inventory != null && inventory.itemsBody.get(5).isNotNullItem()) {
+            Item skin = inventory.itemsBody.get(5);
+            if (isSkinFusion(skin)) {
+                return (short) (gender == ConstPlayer.NAMEC ? 59 : 57);
+            }
+            if (skin.template.body != -1) {
+                return (short) skin.template.body;
             }
         }
         if (inventory != null && inventory.itemsBody.get(0).isNotNullItem()) {
@@ -402,26 +436,43 @@ public class Player {
     public short getLeg() {
         if (effectSkill != null && effectSkill.isMonkey) {
             return 194;
-        } else if (effectSkill != null && effectSkill.isSocola) {
+        }
+        if (effectSkill != null && effectSkill.isSocola) {
             return 414;
-        } else if (fusion != null && fusion.typeFusion != ConstPlayer.NON_FUSION) {
+        }
+        if (isFusion()) {
+            if (inventory != null && inventory.itemsBody.get(5).isNotNullItem()) {
+                Item skin = inventory.itemsBody.get(5);
+                if (isSkinFusion(skin)) {
+                    return (short) skin.template.leg;
+                }
+            }
             if (fusion.typeFusion == ConstPlayer.LUONG_LONG_NHAT_THE) {
                 return idOutfitFusion[this.gender == ConstPlayer.NAMEC ? 2 : 0][2];
-            } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA) {
+            }
+            if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA) {
                 return idOutfitFusion[this.gender == ConstPlayer.NAMEC ? 2 : 1][2];
-            } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2) {
+            }
+            if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2) {
                 return idOutfitFusion[3 + this.gender][2];
-            } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3) {
+            }
+            if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3) {
                 return idOutfitFusion[6 + this.gender][2];
-            } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4) {
+            }
+            if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4) {
                 return idOutfitFusion[9 + this.gender][2];
-            } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5) {
+            }
+            if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5) {
                 return idOutfitFusion[12 + this.gender][2];
             }
-        } else if (inventory != null && inventory.itemsBody.get(5).isNotNullItem()) {
-            int leg = inventory.itemsBody.get(5).template.leg;
-            if (leg != -1) {
-                return (short) leg;
+        }
+        if (inventory != null && inventory.itemsBody.get(5).isNotNullItem()) {
+            Item skin = inventory.itemsBody.get(5);
+            if (isSkinFusion(skin)) {
+                return (short) (gender == ConstPlayer.NAMEC ? 60 : 58);
+            }
+            if (skin.template.leg != -1) {
+                return (short) skin.template.leg;
             }
         }
         if (inventory != null && inventory.itemsBody.get(1).isNotNullItem()) {
@@ -759,6 +810,19 @@ public class Player {
             return "0";
         }
         return "0";
+    }
+
+    public boolean isFusion() {
+        return fusion != null && fusion.typeFusion != ConstPlayer.NON_FUSION;
+    }
+
+    public boolean isSkinFusion(Item item) {
+        return item.template.id == 601
+                || item.template.id == 602
+                || item.template.id == 603
+                || item.template.id == 639
+                || item.template.id == 640
+                || item.template.id == 641;
     }
 
 }
