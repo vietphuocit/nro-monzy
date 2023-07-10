@@ -115,7 +115,7 @@ public class Item {
         for (short[][] ids_by_gender : Manager.IDS_TRANG_BI_SHOP) {
             for (short[] ids_by_type : ids_by_gender) {
                 for (short id : ids_by_type) {
-                    if(id == template.id)
+                    if (id == template.id)
                         return true;
                 }
             }
@@ -140,8 +140,9 @@ public class Item {
     }
 
     public void isBugItem() {
-        if (!isNotNullItem())
+        if (!isNotNullItem()) {
             return;
+        }
         isBugDTL();
         isBugDHD();
         isBugDTS();
@@ -242,6 +243,14 @@ public class Item {
                 io.param = itemOption.param;
             }
         }
+    }
+
+    public void isSPL() {
+        if (!isNotNullItem() || template.type != 30) {
+            return;
+        }
+        itemOptions.clear();
+        itemOptions.add(new Item.ItemOption(template.id - 346, 5));
     }
 
     public String typeName() {

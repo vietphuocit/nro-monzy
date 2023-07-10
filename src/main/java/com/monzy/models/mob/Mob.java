@@ -380,7 +380,7 @@ public class Mob {
         } else if (Util.isTrue(5, 100)) {
             ItemMap itemSPL = new ItemMap(zone, spl, 1, x, player.location.y, player.id);
             short idOption = (short) (95 + spl - 441);
-            itemSPL.options.add(new Item.ItemOption(idOption, idOption == 98 || idOption == 99 ? 3 : 5));
+            itemSPL.options.add(new Item.ItemOption(idOption, 5));
             list.add(itemSPL);
         } else if (Util.isTrue(5, 100)) {
             list.add(new ItemMap(zone, ngocRong, 1, x, player.location.y, player.id));
