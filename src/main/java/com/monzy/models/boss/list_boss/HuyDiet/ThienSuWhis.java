@@ -4,10 +4,7 @@ import com.monzy.models.boss.Boss;
 import com.monzy.models.boss.BossesData;
 import com.monzy.models.player.Player;
 import com.monzy.services.EffectSkillService;
-import com.monzy.services.Service;
 import com.monzy.utils.Util;
-
-import java.util.Random;
 
 public class ThienSuWhis extends Boss {
 
@@ -49,7 +46,7 @@ public class ThienSuWhis extends Boss {
                 this.chat("Xí hụt");
                 return 0;
             }
-            damage = this.nPoint.subDameInjureWithDeff(damage);
+            damage = this.nPoint.subDameInjureWithDef(damage);
             if (!piercing && effectSkill.isShielding) {
                 if (damage > nPoint.hpMax) {
                     EffectSkillService.gI().breakShield(this);

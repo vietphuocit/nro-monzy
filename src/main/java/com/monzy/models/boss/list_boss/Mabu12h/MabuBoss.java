@@ -42,7 +42,7 @@ public class MabuBoss extends Boss {
                 this.chat("Xí hụt");
                 return 0;
             }
-            damage = this.nPoint.subDameInjureWithDeff(damage / 1);
+            damage = this.nPoint.subDameInjureWithDef(damage / 1);
             if (!piercing && effectSkill.isShielding) {
                 if (damage > nPoint.hpMax) {
                     EffectSkillService.gI().breakShield(this);

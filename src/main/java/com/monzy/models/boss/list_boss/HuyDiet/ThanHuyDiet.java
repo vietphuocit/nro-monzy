@@ -42,7 +42,7 @@ public class ThanHuyDiet extends Boss {
                 this.chat("Xí hụt");
                 return 0;
             }
-            damage = this.nPoint.subDameInjureWithDeff(damage / 3);
+            damage = this.nPoint.subDameInjureWithDef(damage / 3);
             if (!piercing && effectSkill.isShielding) {
                 if (damage > nPoint.hpMax) {
                     EffectSkillService.gI().breakShield(this);

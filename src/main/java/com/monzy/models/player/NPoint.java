@@ -242,7 +242,7 @@ public class NPoint {
                     teleport = true;
                 }
                 for (Item.ItemOption io : item.itemOptions) {
-                    if(player.isSkinFusion(item) && !player.isFusion()) {
+                    if (player.isSkinFusion(item) && !player.isFusion()) {
                         break;
                     }
                     switch (io.optionTemplate.id) {
@@ -1036,12 +1036,21 @@ public class NPoint {
         return this.tlGold;
     }
 
-    public int subDameInjureWithDeff(int dame) {
+    public int subDameInjureWithDef(int dame) {
         int def = this.def;
         dame -= def;
         if (this.player.itemTime.isUseGiapXen) {
             dame /= 2;
         }
+        if (dame < 0) {
+            dame = 1;
+        }
+        return dame;
+    }
+
+    public int subDameInjureWithTLDef(int dame) {
+        int sum = tlDef.stream().mapToInt(Integer::intValue).sum();
+        dame -= dame * sum / 100;
         if (dame < 0) {
             dame = 1;
         }

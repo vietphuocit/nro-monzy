@@ -543,7 +543,8 @@ public class Player {
             if (!piercing && Util.isTrue(this.nPoint.tlNeDon, 100)) {
                 return 0;
             }
-            damage = this.nPoint.subDameInjureWithDeff(damage);
+            damage = this.nPoint.subDameInjureWithDef(damage);
+            damage = this.nPoint.subDameInjureWithTLDef(damage);
             if (!piercing && effectSkill.isShielding) {
                 if (damage > nPoint.hpMax) {
                     EffectSkillService.gI().breakShield(this);

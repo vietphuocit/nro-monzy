@@ -441,7 +441,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
                 this.chat("Xí hụt");
                 return 0;
             }
-            damage = this.nPoint.subDameInjureWithDeff(damage);
+            damage = this.nPoint.subDameInjureWithDef(damage);
             if (!piercing && effectSkill.isShielding) {
                 if (damage > nPoint.hpMax) {
                     EffectSkillService.gI().breakShield(this);

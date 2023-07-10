@@ -1591,7 +1591,7 @@ public class CombineService {
             case 15:
                 return 2; // +2%giáp
             case 14:
-                return 5; // +5%né đòn
+                return 5; // +2%né đòn
             default:
                 return -1;
         }
@@ -1602,19 +1602,19 @@ public class CombineService {
             return daPhaLe.itemOptions.get(0).optionTemplate.id;
         }
         switch (daPhaLe.template.id) {
-            case 20:
+            case 20: // HP+#%
                 return 77;
-            case 19:
+            case 19: // KI +#%
                 return 103;
-            case 18:
+            case 18: // HP+#%/30s
                 return 80;
-            case 17:
+            case 17: // KI+#%/30s
                 return 81;
-            case 16:
+            case 16: // Sức đánh+#%
                 return 50;
-            case 15:
+            case 15: // Giáp #%
                 return 94;
-            case 14:
+            case 14: // #% Né đòn
                 return 108;
             default:
                 return -1;

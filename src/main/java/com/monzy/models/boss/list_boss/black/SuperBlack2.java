@@ -55,7 +55,7 @@ public class SuperBlack2 extends Boss {
                 this.chat("Xí hụt");
                 return 0;
             }
-            damage = this.nPoint.subDameInjureWithDeff(damage / 2);
+            damage = this.nPoint.subDameInjureWithDef(damage / 2);
             if (!piercing && effectSkill.isShielding) {
                 if (damage > nPoint.hpMax) {
                     EffectSkillService.gI().breakShield(this);
