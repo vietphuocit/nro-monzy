@@ -29,8 +29,8 @@ public class XenCon1 extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        rewardItem(plKill, 859, 956, 1142, 16);
-        TaskService.gI().checkDoneTaskKillBoss(plKill, this);
+        rewardItem(plKill, 16);
+        super.reward(plKill);
     }
 
     @Override

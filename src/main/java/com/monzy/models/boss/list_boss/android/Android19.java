@@ -17,8 +17,7 @@ public class Android19 extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        super.rewardItem(plKill, 1142, 16);
-        TaskService.gI().checkDoneTaskKillBoss(plKill, this);
+        super.reward(plKill);
     }
 
     @Override

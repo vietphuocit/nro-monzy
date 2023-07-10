@@ -14,7 +14,7 @@ public class Poc extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        super.rewardItem(plKill, 1142, 16);
+        super.reward(plKill);
         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
     }
 

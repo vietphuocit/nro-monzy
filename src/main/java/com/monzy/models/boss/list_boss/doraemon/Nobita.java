@@ -15,8 +15,8 @@ public class Nobita extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        super.rewardItem(plKill, 1142, 16);
-        TaskService.gI().checkDoneTaskKillBoss(plKill, this);
+        rewardItem(plKill, 16);
+        super.reward(plKill);
     }
 
     @Override

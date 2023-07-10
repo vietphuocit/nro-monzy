@@ -18,7 +18,6 @@ public class Black extends Boss {
     @Override
     public void reward(Player plKill) {
         rewardDTL(plKill);
-        rewardItem(plKill, 859, 956, 1142, 16);
         if (TaskService.gI().isCurrentTask(plKill, ConstTask.TASK_31_0) && this.name.equals("Black Goku"))
             Service.gI().dropItemMap(this.zone, new ItemMap(this.zone, 992, 1, plKill.location.x, plKill.location.y, plKill.id));
         else if (TaskService.gI().isCurrentTask(plKill, ConstTask.TASK_31_1) && this.name.equals("Super Black Goku"))
