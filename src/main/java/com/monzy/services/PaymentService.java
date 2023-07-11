@@ -3,6 +3,7 @@ package com.monzy.services;
 import com.database.Database;
 import com.monzy.jdbc.daos.PlayerDAO;
 import com.monzy.kygui.ShopKyGuiManager;
+import com.monzy.models.item.Item;
 import com.monzy.models.player.Player;
 import com.monzy.server.Client;
 import com.monzy.server.Manager;
@@ -134,6 +135,10 @@ public class PaymentService implements Runnable {
                     PlayerDAO.addVND(playerNap, vnd * Manager.RATE_PAY);
                     PlayerDAO.addTongNap(playerNap, vnd);
 //                    playerNap.event += vnd / 1000;
+                    Item veTangNgoc = new Item((short) 718);
+                    veTangNgoc.quantity = vnd / 100000;
+                    InventoryService.gI().addItemBag(playerNap, veTangNgoc);
+                    InventoryService.gI().sendItemBags(playerNap);
                     Service.gI().sendThongBao(playerNap, "Bạn nhận được " + vnd + " vnd. Đến Santa để kiểm tra số dư!");
                     insertTranHis(transactionHistory, "nap", playerNap);
                 }

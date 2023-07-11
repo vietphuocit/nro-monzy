@@ -17,6 +17,7 @@ public class Zamasu extends Boss {
 
     @Override
     public void reward(Player plKill) {
+        super.reward(plKill);
         rewardDTL(plKill);
         if (TaskService.gI().isCurrentTask(plKill, ConstTask.TASK_31_2) && this.name.equals("Zamasu"))
             Service.gI().dropItemMap(this.zone, new ItemMap(this.zone, 874, 1, plKill.location.x, plKill.location.y, plKill.id));

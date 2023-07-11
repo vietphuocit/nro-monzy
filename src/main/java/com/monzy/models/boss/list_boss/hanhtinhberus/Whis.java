@@ -15,6 +15,7 @@ public class Whis extends Boss {
     @Override
     public void reward(Player plKill) {
         rewardManhThienSu(plKill);
+        super.reward(plKill);
     }
 
     @Override

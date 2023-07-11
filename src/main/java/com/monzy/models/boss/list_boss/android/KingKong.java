@@ -15,7 +15,6 @@ public class KingKong extends Boss {
     @Override
     public void reward(Player plKill) {
         super.reward(plKill);
-        TaskService.gI().checkDoneTaskKillBoss(plKill, this);
     }
 
 }
