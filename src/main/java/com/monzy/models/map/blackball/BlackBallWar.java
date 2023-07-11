@@ -23,13 +23,13 @@ public class BlackBallWar {
     public static final int COST_X3 = 100000000;
     public static final int COST_X5 = 300000000;
     public static final int COST_X7 = 500000000;
-    public static final byte HOUR_OPEN = 20;
+    public static final byte HOUR_OPEN = 20;            // Time Open: 20h
     public static final byte MIN_OPEN = 0;
     public static final byte SECOND_OPEN = 0;
-    public static final byte HOUR_CAN_PICK_DB = 20;
+    public static final byte HOUR_CAN_PICK_DB = 20;     // Time Pick NR: 20h30
     public static final byte MIN_CAN_PICK_DB = 30;
     public static final byte SECOND_CAN_PICK_DB = 0;
-    public static final byte HOUR_CLOSE = 21;
+    public static final byte HOUR_CLOSE = 21;           // Time Close: 21h
     public static final byte MIN_CLOSE = 0;
     public static final byte SECOND_CLOSE = 0;
     //    public static final byte HOUR_OPEN = 20;
