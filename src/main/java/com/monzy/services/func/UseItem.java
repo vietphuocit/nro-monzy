@@ -347,7 +347,7 @@ public class UseItem {
                             ItemService.gI().OpenItem736(pl, item);
                             break;
                         case 457:
-                            UseItem.gI().usethoivang(pl);
+                            usethoivang(pl);
                             break;
                         case 987:
                             Service.gI().sendThongBao(pl, "Bảo vệ trang bị không bị rớt cấp"); //đá bảo vệ
@@ -390,6 +390,9 @@ public class UseItem {
                                 Service.gI().sendThongBao(pl, "Chúc mừng bạn nhận được Linh thú " + linhThu.template.name);
                             }
                             break;
+                        }
+                        case 718: {
+                            Input.gI().createFormSendRuby(pl);
                         }
                     }
                     break;

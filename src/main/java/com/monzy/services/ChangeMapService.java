@@ -44,9 +44,7 @@ public class ChangeMapService {
      * Mở tab chuyển map
      */
     public void openChangeMapTab(Player pl) {
-        List<Zone> list = null;
-        switch (pl.iDMark.getTypeChangeMap()) {
-        }
+        List<Zone> list;
         Message msg;
         try {
             msg = new Message(-91);

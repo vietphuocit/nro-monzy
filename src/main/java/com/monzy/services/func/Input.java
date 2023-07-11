@@ -123,14 +123,27 @@ public class Input {
                 case SEND_RUBY:
                     Player playerNHN = Client.gI().getPlayer(text[0]);
                     int hongNgoc = Integer.parseInt(text[1]);
-                    if (playerNHN != null) {
-                        playerNHN.inventory.ruby += hongNgoc;
-                        PlayerService.gI().sendInfoHpMpMoney(playerNHN);
-                        Service.gI().sendThongBao(player, "Đã tặng cho " + playerNHN.name + " " + hongNgoc + " hồng ngọc");
-                        Service.gI().sendThongBao(playerNHN, "Bạn nhận được " + hongNgoc + " hồng ngọc!");
-                    } else {
+                    if (playerNHN == null) {
                         Service.gI().sendThongBao(player, "Người chơi không tồn tại hoặc đang offline!");
+                        return;
                     }
+                    if (player.inventory.ruby < hongNgoc) {
+                        Service.gI().sendThongBao(player, "Không đủ hồng ngọc để tặng");
+                        return;
+                    }
+                    Item veTangHongNgoc = InventoryService.gI().findItem(player.inventory.itemsBag, 718);
+                    if (veTangHongNgoc == null) {
+                        Service.gI().sendThongBao(player, "Không tìm thấy Vé tặng hồng ngọc");
+                        return;
+                    }
+                    player.inventory.ruby -= hongNgoc;
+                    InventoryService.gI().subQuantityItemsBag(player, veTangHongNgoc, 1);
+                    PlayerService.gI().sendInfoHpMpMoney(player);
+                    InventoryService.gI().sendItemBags(player);
+                    playerNHN.inventory.ruby += hongNgoc;
+                    PlayerService.gI().sendInfoHpMpMoney(playerNHN);
+                    Service.gI().sendThongBao(player, "Đã tặng cho " + playerNHN.name + " " + hongNgoc + " hồng ngọc");
+                    Service.gI().sendThongBao(playerNHN, "Bạn nhận được " + hongNgoc + " hồng ngọc!");
                     break;
                 case FIND_PLAYER:
                     Player pl = Client.gI().getPlayer(text[0]);
@@ -166,8 +179,8 @@ public class Input {
                         createFormChangeNameByItem(player);
                         break;
                     }
-                    if (text[0].contains(" ")) {
-                        Service.gI().sendThongBao(player, "Tên nhân vật không được chứa dấu cách");
+                    if (!text[0].matches("^[a-z]+$")) {
+                        Service.gI().sendThongBao(player, "Tên nhân vật chỉ được chứa kí tự chữ cái thường.");
                         createFormChangeNameByItem(player);
                         break;
                     }
