@@ -131,7 +131,7 @@ public class Trade {
             }
         } else {
             Service.getInstance().sendThongBaoFromAdmin(pl,
-                    "|5|VUI LÒNG KÍCH HOẠT TÀI KHOẢN\n|7|Liên Hệ Admin\n|5|ĐỂ MỞ KHÓA TÍNH NĂNG GIAO DỊCH");
+                    "|5|VUI LÒNG KÍCH HOẠT TÀI KHOẢN\n|5|ĐỂ MỞ KHÓA TÍNH NĂNG GIAO DỊCH");
             removeItemTrade(pl, index);
         }
     }
@@ -168,8 +168,14 @@ public class Trade {
             }
         }
         switch (item.template.type) {
-            case 27: //
-                return item.template.id != 457 && item.template.id == 590;
+            case 27: {
+                if (item.template.id == 457
+                        || item.template.id == 695
+                        || item.template.id == 696
+                        || item.template.id == 697
+                )
+                    return false;
+            }
             case 5: //cải trang
             case 6: //đậu thần
             case 7: //sách skill

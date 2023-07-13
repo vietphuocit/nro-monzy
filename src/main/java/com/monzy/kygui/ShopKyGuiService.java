@@ -357,7 +357,7 @@ public class ShopKyGuiService implements Runnable {
         }
         if (!pl.getSession().actived) {
             Service.getInstance().sendThongBaoFromAdmin(pl,
-                    "|5|VUI LÒNG KÍCH HOẠT TÀI KHOẢN\n|7|Liên Hệ Admin\n|5|ĐỂ MỞ KHÓA TÍNH NĂNG KÝ GỬI");
+                    "|5|VUI LÒNG KÍCH HOẠT TÀI KHOẢN\n|5|ĐỂ MỞ KHÓA TÍNH NĂNG KÝ GỬI");
             return;
         }
         Message msg = null;
