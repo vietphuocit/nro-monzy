@@ -386,7 +386,7 @@ public class Mob {
             list.add(new ItemMap(zone, ngocRong, 1, x, player.location.y, player.id));
         }
         // event
-        if (Util.isTrue((player.isUseSkinEvent() ? 10 : 2), 100) && MapService.gI().isMapFuture(player.zone.map.mapId)) {
+        if (Util.isTrue((player.isUseSkinEvent() ? 5 : 1), 100) && MapService.gI().isMapFuture(player.zone.map.mapId)) {
             list.add(new ItemMap(zone, 695, 1, x, player.location.y, player.id));
         }
         if (Util.isTrue((player.isUseSkinEvent() ? 20 : 4), 100) && MapService.gI().isMapClan(player.zone.map.mapId)) {
