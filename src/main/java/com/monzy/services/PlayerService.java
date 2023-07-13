@@ -293,7 +293,7 @@ public class PlayerService {
                             - player.inventory.gold) + " vàng");
                     return;
                 }
-            } else if (MapService.gI().isMapBanDoKhoBau(player.zone.map.mapId) || MapService.gI().isnguhs(player.zone.map.mapId)) {
+            } else if (MapService.gI().isMapBanDoKhoBau(player.zone.map.mapId) || MapService.gI().isNguHS(player.zone.map.mapId)) {
                 Service.getInstance().sendThongBao(player, "Không thể hồi sinh trong khu vực này");
                 return;
             } else if (MapService.gI().isMapPVP(player.zone.map.mapId)) {

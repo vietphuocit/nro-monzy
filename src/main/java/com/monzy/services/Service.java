@@ -1671,7 +1671,7 @@ public class Service {
     }
 
     public void chooseFlag(Player pl, int index) {
-        if (MapService.gI().isMapBlackBallWar(pl.zone.map.mapId) || MapService.gI().isMapMaBu(pl.zone.map.mapId) || MapService.gI().isMapPVP(pl.zone.map.mapId) || MapService.gI().isMapBanDoKhoBau(pl.zone.map.mapId) || MapService.gI().isnguhs(pl.zone.map.mapId)) {
+        if (MapService.gI().isMapBlackBallWar(pl.zone.map.mapId) || MapService.gI().isMapMaBu(pl.zone.map.mapId) || MapService.gI().isMapPVP(pl.zone.map.mapId) || MapService.gI().isMapBanDoKhoBau(pl.zone.map.mapId) || MapService.gI().isNguHS(pl.zone.map.mapId)) {
             sendThongBao(pl, "Không thể đổi cờ lúc này!");
             return;
         }

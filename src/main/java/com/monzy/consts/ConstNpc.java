@@ -62,11 +62,14 @@ public class ConstNpc {
             + "sau khi đủ x99 đồng xu vàng bạn có thể đem đến npc unkown \b"
             + "để đổi rương vàng=)))\b"
             + "mở ra để nhận ngẫu nhiên các vp như hồng ngọc vv... ";
-    public static final String HUONG_DAN_SK_NAP = "Cách Làm Sự Kiện :\b"
-            + "Nạp để nhận điểm sự kiện\b"
-            + "Tỉ lệ 10k vnd = 10 điểm\b"
-            + "Đổi thưởng 1 lần cần 5 điểm\b"
-            + "Nhận ngẫu nhiên các vật phẩm như hồng ngọc, cải trang (hsd, vv), ... ";
+    public static final String HUONG_DAN_SK_HE = "Sự kiện hè 2023 diễn ra từ 14/7/2023 - 31/8/2023: :\b"
+            + "Công thức đổi:\b"
+            + "THỨC ĂN: 1 TRÁI DỪA.\b"
+            + "Ngẫu nhiên 1 trong 3 (Cua rang me, Bạch tuộc nướng, Tôm tẩm bột chiên xù)\b\b"
+            + "PET: 10 CON CUA + 10 SAO BIỂN.\b"
+            + "Chỉ số 10% - 15%. HSD 30 - 60 ngày (Có tỉ lệ vĩnh viễn).\b\b"
+            + "ĐEO LƯNG: 99 VỎ XÒ + 99 VỎ ỐC + 10 SAO BIỂN.\b"
+            + "Chỉ số 10% - 15%. HSD 30 - 60 ngày (Có tỉ lệ vĩnh viễn).";
     //npcid
     public static final byte ONG_GOHAN = 0;
     public static final byte ONG_PARAGUS = 1;

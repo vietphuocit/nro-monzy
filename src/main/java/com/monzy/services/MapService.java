@@ -198,7 +198,7 @@ public class MapService {
                 && pl.mapBeforeCapsule.map.mapId != 21
                 && pl.mapBeforeCapsule.map.mapId != 22
                 && pl.mapBeforeCapsule.map.mapId != 23
-                && !isMapTuongLai(pl.mapBeforeCapsule.map.mapId)) {
+                && !isMapFuture(pl.mapBeforeCapsule.map.mapId)) {
             addListMapCapsule(pl, list, pl.mapBeforeCapsule);
         }
         addListMapCapsule(pl, list, getMapCanJoin(pl, 21 + pl.gender, 0));
@@ -303,18 +303,15 @@ public class MapService {
         return mapId >= 135 && mapId <= 138;
     }
 
-    public boolean isnguhs(int mapId) {
+    public boolean isNguHS(int mapId) {
         return mapId >= 122 && mapId <= 124;
-    }
-
-    public boolean isMapTuongLai(int mapId) {
-        return (mapId >= 92 && mapId <= 94)
-                || (mapId >= 96 && mapId <= 100)
-                || mapId == 102 || mapId == 103;
     }
 
     public boolean isMapUpSKH(int mapId) {
         return (mapId == 1 || mapId == 2 || mapId == 3 || mapId == 8 || mapId == 9 || mapId == 11 || mapId == 15 || mapId == 16 || mapId == 17);
+    }
+    public boolean isMapClan(int mapId) {
+        return mapId >= 156 && mapId <= 159;
     }
 
 }

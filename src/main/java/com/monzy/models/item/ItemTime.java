@@ -149,4 +149,12 @@ public class ItemTime {
         this.player = null;
     }
 
+    public boolean isMealCooler() {
+        return iconMeal == 6324
+                || iconMeal == 6325
+                || iconMeal == 6326
+                || iconMeal == 6327
+                || iconMeal == 6328;
+    }
+
 }

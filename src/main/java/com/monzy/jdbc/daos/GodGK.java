@@ -175,7 +175,7 @@ public class GodGK {
                                 player.location.y = Integer.parseInt(String.valueOf(dataArray.get(2)));
                                 player.location.lastTimeplayerMove = System.currentTimeMillis();
                                 if (MapService.gI().isMapDoanhTrai(mapId) || MapService.gI().isMapBlackBallWar(mapId)
-                                        || MapService.gI().isMapBanDoKhoBau(mapId) || MapService.gI().isMapMaBu(mapId) || MapService.gI().isnguhs(mapId)) {
+                                        || MapService.gI().isMapBanDoKhoBau(mapId) || MapService.gI().isMapMaBu(mapId) || MapService.gI().isNguHS(mapId)) {
                                     mapId = player.gender + 21;
                                     player.location.x = 300;
                                     player.location.y = 336;

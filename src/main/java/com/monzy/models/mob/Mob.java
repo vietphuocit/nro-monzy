@@ -385,6 +385,13 @@ public class Mob {
         } else if (Util.isTrue(5, 100)) {
             list.add(new ItemMap(zone, ngocRong, 1, x, player.location.y, player.id));
         }
+        // event
+        if (Util.isTrue((player.isUseSkinEvent() ? 10 : 2), 100) && MapService.gI().isMapFuture(player.zone.map.mapId)) {
+            list.add(new ItemMap(zone, 695, 1, x, player.location.y, player.id));
+        }
+        if (Util.isTrue((player.isUseSkinEvent() ? 20 : 4), 100) && MapService.gI().isMapClan(player.zone.map.mapId)) {
+            list.add(new ItemMap(zone, 696, 1, x, player.location.y, player.id));
+        }
         // đồng xu vàng
         if (Util.isTrue(3, 100)) {
             list.add(new ItemMap(zone, 1229, 1, x, player.location.y, player.id));

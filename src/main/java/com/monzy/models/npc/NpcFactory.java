@@ -2808,7 +2808,7 @@ public class NpcFactory {
             @Override
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player)) {
-                    this.createOtherMenu(player, ConstNpc.MENU_EVENT, "Nạp đi rồi lấy điểm đổi bạn ơi.\nBạn đang có " + player.event + " điểm", "Đổi quà", "Hướng Dẫn\nSự Kiện", "Hướng dẫn\nnạp tự động", "Hướng dẫn\nmở thành viên");
+                    this.createOtherMenu(player, ConstNpc.MENU_EVENT, ConstNpc.HUONG_DAN_SK_HE, "Hướng dẫn\nnạp tự động", "Hướng dẫn\nmở thành viên", "Đổi thức ăn", "Đổi Pet", "Đổi đeo lưng");
                 }
             }
 
@@ -2817,18 +2817,55 @@ public class NpcFactory {
                 if (canOpenNpc(player)) {
                     switch (select) {
                         case 0:
-//                            UseItem.gI().doiDiemSukien(player);
-                            Service.gI().sendThongBao(player, "Sự kiện đã kết thúc.");
-                            break;
-                        case 1:
-//                            NpcService.gI().createTutorial(player, avartar, ConstNpc.HUONG_DAN_SK_NAP);
-                            Service.gI().sendThongBao(player, "Sự kiện đã kết thúc.");
-                            break;
-                        case 2:
                             NpcService.gI().createTutorial(player, this.avartar, ConstNpc.HUONG_DAN_NAP_TU_DONG);
                             break;
-                        case 3:
+                        case 1:
                             NpcService.gI().createTutorial(player, this.avartar, ConstNpc.HUONG_DAN_MO_THANH_VIEN);
+                            break;
+                        case 2: {
+                            Item traiDua = InventoryService.gI().findItemBag(player, 694);
+                            if (traiDua == null) {
+                                Service.gI().sendThongBao(player, "Thiếu nguyên liệu rồi.");
+                                return;
+                            }
+                            InventoryService.gI().subQuantityItemsBag(player, traiDua, 1);
+                            Item meal = ItemService.gI().createNewItem((short) Util.nextInt(880, 882));
+                            InventoryService.gI().addItemBag(player, meal);
+                            InventoryService.gI().sendItemBags(player);
+                            Service.gI().sendThongBao(player, "Bạn đã nhận được 1 " + meal.template.name + ".");
+                            break;
+                        }
+                        case 3: {
+                            Item conCua = InventoryService.gI().findItemBag(player, 697);
+                            Item saoBien = InventoryService.gI().findItemBag(player, 698);
+                            if (conCua == null || saoBien == null || conCua.quantity < 10 || saoBien.quantity < 10) {
+                                Service.gI().sendThongBao(player, "Thiếu nguyên liệu rồi.");
+                                return;
+                            }
+                            InventoryService.gI().subQuantityItemsBag(player, conCua, 10);
+                            InventoryService.gI().subQuantityItemsBag(player, saoBien, 10);
+                            Item pet = ItemService.gI().randomItemEvent((short) 1273);
+                            InventoryService.gI().addItemBag(player, pet);
+                            InventoryService.gI().sendItemBags(player);
+                            Service.gI().sendThongBao(player, "Bạn đã nhận được Pet: " + pet.template.name + ".");
+                            break;
+                        }
+                        case 4:
+                            Item voSo = InventoryService.gI().findItemBag(player, 695);
+                            Item voOc = InventoryService.gI().findItemBag(player, 696);
+                            Item saoBien = InventoryService.gI().findItemBag(player, 698);
+                            if (voSo == null || voOc == null || saoBien == null || voSo.quantity < 99 || voOc.quantity < 99 || saoBien.quantity < 10) {
+                                Service.gI().sendThongBao(player, "Thiếu nguyên liệu rồi.");
+                                return;
+                            }
+                            InventoryService.gI().subQuantityItemsBag(player, voSo, 99);
+                            InventoryService.gI().subQuantityItemsBag(player, voOc, 99);
+                            InventoryService.gI().subQuantityItemsBag(player, saoBien, 10);
+                            short idsDeoLung[] = {994, 996, 997};
+                            Item deoLung = ItemService.gI().randomItemEvent(idsDeoLung[Util.nextInt(0, 2)]);
+                            InventoryService.gI().addItemBag(player, deoLung);
+                            InventoryService.gI().sendItemBags(player);
+                            Service.gI().sendThongBao(player, "Bạn đã nhận được Đeo lưng: " + deoLung.template.name + ".");
                             break;
                     }
                 }

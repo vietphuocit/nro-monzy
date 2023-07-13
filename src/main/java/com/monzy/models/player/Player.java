@@ -826,4 +826,12 @@ public class Player {
                 || item.template.id == 641;
     }
 
+    public boolean isUseSkinEvent() {
+        if (!inventory.itemsBody.get(5).isNotNullItem()) {
+            return false;
+        }
+        return inventory.itemsBody.get(5).template.id == 1010
+                || inventory.itemsBody.get(5).template.id == 1011
+                || inventory.itemsBody.get(5).template.id == 1012;
+    }
 }

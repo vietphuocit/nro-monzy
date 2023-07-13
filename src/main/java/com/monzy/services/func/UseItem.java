@@ -258,6 +258,9 @@ public class UseItem {
                         case 665: //kem dâu
                         case 666: //mì ly
                         case 667: //sushi
+                        case 880:
+                        case 881:
+                        case 882:
                         case 1099:
                         case 1100:
                         case 1101:
@@ -655,6 +658,9 @@ public class UseItem {
             case 665: //kem dâu
             case 666: //mì ly
             case 667: //sushi
+            case 880:
+            case 881:
+            case 882:
                 pl.itemTime.lastTimeEatMeal = System.currentTimeMillis();
                 pl.itemTime.isEatMeal = true;
                 ItemTimeService.gI().removeItemTime(pl, pl.itemTime.iconMeal);
@@ -1003,7 +1009,7 @@ public class UseItem {
                 || MapService.gI().isMapMaBu(zoneChose.map.mapId)
                 || MapService.gI().isMapHuyDiet(zoneChose.map.mapId)
                 || MapService.gI().isMapBanDoKhoBau(zoneChose.map.mapId)
-                || MapService.gI().isnguhs(zoneChose.map.mapId)) {
+                || MapService.gI().isNguHS(zoneChose.map.mapId)) {
             Service.gI().sendThongBao(pl, "Hiện tại không thể vào được khu!");
             return;
         }

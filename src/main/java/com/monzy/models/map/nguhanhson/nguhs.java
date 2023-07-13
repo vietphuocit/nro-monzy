@@ -42,7 +42,7 @@ public class nguhs {
     }
 
     private void kickOutOfnguhs(Player player) {
-        if (MapService.gI().isnguhs(player.zone.map.mapId)) {
+        if (MapService.gI().isNguHS(player.zone.map.mapId)) {
             Service.getInstance().sendThongBao(player, "Hết thời gian rồi, tàu vận chuyển sẽ đưa bạn về nhà");
             ChangeMapService.gI().changeMapBySpaceShip(player, player.gender + 21, -1, 250);
         }
@@ -77,7 +77,7 @@ public class nguhs {
     public void update(Player player) {
         try {
             long now = System.currentTimeMillis();
-            if (!(now > TIME_OPEN_NHS && now < TIME_CLOSE_NHS) && MapService.gI().isnguhs(player.zone.map.mapId)) {
+            if (!(now > TIME_OPEN_NHS && now < TIME_CLOSE_NHS) && MapService.gI().isNguHS(player.zone.map.mapId)) {
                 ketthucnguhs(player);
             }
         } catch (Exception ex) {

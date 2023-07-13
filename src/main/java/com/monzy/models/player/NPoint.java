@@ -477,6 +477,11 @@ public class NPoint {
                 && (((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5)) {
             this.hpMax += ((long) this.hpMax * 30 / 100);
         }
+        //thức ăn
+        if (!this.player.isPet && this.player.itemTime.isEatMeal && this.player.itemTime.iconMeal == 8061
+                || this.player.isPet && ((Pet) this.player).master.itemTime.isEatMeal && ((Pet) this.player).master.itemTime.iconMeal == 8061) {
+            this.hpMax += ((long) this.hpMax * 20 / 100);
+        }
         //  phù
         if (this.player.zone != null && MapService.gI().isMapBlackBallWar(this.player.zone.map.mapId)) {
             this.hpMax *= this.player.effectSkin.xHPKI;
@@ -565,6 +570,11 @@ public class NPoint {
                 && (((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5)) {
             this.mpMax += ((long) this.mpMax * 30 / 100);
         }
+        //thức ăn
+        if (!this.player.isPet && this.player.itemTime.isEatMeal && this.player.itemTime.iconMeal == 8062
+                || this.player.isPet && ((Pet) this.player).master.itemTime.isEatMeal && ((Pet) this.player).master.itemTime.iconMeal == 8062) {
+            this.mpMax += ((long) this.mpMax * 20 / 100);
+        }
         //hợp thể
         if (this.player.fusion.typeFusion != 0) {
             this.mpMax += this.player.pet.nPoint.mpMax;
@@ -634,9 +644,13 @@ public class NPoint {
             this.dame += ((long) this.dame * 30 / 100);
         }
         //thức ăn
-        if (!this.player.isPet && this.player.itemTime.isEatMeal
-                || this.player.isPet && ((Pet) this.player).master.itemTime.isEatMeal) {
+        if (!this.player.isPet && this.player.itemTime.isEatMeal && this.player.itemTime.isMealCooler()
+                || this.player.isPet && ((Pet) this.player).master.itemTime.isEatMeal && ((Pet) this.player).master.itemTime.isMealCooler()) {
             this.dame += ((long) this.dame * 10 / 100);
+        }
+        if (!this.player.isPet && this.player.itemTime.isEatMeal && this.player.itemTime.iconMeal == 8060
+                || this.player.isPet && ((Pet) this.player).master.itemTime.isEatMeal && ((Pet) this.player).master.itemTime.iconMeal == 8060) {
+            this.dame += ((long) this.dame * 20 / 100);
         }
         //hợp thể
         if (this.player.fusion.typeFusion != 0) {
@@ -999,7 +1013,7 @@ public class NPoint {
                     tiemNang += tn * 2;
                 }
             }
-            if (MapService.gI().isnguhs(this.player.zone.map.mapId)) {
+            if (MapService.gI().isNguHS(this.player.zone.map.mapId)) {
                 tiemNang *= 10;
             }
             tiemNang = calSubTNSM(tiemNang);

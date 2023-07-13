@@ -14,6 +14,7 @@ public class Cooler extends Boss {
     @Override
     public void reward(Player plKill) {
         super.reward(plKill);
+        rewardDTL(plKill);
     }
 
 }

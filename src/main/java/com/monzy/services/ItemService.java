@@ -587,4 +587,15 @@ public class ItemService {
         return highlights ? (int) (value * highlightsNumber) : value;
     }
 
+    // Random Sđ Hp Ki 10 - 15%
+    public Item randomItemEvent(short idItem) {
+        Item item = createNewItem(idItem);
+        item.itemOptions.add(new Item.ItemOption(50, Util.nextInt(10, 15)));// sd 10 - 15%
+        item.itemOptions.add(new Item.ItemOption(77, Util.nextInt(10, 15)));// hp 10 - 15%
+        item.itemOptions.add(new Item.ItemOption(103, Util.nextInt(10, 15)));// ki 10 - 15%
+        if (Util.isTrue(99, 100)) {// tỉ lệ ra hsd
+            item.itemOptions.add(new Item.ItemOption(93, Util.nextInt(30) + 30));//hsd
+        }
+        return item;
+    }
 }

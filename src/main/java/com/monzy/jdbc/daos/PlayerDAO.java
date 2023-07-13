@@ -289,7 +289,7 @@ public class PlayerDAO {
                     mp = 1;
                 } else {
                     if (MapService.gI().isMapDoanhTrai(mapId) || MapService.gI().isMapBlackBallWar(mapId)
-                            || MapService.gI().isMapBanDoKhoBau(mapId) || MapService.gI().isMapMaBu(mapId) || MapService.gI().isnguhs(mapId)) {
+                            || MapService.gI().isMapBanDoKhoBau(mapId) || MapService.gI().isMapMaBu(mapId) || MapService.gI().isNguHS(mapId)) {
                         mapId = player.gender + 21;
                         x = 300;
                         y = 336;

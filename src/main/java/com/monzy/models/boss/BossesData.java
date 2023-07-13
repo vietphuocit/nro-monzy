@@ -834,7 +834,7 @@ public class BossesData {
             new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, //text chat 1
             new String[]{}, //text chat 2
             new String[]{}, //text chat 3
-            REST_15_M,
+            REST_30_M,
             new int[]{BossID.COOLER_2}
     );
     public static final BossData COOLER_2 = new BossData(
@@ -871,7 +871,7 @@ public class BossesData {
             new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, //text chat 1
             new String[]{}, //text chat 2
             new String[]{}, //text chat 3
-            REST_15_M //second rest
+            REST_30_M //second rest
     );
     public static final BossData SUPER_BLACK_GOKU = new BossData(
             "Super Black Goku", //name
@@ -906,7 +906,7 @@ public class BossesData {
             new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, //text chat 1
             new String[]{}, //text chat 2
             new String[]{}, //text chat 3
-            REST_15_M
+            REST_30_M
     );
     public static final BossData THAN_ZAMASU = new BossData(
             "Thần Zamasu", //name

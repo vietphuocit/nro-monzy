@@ -78,7 +78,7 @@ public class Manager {
     public static final List<Item> RUBY_REWARDS = new ArrayList<>();
     public static final String QUERY_TOP_SM = "SELECT player.id, CAST( split_str(data_point,',',2) AS UNSIGNED) AS sm\n" +
             "FROM player JOIN account ON player.account_id = account.id\n" +
-            "WHERE account.create_time > DATE('2023-6-19')\n" +
+            "WHERE account.create_time > TIMESTAMP('2023-7-13 00:00:00')\n" +
             "ORDER BY CAST( split_str(data_point,',',2)  AS UNSIGNED) DESC\n" +
             "LIMIT 20;";
     //    public static final String queryTopSD = "SELECT id, CAST( split_str(data_point,',',8) AS UNSIGNED) AS sd FROM player ORDER BY CAST( split_str(data_point,',',8)  AS UNSIGNED) DESC LIMIT 20;";
@@ -86,14 +86,14 @@ public class Manager {
 //    public static final String queryTopKI = "SELECT id, CAST( split_str(data_point,',',7) AS UNSIGNED) AS ki FROM player ORDER BY CAST( split_str(data_point,',',7)  AS UNSIGNED) DESC LIMIT 20;";
     public static final String QUERY_TOP_NV = "SELECT player.id, CAST( split_str(split_str(data_task,',',1),'[',2)  AS UNSIGNED) AS nv\n" +
             "FROM player JOIN account on player.account_id = account.id\n" +
-            "WHERE account.create_time > DATE('2023-6-19')\n" +
+            "WHERE account.create_time > TIMESTAMP('2023-7-13 00:00:00')\n" +
             "ORDER BY CAST( split_str(split_str(data_task,',',1),'[',2)  AS UNSIGNED) DESC, CAST(split_str(data_task,',',2)  AS UNSIGNED) DESC, CAST( split_str(data_point,',',2) AS UNSIGNED) DESC\n" +
             "LIMIT 20;";
     //    public static final String queryTopSK = "SELECT id, CAST( split_str( data_inventory,',',5)  AS UNSIGNED) AS event FROM player ORDER BY CAST( split_str( data_inventory,',',5)  AS UNSIGNED) DESC LIMIT 20;";
 //    public static final String queryTopPVP = "SELECT id, CAST( pointPvp AS UNSIGNED) AS pointPvp FROM player ORDER BY CAST( pointPvp AS UNSIGNED) DESC LIMIT 50;";
 //    public static final String queryTopNHS = "SELECT id, CAST( NguHanhSonPoint AS UNSIGNED) AS nhs FROM player ORDER BY CAST( NguHanhSonPoint AS UNSIGNED) DESC LIMIT 20;";
     public static final String QUERY_TOP_NAP = "SELECT player_id as id, SUM(amount) as tong FROM tran_his\n" +
-            "WHERE command = 'nap' AND create_at between DATE('2023-6-20 12:00:00') and DATE('2023-6-27 00:00:00')\n" +
+            "WHERE command = 'nap' AND create_at between TIMESTAMP('2023-7-13 00:00:00') and TIMESTAMP('2023-7-19 23:59:59')\n" +
             "GROUP BY player_id\n" +
             "ORDER BY SUM(amount) DESC \n" +
             "limit 10;";
