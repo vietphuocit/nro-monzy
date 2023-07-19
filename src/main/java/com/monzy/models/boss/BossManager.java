@@ -288,11 +288,9 @@ public class BossManager implements Runnable {
             msg = new Message(-96);
             msg.writer().writeByte(0);
             msg.writer().writeUTF("Boss");
-            msg.writer().writeByte(((Long) bosses.stream().filter(boss -> boss.zone != null).count()).byteValue());
+            msg.writer().writeByte((new Long(bosses.size())).byteValue());
             for (int i = 0; i < bosses.size(); i++) {
                 Boss boss = this.bosses.get(i);
-                if (boss.zone == null)
-                    continue;
                 msg.writer().writeInt(i + 1);
                 msg.writer().writeInt((int) boss.id);
                 msg.writer().writeShort(boss.data[0].getOutfit()[0]);
@@ -302,11 +300,11 @@ public class BossManager implements Runnable {
                 msg.writer().writeShort(boss.data[0].getOutfit()[1]);
                 msg.writer().writeShort(boss.data[0].getOutfit()[2]);
                 msg.writer().writeUTF(boss.data[0].getName());
-                msg.writer().writeUTF("Sống");
+                msg.writer().writeUTF(boss.isDie() ? "Hồi sinh sau: " + Math.max(0, boss.getTimeRespawn()) + " phút" : "Sống");
                 if (player.isAdmin()) {
-                    msg.writer().writeUTF(boss.zone.map.mapName + " (" + boss.zone.map.mapId + ") - khu " + boss.zone.zoneId + "");
+                    msg.writer().writeUTF(boss.isDie() ? "" : boss.zone.map.mapName + " (" + boss.zone.map.mapId + ") - khu " + boss.zone.zoneId + "");
                 } else {
-                    msg.writer().writeUTF(boss.zone.map.mapName + " (" + boss.zone.map.mapId + ") - khu ?");
+                    msg.writer().writeUTF(boss.isDie() ? "" : boss.zone.map.mapName + " (" + boss.zone.map.mapId + ") - khu ?");
                 }
             }
             player.sendMessage(msg);

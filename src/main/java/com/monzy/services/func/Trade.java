@@ -10,6 +10,7 @@ import com.monzy.utils.Util;
 import com.network.io.Message;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Trade {
@@ -168,26 +169,22 @@ public class Trade {
             }
         }
         switch (item.template.type) {
-            case 27: {
-                if (item.template.id == 457
-                        || item.template.id == 695
-                        || item.template.id == 696
-                        || item.template.id == 697
-                )
-                    return false;
-            }
-            case 5: //cải trang
-            case 6: //đậu thần
-            case 7: //sách skill
-            case 8: //vật phẩm nhiệm vụ
-            case 11: //flag bag
-            case 13: //bùa
-            case 22: //vệ tinh
-            case 23: //ván bay
-            case 24: //ván bay vip
-            case 28: //cờ
-            case 31: //bánh trung thu, bánh tết
-            case 32: //giáp tập luyện
+            case 27:
+                return IDS_ITEM_CAN_NOT_TRADE.contains((int) item.template.id);
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 11:
+            case 13:
+            case 21:
+            case 22:
+            case 23:
+            case 24:
+            case 28:
+            case 31:
+            case 32:
+            case 34:
                 return true;
             default:
                 return false;
@@ -353,4 +350,5 @@ public class Trade {
         }
     }
 
+    private static final List<Integer> IDS_ITEM_CAN_NOT_TRADE = Arrays.asList(694, 696, 718, 987, 2006, 1131, 935);
 }

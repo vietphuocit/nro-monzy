@@ -15,6 +15,7 @@ import com.monzy.services.ChangeMapService;
 import com.monzy.utils.SkillUtil;
 import com.monzy.utils.Util;
 
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -391,7 +392,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
     public void reward(Player plKill) {
         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
         // event
-        if (Util.isTrue(5, 100)) {
+        if (Util.isTrue(20, 100)) {
             Service.gI().dropItemMap(this.zone, new ItemMap(this.zone, 697, 1, plKill.location.x, plKill.location.y, plKill.id));
         }
     }
@@ -588,6 +589,11 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
 
     public int getRatioById(int id) {
         return ITEM_REWARD.getOrDefault(id, 0);
+    }
+
+    public long getTimeRespawn() {
+        long currentTimeMillis = lastTimeRest + secondsRest * 1000L - System.currentTimeMillis();
+        return (currentTimeMillis / 60000) - (currentTimeMillis / (60 * 60000) * 60);
     }
 
     private final Map<Integer, Integer> ITEM_REWARD = new HashMap<Integer, Integer>() {{
