@@ -43,15 +43,8 @@ public class MySession extends Session {
     public long lastTimeReadMessage;
     public boolean actived;
     public int tongnap;
-    public boolean vip1;
-    public boolean vip2;
-    public boolean vip3;
-    public boolean vip4;
-    public boolean vip5;
     public List<Item> itemsReward;
     public String dataReward;
-    public boolean is_gift_box;
-    public double bdPlayer;
     public int version;
     public int vnd;
 

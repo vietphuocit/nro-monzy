@@ -67,7 +67,6 @@ public class GodGK {
                 session.isMod = rs.getBoolean("is_mod");
                 session.lastTimeLogout = rs.getTimestamp("last_time_logout").getTime();
                 session.actived = rs.getBoolean("active");
-                session.bdPlayer = rs.getDouble("account.bd_player");
                 session.vnd = rs.getInt("vnd");
                 session.vnd = rs.getInt("account.vnd");
                 long lastTimeLogin = rs.getTimestamp("last_time_login").getTime();
@@ -75,11 +74,6 @@ public class GodGK {
                 long lastTimeLogout = rs.getTimestamp("last_time_logout").getTime();
                 int secondsPass = (int) ((System.currentTimeMillis() - lastTimeLogout) / 1000);
                 session.tongnap = rs.getInt("tongnap");
-                session.vip1 = rs.getBoolean("vip1");
-                session.vip2 = rs.getBoolean("vip2");
-                session.vip3 = rs.getBoolean("vip3");
-                session.vip4 = rs.getBoolean("vip4");
-                session.vip5 = rs.getBoolean("vip5");
 //                if (!session.isAdmin) {
 //                    Service.gI().sendThongBaoOK(session, "Chi danh cho admin");
 //                }else

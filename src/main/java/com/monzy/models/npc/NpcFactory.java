@@ -221,11 +221,7 @@ public class NpcFactory {
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player)) {
                     if (!TaskService.gI().checkDoneTaskTalkNpc(player, this)) {
-                        if (player.getSession().is_gift_box) {
-//                            this.createOtherMenu(player, ConstNpc.BASE_MENU, "Chào con, con muốn ta giúp gì nào?", "Giải tán bang hội", "Nhận quà\nđền bù");
-                        } else {
-                            this.createOtherMenu(player, ConstNpc.BASE_MENU, "Chào con, con muốn ta giúp gì nào? bdkb mở từ 19h00 đến 19h30 up hồng ngọc trong đó", "Giải tán bang hội", "Lãnh địa Bang Hội", "Kho báu dưới biển", "Nạp\n Tích Lũy");
-                        }
+                        this.createOtherMenu(player, ConstNpc.BASE_MENU, "Chào con, con muốn ta giúp gì nào? bdkb mở từ 19h00 đến 19h30 up hồng ngọc trong đó", "Giải tán bang hội", "Lãnh địa Bang Hội", "Kho báu dưới biển", "Nạp\n Tích Lũy");
                     }
                 }
             }
@@ -285,117 +281,6 @@ public class NpcFactory {
                                                 + "\nLưu ý: Hãy để hành trang trống 5 ô trước khi nhận, tránh xảy ra sự cố ngoài ý muốn!\n ADMIN sẽ không chịu trách nhiệm.",
                                         "Nhận quà Vip 1", "Nhận quà Vip 2", "Nhận quà Vip 3", "Nhận quà Vip 4", "Nhận quà Vip 5");
                                 break;
-                        }
-                    } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_QUAVIP) {
-                        switch (select) {
-                            case 0: {
-                                if ((player.getSession().vip1 == true)) {
-                                    this.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Con đã nhận phần quà này rồi",
-                                            "Đóng");
-                                } else {
-                                    if (player.getSession().tongnap < 20000) {
-                                        this.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Con không có đủ số dư để nhận vip 1",
-                                                "Đóng");
-                                    } else {
-                                        Item honBerus = ItemService.gI().createNewItem((short) 1068, 20);
-                                        InventoryService.gI().addItemBag(player, honBerus);
-                                        InventoryService.gI().sendItemBags(player);
-                                        PlayerService.gI().quaVip1(player);
-                                        player.getSession().vip1 = true;
-                                    }
-                                }
-                                break;
-                            }
-                            case 1: {
-                                if ((player.getSession().vip2 == true)) {
-                                    this.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Con đã nhận phần quà này rồi",
-                                            "Đóng");
-                                } else {
-                                    if (player.getSession().tongnap < 50000) {
-                                        this.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Con không có đủ số dư để nhận vip 2",
-                                                "Đóng");
-                                    } else {
-                                        Item honBerus = ItemService.gI().createNewItem((short) 1066, 20);
-                                        InventoryService.gI().addItemBag(player, honBerus);
-                                        InventoryService.gI().sendItemBags(player);
-                                        PlayerService.gI().quaVip2(player);
-                                        player.getSession().vip2 = true;
-                                    }
-                                }
-                                break;
-                            }
-                            case 2: {
-                                if ((player.getSession().vip3 == true)) {
-                                    this.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Con đã nhận phần quà này rồi",
-                                            "Đóng");
-                                } else {
-                                    if (player.getSession().tongnap < 100000) {
-                                        this.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Con không có đủ số dư để nhận vip 3",
-                                                "Đóng");
-                                    } else {
-                                        Item honBerus = ItemService.gI().createNewItem((short) 1067, 20);
-                                        InventoryService.gI().addItemBag(player, honBerus);
-                                        player.inventory.ruby += 20000;
-                                        Service.gI().sendMoney(player);
-                                        InventoryService.gI().sendItemBags(player);
-                                        PlayerService.gI().quaVip3(player);
-                                        player.getSession().vip3 = true;
-                                    }
-                                }
-                                break;
-                            }
-                            case 3: {
-                                if ((player.getSession().vip4 == true)) {
-                                    this.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Con đã nhận phần quà này rồi mà",
-                                            "Đóng");
-                                } else {
-                                    if (player.getSession().tongnap < 200000) {
-                                        this.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Con đã nhận phần quà này rồi",
-                                                "Đóng");
-                                    } else {
-                                        Item honBerus = ItemService.gI().createNewItem((short) 1069, 20);
-                                        InventoryService.gI().addItemBag(player, honBerus);
-                                        player.inventory.ruby += 50000;
-                                        Item nr = ItemService.gI().createNewItem((short) 16, 50);
-                                        InventoryService.gI().addItemBag(player, nr);
-                                        Service.gI().sendMoney(player);
-                                        InventoryService.gI().sendItemBags(player);
-                                        PlayerService.gI().quaVip4(player);
-                                        player.getSession().vip4 = true;
-                                    }
-                                }
-                                break;
-                            }
-                            case 4: {
-                                if ((player.getSession().vip5 == true)) {
-                                    this.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Con đã nhận phần quà này rồi",
-                                            "Đóng");
-                                } else {
-                                    if (player.getSession().tongnap < 500000) {
-                                        this.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Con không có đủ số dư để nhận vip 5",
-                                                "Đóng");
-                                    } else {
-                                        Item hopquabian = ItemService.gI().createNewItem((short) 1070, 50);
-                                        InventoryService.gI().addItemBag(player, hopquabian);
-                                        Item hopquabian1 = ItemService.gI().createNewItem((short) 1069, 50);
-                                        InventoryService.gI().addItemBag(player, hopquabian1);
-                                        Item hopquabian2 = ItemService.gI().createNewItem((short) 1068, 50);
-                                        InventoryService.gI().addItemBag(player, hopquabian2);
-                                        Item hopquabian3 = ItemService.gI().createNewItem((short) 1067, 50);
-                                        InventoryService.gI().addItemBag(player, hopquabian3);
-                                        Item hopquabian4 = ItemService.gI().createNewItem((short) 1066, 50);
-                                        InventoryService.gI().addItemBag(player, hopquabian4);
-                                        Item nr = ItemService.gI().createNewItem((short) 16, 50);
-                                        InventoryService.gI().addItemBag(player, nr);
-                                        player.inventory.ruby += 100000;
-                                        Service.gI().sendMoney(player);
-                                        InventoryService.gI().sendItemBags(player);
-                                        PlayerService.gI().quaVip5(player);
-                                        player.getSession().vip5 = true;
-                                    }
-                                }
-                                break;
-                            }
                         }
                     }
                 }
