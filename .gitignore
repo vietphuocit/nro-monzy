@@ -9,3 +9,5 @@ Dockerfile
 /target
 
 /sql
+
+/out
