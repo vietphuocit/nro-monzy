@@ -228,13 +228,11 @@ public class Controller implements IMessageHandler {
                     break;
                 case 7: //sell item
                     if (player != null && !Maintenance.isRunning) {
-                        int action1 = _msg.reader().readByte();
-                        if (action1 == 0) {
-                            ShopServiceNew.gI().showConfirmSellItem(player, _msg.reader().readByte(),
-                                    _msg.reader().readShort());
+                        int action = _msg.reader().readByte();
+                        if (action == 0) {
+                            ShopServiceNew.gI().showConfirmSellItem(player, _msg.reader().readByte(), _msg.reader().readShort());
                         } else {
-                            ShopServiceNew.gI().sellItem(player, _msg.reader().readByte(),
-                                    _msg.reader().readShort());
+                            ShopServiceNew.gI().sellItem(player, _msg.reader().readByte(), _msg.reader().readShort());
                         }
                     }
                     break;
@@ -261,7 +259,7 @@ public class Controller implements IMessageHandler {
                     break;
                 case -113:
                     if (player != null) {
-                        for (int i = 0; i < 5; i++) {
+                        for (int i = 0; i < 10; i++) {
                             player.playerSkill.skillShortCut[i] = _msg.reader().readByte();
                         }
                         player.playerSkill.sendSkillShortCut();
@@ -328,7 +326,7 @@ public class Controller implements IMessageHandler {
                     int effId = _msg.reader().readShort();
                     int idT = effId;
                     if (effId == 25) {
-                        idT = 50; // id eff rong muon thay doi ( hien tai la rong xuong) 
+                        idT = 50; // id eff rong muon thay doi ( hien tai la rong xuong)
                     }
                     DataGame.effData(_session, effId, idT);
                     break;
@@ -361,8 +359,7 @@ public class Controller implements IMessageHandler {
                     break;
                 case -45:
                     if (player != null) {
-                        byte status = _msg.reader().readByte();
-                        SkillService.gI().useSkill(player, null, null);
+                        SkillService.gI().useSkill(player, null, null, _msg);
                     }
                     break;
                 case -46:

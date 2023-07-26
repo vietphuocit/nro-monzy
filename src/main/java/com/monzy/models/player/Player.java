@@ -23,6 +23,7 @@ import com.monzy.models.npc.specialnpc.MabuEgg;
 import com.monzy.models.npc.specialnpc.MagicTree;
 import com.monzy.models.skill.PlayerSkill;
 import com.monzy.models.skill.Skill;
+import com.monzy.models.skill.SkillSpecial;
 import com.monzy.models.task.TaskPlayer;
 import com.monzy.server.Client;
 import com.monzy.server.io.MySession;
@@ -41,13 +42,13 @@ import java.util.stream.Collectors;
 
 public class Player {
 
-    private MySession session;
+    public MySession session;
     public boolean beforeDispose;
     public boolean banv = false;
     public boolean muav = false;
     public boolean isPet;
     public boolean isNewPet;
-    //    public boolean isNewPet1;
+    public boolean isNewPet1;
     public boolean isBoss;
     public int event;
     public IPVP pvp;
@@ -62,7 +63,7 @@ public class Player {
     public List<Zone> mapCapsule;
     public Pet pet;
     public NewPet newpet;
-    //    public NewPet newpet1;
+    //  public NewPet newpet1;
     public MobMe mobMe;
     public Location location;
     public SetClothes setClothes;
@@ -87,6 +88,7 @@ public class Player {
     public FightMabu fightMabu;
     public Clan clan;
     public ClanMember clanMember;
+    public SkillSpecial skillSpecial;
     public List<Friend> friends;
     public List<Enemy> enemies;
     public long id;
@@ -138,6 +140,7 @@ public class Player {
         charms = new Charms();
         gift = new Gift(this);
         effectSkin = new EffectSkin(this);
+        skillSpecial = new SkillSpecial(this);
     }
 
     //--------------------------------------------------------------------------
@@ -192,9 +195,9 @@ public class Player {
                     if (newpet != null) {
                         newpet.update();
                     }
-//                    if (newpet1 != null) {
-//                        newpet1.update();
-//                    }
+                    // if (newpet1 != null) {
+                    //     newpet1.update();
+                    // }
                     if (magicTree != null) {
                         magicTree.update();
                     }
@@ -202,11 +205,11 @@ public class Player {
                         itemTime.update();
                     }
                     long now = System.currentTimeMillis();
-                    if (banv && this != null && Util.canDoWithTime(lasttimebanv, 1000) && (now >= timeudbv + 1000)) {
+                    if (banv && Util.canDoWithTime(lasttimebanv, 1000) && now >= timeudbv + 1000) {
                         banv(this);
                         timeudbv = System.currentTimeMillis();
                     }
-                    if (muav && this != null && Util.canDoWithTime(lasttimemuav, 2000) && (now >= timeudmv + 10000)) {
+                    if (muav && Util.canDoWithTime(lasttimemuav, 2000) && now >= timeudmv + 10000) {
                         muav(this);
                         timeudmv = System.currentTimeMillis();
                     }
@@ -296,7 +299,55 @@ public class Player {
             return -1;
         }
         if (item.template.id == 1121) {
+            return 10;//
+        } else if (item.template.id == 282) {
+            return 1;
+        } else if (item.template.id == 283) {
+            return 2;
+        } else if (item.template.id == 284) {
+            return 3;
+        } else if (item.template.id == 285) {
+            return 4;
+        } else if (item.template.id == 286) {
+            return 5;
+        } else if (item.template.id == 287) {
+            return 6;
+        } else if (item.template.id == 288) {
+            return 7;
+        } else if (item.template.id == 289) {
+            return 8;
+        } else if (item.template.id == 290) {
+            return 9;
+        } else if (item.template.id == 291) {
             return 10;
+        } else if (item.template.id == 292) {
+            return 11;
+        } else if (item.template.id == 386) {
+            return 12;
+        } else if (item.template.id == 387) {
+            return 6;
+        } else if (item.template.id == 388) {
+            return 7;
+        } else if (item.template.id == 389) {
+            return 8;
+        } else if (item.template.id == 390) {
+            return 9;
+        } else if (item.template.id == 391) {
+            return 10;
+        } else if (item.template.id == 392) {
+            return 11;
+        } else if (item.template.id == 393) {
+            return 12;
+        } else if (item.template.id == 968) {
+            return 20;
+        } else if (item.template.id == 969) {
+            return 22;
+        } else if (item.template.id == 970) {
+            return 23;
+        } else if (item.template.id == 971) {
+            return 24;
+        } else if (item.template.id == 972) {
+            return 25;
         } else {
             return -1;
         }
@@ -636,10 +687,10 @@ public class Player {
             newpet.dispose();
             newpet = null;
         }
-//        if (newpet1 != null) {
-//            newpet1.dispose();
-//            newpet1 = null;
-//        }
+        //  if (newpet1 != null) {
+        //    newpet1.dispose();
+        //     newpet1 = null;
+        //}
         if (mapBlackBall != null) {
             mapBlackBall.clear();
             mapBlackBall = null;
@@ -676,6 +727,10 @@ public class Player {
         if (mabuEgg != null) {
             mabuEgg.dispose();
             mabuEgg = null;
+        }
+        if (skillSpecial != null) {
+            skillSpecial.dispose();
+            skillSpecial = null;
         }
         if (playerTask != null) {
             playerTask.dispose();

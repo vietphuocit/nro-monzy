@@ -28,6 +28,9 @@ public class Skill {
     public static final byte DICH_CHUYEN_TUC_THOI = 20;
     public static final byte THOI_MIEN = 22;
     public static final byte KHIEN_NANG_LUONG = 19;
+    public static final byte SUPER_KAME = 24;//skil new
+    public static final byte LIEN_HOAN_CHUONG = 25;
+    public static final byte MA_PHONG_BA = 26;
     public SkillTemplate template;
     public short skillId;
     public int point;
@@ -39,6 +42,7 @@ public class Skill {
     public int maxFight;
     public int manaUse;
     public short damage;
+    public short currLevel;
     public String moreInfo;
     public short price;
 

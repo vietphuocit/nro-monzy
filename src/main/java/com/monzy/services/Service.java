@@ -576,6 +576,10 @@ public class Service {
             BossManager.gI().showListBoss(player);
             return;
         }
+        if (text.equals("us")) {
+            DataGame.updateSkill(player.session);
+            return;
+        }
         if (text.equals("banv")) {
             long now = System.currentTimeMillis();
             if (now >= lasttimechatbanv + 10000) {
@@ -1430,7 +1434,7 @@ public class Service {
         if (pl != null && pl.zone != null) {
             for (Mob mob : pl.zone.mobs) {
                 if (mob.id == mobId) {
-                    SkillService.gI().useSkill(pl, null, mob);
+                    SkillService.gI().useSkill(pl, null, mob, null);
                     break;
                 }
             }
@@ -1683,7 +1687,7 @@ public class Service {
     }
 
     public void attackPlayer(Player pl, int idPlAnPem) {
-        SkillService.gI().useSkill(pl, pl.zone.getPlayerInMap(idPlAnPem), null);
+        SkillService.gI().useSkill(pl, pl.zone.getPlayerInMap(idPlAnPem), null, null);
     }
 
     public void releaseCooldownSkill(Player pl) {

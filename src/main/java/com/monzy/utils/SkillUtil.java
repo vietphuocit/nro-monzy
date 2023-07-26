@@ -150,7 +150,7 @@ public class SkillUtil {
         if (level > 7) {
             return false;
         }
-        Skill skill = null;
+        Skill skill;
         try {
             skill = nClassTD.getSkillTemplate(tempId).skillss.get(level - 1);
         } catch (Exception e) {
@@ -161,7 +161,7 @@ public class SkillUtil {
             }
         }
         skill = new Skill(skill);
-        if (index == 1) {
+        if(index == 1){
             skill.coolDown = 1000;
         }
         skills.set(index, skill);
@@ -269,6 +269,7 @@ public class SkillUtil {
     }
 
     public static void setSkill(Player pl, Skill skill) {
+        System.out.println(skill);
         for (int i = 0; i < pl.playerSkill.skills.size(); i++) {
             if (pl.playerSkill.skills.get(i).template.id == skill.template.id) {
                 pl.playerSkill.skills.set(i, skill);
@@ -289,5 +290,4 @@ public class SkillUtil {
                 return 0;
         }
     }
-
 }

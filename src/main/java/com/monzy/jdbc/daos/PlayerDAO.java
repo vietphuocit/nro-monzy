@@ -198,9 +198,7 @@ public class PlayerDAO {
             dataArray.add(System.currentTimeMillis()); //bùa trí tuệ x4
             String charms = dataArray.toJSONString();
             dataArray.clear();
-            int[] skillsArr = gender == 0 ? new int[]{0, 1, 6, 9, 10, 20, 22, 19}
-                    : gender == 1 ? new int[]{2, 3, 7, 11, 12, 17, 18, 19}
-                    : new int[]{4, 5, 8, 13, 14, 21, 23, 19};
+            int[] skillsArr = gender == 0 ? new int[]{0, 1, 6, 9, 10, 20, 22, 24, 19} : gender == 1 ? new int[]{2, 3, 7, 11, 12, 17, 18, 26, 19} : new int[]{4, 5, 8, 13, 14, 21, 23, 25, 19};
             //[{"temp_id":"4","point":0,"last_time_use":0},]
             JSONArray skill = new JSONArray();
             for (int i = 0; i < skillsArr.length; i++) {
@@ -244,15 +242,7 @@ public class PlayerDAO {
             dataArray.clear();
             String data_card = dataArray.toJSONString();
             String bill_data = dataArray.toJSONString();
-            Database.executeUpdate("insert into player"
-                            + "(account_id, name, head, gender, have_tennis_space_ship, clan_id_sv" + Manager.SERVER + ", "
-                            + "data_inventory, data_location, data_point, data_magic_tree, items_body, "
-                            + "items_bag, items_box, items_box_lucky_round, friends, enemies, data_intrinsic, data_item_time, data_item_time_sieu_cap,"
-                            + "data_task, data_mabu_egg, data_charm, skills, skills_shortcut, pet,"
-                            + "data_black_ball, data_side_task, data_card, bill_data) "
-                            + "values ()", userId, name, hair, gender, 0, -1, inventory, location, point, magicTree,
-                    itemsBody, itemsBag, itemsBox, itemsBoxLuckyRound, friends, enemies, intrinsic,
-                    itemTime, itemTimeSC, task, mabuEgg, charms, skills, skillsShortcut, petData, dataBlackBall, dataSideTask, data_card, bill_data);
+            Database.executeUpdate("insert into player" + "(account_id, name, head, gender, have_tennis_space_ship, clan_id_sv" + Manager.SERVER + ", " + "data_inventory, data_location, data_point, data_magic_tree, items_body, " + "items_bag, items_box, items_box_lucky_round, friends, enemies, data_intrinsic, data_item_time, data_item_time_sieu_cap," + "data_task, data_mabu_egg, data_charm, skills, skills_shortcut, pet," + "data_black_ball, data_side_task, data_card, bill_data) " + "values ()", userId, name, hair, gender, 0, -1, inventory, location, point, magicTree, itemsBody, itemsBag, itemsBox, itemsBoxLuckyRound, friends, enemies, intrinsic, itemTime, itemTimeSC, task, mabuEgg, charms, skills, skillsShortcut, petData, dataBlackBall, dataSideTask, data_card, bill_data);
             Logger.success("Tạo player mới thành công!");
             return true;
         } catch (Exception e) {
@@ -267,8 +257,7 @@ public class PlayerDAO {
             try {
                 JSONArray dataArray = new JSONArray();
                 //data kim lượng
-                dataArray.add(player.inventory.gold > Inventory.LIMIT_GOLD
-                        ? Inventory.LIMIT_GOLD : player.inventory.gold);
+                dataArray.add(player.inventory.gold > Inventory.LIMIT_GOLD ? Inventory.LIMIT_GOLD : player.inventory.gold);
                 dataArray.add(player.inventory.gem);
                 dataArray.add(player.inventory.ruby);
                 dataArray.add(player.inventory.coupon);
@@ -288,8 +277,7 @@ public class PlayerDAO {
                     hp = 1;
                     mp = 1;
                 } else {
-                    if (MapService.gI().isMapDoanhTrai(mapId) || MapService.gI().isMapBlackBallWar(mapId)
-                            || MapService.gI().isMapBanDoKhoBau(mapId) || MapService.gI().isMapMaBu(mapId) || MapService.gI().isNguHS(mapId)) {
+                    if (MapService.gI().isMapDoanhTrai(mapId) || MapService.gI().isMapBlackBallWar(mapId) || MapService.gI().isMapBanDoKhoBau(mapId) || MapService.gI().isMapMaBu(mapId) || MapService.gI().isNguHS(mapId)) {
                         mapId = player.gender + 21;
                         x = 300;
                         y = 336;
@@ -631,42 +619,8 @@ public class PlayerDAO {
                 }
                 String dataBlackBall = dataArray.toJSONString();
                 dataArray.clear();
-                String query = " update player set head = ?, have_tennis_space_ship = ?,"
-                        + "clan_id_sv" + Manager.SERVER + " = ?, data_inventory = ?, data_location = ?, data_point = ?, data_magic_tree = ?,"
-                        + "items_body = ?, items_bag = ?, items_box = ?, items_box_lucky_round = ?, friends = ?,"
-                        + "enemies = ?, data_intrinsic = ?, data_item_time = ?, data_item_time_sieu_cap = ?, data_task = ?, data_mabu_egg = ?, pet = ?,"
-                        + "data_black_ball = ?, data_side_task = ?, data_charm = ?, skills = ?,"
-                        + " skills_shortcut = ?, pointPvp=?, event=?,data_card=?,bill_data =? where id = ?";
-                Database.executeUpdate(query,
-                        player.head,
-                        player.haveTennisSpaceShip,
-                        (player.clan != null ? player.clan.id : -1),
-                        inventory,
-                        location,
-                        point,
-                        magicTree,
-                        itemsBody,
-                        itemsBag,
-                        itemsBox,
-                        itemsBoxLuckyRound,
-                        friend,
-                        enemy,
-                        intrinsic,
-                        itemTime,
-                        itemTimeSC,
-                        task,
-                        mabuEgg,
-                        pet,
-                        dataBlackBall,
-                        sideTask,
-                        charm,
-                        skills,
-                        skillShortcut,
-                        player.pointPvp,
-                        player.event,
-                        JSONValue.toJSONString(player.cards),
-                        billEgg,
-                        player.id);
+                String query = " update player set head = ?, have_tennis_space_ship = ?," + "clan_id_sv" + Manager.SERVER + " = ?, data_inventory = ?, data_location = ?, data_point = ?, data_magic_tree = ?," + "items_body = ?, items_bag = ?, items_box = ?, items_box_lucky_round = ?, friends = ?," + "enemies = ?, data_intrinsic = ?, data_item_time = ?, data_item_time_sieu_cap = ?, data_task = ?, data_mabu_egg = ?, pet = ?," + "data_black_ball = ?, data_side_task = ?, data_charm = ?, skills = ?," + " skills_shortcut = ?, pointPvp=?, event=?,data_card=?,bill_data =? where id = ?";
+                Database.executeUpdate(query, player.head, player.haveTennisSpaceShip, (player.clan != null ? player.clan.id : -1), inventory, location, point, magicTree, itemsBody, itemsBag, itemsBox, itemsBoxLuckyRound, friend, enemy, intrinsic, itemTime, itemTimeSC, task, mabuEgg, pet, dataBlackBall, sideTask, charm, skills, skillShortcut, player.pointPvp, player.event, JSONValue.toJSONString(player.cards), billEgg, player.id);
                 Logger.success("Total time save player " + player.name + " thành công! " + (System.currentTimeMillis() - st) + "\n");
             } catch (Exception e) {
                 Logger.logException(PlayerDAO.class, e, "Lỗi save player " + player.name);

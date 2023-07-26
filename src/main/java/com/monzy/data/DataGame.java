@@ -26,7 +26,7 @@ public class DataGame {
     public static int vsRes = 752011;
     public static String LINK_IP_PORT = "Arriety:sv.arriety.com:14445:0";
     private static final String MOUNT_NUM = "733:1,734:2,735:3,743:4,744:5,746:6,795:7,849:8,897:9,920:10,1143:11,1141:15";
-    public static final Map MAP_MOUNT_NUM = new HashMap();
+    public static final Map<Object, Object> MAP_MOUNT_NUM = new HashMap<>();
 
     static {
         String[] array = MOUNT_NUM.split(",");
@@ -148,7 +148,7 @@ public class DataGame {
                     msg.writer().writeByte(skillTemp.type);
                     msg.writer().writeShort(skillTemp.iconId);
                     msg.writer().writeUTF(skillTemp.damInfo);
-                    msg.writer().writeUTF("Arriety");
+                    msg.writer().writeUTF("Ngọc rồng Online");
                     if (skillTemp.id != 0) {
                         msg.writer().writeByte(skillTemp.skillss.size());
                         for (Skill skill : skillTemp.skillss) {

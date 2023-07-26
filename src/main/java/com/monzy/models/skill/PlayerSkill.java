@@ -12,6 +12,12 @@ public class PlayerSkill {
     private Player player;
     public List<Skill> skills;
     public Skill skillSelect;
+    public boolean prepareQCKK;
+    public boolean prepareTuSat;
+    public boolean prepareLaze;
+    public long lastTimePrepareQCKK;
+    public long lastTimePrepareTuSat;
+    public long lastTimePrepareLaze;
 
     public PlayerSkill(Player player) {
         this.player = player;
@@ -27,48 +33,24 @@ public class PlayerSkill {
         return null;
     }
 
-    public byte[] skillShortCut = new byte[5];
+    public byte[] skillShortCut = new byte[10];
 
     public void sendSkillShortCut() {
         Message msg;
         try {
-            msg = Service.gI().messageSubCommand((byte) 61);
+            msg = Service.getInstance().messageSubCommand((byte) 61);
             msg.writer().writeUTF("KSkill");
             msg.writer().writeInt(skillShortCut.length);
             msg.writer().write(skillShortCut);
             player.sendMessage(msg);
             msg.cleanup();
-            msg = Service.gI().messageSubCommand((byte) 61);
+            msg = Service.getInstance().messageSubCommand((byte) 61);
             msg.writer().writeUTF("OSkill");
             msg.writer().writeInt(skillShortCut.length);
             msg.writer().write(skillShortCut);
             player.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
-        }
-    }
-
-    public boolean prepareQCKK;
-    public boolean prepareTuSat;
-    public boolean prepareLaze;
-    public long lastTimePrepareQCKK;
-    public long lastTimePrepareTuSat;
-    public long lastTimePrepareLaze;
-
-    public byte getIndexSkillSelect() {
-        switch (skillSelect.template.id) {
-            case Skill.DRAGON:
-            case Skill.DEMON:
-            case Skill.GALICK:
-            case Skill.KAIOKEN:
-            case Skill.LIEN_HOAN:
-                return 1;
-            case Skill.KAMEJOKO:
-            case Skill.ANTOMIC:
-            case Skill.MASENKO:
-                return 2;
-            default:
-                return 3;
         }
     }
 

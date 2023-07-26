@@ -348,7 +348,7 @@ public class Manager {
                 if (id != nClassId) {
                     nClassId = id;
                     nClass = new NClass();
-                    nClass.name = id == ConstPlayer.TRAI_DAT ? "Trái Đ?t" : id == ConstPlayer.NAMEC ? "Nam?c" : "Xayda";
+                    nClass.name = id == ConstPlayer.TRAI_DAT ? "Trái Đất" : id == ConstPlayer.NAMEC ? "Namếc" : "Xayda";
                     nClass.classId = nClassId;
                     NCLASS.add(nClass);
                 }

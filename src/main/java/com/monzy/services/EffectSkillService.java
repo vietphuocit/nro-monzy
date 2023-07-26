@@ -3,27 +3,32 @@ package com.monzy.services;
 import com.monzy.models.mob.Mob;
 import com.monzy.models.player.Player;
 import com.monzy.models.skill.Skill;
+import com.monzy.utils.Logger;
 import com.monzy.utils.SkillUtil;
 import com.network.io.Message;
 
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class EffectSkillService {
 
     public static final byte TURN_ON_EFFECT = 1;
     public static final byte TURN_OFF_EFFECT = 0;
     public static final byte TURN_OFF_ALL_EFFECT = 2;
+
     public static final byte HOLD_EFFECT = 32;
     public static final byte SHIELD_EFFECT = 33;
     public static final byte HUYT_SAO_EFFECT = 39;
     public static final byte BLIND_EFFECT = 40;
     public static final byte SLEEP_EFFECT = 41;
     public static final byte STONE_EFFECT = 42;
+
+    public static final int ICE_EFFECT = 202;
+
     private static EffectSkillService i;
 
     private EffectSkillService() {
+
     }
 
     public static EffectSkillService gI() {
@@ -42,10 +47,10 @@ public class EffectSkillService {
             msg.writer().writeByte(8);
             msg.writer().writeInt((int) player.id);
             msg.writer().writeShort(skill.skillId);
-            Service.gI().sendMessAnotherNotMeInMap(player, msg);
+            Service.getInstance().sendMessAnotherNotMeInMap(player, msg);
             msg.cleanup();
         } catch (Exception e) {
-            com.monzy.utils.Logger.logException(EffectSkillService.class, e);
+            Logger.logException(EffectSkillService.class, e);
         }
     }
 
@@ -62,10 +67,10 @@ public class EffectSkillService {
                 msg.writer().writeInt((int) plTarget.id); //id player dính effect
                 msg.writer().writeInt((int) plUseSkill.id); //id player dùng skill
             }
-            Service.gI().sendMessAllPlayerInMap(plUseSkill, msg);
+            Service.getInstance().sendMessAllPlayerInMap(plUseSkill, msg);
             msg.cleanup();
         } catch (Exception e) {
-            com.monzy.utils.Logger.logException(EffectSkillService.class, e);
+            Logger.logException(EffectSkillService.class, e);
         }
     }
 
@@ -78,12 +83,13 @@ public class EffectSkillService {
             msg.writer().writeByte(effect); //loại hiệu ứng
             msg.writer().writeByte(mobTarget.id); //id mob dính effect
             msg.writer().writeInt((int) plUseSkill.id); //id player dùng skill
-            Service.gI().sendMessAllPlayerInMap(mobTarget.zone, msg);
+            Service.getInstance().sendMessAllPlayerInMap(mobTarget.zone, msg);
             msg.cleanup();
         } catch (Exception e) {
-            com.monzy.utils.Logger.logException(EffectSkillService.class, e);
+            Logger.logException(EffectSkillService.class, e);
         }
     }
+
 
     //Trói *********************************************************************
     //dừng sử dụng trói
@@ -111,8 +117,8 @@ public class EffectSkillService {
 
     public void setAnTroi(Player player, Player plTroi, long lastTimeAnTroi, int timeAnTroi) {
         player.effectSkill.anTroi = true;
-//        player.effectSkill.lastTimeAnTroi = lastTimeAnTroi;
-//        player.effectSkill.timeAnTroi = timeAnTroi;
+        player.effectSkill.lastTimeAnTroi = lastTimeAnTroi;
+        player.effectSkill.timeAnTroi = timeAnTroi;
         player.effectSkill.plTroi = plTroi;
     }
 
@@ -153,7 +159,43 @@ public class EffectSkillService {
         sendEffectPlayer(player, player, TURN_OFF_EFFECT, BLIND_EFFECT);
     }
     //**************************************************************************
+    //Cải trang Drabura Frost
+    public void SetHoaBang(Player player, long lastTimeHoaBang, int timeHoaBang){
+        player.effectSkill.lastTimeHoaBang = lastTimeHoaBang;
+        player.effectSkill.timeBang = timeHoaBang;
+        player.effectSkill.isBang = true;
+        sendEffectPlayer(player, player, TURN_ON_EFFECT, (byte) ICE_EFFECT);
 
+    }
+    public void removeBang(Player player){
+        player.effectSkill.isBang = false;
+        Service.getInstance().sendCaiTrang(player);
+        sendEffectPlayer(player, player, TURN_ON_EFFECT, (byte) ICE_EFFECT);
+    }
+    //**************************************************************************
+    //Cải trang Drabura Hóa Đá
+    public void SetHoaDa(Player player, long lastTimeHoaDa, int timeHoaDa){
+        player.effectSkill.lastTimeHoaDa = lastTimeHoaDa;
+        player.effectSkill.timeDa = timeHoaDa;
+        player.effectSkill.isDa = true;
+
+    }
+    public void removeDa(Player player){
+        player.effectSkill.isDa = false;
+        Service.getInstance().sendCaiTrang(player);
+    }
+    //**************************************************************************
+    //Cải trang Thỏ Đại Ca
+    public void SetHoaCarot(Player player, long lastTimeHoaCarot, int timeHoaCarot){
+        player.effectSkill.lastTimeHoaCarot = lastTimeHoaCarot;
+        player.effectSkill.timeCarot = timeHoaCarot;
+        player.effectSkill.isCarot = true;
+
+    }
+    public void removeCarot(Player player){
+        player.effectSkill.isCarot = false;
+        Service.getInstance().sendCaiTrang(player);
+    }
     //Socola *******************************************************************
     //player biến thành socola
     public void setSocola(Player player, long lastTimeSocola, int timeSocola) {
@@ -166,7 +208,7 @@ public class EffectSkillService {
     //player trở lại thành người
     public void removeSocola(Player player) {
         player.effectSkill.isSocola = false;
-        Service.gI().sendCaiTrang(player);
+        Service.getInstance().sendCaiTrang(player);
     }
 
     //quái biến thành socola
@@ -177,11 +219,11 @@ public class EffectSkillService {
             msg.writer().writeByte(1);
             msg.writer().writeByte(mob.id); //mob id
             msg.writer().writeShort(4133); //icon socola
-            Service.gI().sendMessAllPlayerInMap(player, msg);
+            Service.getInstance().sendMessAllPlayerInMap(player, msg);
             msg.cleanup();
             mob.effectSkill.setSocola(System.currentTimeMillis(), timeSocola);
         } catch (Exception e) {
-            com.monzy.utils.Logger.logException(EffectSkillService.class, e);
+            Logger.logException(EffectSkillService.class, e);
         }
     }
     //**************************************************************************
@@ -210,8 +252,8 @@ public class EffectSkillService {
     public void removeHuytSao(Player player) {
         player.effectSkill.tiLeHPHuytSao = 0;
         sendEffectPlayer(player, player, TURN_OFF_EFFECT, HUYT_SAO_EFFECT);
-        Service.gI().point(player);
-        Service.gI().Send_Info_NV(player);
+        Service.getInstance().point(player);
+        Service.getInstance().Send_Info_NV(player);
     }
 
     //**************************************************************************
@@ -221,17 +263,17 @@ public class EffectSkillService {
         try {
             Thread.sleep(2000);
         } catch (InterruptedException ex) {
-            Logger.getLogger(EffectSkillService.class.getName()).log(Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EffectSkillService.class.getName()).log(Level.SEVERE, null, ex);
         }
         int timeMonkey = SkillUtil.getTimeMonkey(player.playerSkill.skillSelect.point);
-        if (player.setClothes.cadic == 5) {
+        if(player.setClothes.cadic == 5){
             timeMonkey *= 5;
         }
         player.effectSkill.isMonkey = true;
         player.effectSkill.timeMonkey = timeMonkey;
         player.effectSkill.lastTimeUpMonkey = System.currentTimeMillis();
         player.effectSkill.levelMonkey = (byte) player.playerSkill.skillSelect.point;
-        player.nPoint.setHp(player.nPoint.hp * 2L);
+        player.nPoint.setHp(player.nPoint.hp * 2);
     }
 
     public void monkeyDown(Player player) {
@@ -240,14 +282,15 @@ public class EffectSkillService {
         if (player.nPoint.hp > player.nPoint.hpMax) {
             player.nPoint.setHp(player.nPoint.hpMax);
         }
+
         sendEffectEndCharge(player);
         sendEffectMonkey(player);
-        Service.gI().setNotMonkey(player);
-        Service.gI().sendCaiTrang(player);
-        Service.gI().point(player);
+        Service.getInstance().setNotMonkey(player);
+        Service.getInstance().sendCaiTrang(player);
+        Service.getInstance().point(player);
         PlayerService.gI().sendInfoHpMp(player);
-        Service.gI().Send_Info_NV(player);
-        Service.gI().sendInfoPlayerEatPea(player);
+        Service.getInstance().Send_Info_NV(player);
+        Service.getInstance().sendInfoPlayerEatPea(player);
     }
     //**************************************************************************
     //Tái tạo năng lượng *******************************************************
@@ -261,8 +304,9 @@ public class EffectSkillService {
 
     public void stopCharge(Player player) {
         player.effectSkill.countCharging = 0;
-        player.effectSkill.isCharging = false;
+        player.effectSkill.isCharging = false;;
         sendEffectStopCharge(player);
+
     }
 
     //**************************************************************************
@@ -280,7 +324,7 @@ public class EffectSkillService {
 
     public void breakShield(Player player) {
         removeShield(player);
-        Service.gI().sendThongBao(player, "Khiên năng lượng đã bị vỡ!");
+        Service.getInstance().sendThongBao(player, "Khiên năng lượng đã bị vỡ!");
         ItemTimeService.gI().removeItemTime(player, 3784);
     }
 
@@ -302,10 +346,10 @@ public class EffectSkillService {
                 msg.writer().writeInt((int) pl.id);
                 msg.writer().writeByte(timeStun / 1000);
             }
-            Service.gI().sendMessAllPlayerInMap(plUseSkill, msg);
+            Service.getInstance().sendMessAllPlayerInMap(plUseSkill, msg);
             msg.cleanup();
         } catch (Exception e) {
-            com.monzy.utils.Logger.logException(EffectSkillService.class, e);
+            Logger.logException(EffectSkillService.class, e);
         }
     }
 
@@ -318,10 +362,10 @@ public class EffectSkillService {
             msg.writer().writeByte(6);
             msg.writer().writeInt((int) player.id);
             msg.writer().writeShort(skill.skillId);
-            Service.gI().sendMessAllPlayerInMap(player, msg);
+            Service.getInstance().sendMessAllPlayerInMap(player, msg);
             msg.cleanup();
         } catch (Exception e) {
-            com.monzy.utils.Logger.logException(EffectSkillService.class, e);
+            Logger.logException(EffectSkillService.class, e);
         }
     }
 
@@ -334,10 +378,10 @@ public class EffectSkillService {
             msg.writer().writeByte(1);
             msg.writer().writeInt((int) player.id);
             msg.writer().writeShort(skill.skillId);
-            Service.gI().sendMessAllPlayerInMap(player, msg);
+            Service.getInstance().sendMessAllPlayerInMap(player, msg);
             msg.cleanup();
         } catch (Exception e) {
-            com.monzy.utils.Logger.logException(EffectSkillService.class, e);
+            Logger.logException(EffectSkillService.class, e);
         }
     }
 
@@ -348,10 +392,10 @@ public class EffectSkillService {
             msg.writer().writeByte(3);
             msg.writer().writeInt((int) player.id);
             msg.writer().writeShort(-1);
-            Service.gI().sendMessAllPlayerInMap(player, msg);
+            Service.getInstance().sendMessAllPlayerInMap(player, msg);
             msg.cleanup();
         } catch (Exception e) {
-            com.monzy.utils.Logger.logException(EffectSkillService.class, e);
+            Logger.logException(EffectSkillService.class, e);
         }
     }
 
@@ -363,10 +407,10 @@ public class EffectSkillService {
             msg.writer().writeByte(5);
             msg.writer().writeInt((int) player.id);
             msg.writer().writeShort(player.playerSkill.skillSelect.skillId);
-            Service.gI().sendMessAllPlayerInMap(player, msg);
+            Service.getInstance().sendMessAllPlayerInMap(player, msg);
             msg.cleanup();
         } catch (Exception e) {
-            com.monzy.utils.Logger.logException(EffectSkillService.class, e);
+            Logger.logException(EffectSkillService.class, e);
         }
     }
 
@@ -376,14 +420,13 @@ public class EffectSkillService {
         Message msg;
         try {
             msg = new Message(-45);
-            msg.writer().writeByte(6);
+            msg.writer().writeByte(5);
             msg.writer().writeInt((int) player.id);
             msg.writer().writeShort(skill.skillId);
-            Service.gI().sendMessAllPlayerInMap(player, msg);
+            Service.getInstance().sendMessAllPlayerInMap(player, msg);
             msg.cleanup();
         } catch (Exception e) {
-            com.monzy.utils.Logger.logException(EffectSkillService.class, e);
+            Logger.logException(EffectSkillService.class, e);
         }
     }
-
 }

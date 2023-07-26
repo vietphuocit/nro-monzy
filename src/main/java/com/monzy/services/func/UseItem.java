@@ -215,6 +215,21 @@ public class UseItem {
 //                            pl.maxTime = 5;
 //                            Service.gI().Transport(pl);
 //                            break;
+                        case 1132:
+                            SkillService.gI().learnSkillSpecial(pl, Skill.SUPER_KAME);
+                            InventoryService.gI().subQuantityItemsBag(pl, item, 1);
+                            InventoryService.gI().sendItemBags(pl);
+                            break;
+                        case 1133:
+                            SkillService.gI().learnSkillSpecial(pl, Skill.MA_PHONG_BA);
+                            InventoryService.gI().subQuantityItemsBag(pl, item, 1);
+                            InventoryService.gI().sendItemBags(pl);
+                            break;
+                        case 1134:
+                            InventoryService.gI().subQuantityItemsBag(pl, item, 1);
+                            InventoryService.gI().sendItemBags(pl);
+                            SkillService.gI().learnSkillSpecial(pl, Skill.LIEN_HOAN_CHUONG);
+                            break;
                         case 361:
                             if (pl.idNRNM != -1) {
                                 Service.gI().sendThongBao(pl, "Không thể thực hiện");
@@ -232,7 +247,7 @@ public class UseItem {
                         case 1105://hop qua skh, item 2002 xd
                             UseItem.gI().ItemTS(pl, item);
                             break;
-                        case 342:
+                        case 342: // vệ tinh
                         case 343:
                         case 344:
                         case 345:
@@ -408,10 +423,12 @@ public class UseItem {
 
     public void UseCard(Player pl, Item item) {
         RadarCard radarTemplate = RadarService.gI().RADAR_TEMPLATE.stream().filter(c -> c.Id == item.template.id).findFirst().orElse(null);
-        if (radarTemplate == null) return;
+        if (radarTemplate == null)
+            return;
         if (radarTemplate.Require != -1) {
             RadarCard radarRequireTemplate = RadarService.gI().RADAR_TEMPLATE.stream().filter(r -> r.Id == radarTemplate.Require).findFirst().orElse(null);
-            if (radarRequireTemplate == null) return;
+            if (radarRequireTemplate == null)
+                return;
             Card cardRequire = pl.cards.stream().filter(r -> r.id == radarRequireTemplate.Id).findFirst().orElse(null);
             if (cardRequire == null || cardRequire.level < radarTemplate.RequireLevel) {
                 Service.gI().sendThongBao(pl, "Bạn cần sưu tầm " + radarRequireTemplate.Name + " ở cấp độ " + radarTemplate.RequireLevel + " mới có thể sử dụng thẻ này");
@@ -687,8 +704,7 @@ public class UseItem {
                     SummonDragon.gI().openMenuSummonShenron(pl, (byte) (tempId - 13));
                     break;
                 default:
-                    NpcService.gI().createMenuConMeo(pl, ConstNpc.TUTORIAL_SUMMON_DRAGON,
-                            -1, "Bạn chỉ có thể gọi rồng từ ngọc 3 sao, 2 sao, 1 sao", "Hướng\ndẫn thêm\n(mới)", "OK");
+                    NpcService.gI().createMenuConMeo(pl, ConstNpc.TUTORIAL_SUMMON_DRAGON, -1, "Bạn chỉ có thể gọi rồng từ ngọc 3 sao, 2 sao, 1 sao", "Hướng\ndẫn thêm\n(mới)", "OK");
                     break;
             }
         }
@@ -1004,18 +1020,11 @@ public class UseItem {
         int zoneId = -1;
         Zone zoneChose = pl.mapCapsule.get(index);
         //Kiểm tra số lượng người trong khu
-        if (zoneChose.getNumOfPlayers() > 25
-                || MapService.gI().isMapDoanhTrai(zoneChose.map.mapId)
-                || MapService.gI().isMapMaBu(zoneChose.map.mapId)
-                || MapService.gI().isMapHuyDiet(zoneChose.map.mapId)
-                || MapService.gI().isMapBanDoKhoBau(zoneChose.map.mapId)
-                || MapService.gI().isNguHS(zoneChose.map.mapId)) {
+        if (zoneChose.getNumOfPlayers() > 25 || MapService.gI().isMapDoanhTrai(zoneChose.map.mapId) || MapService.gI().isMapMaBu(zoneChose.map.mapId) || MapService.gI().isMapHuyDiet(zoneChose.map.mapId) || MapService.gI().isMapBanDoKhoBau(zoneChose.map.mapId) || MapService.gI().isNguHS(zoneChose.map.mapId)) {
             Service.gI().sendThongBao(pl, "Hiện tại không thể vào được khu!");
             return;
         }
-        if (index != 0 || zoneChose.map.mapId == 21
-                || zoneChose.map.mapId == 22
-                || zoneChose.map.mapId == 23) {
+        if (index != 0 || zoneChose.map.mapId == 21 || zoneChose.map.mapId == 22 || zoneChose.map.mapId == 23) {
             pl.mapBeforeCapsule = pl.zone;
         } else {
             zoneId = pl.mapBeforeCapsule != null ? pl.mapBeforeCapsule.zoneId : -1;

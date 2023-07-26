@@ -372,7 +372,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
                 }
                 this.playerSkill.skillSelect = this.playerSkill.skills.get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
                 this.moveToPlayer(pl);
-                SkillService.gI().useSkill(this, pl, null);
+                SkillService.gI().useSkill(this, pl, null, null);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

@@ -8,6 +8,18 @@ import com.monzy.utils.Util;
 public class EffectSkill {
 
     private Player player;
+    //Cải trang Dracula Frost
+    public boolean isBang;
+    public long lastTimeHoaBang;
+    public int timeBang;
+    //Cải trang Dracula hóa đá
+    public boolean isDa;
+    public long lastTimeHoaDa;
+    public int timeDa;
+    //Cải trang Thỏ Đại Ca
+    public boolean isCarot;
+    public long lastTimeHoaCarot;
+    public int timeCarot;
     //thái dương hạ san
     public boolean isStun;
     public long lastTimeStartStun;
@@ -35,9 +47,9 @@ public class EffectSkill {
     public boolean useTroi;
     public boolean anTroi;
     public long lastTimeTroi;
-    //    public long lastTimeAnTroi;
+    public long lastTimeAnTroi;
     public int timeTroi;
-    //    public int timeAnTroi;
+    public int timeAnTroi;
     public Player plTroi;
     public Player plAnTroi;
     public Mob mobAnTroi;
@@ -65,6 +77,7 @@ public class EffectSkill {
         }
         if (useTroi) {
             EffectSkillService.gI().removeUseTroi(this.player);
+            ItemTimeService.gI().removeItemTime(player, 3779);
         }
         if (isStun) {
             EffectSkillService.gI().removeStun(this.player);
@@ -73,6 +86,9 @@ public class EffectSkill {
             EffectSkillService.gI().removeThoiMien(this.player);
         }
         if (isBlindDCTT) {
+            EffectSkillService.gI().removeBlindDCTT(this.player);
+        }
+        if (isBang) {
             EffectSkillService.gI().removeBlindDCTT(this.player);
         }
     }
@@ -84,14 +100,12 @@ public class EffectSkill {
         if (isShielding && (Util.canDoWithTime(lastTimeShieldUp, timeShield))) {
             EffectSkillService.gI().removeShield(player);
         }
-        if (useTroi && Util.canDoWithTime(lastTimeTroi, timeTroi)
-                || plAnTroi != null && plAnTroi.isDie()
-                || useTroi && isHaveEffectSkill()) {
+        if (useTroi && Util.canDoWithTime(lastTimeTroi, timeTroi) || plAnTroi != null && plAnTroi.isDie() || useTroi && isHaveEffectSkill()) {
             EffectSkillService.gI().removeUseTroi(this.player);
         }
-//        if (anTroi && (Util.canDoWithTime(lastTimeAnTroi, timeAnTroi) || player.isDie())) {
-//            EffectSkillService.gI().removeAnTroi(this.player);
-//        }
+        if (anTroi && (Util.canDoWithTime(lastTimeAnTroi, timeAnTroi) || player.isDie())) {
+            EffectSkillService.gI().removeAnTroi(this.player);
+        }
         if (isStun && Util.canDoWithTime(lastTimeStartStun, timeStun)) {
             EffectSkillService.gI().removeStun(this.player);
         }
@@ -104,13 +118,22 @@ public class EffectSkill {
         if (isSocola && (Util.canDoWithTime(lastTimeSocola, timeSocola))) {
             EffectSkillService.gI().removeSocola(this.player);
         }
+        if (isBang && (Util.canDoWithTime(lastTimeHoaBang, 5000))) {
+            EffectSkillService.gI().removeBang(this.player);
+        }
+        if (isDa && (Util.canDoWithTime(lastTimeHoaDa, 5000))) {
+            EffectSkillService.gI().removeDa(this.player);
+        }
+        if (isCarot && (Util.canDoWithTime(lastTimeHoaCarot, 30000))) {
+            EffectSkillService.gI().removeCarot(this.player);
+        }
         if (tiLeHPHuytSao != 0 && Util.canDoWithTime(lastTimeHuytSao, 30000)) {
             EffectSkillService.gI().removeHuytSao(this.player);
         }
     }
 
     public boolean isHaveEffectSkill() {
-        return isStun || isBlindDCTT || anTroi || isThoiMien;
+        return isStun || isBlindDCTT || anTroi || isThoiMien || isBang;
     }
 
     public void dispose() {
