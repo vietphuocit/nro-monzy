@@ -2,9 +2,6 @@ package com.monzy.models.boss;
 
 public class BossID {
 
-    private BossID() {
-    }
-
     public static final int KUKU = -20;
     public static final int MAP_DAU_DINH = -21;
     public static final int RAMBO = -22;
@@ -99,6 +96,10 @@ public class BossID {
     public static final int ZAMASU = -2005;
     public static final int THAN_ZAMASU = -2006;
     public static final int FIDE_GOLD = -2007;
+
+    private BossID() {
+    }
+
 }
 
 

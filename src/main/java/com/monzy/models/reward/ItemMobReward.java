@@ -44,10 +44,7 @@ public class ItemMobReward {
 
     @Override
     public String toString() {
-        return "ItemMobReward{" +
-                "item=" + temp.name +
-                ", ratio=" + Arrays.toString(ratio) +
-                '}';
+        return "ItemMobReward{" + "item=" + temp.name + ", ratio=" + Arrays.toString(ratio) + '}';
     }
 
 }

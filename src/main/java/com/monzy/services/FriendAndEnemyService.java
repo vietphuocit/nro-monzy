@@ -198,8 +198,7 @@ public class FriendAndEnemyService {
     private void removeFriend(Player player, int playerId) {
         for (int i = 0; i < player.friends.size(); i++) {
             if (player.friends.get(i).id == playerId) {
-                Service.gI().sendThongBao(player, "Đã xóa thành công "
-                        + player.friends.get(i).name + " khỏi danh sách bạn");
+                Service.gI().sendThongBao(player, "Đã xóa thành công " + player.friends.get(i).name + " khỏi danh sách bạn");
                 Message msg;
                 try {
                     msg = new Message(-80);

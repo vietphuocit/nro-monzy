@@ -25,8 +25,7 @@ public class ItemTimeService {
         sendTextDoanhTrai(player);
         sendTextBanDoKhoBau(player);
         if (player.fusion.typeFusion == ConstPlayer.LUONG_LONG_NHAT_THE) {
-            sendItemTime(player, player.gender == ConstPlayer.NAMEC ? 3901 : 3790,
-                    (int) ((Fusion.TIME_FUSION - (System.currentTimeMillis() - player.fusion.lastTimeFusion)) / 1000));
+            sendItemTime(player, player.gender == ConstPlayer.NAMEC ? 3901 : 3790, (int) ((Fusion.TIME_FUSION - (System.currentTimeMillis() - player.fusion.lastTimeFusion)) / 1000));
         }
         if (player.itemTime.isUseBoHuyet) {
             sendItemTime(player, 2755, (int) ((TIME_ITEM - (System.currentTimeMillis() - player.itemTime.lastTimeBoHuyet)) / 1000));

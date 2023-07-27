@@ -4,7 +4,6 @@ public class ClanMessage {
 
     public static final byte BLACK = 0;
     public static final byte RED = 1;
-    private Clan clan;
     public int id;
     public byte type;
     public int playerId;
@@ -17,6 +16,7 @@ public class ClanMessage {
     public byte maxDonate;
     public byte isNewMessage;
     public byte color;
+    private Clan clan;
 
     public ClanMessage(Clan clan) {
         this.clan = clan;

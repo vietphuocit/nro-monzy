@@ -6,8 +6,6 @@ public interface IMonzyServer extends Runnable {
 
     IMonzyServer start(int var1) throws Exception;
 
-    IMonzyServer setAcceptHandler(ISessionAcceptHandler var1);
-
     IMonzyServer close();
 
     IMonzyServer dispose();
@@ -19,6 +17,8 @@ public interface IMonzyServer extends Runnable {
     IMonzyServer setTypeSessioClone(Class var1) throws Exception;
 
     ISessionAcceptHandler getAcceptHandler() throws Exception;
+
+    IMonzyServer setAcceptHandler(ISessionAcceptHandler var1);
 
     boolean isRandomKey();
 

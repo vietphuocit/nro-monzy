@@ -4,10 +4,10 @@ import com.monzy.jdbc.daos.HistoryTransactionDAO;
 import com.monzy.models.item.Item;
 import com.monzy.models.player.Inventory;
 import com.monzy.models.player.Player;
-import com.monzy.services.*;
 import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
 import com.network.io.Message;
+import org.omg.IOP.TransactionService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,19 +17,25 @@ public class Trade {
 
     public static final int TIME_TRADE = 180000;
     public static final int QUANLITY_MAX = 20000;
-    private Player player1;
-    private Player player2;
+    private static final byte SUCCESS = 0;
+    private static final byte FAIL_MAX_GOLD_PLAYER1 = 1;
+    private static final byte FAIL_MAX_GOLD_PLAYER2 = 2;
+    private static final byte FAIL_NOT_ENOUGH_BAG_P1 = 3;
+    private static final byte FAIL_NOT_ENOUGH_BAG_P2 = 4;
+    private static final List<Integer> IDS_ITEM_CAN_NOT_TRADE = Arrays.asList(694, 696, 718, 987, 2006, 1131, 935);
     private final long gold1Before;
     private final long gold2Before;
     private final List<Item> bag1Before;
     private final List<Item> bag2Before;
+    public byte accept;
+    private Player player1;
+    private Player player2;
     private List<Item> itemsBag1;
     private List<Item> itemsBag2;
     private List<Item> itemsTrade1;
     private List<Item> itemsTrade2;
     private int goldTrade1;
     private int goldTrade2;
-    public byte accept;
     private long lastTimeStart;
     private boolean start;
 
@@ -131,8 +137,7 @@ public class Trade {
                 }
             }
         } else {
-            Service.getInstance().sendThongBaoFromAdmin(pl,
-                    "|5|VUI LÒNG KÍCH HOẠT TÀI KHOẢN\n|5|ĐỂ MỞ KHÓA TÍNH NĂNG GIAO DỊCH");
+            Service.getInstance().sendThongBaoFromAdmin(pl, "|5|VUI LÒNG KÍCH HOẠT TÀI KHOẢN\n|5|ĐỂ MỞ KHÓA TÍNH NĂNG GIAO DỊCH");
             removeItemTrade(pl, index);
         }
     }
@@ -305,20 +310,12 @@ public class Trade {
                     InventoryService.gI().sendItemBags(player2);
                     PlayerService.gI().sendInfoHpMpMoney(player1);
                     PlayerService.gI().sendInfoHpMpMoney(player2);
-                    HistoryTransactionDAO.insert(player1, player2, goldTrade1, goldTrade2, itemsTrade1, itemsTrade2,
-                            bag1Before, bag2Before, this.player1.inventory.itemsBag, this.player2.inventory.itemsBag,
-                            gold1Before, gold2Before, this.player1.inventory.gold, this.player2.inventory.gold);
+                    HistoryTransactionDAO.insert(player1, player2, goldTrade1, goldTrade2, itemsTrade1, itemsTrade2, bag1Before, bag2Before, this.player1.inventory.itemsBag, this.player2.inventory.itemsBag, gold1Before, gold2Before, this.player1.inventory.gold, this.player2.inventory.gold);
                 }
                 sendNotifyTrade(tradeStatus);
             }
         }
     }
-
-    private static final byte SUCCESS = 0;
-    private static final byte FAIL_MAX_GOLD_PLAYER1 = 1;
-    private static final byte FAIL_MAX_GOLD_PLAYER2 = 2;
-    private static final byte FAIL_NOT_ENOUGH_BAG_P1 = 3;
-    private static final byte FAIL_NOT_ENOUGH_BAG_P2 = 4;
 
     private void sendNotifyTrade(byte status) {
         player1.iDMark.setLastTimeTrade(System.currentTimeMillis());
@@ -350,5 +347,4 @@ public class Trade {
         }
     }
 
-    private static final List<Integer> IDS_ITEM_CAN_NOT_TRADE = Arrays.asList(694, 696, 718, 987, 2006, 1131, 935);
 }

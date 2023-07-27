@@ -22,10 +22,10 @@ import java.sql.ResultSet;
 
 public class PaymentService implements Runnable {
 
+    public static PaymentService i;
+    private static long lastTimeUpdate;
     private final String TOKEN_MOMO = "737f922623d9dd2dc9f0d7-fdd3-335c-0b14-2cd27c84c0ea";
     private final String TOKEN_MB_BANK = "08CEBDCF-A1EA-F5B5-5F77-F77C46F3C607";
-    private static long lastTimeUpdate;
-    public static PaymentService i;
 
     public static PaymentService gI() {
         if (i == null) {
@@ -82,12 +82,8 @@ public class PaymentService implements Runnable {
     }
 
     public Object getListTransactionHistoryMomo() {
-        OkHttpClient client = new OkHttpClient().newBuilder()
-                .build();
-        Request request = new Request.Builder()
-                .url("https://api.web2m.com/historyapimomo/" + TOKEN_MOMO)
-                .get()
-                .build();
+        OkHttpClient client = new OkHttpClient().newBuilder().build();
+        Request request = new Request.Builder().url("https://api.web2m.com/historyapimomo/" + TOKEN_MOMO).get().build();
         try (Response response = client.newCall(request).execute()) {
             String responseString = response.body().string();
             return ((JSONObject) ((JSONObject) JSONValue.parse(responseString)).get("momoMsg")).get("tranList");
@@ -98,12 +94,8 @@ public class PaymentService implements Runnable {
     }
 
     public Object getListTransactionHistoryMBBank() {
-        OkHttpClient client = new OkHttpClient().newBuilder()
-                .build();
-        Request request = new Request.Builder()
-                .url("https://api.web2m.com/historyapimbv3/Vietphuocit2019@/0583217667/" + TOKEN_MB_BANK)
-                .get()
-                .build();
+        OkHttpClient client = new OkHttpClient().newBuilder().build();
+        Request request = new Request.Builder().url("https://api.web2m.com/historyapimbv3/Vietphuocit2019@/0583217667/" + TOKEN_MB_BANK).get().build();
         try (Response response = client.newCall(request).execute()) {
             String responseString = response.body().string();
             return ((JSONObject) JSONValue.parse(responseString)).get("transactions");
@@ -177,4 +169,5 @@ public class PaymentService implements Runnable {
         int keywordIndex = description.indexOf(keyword);
         return description.toLowerCase().replaceAll("[!@#$%^&*(){}\\[\\]|;:\"'<,>.?/]+", " ").substring(keywordIndex).split(" ")[1];
     }
+
 }

@@ -23,6 +23,7 @@ public class Map implements Runnable {
     public static final byte T_EMPTY = 0;
     public static final byte T_TOP = 2;
     private static final int SIZE = 24;
+    private final int[][] tileMap;
     public int mapId;
     public String mapName;
     public byte planetId;
@@ -31,7 +32,6 @@ public class Map implements Runnable {
     public byte bgId;
     public byte bgType;
     public byte type;
-    private final int[][] tileMap;
     public int[] tileTop;
     public int mapWidth;
     public int mapHeight;
@@ -39,9 +39,7 @@ public class Map implements Runnable {
     public List<WayPoint> wayPoints;
     public List<Npc> npcs;
 
-    public Map(int mapId, String mapName, byte planetId,
-               byte tileId, byte bgId, byte bgType, byte type, int[][] tileMap,
-               int[] tileTop, int zones, int maxPlayer, List<WayPoint> wayPoints) {
+    public Map(int mapId, String mapName, byte planetId, byte tileId, byte bgId, byte bgType, byte type, int[][] tileMap, int[] tileTop, int zones, int maxPlayer, List<WayPoint> wayPoints) {
         this.mapId = mapId;
         this.mapName = mapName;
         this.planetId = planetId;

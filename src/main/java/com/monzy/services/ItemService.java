@@ -16,9 +16,9 @@ import java.util.stream.Collectors;
 
 public class ItemService {
 
-    private static ItemService i;
     public static int BOSS_DROP = 1;
     public static int MOB_DROP = 2;
+    private static ItemService i;
 
     public static ItemService gI() {
         if (i == null) {
@@ -160,7 +160,8 @@ public class ItemService {
     }
 
     public void sendDKH(Player player, int itemUseId, int select) {
-        if (select < 0 || select > 4) return;
+        if (select < 0 || select > 4)
+            return;
         Item itemUse = InventoryService.gI().findItem(player.inventory.itemsBag, itemUseId);
         int[][] items = {{0, 6, 21, 27, 12}, {1, 7, 22, 28, 12}, {2, 8, 23, 29, 12}};
         int[][] options = {{127, 128, 129}, {130, 131, 132}, {133, 134, 135}};
@@ -189,7 +190,8 @@ public class ItemService {
     }
 
     public void sendDHD(Player player, int itemUseId, int select) {
-        if (select < 0 || select > 4) return;
+        if (select < 0 || select > 4)
+            return;
         Item itemUse = InventoryService.gI().findItem(player.inventory.itemsBag, itemUseId);
         int gender = -1;
         switch (itemUseId) {
@@ -598,4 +600,5 @@ public class ItemService {
         }
         return item;
     }
+
 }

@@ -21,8 +21,7 @@ public class Android13 extends Boss {
         if (this.parentBoss == null) {
             return;
         }
-        if (this.parentBoss.bossAppearTogether == null
-                || this.parentBoss.bossAppearTogether[this.parentBoss.currentLevel] == null) {
+        if (this.parentBoss.bossAppearTogether == null || this.parentBoss.bossAppearTogether[this.parentBoss.currentLevel] == null) {
             return;
         }
         for (Boss boss : this.parentBoss.bossAppearTogether[this.parentBoss.currentLevel]) {

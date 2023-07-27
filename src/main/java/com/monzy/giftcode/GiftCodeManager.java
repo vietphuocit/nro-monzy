@@ -23,8 +23,8 @@ import java.util.ArrayList;
  */
 public class GiftCodeManager {
 
-    public final ArrayList<GiftCode> listGiftCode = new ArrayList<>();
     private static GiftCodeManager instance;
+    public final ArrayList<GiftCode> listGiftCode = new ArrayList<>();
 
     public GiftCodeManager() {
         init();
@@ -93,8 +93,7 @@ public class GiftCodeManager {
     public void checkInformationGiftCode(Player p) {
         StringBuilder sb = new StringBuilder();
         for (GiftCode giftCode : listGiftCode) {
-            sb.append("Code: ").append(giftCode.code).append(", Số lượng: ").append(giftCode.countLeft)
-                    .append("\bHạn sử dụng: ").append(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(giftCode.dateCreate)).append(" -> ").append(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(giftCode.dateExpired)).append("\b");
+            sb.append("Code: ").append(giftCode.code).append(", Số lượng: ").append(giftCode.countLeft).append("\bHạn sử dụng: ").append(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(giftCode.dateCreate)).append(" -> ").append(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(giftCode.dateExpired)).append("\b");
         }
         NpcService.gI().createTutorial(p, 5073, sb.toString());
     }
@@ -108,9 +107,7 @@ public class GiftCodeManager {
                     jsonObject.put("id", value);
                     players.add(jsonObject);
                 }
-                String query = "update giftcode\n" +
-                        "set count_left = ?, players = ?\n" +
-                        "WHERE code = ?";
+                String query = "update giftcode\n" + "set count_left = ?, players = ?\n" + "WHERE code = ?";
                 Database.executeUpdate(query, giftCode.countLeft, players.toJSONString(), giftCode.code);
             }
         } catch (Exception e) {

@@ -1,8 +1,7 @@
 package com.network.session;
 
 public enum TypeSession {
-    SERVER,
-    CLIENT;
+    SERVER, CLIENT;
 
     TypeSession() {
     }

@@ -9,7 +9,6 @@ import com.monzy.models.npc.Npc;
 import com.monzy.models.npc.NpcManager;
 import com.monzy.models.player.Pet;
 import com.monzy.models.player.Player;
-import com.monzy.services.*;
 import com.monzy.utils.FileIO;
 import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
@@ -21,23 +20,37 @@ import java.util.List;
 public class Zone {
 
     public static final byte PLAYERS_TIEU_CHUAN_TRONG_MAP = 7;
-    public int countItemAppeaerd = 0;
-    public Map map;
-    public int zoneId;
-    public int maxPlayer;
+    public final List<Mob> mobs;
+    public final List<ItemMap> items;
     private final List<Player> humanoids; //player, boss, pet
     private final List<Player> notBosses; //player, pet
     private final List<Player> players; //player
     private final List<Player> bosses; //boss
     private final List<Player> pets; //pet
-    public final List<Mob> mobs;
-    public final List<ItemMap> items;
+    public int countItemAppeaerd = 0;
+    public Map map;
+    public int zoneId;
+    public int maxPlayer;
     public long lastTimeDropBlackBall;
     public boolean finishBlackBallWar;
     public boolean finishMapMaBu;
     public List<TrapMap> trapMaps;
     public boolean finishBdkb;
     public boolean finishnguhs;
+
+    public Zone(Map map, int zoneId, int maxPlayer) {
+        this.map = map;
+        this.zoneId = zoneId;
+        this.maxPlayer = maxPlayer;
+        this.humanoids = new ArrayList<>();
+        this.notBosses = new ArrayList<>();
+        this.players = new ArrayList<>();
+        this.bosses = new ArrayList<>();
+        this.pets = new ArrayList<>();
+        this.mobs = new ArrayList<>();
+        this.items = new ArrayList<>();
+        this.trapMaps = new ArrayList<>();
+    }
 
     public boolean isFullPlayer() {
         return this.players.size() >= this.maxPlayer;
@@ -68,20 +81,6 @@ public class Zone {
         udMob();
         udPlayer();
         udItem();
-    }
-
-    public Zone(Map map, int zoneId, int maxPlayer) {
-        this.map = map;
-        this.zoneId = zoneId;
-        this.maxPlayer = maxPlayer;
-        this.humanoids = new ArrayList<>();
-        this.notBosses = new ArrayList<>();
-        this.players = new ArrayList<>();
-        this.bosses = new ArrayList<>();
-        this.pets = new ArrayList<>();
-        this.mobs = new ArrayList<>();
-        this.items = new ArrayList<>();
-        this.trapMaps = new ArrayList<>();
     }
 
     public int getNumOfPlayers() {
@@ -271,10 +270,7 @@ public class Zone {
                         player.sendMessage(msg);
                         msg.cleanup();
                         Service.gI().sendToAntherMePickItem(player, itemMapId);
-                        if (!(this.map.mapId >= 21 && this.map.mapId <= 23
-                                && itemMap.itemTemplate.id == 74
-                                || this.map.mapId >= 42 && this.map.mapId <= 44
-                                && itemMap.itemTemplate.id == 78)) {
+                        if (!(this.map.mapId >= 21 && this.map.mapId <= 23 && itemMap.itemTemplate.id == 74 || this.map.mapId >= 42 && this.map.mapId <= 44 && itemMap.itemTemplate.id == 78)) {
                             removeItemMap(itemMap);
                         }
                     } catch (Exception e) {
@@ -539,8 +535,7 @@ public class Zone {
 
     public TrapMap isInTrap(Player player) {
         for (TrapMap trap : this.trapMaps) {
-            if (player.location.x >= trap.x && player.location.x <= trap.x + trap.w
-                    && player.location.y >= trap.y && player.location.y <= trap.y + trap.h) {
+            if (player.location.x >= trap.x && player.location.x <= trap.x + trap.w && player.location.y >= trap.y && player.location.y <= trap.y + trap.h) {
                 return trap;
             }
         }

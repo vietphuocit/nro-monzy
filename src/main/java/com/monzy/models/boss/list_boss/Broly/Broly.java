@@ -10,9 +10,7 @@ import com.monzy.utils.Util;
 
 public class Broly extends Boss {
 
-    public Broly() throws Exception {
-        super(BossID.BROLY, BossesData.BROLY_1, BossesData.BROLY_2, BossesData.BROLY_3);
-    }
+    private long st;
 //    @Override
 //    public void reward(Player plKill) {
 //        int[] itemDos = new int[]{1115, 1116, 1117, 1118, 1119};
@@ -30,6 +28,10 @@ public class Broly extends Boss {
 //        }
 //    }
 
+    public Broly() throws Exception {
+        super(BossID.BROLY, BossesData.BROLY_1, BossesData.BROLY_2, BossesData.BROLY_3);
+    }
+
     @Override
     public void active() {
         super.active(); //To change body of generated methods, choose Tools | Templates.
@@ -43,8 +45,6 @@ public class Broly extends Boss {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
         st = System.currentTimeMillis();
     }
-
-    private long st;
 
     @Override
     public int injured(Player plAtt, int damage, boolean piercing, boolean isMobAttack) {

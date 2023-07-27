@@ -10,7 +10,6 @@ import com.monzy.models.map.Zone;
 import com.monzy.models.player.Inventory;
 import com.monzy.models.player.Player;
 import com.monzy.server.Client;
-import com.monzy.services.*;
 import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
 import com.network.io.Message;
@@ -36,54 +35,25 @@ public class SummonDragon {
     public static final short NGOC_RONG_5_SAO = 18;
     public static final short NGOC_RONG_6_SAO = 19;
     public static final short NGOC_RONG_7_SAO = 20;
-    public static final String SUMMON_SHENRON_TUTORIAL
-            = "Có 3 cách gọi rồng thần. Gọi từ ngọc 1 sao, gọi từ ngọc 2 sao, hoặc gọi từ ngọc 3 sao\n"
-            + "Các ngọc 4 sao đến 7 sao không thể gọi rồng thần được\n"
-            + "Để gọi rồng 1 sao cần ngọc từ 1 sao đến 7 sao\n"
-            + "Để gọi rồng 2 sao cần ngọc từ 2 sao đến 7 sao\n"
-            + "Để gọi rồng 3 sao cần ngọc từ 3 sao đến 7sao\n"
-            + "Điều ước rồng 3 sao: Capsule 3 sao, hoặc 2 triệu sức mạnh, hoặc 200k vàng\n"
-            + "Điều ước rồng 2 sao: Capsule 2 sao, hoặc 20 triệu sức mạnh, hoặc 2 triệu vàng\n"
-            + "Điều ước rồng 1 sao: Capsule 1 sao, hoặc 200 triệu sức mạnh, hoặc 20 triệu vàng, hoặc đẹp trai, hoặc....\n"
-            + "Ngọc rồng sẽ mất ngay khi gọi rồng dù bạn có ước hay không\n"
-            + "Quá 5 phút nếu không ước rồng thần sẽ bay mất";
-    public static final String SHENRON_SAY
-            = "Ta sẽ ban cho người 1 điều ước, ngươi có 5 phút, hãy suy nghĩ thật kỹ trước khi quyết định";
-    public static final String[] SHENRON_1_STAR_WISHES_1 = new String[]{
-            "Giàu có\n+5000\nHồng Ngọc",
-            "Giàu có\n+2 tỷ\nVàng",
-            "+200 triệu\nSức mạnh\nvà tiềm\nnăng",
-            "Thay\nchiêu 2-3\nĐệ tử",
-            "Thay\nchiêu 3-4\nĐệ tử",
-            "Thay\nchiêu 4-5\nĐệ tử",
-            "Điều ước\nkhác"};
-    public static final String[] SHENRON_1_STAR_WISHES_2 = new String[]{
-            "Đẹp trai\nnhất\nVũ trụ",
-            "Chí mạng\nGốc +2%",
-            "Găng tay\nđang mang\nlên 1 cấp",
-            "Găng tay đệ\nđang mang\nlên 1 cấp",
-            "Điều ước\nkhác"};
-    public static final String[] SHENRON_2_STARS_WHISHES = new String[]{
-            "Giàu có\n+600\nHồng Ngọc",
-            "Giàu có\n+200 triệu\nVàng",
-            "+20 triệu\nSức mạnh\nvà tiềm năng"};
-    public static final String[] SHENRON_3_STARS_WHISHES = new String[]{
-            "Giàu có\n+75\nHồng Ngọc",
-            "Giàu có\n+20 triệu\nVàng",
-            "+2 triệu\nSức mạnh\nvà tiềm năng"};
+    public static final String SUMMON_SHENRON_TUTORIAL = "Có 3 cách gọi rồng thần. Gọi từ ngọc 1 sao, gọi từ ngọc 2 sao, hoặc gọi từ ngọc 3 sao\n" + "Các ngọc 4 sao đến 7 sao không thể gọi rồng thần được\n" + "Để gọi rồng 1 sao cần ngọc từ 1 sao đến 7 sao\n" + "Để gọi rồng 2 sao cần ngọc từ 2 sao đến 7 sao\n" + "Để gọi rồng 3 sao cần ngọc từ 3 sao đến 7sao\n" + "Điều ước rồng 3 sao: Capsule 3 sao, hoặc 2 triệu sức mạnh, hoặc 200k vàng\n" + "Điều ước rồng 2 sao: Capsule 2 sao, hoặc 20 triệu sức mạnh, hoặc 2 triệu vàng\n" + "Điều ước rồng 1 sao: Capsule 1 sao, hoặc 200 triệu sức mạnh, hoặc 20 triệu vàng, hoặc đẹp trai, hoặc....\n" + "Ngọc rồng sẽ mất ngay khi gọi rồng dù bạn có ước hay không\n" + "Quá 5 phút nếu không ước rồng thần sẽ bay mất";
+    public static final String SHENRON_SAY = "Ta sẽ ban cho người 1 điều ước, ngươi có 5 phút, hãy suy nghĩ thật kỹ trước khi quyết định";
+    public static final String[] SHENRON_1_STAR_WISHES_1 = new String[]{"Giàu có\n+5000\nHồng Ngọc", "Giàu có\n+2 tỷ\nVàng", "+200 triệu\nSức mạnh\nvà tiềm\nnăng", "Thay\nchiêu 2-3\nĐệ tử", "Thay\nchiêu 3-4\nĐệ tử", "Thay\nchiêu 4-5\nĐệ tử", "Điều ước\nkhác"};
+    public static final String[] SHENRON_1_STAR_WISHES_2 = new String[]{"Đẹp trai\nnhất\nVũ trụ", "Chí mạng\nGốc +2%", "Găng tay\nđang mang\nlên 1 cấp", "Găng tay đệ\nđang mang\nlên 1 cấp", "Điều ước\nkhác"};
+    public static final String[] SHENRON_2_STARS_WHISHES = new String[]{"Giàu có\n+600\nHồng Ngọc", "Giàu có\n+200 triệu\nVàng", "+20 triệu\nSức mạnh\nvà tiềm năng"};
+    public static final String[] SHENRON_3_STARS_WHISHES = new String[]{"Giàu có\n+75\nHồng Ngọc", "Giàu có\n+20 triệu\nVàng", "+2 triệu\nSức mạnh\nvà tiềm năng"};
     //--------------------------------------------------------------------------
     private static SummonDragon instance;
     private final Map pl_dragonStar;
-    private long lastTimeShenronAppeared;
-    private long lastTimeShenronWait;
     private final int timeResummonShenron = 120000;
-    //    private final int timeResummonShenron = 0;
-    private boolean isShenronAppear;
     private final int timeShenronWait = 300000;
     private final Thread update;
-    private boolean active;
     public boolean isPlayerDisconnect;
     public Player playerSummonShenron;
+    private long lastTimeShenronAppeared;
+    private long lastTimeShenronWait;
+    //    private final int timeResummonShenron = 0;
+    private boolean isShenronAppear;
+    private boolean active;
     private int playerSummonShenronId;
     private Zone mapShenronAppear;
     private byte shenronStar;
@@ -120,6 +90,13 @@ public class SummonDragon {
         this.active();
     }
 
+    public static SummonDragon gI() {
+        if (instance == null) {
+            instance = new SummonDragon();
+        }
+        return instance;
+    }
+
     private void active() {
         if (!active) {
             active = true;
@@ -140,17 +117,9 @@ public class SummonDragon {
         }
     }
 
-    public static SummonDragon gI() {
-        if (instance == null) {
-            instance = new SummonDragon();
-        }
-        return instance;
-    }
-
     public void openMenuSummonShenron(Player pl, byte dragonBallStar) {
         this.pl_dragonStar.put(pl, dragonBallStar);
-        NpcService.gI().createMenuConMeo(pl, ConstNpc.SUMMON_SHENRON, -1, "Bạn muốn gọi rồng thần ?",
-                "Hướng\ndẫn thêm\n(mới)", "Gọi\nRồng Thần\n" + dragonBallStar + " Sao");
+        NpcService.gI().createMenuConMeo(pl, ConstNpc.SUMMON_SHENRON, -1, "Bạn muốn gọi rồng thần ?", "Hướng\ndẫn thêm\n(mới)", "Gọi\nRồng Thần\n" + dragonBallStar + " Sao");
     }
 
     public void summonShenron(Player pl) {
@@ -287,8 +256,7 @@ public class SummonDragon {
         Message msg;
         try {
             msg = new Message(-25);
-            msg.writer().writeUTF(playerSummonShenron.name + " vừa gọi rồng thần tại "
-                    + playerSummonShenron.zone.map.mapName + " khu vực " + playerSummonShenron.zone.zoneId);
+            msg.writer().writeUTF(playerSummonShenron.name + " vừa gọi rồng thần tại " + playerSummonShenron.zone.map.mapName + " khu vực " + playerSummonShenron.zone.zoneId);
             Service.getInstance().sendMessAllPlayerIgnoreMe(playerSummonShenron, msg);
             msg.cleanup();
         } catch (Exception e) {
@@ -390,8 +358,7 @@ public class SummonDragon {
                     {
                         if (InventoryService.gI().getCountEmptyBag(playerSummonShenron) > 0) {
                             byte gender = this.playerSummonShenron.gender;
-                            Item avtVip = ItemService.gI().createNewItem((short) (gender == ConstPlayer.TRAI_DAT ? 227
-                                    : gender == ConstPlayer.NAMEC ? 228 : 229));
+                            Item avtVip = ItemService.gI().createNewItem((short) (gender == ConstPlayer.TRAI_DAT ? 227 : gender == ConstPlayer.NAMEC ? 228 : 229));
                             avtVip.itemOptions.add(new ItemOption(97, Util.nextInt(5, 10)));
                             avtVip.itemOptions.add(new ItemOption(77, Util.nextInt(10, 20)));
                             InventoryService.gI().addItemBag(playerSummonShenron, avtVip);

@@ -15,6 +15,7 @@ import com.monzy.services.func.SummonDragon;
 import com.monzy.utils.Logger;
 import com.network.server.MonzySessionManager;
 import com.network.session.ISession;
+import com.sun.corba.se.spi.activation.ServerManager;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -35,15 +36,15 @@ public class Client implements Runnable {
         new Thread(this).start();
     }
 
-    public List<Player> getPlayers() {
-        return this.players;
-    }
-
     public static Client gI() {
         if (i == null) {
             i = new Client();
         }
         return i;
+    }
+
+    public List<Player> getPlayers() {
+        return this.players;
     }
 
     public void put(Player player) {
@@ -109,8 +110,7 @@ public class Client implements Runnable {
 //                    ItemTimeService.gI().turnOffTDLT(player, tdlt);
 //                }
 //            }
-            if (SummonDragon.gI().playerSummonShenron != null
-                    && SummonDragon.gI().playerSummonShenron.id == player.id) {
+            if (SummonDragon.gI().playerSummonShenron != null && SummonDragon.gI().playerSummonShenron.id == player.id) {
                 SummonDragon.gI().isPlayerDisconnect = true;
             }
             if (player.mobMe != null) {

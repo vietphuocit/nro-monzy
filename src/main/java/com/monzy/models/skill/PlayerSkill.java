@@ -9,7 +9,6 @@ import java.util.List;
 
 public class PlayerSkill {
 
-    private Player player;
     public List<Skill> skills;
     public Skill skillSelect;
     public boolean prepareQCKK;
@@ -18,6 +17,8 @@ public class PlayerSkill {
     public long lastTimePrepareQCKK;
     public long lastTimePrepareTuSat;
     public long lastTimePrepareLaze;
+    public byte[] skillShortCut = new byte[10];
+    private Player player;
 
     public PlayerSkill(Player player) {
         this.player = player;
@@ -32,8 +33,6 @@ public class PlayerSkill {
         }
         return null;
     }
-
-    public byte[] skillShortCut = new byte[10];
 
     public void sendSkillShortCut() {
         Message msg;

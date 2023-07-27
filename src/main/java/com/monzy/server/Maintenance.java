@@ -2,6 +2,7 @@ package com.monzy.server;
 
 import com.monzy.services.Service;
 import com.monzy.utils.Logger;
+import com.sun.corba.se.spi.activation.ServerManager;
 
 public class Maintenance extends Thread {
 
@@ -31,8 +32,7 @@ public class Maintenance extends Thread {
     public void run() {
         while (this.seconds > 0) {
             this.seconds--;
-            Service.gI().sendThongBaoAllPlayer("Hệ thống sẽ bảo trì sau " + seconds
-                    + " giây nữa, vui lòng thoát game để tránh mất vật phẩm");
+            Service.gI().sendThongBaoAllPlayer("Hệ thống sẽ bảo trì sau " + seconds + " giây nữa, vui lòng thoát game để tránh mất vật phẩm");
             try {
                 Thread.sleep(1000);
             } catch (Exception ignored) {

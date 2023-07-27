@@ -1,4 +1,3 @@
-
 package com.monzy.models.map.bdkb;
 
 import com.monzy.models.player.Player;
@@ -18,9 +17,9 @@ public class Bdkb {
     public static final byte MIN_CLOSE_MAP_BDKB = 30;
     public static final byte SECOND_CLOSE_MAP_BDKB = 0;
     public static final int AVAILABLE = 7;
-    private static Bdkb i;
     public static long TIME_OPEN_BDKB;
     public static long TIME_CLOSE_BDKB;
+    private static Bdkb i;
     private int day = -1;
 
     public static Bdkb gI() {

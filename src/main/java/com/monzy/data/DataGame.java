@@ -19,14 +19,15 @@ import java.util.Map;
 
 public class DataGame {
 
+    public static final Map<Object, Object> MAP_MOUNT_NUM = new HashMap<>();
+    private static final String MOUNT_NUM = "733:1,734:2,735:3,743:4,744:5,746:6,795:7,849:8,897:9,920:10,1143:11,1141:15";
+    private static final List<Integer> list = new ArrayList<>();
     public static byte vsData = 80;
     public static byte vsMap = 80;
     public static byte vsSkill = 6;
     public static byte vsItem = 80;
     public static int vsRes = 752011;
     public static String LINK_IP_PORT = "Arriety:sv.arriety.com:14445:0";
-    private static final String MOUNT_NUM = "733:1,734:2,735:3,743:4,744:5,746:6,795:7,849:8,897:9,920:10,1143:11,1141:15";
-    public static final Map<Object, Object> MAP_MOUNT_NUM = new HashMap<>();
 
     static {
         String[] array = MOUNT_NUM.split(",");
@@ -49,9 +50,7 @@ public class DataGame {
             msg.writer().writeByte(vsSkill);
             msg.writer().writeByte(vsItem);
             msg.writer().writeByte(0);
-            long[] smtieuchuan = {1000L, 3000L, 15000L, 40000L, 90000L, 170000L, 340000L, 700000L,
-                    1500000L, 15000000L, 150000000L, 1500000000L, 5000000000L, 10000000000L, 40000000000L,
-                    50010000000L, 60010000000L, 70010000000L, 80010000000L, 100010000000L};
+            long[] smtieuchuan = {1000L, 3000L, 15000L, 40000L, 90000L, 170000L, 340000L, 700000L, 1500000L, 15000000L, 150000000L, 1500000000L, 5000000000L, 10000000000L, 40000000000L, 50010000000L, 60010000000L, 70010000000L, 80010000000L, 100010000000L};
             msg.writer().writeByte(smtieuchuan.length);
             for (int i = 0; i < smtieuchuan.length; i++) {
                 msg.writer().writeLong(smtieuchuan[i]);
@@ -304,8 +303,6 @@ public class DataGame {
         } catch (Exception e) {
         }
     }
-
-    private static final List<Integer> list = new ArrayList<>();
 
     public static void requestMobTemplate(MySession session, int id) {
 //        if (list.contains(id)) {

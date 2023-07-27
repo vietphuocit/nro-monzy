@@ -8,7 +8,7 @@ import com.monzy.models.intrinsic.Intrinsic;
 import com.monzy.models.item.Item;
 import com.monzy.models.skill.Skill;
 import com.monzy.server.Manager;
-import com.monzy.services.*;
+import com.monzy.services.EffectSkillService;
 import com.monzy.utils.Logger;
 import com.monzy.utils.SkillUtil;
 import com.monzy.utils.Util;
@@ -19,24 +19,8 @@ import java.util.List;
 public class NPoint {
 
     public static final byte MAX_LIMIT = 9;
-    private Player player;
-
-    public NPoint(Player player) {
-        this.player = player;
-        this.tlHp = new ArrayList<>();
-        this.tlMp = new ArrayList<>();
-        this.tlDef = new ArrayList<>();
-        this.tlDame = new ArrayList<>();
-        this.tlDameAttMob = new ArrayList<>();
-        this.tlSDDep = new ArrayList<>();
-        this.tlTNSM = new ArrayList<>();
-        this.tlDameCrit = new ArrayList<>();
-    }
-
     public boolean isCrit;
     public boolean isCrit100;
-    private Intrinsic intrinsic;
-    private int percentDameIntrinsic;
     public int dameAfter;
     /*-----------------------Chỉ số cơ bản------------------------------------*/
     public byte numAttack;
@@ -125,8 +109,25 @@ public class NPoint {
     public boolean isKhongLanh;
     public short tlHpGiamODo;
     public short test;
-
+    private Player player;
+    private Intrinsic intrinsic;
+    private int percentDameIntrinsic;
+    //--------------------------------------------------------------------------
+    private long lastTimeHoiPhuc;
     /*-------------------------------------------------------------------------*/
+    private long lastTimeHoiStamina;
+
+    public NPoint(Player player) {
+        this.player = player;
+        this.tlHp = new ArrayList<>();
+        this.tlMp = new ArrayList<>();
+        this.tlDef = new ArrayList<>();
+        this.tlDame = new ArrayList<>();
+        this.tlDameAttMob = new ArrayList<>();
+        this.tlSDDep = new ArrayList<>();
+        this.tlTNSM = new ArrayList<>();
+        this.tlDameCrit = new ArrayList<>();
+    }
 
     /**
      * Tính toán mọi chỉ số sau khi có thay đổi
@@ -463,23 +464,19 @@ public class NPoint {
             }
         }
         //  pet mabư
-        if (this.player.isPet && ((Pet) this.player).typePet == 1
-                && (((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5)) {
+        if (this.player.isPet && ((Pet) this.player).typePet == 1 && (((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5)) {
             this.hpMax += ((long) this.hpMax * 20 / 100);
         }
         //  pet berus
-        if (this.player.isPet && ((Pet) this.player).typePet == 2
-                && (((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5)) {
+        if (this.player.isPet && ((Pet) this.player).typePet == 2 && (((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5)) {
             this.hpMax += ((long) this.hpMax * 40 / 100);
         }
         //  pet pic
-        if (this.player.isPet && ((Pet) this.player).typePet == 3
-                && (((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5)) {
+        if (this.player.isPet && ((Pet) this.player).typePet == 3 && (((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5)) {
             this.hpMax += ((long) this.hpMax * 30 / 100);
         }
         //thức ăn
-        if (!this.player.isPet && this.player.itemTime.isEatMeal && this.player.itemTime.iconMeal == 8061
-                || this.player.isPet && ((Pet) this.player).master.itemTime.isEatMeal && ((Pet) this.player).master.itemTime.iconMeal == 8061) {
+        if (!this.player.isPet && this.player.itemTime.isEatMeal && this.player.itemTime.iconMeal == 8061 || this.player.isPet && ((Pet) this.player).master.itemTime.isEatMeal && ((Pet) this.player).master.itemTime.iconMeal == 8061) {
             this.hpMax += ((long) this.hpMax * 20 / 100);
         }
         //  phù
@@ -507,9 +504,7 @@ public class NPoint {
             this.hpMax *= 1.40;
         }
         //huýt sáo
-        if (!this.player.isPet
-                || (this.player.isPet
-                && ((Pet) this.player).status != Pet.FUSION)) {
+        if (!this.player.isPet || (this.player.isPet && ((Pet) this.player).status != Pet.FUSION)) {
             if (this.player.effectSkill.tiLeHPHuytSao != 0) {
                 this.hpMax += ((long) this.hpMax * this.player.effectSkill.tiLeHPHuytSao / 100L);
             }
@@ -522,8 +517,7 @@ public class NPoint {
         if (this.player.itemTime != null && this.player.itemTime.isUseBoHuyet2) {
             this.hpMax *= 2.2;
         }
-        if (this.player.zone != null && MapService.gI().isMapCold(this.player.zone.map)
-                && !this.isKhongLanh) {
+        if (this.player.zone != null && MapService.gI().isMapCold(this.player.zone.map) && !this.isKhongLanh) {
             this.hpMax /= 2;
         }
 //        //mèo mun
@@ -556,23 +550,19 @@ public class NPoint {
             this.mpMax += ((long) this.mpMax * 10 / 100);
         }
         //pet mabư
-        if (this.player.isPet && ((Pet) this.player).typePet == 1
-                && (((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5)) {
+        if (this.player.isPet && ((Pet) this.player).typePet == 1 && (((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5)) {
             this.mpMax += ((long) this.mpMax * 20 / 100);
         }
         //pet berus
-        if (this.player.isPet && ((Pet) this.player).typePet == 2
-                && (((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5)) {
+        if (this.player.isPet && ((Pet) this.player).typePet == 2 && (((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5)) {
             this.mpMax += ((long) this.mpMax * 40 / 100);
         }
         //pet pic
-        if (this.player.isPet && ((Pet) this.player).typePet == 3
-                && (((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5)) {
+        if (this.player.isPet && ((Pet) this.player).typePet == 3 && (((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5)) {
             this.mpMax += ((long) this.mpMax * 30 / 100);
         }
         //thức ăn
-        if (!this.player.isPet && this.player.itemTime.isEatMeal && this.player.itemTime.iconMeal == 8062
-                || this.player.isPet && ((Pet) this.player).master.itemTime.isEatMeal && ((Pet) this.player).master.itemTime.iconMeal == 8062) {
+        if (!this.player.isPet && this.player.itemTime.isEatMeal && this.player.itemTime.iconMeal == 8062 || this.player.isPet && ((Pet) this.player).master.itemTime.isEatMeal && ((Pet) this.player).master.itemTime.iconMeal == 8062) {
             this.mpMax += ((long) this.mpMax * 20 / 100);
         }
         //hợp thể
@@ -629,27 +619,22 @@ public class NPoint {
             this.dame += ((long) this.dame * tl / 100);
         }
         //pet mabư
-        if (this.player.isPet && ((Pet) this.player).typePet == 1
-                && (((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5)) {
+        if (this.player.isPet && ((Pet) this.player).typePet == 1 && (((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5)) {
             this.dame += ((long) this.dame * 20 / 100);
         }
         //pet berus
-        if (this.player.isPet && ((Pet) this.player).typePet == 2
-                && (((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5)) {
+        if (this.player.isPet && ((Pet) this.player).typePet == 2 && (((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5)) {
             this.dame += ((long) this.dame * 40 / 100);
         }
         //pet pic
-        if (this.player.isPet && ((Pet) this.player).typePet == 3
-                && (((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5)) {
+        if (this.player.isPet && ((Pet) this.player).typePet == 3 && (((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4 || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5)) {
             this.dame += ((long) this.dame * 30 / 100);
         }
         //thức ăn
-        if (!this.player.isPet && this.player.itemTime.isEatMeal && this.player.itemTime.isMealCooler()
-                || this.player.isPet && ((Pet) this.player).master.itemTime.isEatMeal && ((Pet) this.player).master.itemTime.isMealCooler()) {
+        if (!this.player.isPet && this.player.itemTime.isEatMeal && this.player.itemTime.isMealCooler() || this.player.isPet && ((Pet) this.player).master.itemTime.isEatMeal && ((Pet) this.player).master.itemTime.isMealCooler()) {
             this.dame += ((long) this.dame * 10 / 100);
         }
-        if (!this.player.isPet && this.player.itemTime.isEatMeal && this.player.itemTime.iconMeal == 8060
-                || this.player.isPet && ((Pet) this.player).master.itemTime.isEatMeal && ((Pet) this.player).master.itemTime.iconMeal == 8060) {
+        if (!this.player.isPet && this.player.itemTime.isEatMeal && this.player.itemTime.iconMeal == 8060 || this.player.isPet && ((Pet) this.player).master.itemTime.isEatMeal && ((Pet) this.player).master.itemTime.iconMeal == 8060) {
             this.dame += ((long) this.dame * 20 / 100);
         }
         //hợp thể
@@ -682,8 +667,7 @@ public class NPoint {
         //giảm dame
         this.dame -= ((long) this.dame * tlSubSD / 100);
         //map cold
-        if (this.player.zone != null && MapService.gI().isMapCold(this.player.zone.map)
-                && !this.isKhongLanh) {
+        if (this.player.zone != null && MapService.gI().isMapCold(this.player.zone.map) && !this.isKhongLanh) {
             this.dame /= 2;
         }
         //ngọc rồng đen 1 sao
@@ -701,8 +685,7 @@ public class NPoint {
         }
         //khỉ
         if (this.player.effectSkill.isMonkey) {
-            if (!this.player.isPet || (this.player.isPet
-                    && ((Pet) this.player).status != Pet.FUSION)) {
+            if (!this.player.isPet || (this.player.isPet && ((Pet) this.player).status != Pet.FUSION)) {
                 int percent = SkillUtil.getPercentDameMonkey(player.effectSkill.levelMonkey);
                 this.dame += ((long) this.dame * percent / 100);
             }
@@ -811,8 +794,7 @@ public class NPoint {
     }
 
     private void setIsCrit() {
-        if (intrinsic != null && intrinsic.id == 25
-                && this.getCurrPercentHP() <= intrinsic.param1) {
+        if (intrinsic != null && intrinsic.id == 25 && this.getCurrPercentHP() <= intrinsic.param1) {
             isCrit = true;
         } else if (isCrit100) {
             isCrit100 = false;
@@ -897,8 +879,7 @@ public class NPoint {
                 break;
             case Skill.DICH_CHUYEN_TUC_THOI:
                 dameAttack *= 2;
-                dameAttack = Util.nextInt((int) (dameAttack - (dameAttack * 5 / 100)),
-                        (int) (dameAttack + (dameAttack * 5 / 100)));
+                dameAttack = Util.nextInt((int) (dameAttack - (dameAttack * 5 / 100)), (int) (dameAttack + (dameAttack * 5 / 100)));
                 return (int) dameAttack;
             case Skill.MAKANKOSAPPO:
                 percentDameSkill = skillSelect.damage;
@@ -1358,17 +1339,12 @@ public class NPoint {
         return false;
     }
 
-    //--------------------------------------------------------------------------
-    private long lastTimeHoiPhuc;
-    private long lastTimeHoiStamina;
-
     public void update() {
         if (player != null && player.effectSkill != null) {
             if (player.effectSkill.isCharging && player.effectSkill.countCharging < 10) {
                 int tiLeHoiPhuc = SkillUtil.getPercentCharge(player.playerSkill.skillSelect.point);
                 if (!player.isDie() && !player.effectSkill.isHaveEffectSkill() && (hp < hpMax || mp < mpMax)) {
-                    PlayerService.gI().hoiPhuc(player, hpMax / 100 * tiLeHoiPhuc,
-                            mpMax / 100 * tiLeHoiPhuc);
+                    PlayerService.gI().hoiPhuc(player, hpMax / 100 * tiLeHoiPhuc, mpMax / 100 * tiLeHoiPhuc);
                     if (player.effectSkill.countCharging % 3 == 0) {
                         Service.gI().chat(player, "Phục hồi năng lượng " + getCurrPercentHP() + "%");
                     }

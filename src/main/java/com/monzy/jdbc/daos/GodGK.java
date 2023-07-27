@@ -13,15 +13,14 @@ import com.monzy.models.item.ItemTime;
 import com.monzy.models.npc.specialnpc.BillEgg;
 import com.monzy.models.npc.specialnpc.MabuEgg;
 import com.monzy.models.npc.specialnpc.MagicTree;
+import com.monzy.models.player.Pet;
 import com.monzy.models.player.Player;
-import com.monzy.models.player.*;
 import com.monzy.models.skill.Skill;
 import com.monzy.models.task.TaskMain;
 import com.monzy.server.Client;
 import com.monzy.server.Manager;
 import com.monzy.server.io.MySession;
 import com.monzy.server.model.AntiLogin;
-import com.monzy.services.*;
 import com.monzy.utils.Logger;
 import com.monzy.utils.SkillUtil;
 import com.monzy.utils.TimeUtil;
@@ -36,6 +35,8 @@ import java.util.List;
 
 public class GodGK {
 
+    public static Boolean baotri = false;
+
     public static List<OptionCard> loadOptionCard(JSONArray json) {
         List<OptionCard> ops = new ArrayList<>();
         try {
@@ -49,8 +50,6 @@ public class GodGK {
         }
         return ops;
     }
-
-    public static Boolean baotri = false;
 
     public static synchronized Player login(MySession session, AntiLogin al) {
         Player player = null;

@@ -10,12 +10,7 @@ import java.util.List;
 
 public class HistoryTransactionDAO {
 
-    public static void insert(Player pl1, Player pl2,
-                              int goldP1, int goldP2, List<Item> itemP1, List<Item> itemP2,
-                              List<Item> bag1Before, List<Item> bag2Before,
-                              List<Item> bag1After,
-                              List<Item> bag2After,
-                              long gold1Before, long gold2Before, long gold1After, long gold2After) {
+    public static void insert(Player pl1, Player pl2, int goldP1, int goldP2, List<Item> itemP1, List<Item> itemP2, List<Item> bag1Before, List<Item> bag2Before, List<Item> bag1After, List<Item> bag2After, long gold1Before, long gold2Before, long gold1After, long gold2After) {
         String player1 = pl1.name + " (" + pl1.id + ")";
         String player2 = pl2.name + " (" + pl2.id + ")";
         String itemPlayer1 = "Gold: " + goldP1 + ", ";
@@ -73,8 +68,7 @@ public class HistoryTransactionDAO {
             }
         }
         try {
-            Database.executeUpdate("insert into history_transaction values()", player1, player2,
-                    itemPlayer1, itemPlayer2, beforeTran1, beforeTran2, afterTran1, afterTran2, new Timestamp(System.currentTimeMillis()));
+            Database.executeUpdate("insert into history_transaction values()", player1, player2, itemPlayer1, itemPlayer2, beforeTran1, beforeTran2, afterTran1, afterTran2, new Timestamp(System.currentTimeMillis()));
         } catch (Exception ex) {
             ex.printStackTrace();
         }

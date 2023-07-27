@@ -7,14 +7,25 @@ import com.network.io.Message;
 public class MobEffectSkill {
 
     private final Mob mob;
+    public long lastTimeStun;
+    public int timeStun;
+    public boolean isStun;
+    public boolean isThoiMien;
+    public long lastTimeThoiMien;
+    public int timeThoiMien;
+    public boolean isBlindDCTT;
+    public long lastTimeBlindDCTT;
+    public int timeBlindDCTT;
+    public boolean isAnTroi;
+    public long lastTimeAnTroi;
+    public int timeAnTroi;
+    public boolean isSocola;
+    private long lastTimeSocola;
+    private int timeSocola;
 
     public MobEffectSkill(Mob mob) {
         this.mob = mob;
     }
-
-    public long lastTimeStun;
-    public int timeStun;
-    public boolean isStun;
 
     public void update() {
         if (isStun && (Util.canDoWithTime(lastTimeStun, timeStun) || mob.isDie())) {
@@ -59,10 +70,6 @@ public class MobEffectSkill {
         }
     }
 
-    public boolean isThoiMien;
-    public long lastTimeThoiMien;
-    public int timeThoiMien;
-
     public void setThoiMien(long lastTimeThoiMien, int timeThoiMien) {
         this.isThoiMien = true;
         this.lastTimeThoiMien = lastTimeThoiMien;
@@ -83,10 +90,6 @@ public class MobEffectSkill {
         } catch (Exception e) {
         }
     }
-
-    public boolean isBlindDCTT;
-    public long lastTimeBlindDCTT;
-    public int timeBlindDCTT;
 
     public void setStartBlindDCTT(long lastTimeBlindDCTT, int timeBlindDCTT) {
         this.isBlindDCTT = true;
@@ -109,10 +112,6 @@ public class MobEffectSkill {
         }
     }
 
-    public boolean isAnTroi;
-    public long lastTimeAnTroi;
-    public int timeAnTroi;
-
     public void setTroi(long lastTimeAnTroi, int timeAnTroi) {
         this.lastTimeAnTroi = lastTimeAnTroi;
         this.timeAnTroi = timeAnTroi;
@@ -133,10 +132,6 @@ public class MobEffectSkill {
         } catch (Exception e) {
         }
     }
-
-    public boolean isSocola;
-    private long lastTimeSocola;
-    private int timeSocola;
 
     public void removeSocola() {
         Message msg;

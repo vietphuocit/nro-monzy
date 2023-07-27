@@ -11,14 +11,6 @@ import java.util.List;
 public class DoanhTraiService {
 
     private static DoanhTraiService I;
-
-    public static DoanhTraiService gI() {
-        if (DoanhTraiService.I == null) {
-            DoanhTraiService.I = new DoanhTraiService();
-        }
-        return DoanhTraiService.I;
-    }
-
     public List<DoanhTrai> doanhTrais;
 
     private DoanhTraiService() {
@@ -26,6 +18,13 @@ public class DoanhTraiService {
         for (int i = 0; i < DoanhTrai.AVAILABLE; i++) {
             this.doanhTrais.add(new DoanhTrai(i));
         }
+    }
+
+    public static DoanhTraiService gI() {
+        if (DoanhTraiService.I == null) {
+            DoanhTraiService.I = new DoanhTraiService();
+        }
+        return DoanhTraiService.I;
     }
 
     public void addMapDoanhTrai(int id, Zone zone) {

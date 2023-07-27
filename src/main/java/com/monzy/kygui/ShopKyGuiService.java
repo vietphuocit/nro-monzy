@@ -356,8 +356,7 @@ public class ShopKyGuiService implements Runnable {
             return;
         }
         if (!pl.getSession().actived) {
-            Service.getInstance().sendThongBaoFromAdmin(pl,
-                    "|5|VUI LÒNG KÍCH HOẠT TÀI KHOẢN\n|5|ĐỂ MỞ KHÓA TÍNH NĂNG KÝ GỬI");
+            Service.getInstance().sendThongBaoFromAdmin(pl, "|5|VUI LÒNG KÍCH HOẠT TÀI KHOẢN\n|5|ĐỂ MỞ KHÓA TÍNH NĂNG KÝ GỬI");
             return;
         }
         Message msg = null;
@@ -372,7 +371,8 @@ public class ShopKyGuiService implements Runnable {
                     msg.writer().writeByte(getItemCanKiGui(pl).size());
                     for (int j = 0; j < getItemCanKiGui(pl).size(); j++) {
                         ItemKyGui itk = getItemCanKiGui(pl).get(j);
-                        if (itk == null) continue;
+                        if (itk == null)
+                            continue;
                         Item it = ItemService.gI().createNewItem(itk.itemId);
                         it.itemOptions.clear();
                         if (itk.options.isEmpty()) {

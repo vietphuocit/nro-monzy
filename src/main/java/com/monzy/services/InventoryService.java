@@ -38,8 +38,7 @@ public class InventoryService {
             Item itemGiftTemplate = ItemService.gI().createNewItem((short) idItem);
             if (itemGiftTemplate != null) {
                 Item itemGift = new Item((short) idItem);
-                if (itemGift.template.type == 0 || itemGift.template.type == 1 || itemGift.template.type == 2 || itemGift.template.type == 3
-                        || itemGift.template.type == 4 || itemGift.template.type == 5) {
+                if (itemGift.template.type == 0 || itemGift.template.type == 1 || itemGift.template.type == 2 || itemGift.template.type == 3 || itemGift.template.type == 4 || itemGift.template.type == 5) {
                     if (itemGift.template.id == 457) {
                         itemGift.itemOptions.add(new ItemOption(30, 0));
                     } else {
@@ -756,12 +755,7 @@ public class InventoryService {
                     continue;
                 }
                 //457-thỏi vàng; 590-bí kiếp
-                if (itemAdd.template.id == 457
-                        || itemAdd.template.id == 590
-                        || itemAdd.template.id == 610
-                        || itemAdd.template.type == 14
-                        || itemAdd.template.id == 933
-                        || itemAdd.template.id == 934) {
+                if (itemAdd.template.id == 457 || itemAdd.template.id == 590 || itemAdd.template.id == 610 || itemAdd.template.type == 14 || itemAdd.template.id == 933 || itemAdd.template.id == 934) {
                     it.quantity += itemAdd.quantity;
                     itemAdd.quantity = 0;
                     return true;

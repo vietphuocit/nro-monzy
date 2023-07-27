@@ -35,6 +35,8 @@ import java.util.List;
 
 public class Service {
 
+    public static final int[] flagTempId = {363, 364, 365, 366, 367, 368, 369, 370, 371, 519, 520, 747};
+    public static final int[] flagIconId = {2761, 2330, 2323, 2327, 2326, 2324, 2329, 2328, 2331, 4386, 4385, 2325};
     private static Service instance;
     public long lasttimechatbanv = 0;
     public long lasttimechatmuav = 0;
@@ -122,8 +124,7 @@ public class Service {
                         fr = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70};
                         break;
                     case 16147:
-                        fr = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43
-                        };
+                        fr = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43};
                         break;
                     case 16151:
                         fr = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50};
@@ -643,8 +644,7 @@ public class Service {
         }
         if (player.getSession() != null && player.isAdmin()) {
             if (text.equals("monzy")) {
-                NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_ADMIN, -1, "Số lượng người chơi đang online: " + Client.gI().getPlayers().size() + "\n",
-                        "Bảo trì", "Tìm kiếm\nngười chơi", "Giftcode", "Nạp", "Mở\nthành viên", "Tặng\nhồng ngọc", "Đóng");
+                NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_ADMIN, -1, "Số lượng người chơi đang online: " + Client.gI().getPlayers().size() + "\n", "Bảo trì", "Tìm kiếm\nngười chơi", "Giftcode", "Nạp", "Mở\nthành viên", "Tặng\nhồng ngọc", "Đóng");
                 return;
             }
             if (text.startsWith("i ")) {
@@ -662,8 +662,7 @@ public class Service {
         }
         if (player.getSession() != null && player.isMod()) {
             if (text.equals("monzy")) {
-                NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_MOD, -1, "Số lượng người chơi đang online: " + Client.gI().getPlayers().size() + "\n",
-                        "Mở\nthành viên", "Đóng");
+                NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_MOD, -1, "Số lượng người chơi đang online: " + Client.gI().getPlayers().size() + "\n", "Mở\nthành viên", "Đóng");
                 return;
             }
         }
@@ -1591,9 +1590,6 @@ public class Service {
         }
     }
 
-    public static final int[] flagTempId = {363, 364, 365, 366, 367, 368, 369, 370, 371, 519, 520, 747};
-    public static final int[] flagIconId = {2761, 2330, 2323, 2327, 2326, 2324, 2329, 2328, 2331, 4386, 4385, 2325};
-
     public void openFlagUI(Player pl) {
         Message msg;
         try {
@@ -1917,8 +1913,7 @@ public class Service {
                 if (newPass.equals(rePass)) {
                     player.getSession().pp = newPass;
                     try {
-                        Database.executeUpdate("update account set password = ? where id = ? and username = ?",
-                                rePass, player.getSession().userId, player.getSession().uu);
+                        Database.executeUpdate("update account set password = ? where id = ? and username = ?", rePass, player.getSession().userId, player.getSession().uu);
                         Service.gI().sendThongBao(player, "Đổi mật khẩu thành công!");
                     } catch (Exception ex) {
                         Service.gI().sendThongBao(player, "Đổi mật khẩu thất bại!");
@@ -1951,8 +1946,7 @@ public class Service {
             msg = new Message(-41);
             msg.writer().writeByte(Manager.CAPTIONS.size());
             for (String caption : Manager.CAPTIONS) {
-                msg.writer().writeUTF(caption.replaceAll("%1", gender == ConstPlayer.TRAI_DAT ? "Trái đất"
-                        : (gender == ConstPlayer.NAMEC ? "Namếc" : "Xayda")));
+                msg.writer().writeUTF(caption.replaceAll("%1", gender == ConstPlayer.TRAI_DAT ? "Trái đất" : (gender == ConstPlayer.NAMEC ? "Namếc" : "Xayda")));
             }
             session.sendMessage(msg);
             msg.cleanup();

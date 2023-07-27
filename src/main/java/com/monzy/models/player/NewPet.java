@@ -10,10 +10,13 @@ import com.monzy.utils.Util;
  */
 public class NewPet extends Player {
 
+    public static int idb = -400000;
     public Player master;
     public short body;
     public short leg;
-    public static int idb = -400000;
+    public boolean idle;
+    private long lastTimeMoveIdle;
+    private int timeMoveIdle;
 
     public NewPet(Player master, short h, short b, short l) {
         this.master = master;
@@ -50,15 +53,10 @@ public class NewPet extends Player {
         this.zone.load_Me_To_Another(this);
     }
 
-    private long lastTimeMoveIdle;
-    private int timeMoveIdle;
-    public boolean idle;
-
     private void moveIdle() {
         if (idle && Util.canDoWithTime(lastTimeMoveIdle, timeMoveIdle)) {
             int dir = this.location.x - master.location.x <= 0 ? -1 : 1;
-            PlayerService.gI().playerMove(this, master.location.x
-                    + Util.nextInt(dir == -1 ? 30 : -50, dir == -1 ? 50 : 30), master.location.y);
+            PlayerService.gI().playerMove(this, master.location.x + Util.nextInt(dir == -1 ? 30 : -50, dir == -1 ? 50 : 30), master.location.y);
             lastTimeMoveIdle = System.currentTimeMillis();
             timeMoveIdle = Util.nextInt(5000, 8000);
         }

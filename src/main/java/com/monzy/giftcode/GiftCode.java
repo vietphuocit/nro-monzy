@@ -16,11 +16,11 @@ import java.util.HashMap;
  */
 public class GiftCode {
 
-    String code;
-    int countLeft;
     public HashMap<Integer, Integer> details = new HashMap<>();
     public ArrayList<Integer> idsPlayer = new ArrayList<>();
     public ArrayList<ItemOption> option = new ArrayList<>();
+    String code;
+    int countLeft;
     Timestamp dateCreate;
     Timestamp dateExpired;
 

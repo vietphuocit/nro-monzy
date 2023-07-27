@@ -43,16 +43,6 @@ import java.util.*;
 
 public class Manager {
 
-    private static Manager i;
-    public static byte SERVER = 1;
-    public static byte SECOND_WAIT_LOGIN = 5;
-    public static int MAX_PER_IP = 5;
-    public static int MAX_PLAYER = 1000;
-    public static byte RATE_EXP = 1;
-    public static byte RATE_PAY = 1;
-    public static boolean LOCAL = false;
-    //    public static byte RATE_EXP_SERVER = 1;// sau khi chinh
-    public static MapTemplate[] MAP_TEMPLATES;
     public static final List<com.monzy.models.map.Map> MAPS = new ArrayList<>();
     public static final List<ItemOptionTemplate> ITEM_OPTION_TEMPLATES = new ArrayList<>();
     public static final List<ItemLuckyRound> LUCKY_ROUND_REWARDS = new ArrayList<>();
@@ -71,42 +61,19 @@ public class Manager {
     public static final List<FlagBag> FLAGS_BAGS = new ArrayList<>();
     public static final List<NClass> NCLASS = new ArrayList<>();
     public static final List<Npc> NPCS = new ArrayList<>();
-    public static List<Shop> SHOPS = new ArrayList<>();
     public static final List<Clan> CLANS = new ArrayList<>();
     public static final List<String> NOTIFY = new ArrayList<>();
     public static final ArrayList<DaiHoiVoThuat> LIST_DHVT = new ArrayList<>();
     public static final List<Item> RUBY_REWARDS = new ArrayList<>();
-    public static final String QUERY_TOP_SM = "SELECT player.id, CAST( split_str(data_point,',',2) AS UNSIGNED) AS sm\n" +
-            "FROM player JOIN account ON player.account_id = account.id\n" +
-            "WHERE account.create_time > TIMESTAMP('2023-7-13 00:00:00')\n" +
-            "ORDER BY CAST( split_str(data_point,',',2)  AS UNSIGNED) DESC\n" +
-            "LIMIT 20;";
+    public static final String QUERY_TOP_SM = "SELECT player.id, CAST( split_str(data_point,',',2) AS UNSIGNED) AS sm\n" + "FROM player JOIN account ON player.account_id = account.id\n" + "WHERE account.create_time > TIMESTAMP('2023-7-13 00:00:00')\n" + "ORDER BY CAST( split_str(data_point,',',2)  AS UNSIGNED) DESC\n" + "LIMIT 20;";
     //    public static final String queryTopSD = "SELECT id, CAST( split_str(data_point,',',8) AS UNSIGNED) AS sd FROM player ORDER BY CAST( split_str(data_point,',',8)  AS UNSIGNED) DESC LIMIT 20;";
 //    public static final String queryTopHP = "SELECT id, CAST( split_str(data_point,',',6) AS UNSIGNED) AS hp FROM player ORDER BY CAST( split_str(data_point,',',6)  AS UNSIGNED) DESC LIMIT 20;";
 //    public static final String queryTopKI = "SELECT id, CAST( split_str(data_point,',',7) AS UNSIGNED) AS ki FROM player ORDER BY CAST( split_str(data_point,',',7)  AS UNSIGNED) DESC LIMIT 20;";
-    public static final String QUERY_TOP_NV = "SELECT player.id, CAST( split_str(split_str(data_task,',',1),'[',2)  AS UNSIGNED) AS nv\n" +
-            "FROM player JOIN account on player.account_id = account.id\n" +
-            "WHERE account.create_time > TIMESTAMP('2023-7-13 00:00:00')\n" +
-            "ORDER BY CAST( split_str(split_str(data_task,',',1),'[',2)  AS UNSIGNED) DESC, CAST(split_str(data_task,',',2)  AS UNSIGNED) DESC, CAST( split_str(data_point,',',2) AS UNSIGNED) DESC\n" +
-            "LIMIT 20;";
+    public static final String QUERY_TOP_NV = "SELECT player.id, CAST( split_str(split_str(data_task,',',1),'[',2)  AS UNSIGNED) AS nv\n" + "FROM player JOIN account on player.account_id = account.id\n" + "WHERE account.create_time > TIMESTAMP('2023-7-13 00:00:00')\n" + "ORDER BY CAST( split_str(split_str(data_task,',',1),'[',2)  AS UNSIGNED) DESC, CAST(split_str(data_task,',',2)  AS UNSIGNED) DESC, CAST( split_str(data_point,',',2) AS UNSIGNED) DESC\n" + "LIMIT 20;";
     //    public static final String queryTopSK = "SELECT id, CAST( split_str( data_inventory,',',5)  AS UNSIGNED) AS event FROM player ORDER BY CAST( split_str( data_inventory,',',5)  AS UNSIGNED) DESC LIMIT 20;";
 //    public static final String queryTopPVP = "SELECT id, CAST( pointPvp AS UNSIGNED) AS pointPvp FROM player ORDER BY CAST( pointPvp AS UNSIGNED) DESC LIMIT 50;";
 //    public static final String queryTopNHS = "SELECT id, CAST( NguHanhSonPoint AS UNSIGNED) AS nhs FROM player ORDER BY CAST( NguHanhSonPoint AS UNSIGNED) DESC LIMIT 20;";
-    public static final String QUERY_TOP_NAP = "SELECT player_id as id, SUM(amount) as tong FROM tran_his\n" +
-            "WHERE command = 'nap' AND create_at between TIMESTAMP('2023-7-13 00:00:00') and TIMESTAMP('2023-7-19 23:59:59')\n" +
-            "GROUP BY player_id\n" +
-            "ORDER BY SUM(amount) DESC \n" +
-            "limit 10;";
-    public static List<TOP> TOP_SM;
-    //    public static List<TOP> topSD;
-//    public static List<TOP> topHP;
-//    public static List<TOP> topKI;
-    public static List<TOP> TOP_NV;
-    //    public static List<TOP> topSK;
-//    public static List<TOP> topPVP;
-//    public static List<TOP> topNHS;
-    public static List<TOP> TOP_NAP;
-    public static long TIME_READ_TOP = 1;
+    public static final String QUERY_TOP_NAP = "SELECT player_id as id, SUM(amount) as tong FROM tran_his\n" + "WHERE command = 'nap' AND create_at between TIMESTAMP('2023-7-13 00:00:00') and TIMESTAMP('2023-7-19 23:59:59')\n" + "GROUP BY player_id\n" + "ORDER BY SUM(amount) DESC \n" + "limit 10;";
     public static final byte[] itemIds_NR_SB = {16, 17, 15};
     public static final short[] itemDC12 = {233, 237, 241, 245, 249, 253, 257, 261, 265, 269, 273, 277};
     public static final short[] THUC_AN = {663, 664, 665, 666, 667};
@@ -133,13 +100,27 @@ public class Manager {
     public static final short[][] IDS_DO_HUY_DIET = {{650, 651, 657, 658}, {652, 653, 659, 660}, {654, 655, 661, 662}};
     // id đồ thiên sứ
     public static final short[][] IDS_DO_THIEN_SU = {{1048, 1051, 1054, 1057, 1060}, {1049, 1052, 1055, 1058, 1061}, {1050, 1053, 1056, 1059, 1062}};
-
-    public static Manager gI() {
-        if (i == null) {
-            i = new Manager();
-        }
-        return i;
-    }
+    public static byte SERVER = 1;
+    public static byte SECOND_WAIT_LOGIN = 5;
+    public static int MAX_PER_IP = 5;
+    public static int MAX_PLAYER = 1000;
+    public static byte RATE_EXP = 1;
+    public static byte RATE_PAY = 1;
+    public static boolean LOCAL = false;
+    //    public static byte RATE_EXP_SERVER = 1;// sau khi chinh
+    public static MapTemplate[] MAP_TEMPLATES;
+    public static List<Shop> SHOPS = new ArrayList<>();
+    public static List<TOP> TOP_SM;
+    //    public static List<TOP> topSD;
+//    public static List<TOP> topHP;
+//    public static List<TOP> topKI;
+    public static List<TOP> TOP_NV;
+    //    public static List<TOP> topSK;
+//    public static List<TOP> topPVP;
+//    public static List<TOP> topNHS;
+    public static List<TOP> TOP_NAP;
+    public static long TIME_READ_TOP = 1;
+    private static Manager i;
 
     private Manager() {
         try {
@@ -154,19 +135,42 @@ public class Manager {
         this.initMap();
     }
 
-    private void initMap() {
-        int[][] tileTyleTop = MapService.gI().readTileIndexTileType(ConstMap.TILE_TOP);
-        for (MapTemplate mapTemp : MAP_TEMPLATES) {
-            int[][] tileMap = MapService.gI().readTileMap(mapTemp.id);
-            int[] tileTop = tileTyleTop[mapTemp.tileId - 1];
-            com.monzy.models.map.Map map = new com.monzy.models.map.Map(mapTemp.id, mapTemp.name, mapTemp.planetId, mapTemp.tileId, mapTemp.bgId, mapTemp.bgType, mapTemp.type, tileMap, tileTop, mapTemp.zones, mapTemp.maxPlayerPerZone, mapTemp.wayPoints);
-            MAPS.add(map);
-            map.initMob(mapTemp.mobTemp, mapTemp.mobLevel, mapTemp.mobHp, mapTemp.mobX, mapTemp.mobY);
-            map.initNpc(mapTemp.npcId, mapTemp.npcX, mapTemp.npcY);
-            new Thread(map, "Update map " + map.mapName).start();
+    public static Manager gI() {
+        if (i == null) {
+            i = new Manager();
         }
-        Logger.success("Init map thành công!\n");
+        return i;
     }
+
+    public static List<TOP> readTop(String query) {
+        List<TOP> tops = new ArrayList<>();
+        try (Connection con = Database.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                TOP top = TOP.builder().id_player(rs.getInt("id")).build();
+                switch (query) {
+                    case QUERY_TOP_SM:
+                        top.setInfo1(rs.getLong("sm") + "");
+                        top.setInfo2(rs.getLong("sm") + "");
+                        break;
+                    case QUERY_TOP_NV:
+                        top.setInfo1(rs.getByte("nv") + "");
+                        top.setInfo2(rs.getByte("nv") + "");
+                        break;
+                    case QUERY_TOP_NAP:
+                        top.setInfo1(rs.getInt("tong") + " vnd");
+                        top.setInfo2(rs.getInt("tong") + " vnd");
+                        break;
+                }
+                tops.add(top);
+            }
+        } catch (Exception e) {
+            Logger.error("readTop(): " + e.getMessage());
+        }
+        return tops;
+    }
+
     /**
      * public static void loadPart() {
      * JSONArray dataArray;
@@ -208,6 +212,46 @@ public class Manager {
      * }
      * }
      */
+    public static void addClan(Clan clan) {
+        CLANS.add(clan);
+    }
+
+    public static int getNumClan() {
+        return CLANS.size();
+    }
+
+    public static MobTemplate getMobTemplateByTemp(int mobTempId) {
+        for (MobTemplate mobTemp : MOB_TEMPLATES) {
+            if (mobTemp.id == mobTempId) {
+                return mobTemp;
+            }
+        }
+        return null;
+    }
+
+    public static byte getNFrameImageByName(String name) {
+        Object n = IMAGES_BY_NAME.get(name);
+        if (n != null) {
+            return Byte.parseByte(String.valueOf(n));
+        } else {
+            return 0;
+        }
+    }
+
+    private void initMap() {
+        int[][] tileTyleTop = MapService.gI().readTileIndexTileType(ConstMap.TILE_TOP);
+        for (MapTemplate mapTemp : MAP_TEMPLATES) {
+            int[][] tileMap = MapService.gI().readTileMap(mapTemp.id);
+            int[] tileTop = tileTyleTop[mapTemp.tileId - 1];
+            com.monzy.models.map.Map map = new com.monzy.models.map.Map(mapTemp.id, mapTemp.name, mapTemp.planetId, mapTemp.tileId, mapTemp.bgId, mapTemp.bgType, mapTemp.type, tileMap, tileTop, mapTemp.zones, mapTemp.maxPlayerPerZone, mapTemp.wayPoints);
+            MAPS.add(map);
+            map.initMob(mapTemp.mobTemp, mapTemp.mobLevel, mapTemp.mobHp, mapTemp.mobX, mapTemp.mobY);
+            map.initNpc(mapTemp.npcId, mapTemp.npcX, mapTemp.npcY);
+            new Thread(map, "Update map " + map.mapName).start();
+        }
+        Logger.success("Init map thành công!\n");
+    }
+
     /**
      * Load database
      */
@@ -362,14 +406,7 @@ public class Manager {
                 skillTemplate.iconId = rs.getShort("icon_id");
                 skillTemplate.damInfo = rs.getString("dam_info");
                 nClass.skillTemplatess.add(skillTemplate);
-                dataArray = (JSONArray) JSONValue.parse(
-                        rs.getString("skills")
-                                .replaceAll("\\[\"", "[")
-                                .replaceAll("\"\\[", "[")
-                                .replaceAll("\"\\]", "]")
-                                .replaceAll("\\]\"", "]")
-                                .replaceAll("\\}\",\"\\{", "},{")
-                );
+                dataArray = (JSONArray) JSONValue.parse(rs.getString("skills").replaceAll("\\[\"", "[").replaceAll("\"\\[", "[").replaceAll("\"\\]", "]").replaceAll("\\]\"", "]").replaceAll("\\}\",\"\\{", "},{"));
                 for (int j = 0; j < dataArray.size(); j++) {
                     JSONObject dts = (JSONObject) JSONValue.parse(String.valueOf(dataArray.get(j)));
                     Skill skill = new Skill();
@@ -447,10 +484,7 @@ public class Manager {
             }
             Logger.success("Load intrinsic thành công (" + INTRINSICS.size() + ")\n");
             //load task
-            ps = con.prepareStatement("SELECT id, task_main_template.name, detail, "
-                    + "task_sub_template.name AS 'sub_name', max_count, notify, npc_id, map "
-                    + "FROM task_main_template JOIN task_sub_template ON task_main_template.id = "
-                    + "task_sub_template.task_main_id");
+            ps = con.prepareStatement("SELECT id, task_main_template.name, detail, " + "task_sub_template.name AS 'sub_name', max_count, notify, npc_id, map " + "FROM task_main_template JOIN task_sub_template ON task_main_template.id = " + "task_sub_template.task_main_id");
             rs = ps.executeQuery();
             int taskId = -1;
             TaskMain task = null;
@@ -657,11 +691,7 @@ public class Manager {
                     mapTemplate.zones = rs.getByte("zones");
                     mapTemplate.maxPlayerPerZone = rs.getByte("max_player");
                     //load waypoints
-                    dataArray = (JSONArray) JSONValue.parse(rs.getString("waypoints")
-                            .replaceAll("\\[\"\\[", "[[")
-                            .replaceAll("\\]\"\\]", "]]")
-                            .replaceAll("\",\"", ",")
-                    );
+                    dataArray = (JSONArray) JSONValue.parse(rs.getString("waypoints").replaceAll("\\[\"\\[", "[[").replaceAll("\\]\"\\]", "]]").replaceAll("\",\"", ","));
                     for (int j = 0; j < dataArray.size(); j++) {
                         WayPoint wp = new WayPoint();
                         JSONArray dtwp = (JSONArray) JSONValue.parse(String.valueOf(dataArray.get(j)));
@@ -793,35 +823,6 @@ public class Manager {
         Logger.log(Logger.GREEN_BOLD_BRIGHT, "Tổng thời gian load database: " + (System.currentTimeMillis() - st) + "(ms)\n");
     }
 
-    public static List<TOP> readTop(String query) {
-        List<TOP> tops = new ArrayList<>();
-        try (Connection con = Database.getConnection()) {
-            PreparedStatement ps = con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                TOP top = TOP.builder().id_player(rs.getInt("id")).build();
-                switch (query) {
-                    case QUERY_TOP_SM:
-                        top.setInfo1(rs.getLong("sm") + "");
-                        top.setInfo2(rs.getLong("sm") + "");
-                        break;
-                    case QUERY_TOP_NV:
-                        top.setInfo1(rs.getByte("nv") + "");
-                        top.setInfo2(rs.getByte("nv") + "");
-                        break;
-                    case QUERY_TOP_NAP:
-                        top.setInfo1(rs.getInt("tong") + " vnd");
-                        top.setInfo2(rs.getInt("tong") + " vnd");
-                        break;
-                }
-                tops.add(top);
-            }
-        } catch (Exception e) {
-            Logger.error("readTop(): " + e.getMessage());
-        }
-        return tops;
-    }
-
     public void loadProperties() throws IOException {
         Properties properties = new Properties();
         properties.load(new FileInputStream("data/monzy/monzy.properties"));
@@ -861,32 +862,6 @@ public class Manager {
         }
         if ((value = properties.get("server.monzy.local")) != null) {
             LOCAL = String.valueOf(value).equalsIgnoreCase("true");
-        }
-    }
-
-    public static void addClan(Clan clan) {
-        CLANS.add(clan);
-    }
-
-    public static int getNumClan() {
-        return CLANS.size();
-    }
-
-    public static MobTemplate getMobTemplateByTemp(int mobTempId) {
-        for (MobTemplate mobTemp : MOB_TEMPLATES) {
-            if (mobTemp.id == mobTempId) {
-                return mobTemp;
-            }
-        }
-        return null;
-    }
-
-    public static byte getNFrameImageByName(String name) {
-        Object n = IMAGES_BY_NAME.get(name);
-        if (n != null) {
-            return Byte.parseByte(String.valueOf(n));
-        } else {
-            return 0;
         }
     }
 

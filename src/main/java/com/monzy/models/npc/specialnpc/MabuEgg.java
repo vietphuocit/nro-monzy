@@ -12,10 +12,10 @@ public class MabuEgg {
 
     //    private static final long DEFAULT_TIME_DONE = 7776000000L;
     private static final long DEFAULT_TIME_DONE = 86400000L;
-    private Player player;
+    private final short id = 50;
     public long lastTimeCreate;
     public long timeDone;
-    private final short id = 50;
+    private Player player;
 
     public MabuEgg(Player player, long lastTimeCreate, long timeDone) {
         this.player = player;

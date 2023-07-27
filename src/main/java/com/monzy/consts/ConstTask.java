@@ -46,23 +46,6 @@ public class ConstTask {
     public static final String TEN_NPC_QUY_LAO = "%10";
     public static final String TEN_MAP_QUY_LAO = "%11";
     public static final String TEN_QUAI_3000 = "%12";
-
-    public static void main(String[] args) {
-        List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < 300; i++) {
-            for (int j = 0; j <= 20; j++) {
-                int id = (i << 10) + j << 1;
-                System.out.println("public static final int TASK_" + i + "_" + j + " = " + id + ";");
-                if (!list.contains(id)) {
-                    list.add(id);
-//                    System.out.println("id: " + id);
-                } else {
-                    System.out.println("**: " + id);
-                }
-            }
-        }
-    }
-
     //id task custompublic static final int TASK_0_0 = 0;
     public static final int TASK_0_0 = 0;
     public static final int TASK_0_1 = 2;
@@ -6364,5 +6347,21 @@ public class ConstTask {
     public static final int TASK_299_18 = 612388;
     public static final int TASK_299_19 = 612390;
     public static final int TASK_299_20 = 612392;
+
+    public static void main(String[] args) {
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < 300; i++) {
+            for (int j = 0; j <= 20; j++) {
+                int id = (i << 10) + j << 1;
+                System.out.println("public static final int TASK_" + i + "_" + j + " = " + id + ";");
+                if (!list.contains(id)) {
+                    list.add(id);
+//                    System.out.println("id: " + id);
+                } else {
+                    System.out.println("**: " + id);
+                }
+            }
+        }
+    }
 
 }

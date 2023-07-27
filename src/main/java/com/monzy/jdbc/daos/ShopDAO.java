@@ -74,8 +74,7 @@ public class ShopDAO {
 
     private static void loadItemShop(Connection con, TabShop tabShop) {
         try {
-            PreparedStatement ps = con.prepareStatement("select * from item_shop where is_sell = 1 and tab_id = ? "
-                    + "order by create_time desc");
+            PreparedStatement ps = con.prepareStatement("select * from item_shop where is_sell = 1 and tab_id = ? " + "order by create_time desc");
             ps.setInt(1, tabShop.id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

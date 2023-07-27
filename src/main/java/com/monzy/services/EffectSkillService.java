@@ -15,20 +15,16 @@ public class EffectSkillService {
     public static final byte TURN_ON_EFFECT = 1;
     public static final byte TURN_OFF_EFFECT = 0;
     public static final byte TURN_OFF_ALL_EFFECT = 2;
-
     public static final byte HOLD_EFFECT = 32;
     public static final byte SHIELD_EFFECT = 33;
     public static final byte HUYT_SAO_EFFECT = 39;
     public static final byte BLIND_EFFECT = 40;
     public static final byte SLEEP_EFFECT = 41;
     public static final byte STONE_EFFECT = 42;
-
     public static final int ICE_EFFECT = 202;
-
     private static EffectSkillService i;
 
     private EffectSkillService() {
-
     }
 
     public static EffectSkillService gI() {
@@ -89,7 +85,6 @@ public class EffectSkillService {
             Logger.logException(EffectSkillService.class, e);
         }
     }
-
 
     //Trói *********************************************************************
     //dừng sử dụng trói
@@ -158,44 +153,48 @@ public class EffectSkillService {
         player.effectSkill.isStun = false;
         sendEffectPlayer(player, player, TURN_OFF_EFFECT, BLIND_EFFECT);
     }
+
     //**************************************************************************
     //Cải trang Drabura Frost
-    public void SetHoaBang(Player player, long lastTimeHoaBang, int timeHoaBang){
+    public void SetHoaBang(Player player, long lastTimeHoaBang, int timeHoaBang) {
         player.effectSkill.lastTimeHoaBang = lastTimeHoaBang;
         player.effectSkill.timeBang = timeHoaBang;
         player.effectSkill.isBang = true;
         sendEffectPlayer(player, player, TURN_ON_EFFECT, (byte) ICE_EFFECT);
-
     }
-    public void removeBang(Player player){
+
+    public void removeBang(Player player) {
         player.effectSkill.isBang = false;
         Service.getInstance().sendCaiTrang(player);
         sendEffectPlayer(player, player, TURN_ON_EFFECT, (byte) ICE_EFFECT);
     }
+
     //**************************************************************************
     //Cải trang Drabura Hóa Đá
-    public void SetHoaDa(Player player, long lastTimeHoaDa, int timeHoaDa){
+    public void SetHoaDa(Player player, long lastTimeHoaDa, int timeHoaDa) {
         player.effectSkill.lastTimeHoaDa = lastTimeHoaDa;
         player.effectSkill.timeDa = timeHoaDa;
         player.effectSkill.isDa = true;
-
     }
-    public void removeDa(Player player){
+
+    public void removeDa(Player player) {
         player.effectSkill.isDa = false;
         Service.getInstance().sendCaiTrang(player);
     }
+
     //**************************************************************************
     //Cải trang Thỏ Đại Ca
-    public void SetHoaCarot(Player player, long lastTimeHoaCarot, int timeHoaCarot){
+    public void SetHoaCarot(Player player, long lastTimeHoaCarot, int timeHoaCarot) {
         player.effectSkill.lastTimeHoaCarot = lastTimeHoaCarot;
         player.effectSkill.timeCarot = timeHoaCarot;
         player.effectSkill.isCarot = true;
-
     }
-    public void removeCarot(Player player){
+
+    public void removeCarot(Player player) {
         player.effectSkill.isCarot = false;
         Service.getInstance().sendCaiTrang(player);
     }
+
     //Socola *******************************************************************
     //player biến thành socola
     public void setSocola(Player player, long lastTimeSocola, int timeSocola) {
@@ -266,7 +265,7 @@ public class EffectSkillService {
             java.util.logging.Logger.getLogger(EffectSkillService.class.getName()).log(Level.SEVERE, null, ex);
         }
         int timeMonkey = SkillUtil.getTimeMonkey(player.playerSkill.skillSelect.point);
-        if(player.setClothes.cadic == 5){
+        if (player.setClothes.cadic == 5) {
             timeMonkey *= 5;
         }
         player.effectSkill.isMonkey = true;
@@ -282,7 +281,6 @@ public class EffectSkillService {
         if (player.nPoint.hp > player.nPoint.hpMax) {
             player.nPoint.setHp(player.nPoint.hpMax);
         }
-
         sendEffectEndCharge(player);
         sendEffectMonkey(player);
         Service.getInstance().setNotMonkey(player);
@@ -304,9 +302,8 @@ public class EffectSkillService {
 
     public void stopCharge(Player player) {
         player.effectSkill.countCharging = 0;
-        player.effectSkill.isCharging = false;;
+        player.effectSkill.isCharging = false;
         sendEffectStopCharge(player);
-
     }
 
     //**************************************************************************
@@ -429,4 +426,5 @@ public class EffectSkillService {
             Logger.logException(EffectSkillService.class, e);
         }
     }
+
 }

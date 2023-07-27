@@ -21,6 +21,10 @@ public class SideTask {
     public boolean notify80;
     public boolean notify90;
 
+    public SideTask() {
+        this.leftTask = ConstTask.MAX_SIDE_TASK;
+    }
+
     public void reset() {
         this.template = null;
         this.count = 0;
@@ -35,10 +39,6 @@ public class SideTask {
         this.notify70 = false;
         this.notify80 = false;
         this.notify90 = false;
-    }
-
-    public SideTask() {
-        this.leftTask = ConstTask.MAX_SIDE_TASK;
     }
 
     public boolean isDone() {

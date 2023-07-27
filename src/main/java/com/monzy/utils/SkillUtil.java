@@ -49,9 +49,7 @@ public class SkillUtil {
 
     public static boolean isUseSkillDam(Player player) {
         int skillId = player.playerSkill.skillSelect.template.id;
-        return (skillId == Skill.DRAGON || skillId == Skill.DEMON
-                || skillId == Skill.GALICK || skillId == Skill.KAIOKEN
-                || skillId == Skill.LIEN_HOAN);
+        return (skillId == Skill.DRAGON || skillId == Skill.DEMON || skillId == Skill.GALICK || skillId == Skill.KAIOKEN || skillId == Skill.LIEN_HOAN);
     }
 
     public static boolean isUseSkillChuong(Player player) {
@@ -161,7 +159,7 @@ public class SkillUtil {
             }
         }
         skill = new Skill(skill);
-        if(index == 1){
+        if (index == 1) {
             skill.coolDown = 1000;
         }
         skills.set(index, skill);
@@ -290,4 +288,5 @@ public class SkillUtil {
                 return 0;
         }
     }
+
 }

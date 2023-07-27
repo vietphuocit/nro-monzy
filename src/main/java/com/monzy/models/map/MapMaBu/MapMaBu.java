@@ -18,9 +18,9 @@ public class MapMaBu {
     public static final byte MIN_CLOSE_MAP_MABU = 0;
     public static final byte SECOND_CLOSE_MAP_MABU = 0;
     public static final int AVAILABLE = 7;
-    private static MapMaBu i;
     public static long TIME_OPEN_MABU;
     public static long TIME_CLOSE_MABU;
+    private static MapMaBu i;
     private int day = -1;
 
     public static MapMaBu gI() {

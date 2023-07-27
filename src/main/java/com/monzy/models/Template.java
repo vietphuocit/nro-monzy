@@ -62,10 +62,7 @@ public class Template {
 
         @Override
         public String toString() {
-            return "ItemTemplate{" +
-                    "id=" + id +
-                    ", name='" + name + '\'' +
-                    '}';
+            return "ItemTemplate{" + "id=" + id + ", name='" + name + '\'' + '}';
         }
 
     }

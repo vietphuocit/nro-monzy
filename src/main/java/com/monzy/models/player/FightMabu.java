@@ -6,8 +6,8 @@ import com.monzy.services.Service;
 public class FightMabu {
 
     public final byte POINT_MAX = 20;
-    public int pointMabu = 0;
     private final Player player;
+    public int pointMabu = 0;
 
     public FightMabu(Player player) {
         this.player = player;

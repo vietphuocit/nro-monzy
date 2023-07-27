@@ -8,6 +8,11 @@ import java.util.List;
 public class GiaiNgoaiHang implements Runnable {
 
     private static GiaiNgoaiHang I;
+    private final List<Long> subscribers;
+
+    public GiaiNgoaiHang() {
+        this.subscribers = new ArrayList<>();
+    }
 
     public static GiaiNgoaiHang gI() {
         if (GiaiNgoaiHang.I == null) {
@@ -15,12 +20,6 @@ public class GiaiNgoaiHang implements Runnable {
             new Thread(GiaiNgoaiHang.I, "Update giải đấu ngoại hạng").start();
         }
         return GiaiNgoaiHang.I;
-    }
-
-    private final List<Long> subscribers;
-
-    public GiaiNgoaiHang() {
-        this.subscribers = new ArrayList<>();
     }
 
     @Override

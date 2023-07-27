@@ -16,18 +16,19 @@ import com.monzy.utils.Logger;
 import com.monzy.utils.TimeUtil;
 import com.monzy.utils.Util;
 import com.network.io.Message;
+import org.omg.IOP.TransactionService;
 
 import java.util.List;
 
 public class ChangeMapService {
 
-    private static final byte EFFECT_GO_TO_TUONG_LAI = 0;
-    private static final byte EFFECT_GO_TO_BDKB = 1;
     public static final byte AUTO_SPACE_SHIP = -1;
     public static final byte NON_SPACE_SHIP = 0;
     public static final byte DEFAULT_SPACE_SHIP = 1;
     public static final byte TELEPORT_YARDRAT = 2;
     public static final byte TENNIS_SPACE_SHIP = 3;
+    private static final byte EFFECT_GO_TO_TUONG_LAI = 0;
+    private static final byte EFFECT_GO_TO_BDKB = 1;
     private static ChangeMapService instance;
 
     private ChangeMapService() {
@@ -56,8 +57,7 @@ public class ChangeMapService {
                         Zone zone = pl.mapCapsule.get(i);
                         if (i == 0 && pl.mapBeforeCapsule != null) {
                             msg.writer().writeUTF("Về chỗ cũ: " + zone.map.mapName);
-                        } else if (zone.map.mapName.equals("Nhà Broly") || zone.map.mapName.equals("Nhà Gôhan")
-                                || zone.map.mapName.equals("Nhà Moori")) {
+                        } else if (zone.map.mapName.equals("Nhà Broly") || zone.map.mapName.equals("Nhà Gôhan") || zone.map.mapName.equals("Nhà Moori")) {
                             msg.writer().writeUTF("Về nhà");
                         } else {
                             msg.writer().writeUTF(zone.map.mapName);
@@ -65,8 +65,7 @@ public class ChangeMapService {
                         msg.writer().writeUTF(zone.map.planetName);
                     }
                 case ConstMap.CHANGE_BLACK_BALL:
-                    list = (pl.mapBlackBall != null ? pl.mapBlackBall
-                            : (pl.mapBlackBall = MapService.gI().getMapBlackBall()));
+                    list = (pl.mapBlackBall != null ? pl.mapBlackBall : (pl.mapBlackBall = MapService.gI().getMapBlackBall()));
                     msg.writer().writeByte(list.size());
                     for (Zone zone : list) {
                         msg.writer().writeUTF(zone.map.mapName);
@@ -74,8 +73,7 @@ public class ChangeMapService {
                     }
                     break;
                 case ConstMap.CHANGE_MAP_MA_BU:
-                    list = (pl.mapMaBu != null ? pl.mapMaBu
-                            : (pl.mapMaBu = MapService.gI().getMapMaBu()));
+                    list = (pl.mapMaBu != null ? pl.mapMaBu : (pl.mapMaBu = MapService.gI().getMapMaBu()));
                     msg.writer().writeByte(list.size());
                     for (Zone zone : list) {
                         msg.writer().writeUTF(zone.map.mapName);
@@ -181,8 +179,7 @@ public class ChangeMapService {
                 Service.gI().sendThongBao(pl, "Không thể thực hiện");
             }
         } else {
-            Service.gI().sendThongBaoOK(pl, "Không thể đổi khu vực lúc này, vui lòng đợi "
-                    + TimeUtil.getTimeLeft(pl.iDMark.getLastTimeChangeZone(), 10));
+            Service.gI().sendThongBaoOK(pl, "Không thể đổi khu vực lúc này, vui lòng đợi " + TimeUtil.getTimeLeft(pl.iDMark.getLastTimeChangeZone(), 10));
         }
     }
 

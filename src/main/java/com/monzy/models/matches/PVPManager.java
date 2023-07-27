@@ -8,19 +8,18 @@ import java.util.ArrayList;
 public class PVPManager implements Runnable {
 
     private static PVPManager i;
+    private final ArrayList<PVP> pvps;
+
+    public PVPManager() {
+        this.pvps = new ArrayList<>();
+        new Thread(this, "Update pvp").start();
+    }
 
     public static PVPManager gI() {
         if (i == null) {
             i = new PVPManager();
         }
         return i;
-    }
-
-    private final ArrayList<PVP> pvps;
-
-    public PVPManager() {
-        this.pvps = new ArrayList<>();
-        new Thread(this, "Update pvp").start();
     }
 
     public void removePVP(PVP pvp) {

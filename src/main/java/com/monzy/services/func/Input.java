@@ -11,7 +11,6 @@ import com.monzy.models.payment.TransactionHistory;
 import com.monzy.models.player.Player;
 import com.monzy.server.Client;
 import com.monzy.server.Manager;
-import com.monzy.services.*;
 import com.monzy.utils.Util;
 import com.network.io.Message;
 import com.network.session.ISession;
@@ -22,9 +21,6 @@ import java.util.Map;
 
 public class Input {
 
-    public static String LOAI_THE;
-    public static String MENH_GIA;
-    private static final Map<Integer, Object> PLAYER_ID_OBJECT = new HashMap<Integer, Object>();
     public static final int CHANGE_PASSWORD = 500;
     public static final int GIFT_CODE = 501;
     public static final int FIND_PLAYER = 502;
@@ -46,6 +42,9 @@ public class Input {
     public static final byte NUMERIC = 0;
     public static final byte ANY = 1;
     public static final byte PASSWORD = 2;
+    private static final Map<Integer, Object> PLAYER_ID_OBJECT = new HashMap<Integer, Object>();
+    public static String LOAI_THE;
+    public static String MENH_GIA;
     private static Input intance;
 
     private Input() {
@@ -156,9 +155,7 @@ public class Input {
                 case FIND_PLAYER:
                     Player pl = Client.gI().getPlayer(text[0]);
                     if (pl != null) {
-                        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_FIND_PLAYER, -1, "Ngài muốn..?",
-                                new String[]{"Đi tới\n" + pl.name, "Gọi " + pl.name + "\ntới đây", "Đổi tên", "Ban", "Kick"},
-                                pl);
+                        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_FIND_PLAYER, -1, "Ngài muốn..?", new String[]{"Đi tới\n" + pl.name, "Gọi " + pl.name + "\ntới đây", "Đổi tên", "Ban", "Kick"}, pl);
                     } else {
                         Service.gI().sendThongBao(player, "Người chơi không tồn tại hoặc đang offline!");
                     }
@@ -242,13 +239,9 @@ public class Input {
                         if ((x + y + z) > 10 && (x + y + z) <= 18) {
                             player.inventory.ruby += taiHongNgoc * 1.8;
                             Service.gI().sendMoney(player);
-                            Service.getInstance().sendThongBaoOK(player, "Kết quả" + "\nSố hệ thống quay ra : " + x + " " +
-                                    y + " " + z + "\nTổng là : " + tong + "\nBạn đã cược : " + taiHongNgoc +
-                                    " Hồng Ngọc vào Tài" + "\nKết quả : Tài" + "\n\nVề bờ");
+                            Service.getInstance().sendThongBaoOK(player, "Kết quả" + "\nSố hệ thống quay ra : " + x + " " + y + " " + z + "\nTổng là : " + tong + "\nBạn đã cược : " + taiHongNgoc + " Hồng Ngọc vào Tài" + "\nKết quả : Tài" + "\n\nVề bờ");
                         } else if (3 <= (x + y + z) && (x + y + z) <= 10) {
-                            Service.getInstance().sendThongBaoOK(player, "Kết quả" + "\nSố hệ thống quay ra là :" +
-                                    " " + x + " " + y + " " + z + "\nTổng là : " + tong + "\nBạn đã cược : "
-                                    + taiHongNgoc + " Hồng Ngọc vào Tài" + "\nKết quả : Xỉu" + "\nCòn cái nịt.");
+                            Service.getInstance().sendThongBaoOK(player, "Kết quả" + "\nSố hệ thống quay ra là :" + " " + x + " " + y + " " + z + "\nTổng là : " + tong + "\nBạn đã cược : " + taiHongNgoc + " Hồng Ngọc vào Tài" + "\nKết quả : Xỉu" + "\nCòn cái nịt.");
                         }
                     });
                     threadTaiHN.start();
@@ -287,13 +280,9 @@ public class Input {
                         if (3 <= (x + y + z) && (x + y + z) <= 10) {
                             player.inventory.ruby += xiuHongNgoc * 1.8;
                             Service.gI().sendMoney(player);
-                            Service.getInstance().sendThongBaoOK(player, "Kết quả" + "\nSố hệ thống quay ra : " + x + " " +
-                                    y + " " + z + "\nTổng là : " + tong + "\nBạn đã cược : " + xiuHongNgoc +
-                                    " Hồng Ngọc vào Xỉu" + "\nKết quả : Xỉu" + "\n\nVề bờ");
+                            Service.getInstance().sendThongBaoOK(player, "Kết quả" + "\nSố hệ thống quay ra : " + x + " " + y + " " + z + "\nTổng là : " + tong + "\nBạn đã cược : " + xiuHongNgoc + " Hồng Ngọc vào Xỉu" + "\nKết quả : Xỉu" + "\n\nVề bờ");
                         } else if ((x + y + z) > 10 && (x + y + z) <= 18) {
-                            Service.getInstance().sendThongBaoOK(player, "Kết quả" + "\nSố hệ thống quay ra là :" +
-                                    " " + x + " " + y + " " + z + "\nTổng là : " + tong + "\nBạn đã cược : "
-                                    + xiuHongNgoc + " Hồng Ngọc vào Xỉu" + "\nKết quả : Tài" + "\nCòn cái nịt.");
+                            Service.getInstance().sendThongBaoOK(player, "Kết quả" + "\nSố hệ thống quay ra là :" + " " + x + " " + y + " " + z + "\nTổng là : " + tong + "\nBạn đã cược : " + xiuHongNgoc + " Hồng Ngọc vào Xỉu" + "\nKết quả : Tài" + "\nCòn cái nịt.");
                         }
                     });
                     threadXiuHN.start();
@@ -338,17 +327,13 @@ public class Input {
                         int z = diceRoller(true, x, y);
                         int tong = (x + y + z);
                         if (3 <= tong && tong <= 10) {
-                            Service.getInstance().sendThongBaoOK(player, "Kết quả" + "\nSố hệ thống quay ra là :" +
-                                    " " + x + " " + y + " " + z + "\nTổng là : " + tong + "\nBạn đã cược : "
-                                    + taiThoiVang + " Thỏi vàng vào Tài" + "\nKết quả : Xỉu" + "\nCòn cái nịt.");
+                            Service.getInstance().sendThongBaoOK(player, "Kết quả" + "\nSố hệ thống quay ra là :" + " " + x + " " + y + " " + z + "\nTổng là : " + tong + "\nBạn đã cược : " + taiThoiVang + " Thỏi vàng vào Tài" + "\nKết quả : Xỉu" + "\nCòn cái nịt.");
                         } else if (tong > 10 && tong <= 18) {
                             Item tvthang = ItemService.gI().createNewItem((short) 457);
                             tvthang.quantity = (int) Math.round(taiThoiVang * 1.8);
                             InventoryService.gI().addItemBag(player, tvthang);
                             InventoryService.gI().sendItemBags(player);
-                            Service.getInstance().sendThongBaoOK(player, "Kết quả" + "\nSố hệ thống quay ra : " + x + " " +
-                                    y + " " + z + "\nTổng là : " + tong + "\nBạn đã cược : " + taiThoiVang +
-                                    " Thỏi vàng vào Tài" + "\nKết quả : Tài" + "\n\nVề bờ");
+                            Service.getInstance().sendThongBaoOK(player, "Kết quả" + "\nSố hệ thống quay ra : " + x + " " + y + " " + z + "\nTổng là : " + tong + "\nBạn đã cược : " + taiThoiVang + " Thỏi vàng vào Tài" + "\nKết quả : Tài" + "\n\nVề bờ");
                         }
                     });
                     threadTaiTV.start();
@@ -393,17 +378,13 @@ public class Input {
                         int z = diceRoller(false, x, y);
                         int tong = (x + y + z);
                         if (tong > 10 && tong <= 18) {
-                            Service.getInstance().sendThongBaoOK(player, "Kết quả" + "\nSố hệ thống quay ra là :" +
-                                    " " + x + " " + y + " " + z + "\nTổng là : " + tong + "\nBạn đã cược : "
-                                    + xiuThoiVang + " Thỏi vàng vào Xỉu" + "\nKết quả : Tài" + "\nCòn cái nịt.");
+                            Service.getInstance().sendThongBaoOK(player, "Kết quả" + "\nSố hệ thống quay ra là :" + " " + x + " " + y + " " + z + "\nTổng là : " + tong + "\nBạn đã cược : " + xiuThoiVang + " Thỏi vàng vào Xỉu" + "\nKết quả : Tài" + "\nCòn cái nịt.");
                         } else if (3 <= tong && tong <= 10) {
                             Item tvthang = ItemService.gI().createNewItem((short) 457);
                             tvthang.quantity = (int) Math.round(xiuThoiVang * 1.8);
                             InventoryService.gI().addItemBag(player, tvthang);
                             InventoryService.gI().sendItemBags(player);
-                            Service.getInstance().sendThongBaoOK(player, "Kết quả" + "\nSố hệ thống quay ra : " + x + " " +
-                                    y + " " + z + "\nTổng là : " + tong + "\nBạn đã cược : " + xiuThoiVang +
-                                    " Thỏi vàng vào Xỉu" + "\nKết quả : Xỉu" + "\n\nVề bờ");
+                            Service.getInstance().sendThongBaoOK(player, "Kết quả" + "\nSố hệ thống quay ra : " + x + " " + y + " " + z + "\nTổng là : " + tong + "\nBạn đã cược : " + xiuThoiVang + " Thỏi vàng vào Xỉu" + "\nKết quả : Xỉu" + "\n\nVề bờ");
                         }
                     });
                     threadXiuTV.start();
@@ -413,9 +394,7 @@ public class Input {
                     if (level >= 1 && level <= 110) {
                         Npc npc = NpcManager.getByIdAndMap(ConstNpc.QUY_LAO_KAME, player.zone.map.mapId);
                         if (npc != null) {
-                            npc.createOtherMenu(player, ConstNpc.MENU_ACCEPT_GO_TO_BDKB,
-                                    "Con có chắc chắn muốn tới bản đồ kho báu cấp độ " + level + "?",
-                                    new String[]{"Đồng ý", "Từ chối"}, level);
+                            npc.createOtherMenu(player, ConstNpc.MENU_ACCEPT_GO_TO_BDKB, "Con có chắc chắn muốn tới bản đồ kho báu cấp độ " + level + "?", new String[]{"Đồng ý", "Từ chối"}, level);
                         }
                     } else {
                         Service.gI().sendThongBao(player, "Không thể thực hiện");
@@ -465,11 +444,9 @@ public class Input {
                         Item thoiVang = ItemService.gI().createNewItem((short) 861, goldTrade * 1);// x3
                         InventoryService.gI().addItemBag(player, thoiVang);
                         InventoryService.gI().sendItemBags(player);
-                        Service.gI().sendThongBao(player, "bạn nhận được " + goldTrade * ratioGold
-                                + " " + thoiVang.template.name);
+                        Service.gI().sendThongBao(player, "bạn nhận được " + goldTrade * ratioGold + " " + thoiVang.template.name);
                     } else {
-                        Service.gI().sendThongBao(player, "Số tiền của bạn là " + player.getSession().vnd + " không đủ để quy "
-                                + " đổi " + goldTrade + " Hồng Ngọc " + " " + "bạn cần thêm" + (player.getSession().vnd - goldTrade));
+                        Service.gI().sendThongBao(player, "Số tiền của bạn là " + player.getSession().vnd + " không đủ để quy " + " đổi " + goldTrade + " Hồng Ngọc " + " " + "bạn cần thêm" + (player.getSession().vnd - goldTrade));
                     }
                     break;
                 case VND_TO_THOI_VANG:
@@ -483,11 +460,9 @@ public class Input {
                         Item thoiVang = ItemService.gI().createNewItem((short) 457, gemTrade * 4);// x4
                         InventoryService.gI().addItemBag(player, thoiVang);
                         InventoryService.gI().sendItemBags(player);
-                        Service.gI().sendThongBao(player, "bạn nhận được " + gemTrade * ratioGem
-                                + " " + thoiVang.template.name);
+                        Service.gI().sendThongBao(player, "bạn nhận được " + gemTrade * ratioGem + " " + thoiVang.template.name);
                     } else {
-                        Service.gI().sendThongBao(player, "Số tiền của bạn là " + player.getSession().vnd + " không đủ để quy "
-                                + " đổi " + gemTrade + " Thỏi Vàng" + " " + "bạn cần thêm" + (player.getSession().vnd - gemTrade));
+                        Service.gI().sendThongBao(player, "Số tiền của bạn là " + player.getSession().vnd + " không đủ để quy " + " đổi " + gemTrade + " Thỏi Vàng" + " " + "bạn cần thêm" + (player.getSession().vnd - gemTrade));
                     }
                     break;
             }
@@ -529,9 +504,7 @@ public class Input {
     }
 
     public void createFormChangePassword(Player pl) {
-        createForm(pl, CHANGE_PASSWORD, "Quên Mật Khẩu", new SubInput("Nhập mật khẩu đã quên", PASSWORD),
-                new SubInput("Mật khẩu mới", PASSWORD),
-                new SubInput("Nhập lại mật khẩu mới", PASSWORD));
+        createForm(pl, CHANGE_PASSWORD, "Quên Mật Khẩu", new SubInput("Nhập mật khẩu đã quên", PASSWORD), new SubInput("Mật khẩu mới", PASSWORD), new SubInput("Nhập lại mật khẩu mới", PASSWORD));
     }
 
     public void createFormGiveItem(Player pl) {
@@ -581,16 +554,11 @@ public class Input {
     }
 
     public void createFormQDHN(Player pl) {
-        createForm(pl, VND_TO_HONG_NGOC, "Quy đổi Hồng Ngọc tỉ lệ 1-1"
-                + "\n50.000 Vnd = 50.000 Hồng ngọc "
-                + "\nNạp tiền Tại: MONZY ", new SubInput("Nhập số lượng muốn đổi", NUMERIC));
+        createForm(pl, VND_TO_HONG_NGOC, "Quy đổi Hồng Ngọc tỉ lệ 1-1" + "\n50.000 Vnd = 50.000 Hồng ngọc " + "\nNạp tiền Tại: MONZY ", new SubInput("Nhập số lượng muốn đổi", NUMERIC));
     }
 
     public void createFormQDTV(Player pl) {
-        createForm(pl, VND_TO_THOI_VANG, "Quy đổi Thỏi Vàng"
-                + "\nNhập 10 Có nghĩa là  10.000đ"
-                + "\nTỉ Lệ Quy Đổi 10.000đ = 40 Thỏi Vàng"
-                + "\nNạp tiền Tại: MONZY ", new SubInput("Nhập số lượng muốn đổi", NUMERIC));
+        createForm(pl, VND_TO_THOI_VANG, "Quy đổi Thỏi Vàng" + "\nNhập 10 Có nghĩa là  10.000đ" + "\nTỉ Lệ Quy Đổi 10.000đ = 40 Thỏi Vàng" + "\nNạp tiền Tại: MONZY ", new SubInput("Nhập số lượng muốn đổi", NUMERIC));
     }
 
     public void createFormChangeName(Player pl, Player plChanged) {

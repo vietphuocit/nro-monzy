@@ -62,8 +62,7 @@ public class ChatGlobalService implements Runnable {
                     Service.gI().sendThongBao(player, "Sức mạnh phải ít nhất 2tỷ mới có thể chat thế giới");
                 }
             } else {
-                Service.gI().sendThongBao(player, "Không thể chat thế giới lúc này, vui lòng đợi "
-                        + TimeUtil.getTimeLeft(player.iDMark.getLastTimeChatGlobal(), 240));
+                Service.gI().sendThongBao(player, "Không thể chat thế giới lúc này, vui lòng đợi " + TimeUtil.getTimeLeft(player.iDMark.getLastTimeChatGlobal(), 240));
             }
         } else {
             Service.gI().sendThongBao(player, "Không đủ ngọc chat thế giới");
@@ -117,25 +116,7 @@ public class ChatGlobalService implements Runnable {
 
     private void transformText(ChatGlobal chat) {
         String text = chat.text;
-        text = text.replaceAll("admin", "***")
-                .replaceAll("địt", "***")
-                .replaceAll("lồn", "***")
-                .replaceAll("buồi", "***")
-                .replaceAll("cc", "***")
-                .replaceAll(".mobi", "***")
-                .replaceAll(".online", "***")
-                .replaceAll(".info", "***")
-                .replaceAll(".tk", "***")
-                .replaceAll(".ml", "***")
-                .replaceAll(".ga", "***")
-                .replaceAll(".gq", "***")
-                .replaceAll(".io", "***")
-                .replaceAll(".club", "***")
-                .replaceAll("cltx", "***")
-                .replaceAll("ôm cl", "***")
-                .replaceAll("địt mẹ", "***")
-                .replaceAll("như lồn", "***")
-                .replaceAll("như cặc", "***");
+        text = text.replaceAll("admin", "***").replaceAll("địt", "***").replaceAll("lồn", "***").replaceAll("buồi", "***").replaceAll("cc", "***").replaceAll(".mobi", "***").replaceAll(".online", "***").replaceAll(".info", "***").replaceAll(".tk", "***").replaceAll(".ml", "***").replaceAll(".ga", "***").replaceAll(".gq", "***").replaceAll(".io", "***").replaceAll(".club", "***").replaceAll("cltx", "***").replaceAll("ôm cl", "***").replaceAll("địt mẹ", "***").replaceAll("như lồn", "***").replaceAll("như cặc", "***");
         chat.text = text;
     }
 

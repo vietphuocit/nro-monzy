@@ -2,7 +2,6 @@ package com.monzy.models.player;
 
 import com.monzy.models.item.Item;
 import com.monzy.models.mob.Mob;
-import com.monzy.services.*;
 import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
 
@@ -11,30 +10,24 @@ import java.util.List;
 
 public class EffectSkin {
 
-    private static final String[] textOdo = new String[]{
-            "Hôi quá", "Tránh ra đi thằng ở dơ", "Mùi gì kinh quá vậy?",
-            "Kinh tởm quá", "Biến đi thằng ở dơ", "Kính ngài ở dơ"
-    };
-    private static final String[] test = new String[]{
-            "Người gì mà đẹp zai zậy", "Ui anh Béo :3", "Sao anh đẹp zoai zị?"
-    };
-    private Player player;
-
-    public EffectSkin(Player player) {
-        this.player = player;
-        this.xHPKI = 1;
-    }
-
+    private static final String[] textOdo = new String[]{"Hôi quá", "Tránh ra đi thằng ở dơ", "Mùi gì kinh quá vậy?", "Kinh tởm quá", "Biến đi thằng ở dơ", "Kính ngài ở dơ"};
+    private static final String[] test = new String[]{"Người gì mà đẹp zai zậy", "Ui anh Béo :3", "Sao anh đẹp zoai zị?"};
     public long lastTimeAttack;
-    private long lastTimeOdo;
-    private long lastTimeTest;
-    private long lastTimeXenHutHpKi;
     public long lastTimeAddTimeTrainArmor;
     public long lastTimeSubTimeTrainArmor;
     public boolean isVoHinh;
     public long lastTimeXHPKI;
     public int xHPKI;
     public long lastTimeUpdateCTHT;
+    private Player player;
+    private long lastTimeOdo;
+    private long lastTimeTest;
+    private long lastTimeXenHutHpKi;
+
+    public EffectSkin(Player player) {
+        this.player = player;
+        this.xHPKI = 1;
+    }
 
     public void update() {
         updateVoHinh();
@@ -53,9 +46,7 @@ public class EffectSkin {
     }
 
     private void updateCTHaiTac() {
-        if (this.player.setClothes.ctHaiTac != -1
-                && this.player.zone != null
-                && Util.canDoWithTime(lastTimeUpdateCTHT, 5000)) {
+        if (this.player.setClothes.ctHaiTac != -1 && this.player.zone != null && Util.canDoWithTime(lastTimeUpdateCTHT, 5000)) {
             int count = 0;
             int[] cts = new int[9];
             cts[this.player.setClothes.ctHaiTac - 618] = this.player.setClothes.ctHaiTac;
@@ -79,9 +70,7 @@ public class EffectSkin {
                 Item ct = pl.inventory.itemsBody.get(5);
                 if (ct.isNotNullItem() && ct.template.id >= 618 && ct.template.id <= 626) {
                     for (Item.ItemOption io : ct.itemOptions) {
-                        if (io.optionTemplate.id == 147
-                                || io.optionTemplate.id == 77
-                                || io.optionTemplate.id == 103) {
+                        if (io.optionTemplate.id == 147 || io.optionTemplate.id == 77 || io.optionTemplate.id == 103) {
                             io.param = count * 3;
                         }
                     }
@@ -104,8 +93,7 @@ public class EffectSkin {
                     List<Player> players = new ArrayList<>();
                     List<Player> playersMap = this.player.zone.getNotBosses();
                     for (Player pl : playersMap) {
-                        if (!this.player.equals(pl) && !pl.isBoss && !pl.isDie()
-                                && Util.getDistance(this.player, pl) <= 200) {
+                        if (!this.player.equals(pl) && !pl.isBoss && !pl.isDie() && Util.getDistance(this.player, pl) <= 200) {
                             players.add(pl);
                         }
                     }
@@ -156,8 +144,7 @@ public class EffectSkin {
                     List<Player> players = new ArrayList<>();
                     List<Player> playersMap = this.player.zone.getNotBosses();
                     for (Player pl : playersMap) {
-                        if (!this.player.equals(pl) && !pl.isBoss && !pl.isDie()
-                                && Util.getDistance(this.player, pl) <= 200) {
+                        if (!this.player.equals(pl) && !pl.isBoss && !pl.isDie() && Util.getDistance(this.player, pl) <= 200) {
                             players.add(pl);
                         }
                     }

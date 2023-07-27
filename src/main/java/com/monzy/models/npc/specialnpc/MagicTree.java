@@ -17,37 +17,20 @@ public class MagicTree {
     public static final byte MAX_LEVEL = 10;
     public static final short[] PEA_TEMP = {13, 60, 61, 62, 63, 64, 65, 352, 523, 595};
     public static final int[] PEA_PARAM = {100, 500, 2, 4, 8, 16, 32, 64, 128, 256};
-    private static final int[][][] POS_PEAS = {
-            {{19, 22}, {-1, 16}, {3, 10}, {19, 8}, {9, 0}},
-            {{-1, 27}, {22, 35}, {15, 24}, {0, 17}, {-1, 7}, {26, 5}, {5, 0}},
-            {{25, 41}, {-1, 40}, {25, 34}, {3, 32}, {25, 23}, {10, 19}, {2, 12}, {17, 10}, {4, 5}},
-            {{3, 44}, {21, 49}, {25, 39}, {4, 30}, {29, 25}, {0, 18}, {21, 15}, {14, 39}, {18, 25}, {4, 7}, {15, 0}},
-            {{21, 58}, {0, 56}, {18, 48}, {10, 0}, {25, 38}, {0, 26}, {14, 28}, {25, 16}, {1, 14}, {22, 7}, {10, 14}, {28, 23}, {15, 16}},
-            {{25, 63}, {0, 66}, {21, 52}, {3, 55}, {14, 60}, {3, 45}, {22, 43}, {10, 35}, {22, 28}, {3, 28}, {18, 17}, {3, 14}, {17, 6}, {11, 22}, {6, 1}},
-            {{32, 86}, {5, 77}, {25, 77}, {8, 89}, {29, 68}, {4, 63}, {18, 61}, {33, 53}, {8, 48}, {26, 39}, {11, 36}, {33, 23}, {18, 25}, {4, 20}, {26, 12}, {12, 7}, {19, 0}},
-            {{32, 86}, {5, 77}, {25, 77}, {8, 89}, {29, 68}, {4, 63}, {18, 61}, {33, 53}, {8, 48}, {26, 39}, {11, 36}, {33, 23}, {18, 25}, {4, 20}, {26, 12}, {12, 7}, {19, 0}, {19, 0}, {19, 0}},
-            {{32, 86}, {5, 77}, {25, 77}, {8, 89}, {29, 68}, {4, 63}, {18, 61}, {33, 53}, {8, 48}, {26, 39}, {11, 36}, {33, 23}, {18, 25}, {4, 20}, {26, 12}, {12, 7}, {19, 0}, {19, 0}, {19, 0}, {19, 0}, {19, 0}},
-            {{32, 86}, {5, 77}, {25, 77}, {8, 89}, {29, 68}, {4, 63}, {18, 61}, {33, 53}, {8, 48}, {26, 39}, {11, 36}, {33, 23}, {18, 25}, {4, 20}, {26, 12}, {12, 7}, {19, 0}, {19, 0}, {19, 0}, {19, 0}, {19, 0}, {19, 0}, {19, 0}}};
+    private static final int[][][] POS_PEAS = {{{19, 22}, {-1, 16}, {3, 10}, {19, 8}, {9, 0}}, {{-1, 27}, {22, 35}, {15, 24}, {0, 17}, {-1, 7}, {26, 5}, {5, 0}}, {{25, 41}, {-1, 40}, {25, 34}, {3, 32}, {25, 23}, {10, 19}, {2, 12}, {17, 10}, {4, 5}}, {{3, 44}, {21, 49}, {25, 39}, {4, 30}, {29, 25}, {0, 18}, {21, 15}, {14, 39}, {18, 25}, {4, 7}, {15, 0}}, {{21, 58}, {0, 56}, {18, 48}, {10, 0}, {25, 38}, {0, 26}, {14, 28}, {25, 16}, {1, 14}, {22, 7}, {10, 14}, {28, 23}, {15, 16}}, {{25, 63}, {0, 66}, {21, 52}, {3, 55}, {14, 60}, {3, 45}, {22, 43}, {10, 35}, {22, 28}, {3, 28}, {18, 17}, {3, 14}, {17, 6}, {11, 22}, {6, 1}}, {{32, 86}, {5, 77}, {25, 77}, {8, 89}, {29, 68}, {4, 63}, {18, 61}, {33, 53}, {8, 48}, {26, 39}, {11, 36}, {33, 23}, {18, 25}, {4, 20}, {26, 12}, {12, 7}, {19, 0}}, {{32, 86}, {5, 77}, {25, 77}, {8, 89}, {29, 68}, {4, 63}, {18, 61}, {33, 53}, {8, 48}, {26, 39}, {11, 36}, {33, 23}, {18, 25}, {4, 20}, {26, 12}, {12, 7}, {19, 0}, {19, 0}, {19, 0}}, {{32, 86}, {5, 77}, {25, 77}, {8, 89}, {29, 68}, {4, 63}, {18, 61}, {33, 53}, {8, 48}, {26, 39}, {11, 36}, {33, 23}, {18, 25}, {4, 20}, {26, 12}, {12, 7}, {19, 0}, {19, 0}, {19, 0}, {19, 0}, {19, 0}}, {{32, 86}, {5, 77}, {25, 77}, {8, 89}, {29, 68}, {4, 63}, {18, 61}, {33, 53}, {8, 48}, {26, 39}, {11, 36}, {33, 23}, {18, 25}, {4, 20}, {26, 12}, {12, 7}, {19, 0}, {19, 0}, {19, 0}, {19, 0}, {19, 0}, {19, 0}, {19, 0}}};
     //days - hours - mins - gold
-    private static final short[][] PEA_UPGRADE = {
-            {0, 0, 10, 5}, {0, 1, 40, 10}, {0, 16, 40, 100}, {6, 22, 0, 1},
-            {13, 21, 0, 10}, {27, 18, 0, 20}, {55, 13, 0, 50}, {69, 10, 0, 100},
-            {104, 4, 0, 300}, {0, 0, 0, 0}
-    };
+    private static final short[][] PEA_UPGRADE = {{0, 0, 10, 5}, {0, 1, 40, 10}, {0, 16, 40, 100}, {6, 22, 0, 1}, {13, 21, 0, 10}, {27, 18, 0, 20}, {55, 13, 0, 50}, {69, 10, 0, 100}, {104, 4, 0, 300}, {0, 0, 0, 0}};
     //icon magic tree [gender][level]
-    private static final short[][] ID_MAGIC_TREE = {
-            {84, 85, 86, 87, 88, 89, 90, 90, 90, 90},
-            {371, 372, 373, 374, 375, 376, 377, 377, 377, 377},
-            {378, 379, 380, 381, 382, 383, 384, 384, 384, 384}};
+    private static final short[][] ID_MAGIC_TREE = {{84, 85, 86, 87, 88, 89, 90, 90, 90, 90}, {371, 372, 373, 374, 375, 376, 377, 377, 377, 377}, {378, 379, 380, 381, 382, 383, 384, 384, 384, 384}};
     private static final short[][] POS_MAGIC_TREE = {{348, 336}, {372, 336}, {348, 336}};
-    private boolean loadedMagicTreeToPlayer;
-    private Player player;
-    private boolean actived;
     public byte level;
     public int currPeas;
     public boolean isUpgrade;
     public long lastTimeHarvest;
     public long lastTimeUpgrade;
+    private boolean loadedMagicTreeToPlayer;
+    private Player player;
+    private boolean actived;
 
     public MagicTree(Player player, byte level, byte currPeas, long lastTimeHarvest, boolean isUpgrade, long lastTimeUpgrade) {
         this.player = player;
@@ -168,21 +151,18 @@ public class MagicTree {
     }
 
     public void showConfirmUpgradeMagicTree() {
-        NpcManager.getByIdAndMap(ConstNpc.DAU_THAN, this.player.zone.map.mapId).
-                createOtherMenu(player, ConstNpc.MAGIC_TREE_CONFIRM_UPGRADE, "Bạn có chắc chắn nâng cấp cây đậu?", "OK", "Từ chối");
+        NpcManager.getByIdAndMap(ConstNpc.DAU_THAN, this.player.zone.map.mapId).createOtherMenu(player, ConstNpc.MAGIC_TREE_CONFIRM_UPGRADE, "Bạn có chắc chắn nâng cấp cây đậu?", "OK", "Từ chối");
     }
 
     public void showConfirmUnuppgradeMagicTree() {
-        NpcManager.getByIdAndMap(ConstNpc.DAU_THAN, this.player.zone.map.mapId).
-                createOtherMenu(player, ConstNpc.MAGIC_TREE_CONFIRM_UNUPGRADE, "Bạn có chắc chắn hủy nâng cấp cây đậu?", "OK", "Từ chối");
+        NpcManager.getByIdAndMap(ConstNpc.DAU_THAN, this.player.zone.map.mapId).createOtherMenu(player, ConstNpc.MAGIC_TREE_CONFIRM_UNUPGRADE, "Bạn có chắc chắn hủy nâng cấp cây đậu?", "OK", "Từ chối");
     }
 
     public void upgradeMagicTree() {
         short gold = PEA_UPGRADE[this.level - 1][3];
         int goldRequire = gold * (this.level <= 3 ? 1000 : 1000000);
         if (this.player.inventory.gold < goldRequire) {
-            Service.gI().sendThongBao(player, "Bạn không đủ vàng để nâng cấp, còn thiếu "
-                    + (goldRequire - this.player.inventory.gold) + " vàng nữa");
+            Service.gI().sendThongBao(player, "Bạn không đủ vàng để nâng cấp, còn thiếu " + (goldRequire - this.player.inventory.gold) + " vàng nữa");
         } else {
             this.player.inventory.gold -= goldRequire;
             PlayerService.gI().sendInfoHpMpMoney(this.player);

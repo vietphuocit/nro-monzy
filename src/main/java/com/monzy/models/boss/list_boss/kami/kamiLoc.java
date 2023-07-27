@@ -5,7 +5,8 @@
  */
 package com.monzy.models.boss.list_boss.kami;
 
-import com.monzy.models.boss.*;
+import com.monzy.models.boss.Boss;
+import com.monzy.models.boss.BossID;
 import com.monzy.models.map.ItemMap;
 import com.monzy.models.player.Player;
 import com.monzy.services.EffectSkillService;
@@ -14,6 +15,8 @@ import com.monzy.services.Service;
 import com.monzy.utils.Util;
 
 public class kamiLoc extends Boss {
+
+    private long st;
 
     public kamiLoc() throws Exception {
         super(BossID.KAMILOC, BossesData.KAMILOC);
@@ -28,8 +31,7 @@ public class kamiLoc extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        ItemMap it = new ItemMap(this.zone, 2044, 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
-                this.location.y - 24), plKill.id);
+        ItemMap it = new ItemMap(this.zone, 2044, 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
         Service.gI().dropItemMap(this.zone, it);
     }
 
@@ -46,8 +48,6 @@ public class kamiLoc extends Boss {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
         st = System.currentTimeMillis();
     }
-
-    private long st;
 
     @Override
     public int injured(Player plAtt, int damage, boolean piercing, boolean isMobAttack) {

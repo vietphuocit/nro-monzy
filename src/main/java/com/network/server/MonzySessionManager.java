@@ -11,14 +11,14 @@ public class MonzySessionManager {
     private static MonzySessionManager i;
     private final List<ISession> sessions = new ArrayList<>();
 
+    public MonzySessionManager() {
+    }
+
     public static MonzySessionManager gI() {
         if (i == null) {
             i = new MonzySessionManager();
         }
         return i;
-    }
-
-    public MonzySessionManager() {
     }
 
     public void putSession(ISession session) {

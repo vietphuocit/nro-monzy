@@ -408,8 +408,7 @@ public class ClanService {
                         if (clan.getCurrMembers() < clan.maxMember) {
                             boolean asked = false;
                             for (ClanMessage c : clan.getCurrClanMessages()) {
-                                if (c.type == 2 && c.playerId == (int) player.id
-                                        && c.role == -1) {
+                                if (c.type == 2 && c.playerId == (int) player.id && c.role == -1) {
                                     asked = true;
                                     break;
                                 }
@@ -465,8 +464,7 @@ public class ClanService {
                     if (player.inventory.gold >= flagBag.gold) {
                         player.inventory.gold -= flagBag.gold;
                     } else {
-                        Service.gI().sendThongBao(player, "Bạn không đủ vàng, còn thiếu "
-                                + Util.numberToMoney(flagBag.gold - player.inventory.gold) + " vàng");
+                        Service.gI().sendThongBao(player, "Bạn không đủ vàng, còn thiếu " + Util.numberToMoney(flagBag.gold - player.inventory.gold) + " vàng");
                         return;
                     }
                 }
@@ -474,8 +472,7 @@ public class ClanService {
                     if (player.inventory.gem >= flagBag.gem) {
                         player.inventory.gem -= flagBag.gem;
                     } else {
-                        Service.gI().sendThongBao(player, "Bạn không đủ ngọc, còn thiếu "
-                                + (flagBag.gem - player.inventory.gem) + " ngọc");
+                        Service.gI().sendThongBao(player, "Bạn không đủ ngọc, còn thiếu " + (flagBag.gem - player.inventory.gem) + " ngọc");
                         return;
                     }
                 }
@@ -636,16 +633,14 @@ public class ClanService {
     }
 
     public void showMenuLeaveClan(Player player) {
-        NpcService.gI().createMenuConMeo(player, ConstNpc.CONFIRM_LEAVE_CLAN,
-                -1, "Bạn có chắc chắn rời bang hội không?", "Đồng ý", "Từ chối");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.CONFIRM_LEAVE_CLAN, -1, "Bạn có chắc chắn rời bang hội không?", "Đồng ý", "Từ chối");
     }
 
     public void showMenuNhuongPc(Player player, int playerId) {
         if (player.clan.isLeader(player)) {
             ClanMember cm = player.clan.getClanMember(playerId);
             if (cm != null) {
-                NpcService.gI().createMenuConMeo(player, ConstNpc.CONFIRM_NHUONG_PC, -1,
-                        "Bạn có đồng ý nhường chức bang chủ cho " + cm.name + "?", new String[]{"Đồng ý", "Từ chối"}, playerId);
+                NpcService.gI().createMenuConMeo(player, ConstNpc.CONFIRM_NHUONG_PC, -1, "Bạn có đồng ý nhường chức bang chủ cho " + cm.name + "?", new String[]{"Đồng ý", "Từ chối"}, playerId);
             }
         }
     }
@@ -667,32 +662,25 @@ public class ClanService {
         if (clan == null || !clan.isLeader(player) || imgId == clan.imgId) {
             return;
         }
-
         FlagBag flagBag = FlagBagService.gI().getFlagBag(imgId);
         if (flagBag == null) {
             return;
         }
-
         if (flagBag.gold > 0 && player.inventory.gold < flagBag.gold) {
             Service.gI().sendThongBao(player, "Bạn không đủ vàng, còn thiếu " + Util.numberToMoney(flagBag.gold - player.inventory.gold) + " vàng");
             return;
         }
-
         if (flagBag.gem > 0 && player.inventory.gem < flagBag.gem) {
             Service.gI().sendThongBao(player, "Bạn không đủ ngọc, còn thiếu " + (flagBag.gem - player.inventory.gem) + " ngọc");
             return;
         }
-
         if (flagBag.gold > 0) {
             player.inventory.gold -= flagBag.gold;
         }
-
         if (flagBag.gem > 0) {
             player.inventory.gem -= flagBag.gem;
         }
-
         PlayerService.gI().sendInfoHpMpMoney(player);
-
         clan.imgId = imgId;
         clan.sendFlagBagForAllMember();
     }
@@ -762,8 +750,7 @@ public class ClanService {
     public void kickOut(Player player, int memberId) {
         Clan clan = player.clan;
         ClanMember cm = clan.getClanMember(memberId);
-        if (clan != null && cm != null
-                && (clan.isLeader(player) || clan.isDeputy(player) && cm.role == MEMBER)) {
+        if (clan != null && cm != null && (clan.isLeader(player) || clan.isDeputy(player) && cm.role == MEMBER)) {
             Player plKicked = clan.getPlayerOnline(memberId);
             ClanMember cmKick = clan.getClanMember((int) player.id);
             ClanMessage cmg = new ClanMessage(clan);
@@ -797,8 +784,7 @@ public class ClanService {
     private void removeClanPlayer(int plId) {
         PreparedStatement ps = null;
         try (Connection con = Database.getConnection()) {
-            ps = con.prepareStatement("update player set clan_id_sv"
-                    + Manager.SERVER + " = -1 where id = " + plId);
+            ps = con.prepareStatement("update player set clan_id_sv" + Manager.SERVER + " = -1 where id = " + plId);
             ps.executeUpdate();
             ps.close();
         } catch (Exception ex) {
@@ -890,9 +876,7 @@ public class ClanService {
     public void close() {
         PreparedStatement ps = null;
         try (Connection con = Database.getConnection()) {
-            ps = con.prepareStatement("update clan_sv" + Manager.SERVER
-                    + " set slogan = ?, img_id = ?, power_point = ?, max_member = ?, clan_point = ?, "
-                    + "level = ?, members = ? where id = ? limit 1");
+            ps = con.prepareStatement("update clan_sv" + Manager.SERVER + " set slogan = ?, img_id = ?, power_point = ?, max_member = ?, clan_point = ?, " + "level = ?, members = ? where id = ? limit 1");
             for (Clan clan : Manager.CLANS) {
                 JSONArray dataArray = new JSONArray();
                 JSONObject dataObject = new JSONObject();

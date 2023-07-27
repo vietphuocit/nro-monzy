@@ -42,73 +42,28 @@ public class NapThe {
         }
     }
 
-    static class InfoHandler implements HttpHandler {
-        @Override
-        public void handle(HttpExchange httpExchange) throws IOException {
-            if ("POST".equalsIgnoreCase(httpExchange.getRequestMethod())) {
-                InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), StandardCharsets.UTF_8);
-                BufferedReader br = new BufferedReader(isr);
-                StringBuilder requestBody = new StringBuilder();
-                String line;
-
-                while ((line = br.readLine()) != null) {
-                    requestBody.append(line);
-                }
-                br.close();
-                isr.close();
-
-                String response = requestBody.toString();
-                httpExchange.getResponseHeaders().set("Content-Type", "application/json");
-                httpExchange.sendResponseHeaders(200, response.length());
-                OutputStream os = httpExchange.getResponseBody();
-                os.write(response.getBytes(StandardCharsets.UTF_8));
-                os.close();
-            }
-        }
-    }
-
     public static final void SendCard(Player player, String telco, String amount, String serial, String code) {
         String partnerId = "1079293661";
         String partnerKey = "bc6a0cf61ea9028d34b10ca2b1db7f1e";
         String api = MD5Hash(partnerKey + code + serial);
         String requestID = String.valueOf(System.currentTimeMillis() + Util.nextInt(1000, 9999));
         try {
-            OkHttpClient client = new OkHttpClient().newBuilder()
-                    .build();
-            RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                    .addFormDataPart("telco", telco)
-                    .addFormDataPart("code", code)
-                    .addFormDataPart("serial", serial)
-                    .addFormDataPart("amount", amount)
-                    .addFormDataPart("request_id", requestID)
-                    .addFormDataPart("partner_id", partnerId)
-                    .addFormDataPart("sign", api)
-                    .addFormDataPart("command", "charging")
-                    .build();
-            Request request = new Request.Builder()
-                    .url("https://thesieure.com/chargingws/v2")
-                    .post(body)
-                    .addHeader("Content-Type", "application/json")
-                    .build();
+            OkHttpClient client = new OkHttpClient().newBuilder().build();
+            RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("telco", telco).addFormDataPart("code", code).addFormDataPart("serial", serial).addFormDataPart("amount", amount).addFormDataPart("request_id", requestID).addFormDataPart("partner_id", partnerId).addFormDataPart("sign", api).addFormDataPart("command", "charging").build();
+            Request request = new Request.Builder().url("https://thesieure.com/chargingws/v2").post(body).addHeader("Content-Type", "application/json").build();
             Response response = client.newCall(request).execute();
             String jsonString = response.body().string();
             Object obj = JSONValue.parse(jsonString);
             JSONObject jsonObject = (JSONObject) obj;
             long name = (long) jsonObject.get("status");
-//        
+//
             if (name == 99) {
                 PlayerDAO.LogNapTien(player.getSession().uu, amount, serial, code, requestID);
-                Service.gI().sendThongBaoOK(player, "Gửi thẻ thành công \n"
-                        + "Seri :" + serial + "\n Mã thẻ :" + code + "\n Mệnh giá : " + amount + "\n"
-                        + "Thời gian : " + java.time.LocalDate.now() + " " + java.time.LocalTime.now() + "\n"
-                        + "Vui lòng thoát game để update lại số tiền");
+                Service.gI().sendThongBaoOK(player, "Gửi thẻ thành công \n" + "Seri :" + serial + "\n Mã thẻ :" + code + "\n Mệnh giá : " + amount + "\n" + "Thời gian : " + java.time.LocalDate.now() + " " + java.time.LocalTime.now() + "\n" + "Vui lòng thoát game để update lại số tiền");
             }
             if (name == 1) {
                 PlayerDAO.LogNapTien(player.getSession().uu, amount, serial, code, requestID);
-                Service.gI().sendThongBaoOK(player, "Gửi thẻ thành công \n"
-                        + "Seri :" + serial + "\n Mã thẻ :" + code + "\n Mệnh giá : " + amount + "\n"
-                        + "Thời gian : " + java.time.LocalDate.now() + " " + java.time.LocalTime.now() + "\n"
-                        + "Vui lòng thoát game để update lại số tiền");
+                Service.gI().sendThongBaoOK(player, "Gửi thẻ thành công \n" + "Seri :" + serial + "\n Mã thẻ :" + code + "\n Mệnh giá : " + amount + "\n" + "Thời gian : " + java.time.LocalDate.now() + " " + java.time.LocalTime.now() + "\n" + "Vui lòng thoát game để update lại số tiền");
             } else if (name == 2) {
                 Service.gI().sendThongBao(player, "Nạp thành công nhưng sai mệnh giá.\nCon sẽ ko dc cộng tiền lần sau ông khóa mẹ acc con cho chừa nhé");
             } else if (name == 3) {
@@ -136,6 +91,31 @@ public class NapThe {
             e.printStackTrace();
         }
         return null;
+    }
+
+    static class InfoHandler implements HttpHandler {
+
+        @Override
+        public void handle(HttpExchange httpExchange) throws IOException {
+            if ("POST".equalsIgnoreCase(httpExchange.getRequestMethod())) {
+                InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), StandardCharsets.UTF_8);
+                BufferedReader br = new BufferedReader(isr);
+                StringBuilder requestBody = new StringBuilder();
+                String line;
+                while ((line = br.readLine()) != null) {
+                    requestBody.append(line);
+                }
+                br.close();
+                isr.close();
+                String response = requestBody.toString();
+                httpExchange.getResponseHeaders().set("Content-Type", "application/json");
+                httpExchange.sendResponseHeaders(200, response.length());
+                OutputStream os = httpExchange.getResponseBody();
+                os.write(response.getBytes(StandardCharsets.UTF_8));
+                os.close();
+            }
+        }
+
     }
 
 }

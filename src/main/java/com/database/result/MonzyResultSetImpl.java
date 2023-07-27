@@ -20,14 +20,11 @@ public class MonzyResultSetImpl implements MonzyResultSet {
             ResultSetMetaData rsmd = rs.getMetaData();
             int nColumn = rsmd.getColumnCount();
             this.data = new HashMap[nRow];
-
             int index;
             for (index = 0; index < this.data.length; ++index) {
                 this.data[index] = new HashMap();
             }
-
             this.values = new Object[nRow][nColumn];
-
             for (index = 0; rs.next(); ++index) {
                 for (int i = 1; i <= nColumn; ++i) {
                     String tableName = rsmd.getTableName(i);
@@ -48,15 +45,12 @@ public class MonzyResultSetImpl implements MonzyResultSet {
                 } catch (Exception var16) {
                 }
             }
-
         }
-
     }
 
     public void dispose() {
         Map[] var1 = this.data;
         int var2 = var1.length;
-
         int var3;
         Map map;
         for (var3 = 0; var3 < var2; ++var3) {
@@ -64,24 +58,19 @@ public class MonzyResultSetImpl implements MonzyResultSet {
             map.clear();
             map = null;
         }
-
         this.data = null;
         Object[][] var9 = this.values;
         var2 = var9.length;
-
         for (var3 = 0; var3 < var2; ++var3) {
             Object[] obj = var9[var3];
             Object[] var5 = obj;
             int var6 = obj.length;
-
             for (int var7 = 0; var7 < var6; ++var7) {
                 Object var10000 = var5[var7];
                 Object var8 = null;
             }
-
             map = null;
         }
-
         this.values = null;
     }
 

@@ -9,9 +9,7 @@ import com.monzy.utils.Util;
 
 public class SuperBlack2 extends Boss {
 
-    public SuperBlack2() throws Exception {
-        super(Util.randomBossId(), BossesData.SUPER_BLACK_GOKU_2);
-    }
+    private long st;
 //    @Override
 //    public void reward(Player plKill) {
 //        byte randomDo = (byte) new Random().nextInt(Manager.ID_CLOTHES_GOD.length - 1);
@@ -32,6 +30,10 @@ public class SuperBlack2 extends Boss {
 //        }
 //    }
 
+    public SuperBlack2() throws Exception {
+        super(Util.randomBossId(), BossesData.SUPER_BLACK_GOKU_2);
+    }
+
     @Override
     public void active() {
         super.active(); //To change body of generated methods, choose Tools | Templates.
@@ -45,8 +47,6 @@ public class SuperBlack2 extends Boss {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
         st = System.currentTimeMillis();
     }
-
-    private long st;
 
     @Override
     public int injured(Player plAtt, int damage, boolean piercing, boolean isMobAttack) {

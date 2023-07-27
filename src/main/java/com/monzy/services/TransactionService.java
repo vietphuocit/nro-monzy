@@ -17,8 +17,8 @@ import java.util.Map;
 
 public class TransactionService implements Runnable {
 
-    private static final int TIME_DELAY_TRADE = 1000;
     public static final Map<Player, Trade> PLAYER_TRADE = new HashMap<>();
+    private static final int TIME_DELAY_TRADE = 1000;
     private static final byte SEND_INVITE_TRADE = 0;
     private static final byte ACCEPT_TRADE = 1;
     private static final byte ADD_ITEM_TRADE = 2;
@@ -56,8 +56,7 @@ public class TransactionService implements Runnable {
                         }
                         if (trade == null) {
                             if (action == SEND_INVITE_TRADE) {
-                                if (Util.canDoWithTime(pl.iDMark.getLastTimeTrade(), TIME_DELAY_TRADE)
-                                        && Util.canDoWithTime(plMap.iDMark.getLastTimeTrade(), TIME_DELAY_TRADE)) {
+                                if (Util.canDoWithTime(pl.iDMark.getLastTimeTrade(), TIME_DELAY_TRADE) && Util.canDoWithTime(plMap.iDMark.getLastTimeTrade(), TIME_DELAY_TRADE)) {
                                     boolean checkLogout1 = false;
                                     boolean checkLogout2 = false;
                                     try (Connection con = Database.getConnection()) {
@@ -78,8 +77,7 @@ public class TransactionService implements Runnable {
                                     pl.iDMark.setPlayerTradeId((int) plMap.id);
                                     sendInviteTrade(pl, plMap);
                                 } else {
-                                    Service.gI().sendThongBao(pl, "Thử lại sau " +
-                                            TimeUtil.getTimeLeft(Math.max(pl.iDMark.getLastTimeTrade(), plMap.iDMark.getLastTimeTrade()), TIME_DELAY_TRADE / 1000));
+                                    Service.gI().sendThongBao(pl, "Thử lại sau " + TimeUtil.getTimeLeft(Math.max(pl.iDMark.getLastTimeTrade(), plMap.iDMark.getLastTimeTrade()), TIME_DELAY_TRADE / 1000));
                                 }
                             } else {
                                 if (plMap.iDMark.getPlayerTradeId() == pl.id) {

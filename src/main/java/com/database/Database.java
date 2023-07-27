@@ -30,8 +30,11 @@ public class Database {
     private static final String DATABASE_MAX_CONN_KEY = "monzy.database.max";
     private static final String DATABASE_LIFETIME_KEY = "monzy.database.lifetime";
     private static final String DATABASE_LOG_QUERY_KEY = "monzy.database.log";
-    private static String DRIVER = "com.mysql.jdbc.Driver";
     private static final String URL = "jdbc:mysql://%s:%s/%s?useUnicode=yes&characterEncoding=UTF-8";
+    private static final HikariConfig config = new HikariConfig();
+    private static final HikariDataSource ds;
+    public static boolean LOG_QUERY = false;
+    private static String DRIVER = "com.mysql.jdbc.Driver";
     private static String DB_HOST = "localhost";
     private static String DB_PORT = "3306";
     private static String DB_NAME = "monzy";
@@ -40,9 +43,28 @@ public class Database {
     private static int MIN_CONN = 1;
     private static int MAX_CONN = 1;
     private static long MAX_LIFE_TIME = 120000L;
-    public static boolean LOG_QUERY = false;
-    private static final HikariConfig config = new HikariConfig();
-    private static final HikariDataSource ds;
+
+    static {
+        loadProperties();
+        config.setDriverClassName(DRIVER);
+        config.setJdbcUrl(String.format(URL, DB_HOST, DB_PORT, DB_NAME));
+        config.setUsername(DB_USER);
+        config.setPassword(DB_PASSWORD);
+        config.setMinimumIdle(MIN_CONN);
+        config.setMaximumPoolSize(MAX_CONN);
+        config.setMaxLifetime(MAX_LIFE_TIME);
+        config.addDataSourceProperty("cachePrepStmts", "true");
+        config.addDataSourceProperty("prepStmtCacheSize", "250");
+        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+        config.addDataSourceProperty("useServerPrepStmts", "true");
+        config.addDataSourceProperty("useLocalSessionState", "true");
+        config.addDataSourceProperty("rewriteBatchedStatements", "true");
+        config.addDataSourceProperty("cacheResultSetMetadata", "true");
+        config.addDataSourceProperty("cacheServerConfiguration", "true");
+        config.addDataSourceProperty("elideSetAutoCommits", "true");
+        config.addDataSourceProperty("maintainTimeStats", "true");
+        ds = new HikariDataSource(config);
+    }
 
     public Database() {
     }
@@ -76,9 +98,7 @@ public class Database {
     }
 
     public static MonzyResultSet executeQuery(String query) throws SQLException {
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-             ResultSet rs = stmt.executeQuery()) {
+        try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY); ResultSet rs = stmt.executeQuery()) {
             if (LOG_QUERY) {
                 log.info("Thực thi thành công câu lệnh: " + stmt);
                 Log.getInstance().log(stmt.toString());
@@ -96,8 +116,7 @@ public class Database {
     }
 
     public static MonzyResultSet executeQuery(String query, Object... params) throws SQLException {
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
+        try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
             for (int i = 0; i < params.length; i++) {
                 stmt.setObject(i + 1, params[i]);
             }
@@ -119,8 +138,7 @@ public class Database {
     }
 
     public static int executeUpdate(String query) throws Exception {
-        try (Connection con = getConnection();
-             PreparedStatement ps = con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
+        try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
             if (LOG_QUERY) {
                 log.info("Thực thi thành công câu lệnh: " + ps.toString());
                 Log.getInstance().log(ps.toString());
@@ -134,8 +152,7 @@ public class Database {
             String placeholders = String.join(",", Collections.nCopies(objs.length, "?"));
             query = query.replace("()", "(" + placeholders + ")");
         }
-        try (Connection con = getConnection();
-             PreparedStatement ps = con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
+        try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
             for (int i = 0; i < objs.length; ++i) {
                 ps.setObject(i + 1, objs[i]);
             }
@@ -148,28 +165,6 @@ public class Database {
             log.error("Có lỗi xảy ra khi thực thi câu lệnh: " + query);
             throw e;
         }
-    }
-
-    static {
-        loadProperties();
-        config.setDriverClassName(DRIVER);
-        config.setJdbcUrl(String.format(URL, DB_HOST, DB_PORT, DB_NAME));
-        config.setUsername(DB_USER);
-        config.setPassword(DB_PASSWORD);
-        config.setMinimumIdle(MIN_CONN);
-        config.setMaximumPoolSize(MAX_CONN);
-        config.setMaxLifetime(MAX_LIFE_TIME);
-        config.addDataSourceProperty("cachePrepStmts", "true");
-        config.addDataSourceProperty("prepStmtCacheSize", "250");
-        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
-        config.addDataSourceProperty("useServerPrepStmts", "true");
-        config.addDataSourceProperty("useLocalSessionState", "true");
-        config.addDataSourceProperty("rewriteBatchedStatements", "true");
-        config.addDataSourceProperty("cacheResultSetMetadata", "true");
-        config.addDataSourceProperty("cacheServerConfiguration", "true");
-        config.addDataSourceProperty("elideSetAutoCommits", "true");
-        config.addDataSourceProperty("maintainTimeStats", "true");
-        ds = new HikariDataSource(config);
     }
 }
 

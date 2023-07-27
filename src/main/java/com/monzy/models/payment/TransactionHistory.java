@@ -3,6 +3,7 @@ package com.monzy.models.payment;
 import com.google.gson.Gson;
 
 public class TransactionHistory {
+
     private String transactionID;
     private int amount;
     private String description;

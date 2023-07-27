@@ -22,14 +22,14 @@ public class MonzyServer implements IMonzyServer {
     private ISessionAcceptHandler acceptHandler;
     private Thread loopServer;
 
+    private MonzyServer() {
+    }
+
     public static MonzyServer gI() {
         if (I == null) {
             I = new MonzyServer();
         }
         return I;
-    }
-
-    private MonzyServer() {
     }
 
     public IMonzyServer init() {

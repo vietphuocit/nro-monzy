@@ -16,7 +16,6 @@ public class ItemTime {
     public static final int TIME_MAY_DO = 1800000;
     public static final int TIME_MAY_DO2 = 1800000;
     public static final int TIME_EAT_MEAL = 600000;
-    private Player player;
     public boolean isUseBoHuyet;
     public boolean isUseBoKhi;
     public boolean isUseGiapXen;
@@ -49,6 +48,7 @@ public class ItemTime {
     public boolean isEatMeal;
     public long lastTimeEatMeal;
     public int iconMeal;
+    private Player player;
 
     public ItemTime(Player player) {
         this.player = player;
@@ -150,11 +150,7 @@ public class ItemTime {
     }
 
     public boolean isMealCooler() {
-        return iconMeal == 6324
-                || iconMeal == 6325
-                || iconMeal == 6326
-                || iconMeal == 6327
-                || iconMeal == 6328;
+        return iconMeal == 6324 || iconMeal == 6325 || iconMeal == 6326 || iconMeal == 6327 || iconMeal == 6328;
     }
 
 }

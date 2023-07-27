@@ -6,11 +6,11 @@ public interface IKey {
 
     void sendKey() throws Exception;
 
+    byte[] getKey();
+
     void setKey(Message var1) throws Exception;
 
     void setKey(byte[] var1);
-
-    byte[] getKey();
 
     boolean sentKey();
 

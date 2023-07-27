@@ -11,6 +11,7 @@ import java.util.TimeZone;
 
 public class DaiHoiVoThuat implements Runnable {
 
+    private static DaiHoiVoThuat instance;
     public ArrayList<Player> listReg = new ArrayList<>();
     public ArrayList<Player> listPlayerWait = new ArrayList<>();
     public String NameCup;
@@ -24,7 +25,6 @@ public class DaiHoiVoThuat implements Runnable {
     public int Hour;
     public int Minutes;
     public int Second;
-    private static DaiHoiVoThuat instance;
 
     public static DaiHoiVoThuat gI() {
         if (instance == null) {

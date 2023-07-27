@@ -4,7 +4,6 @@ import com.monzy.consts.ConstPlayer;
 import com.monzy.models.mob.Mob;
 import com.monzy.models.skill.Skill;
 import com.monzy.server.Manager;
-import com.monzy.services.*;
 import com.monzy.utils.SkillUtil;
 import com.monzy.utils.TimeUtil;
 import com.monzy.utils.Util;
@@ -12,32 +11,41 @@ import com.network.io.Message;
 
 public class Pet extends Player {
 
-    private static final short ARANGE_CAN_ATTACK = 300;
-    private static final short ARANGE_ATT_SKILL1 = 100;
-    private static final short[][] PET_ID = {{285, 286, 287}, {288, 289, 290}, {282, 283, 284}, {304, 305, 303}};
     public static final byte FOLLOW = 0;
     public static final byte PROTECT = 1;
     public static final byte ATTACK = 2;
     public static final byte GOHOME = 3;
     public static final byte FUSION = 4;
+    private static final short ARANGE_CAN_ATTACK = 300;
+    private static final short ARANGE_ATT_SKILL1 = 100;
+    private static final short[][] PET_ID = {{285, 286, 287}, {288, 289, 290}, {282, 283, 284}, {304, 305, 303}};
+    private static final int TIME_WAIT_AFTER_UNFUSION = 5000;
     public Player master;
     public byte status = 0;
     public byte typePet;
     public boolean isTransform;
     public long lastTimeDie;
+    public long lastTimeMoveIdle;
+    public boolean idle;
     private boolean goingHome;
     private Mob mobAttack;
     private Player playerAttack;
-    private static final int TIME_WAIT_AFTER_UNFUSION = 5000;
     private long lastTimeUnfusion;
-
-    public byte getStatus() {
-        return this.status;
-    }
+    private int timeMoveIdle;
+    private long lastTimeMoveAtHome;
+    private byte directAtHome = -1;
+    private long lastTimeAskPea;
+    private int countTTNL;
+    //====================================================
+    private long lastTimeIncreasePoint;
 
     public Pet(Player master) {
         this.master = master;
         this.isPet = true;
+    }
+
+    public byte getStatus() {
+        return this.status;
     }
 
     public void changeStatus(byte status) {
@@ -117,8 +125,7 @@ public class Pet extends Player {
             master.nPoint.setFullHpMp();
             Service.getInstance().point(master);
         } else {
-            Service.getInstance().sendThongBao(this.master, "Vui lòng đợi "
-                    + TimeUtil.getTimeLeft(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION / 1000) + " nữa");
+            Service.getInstance().sendThongBao(this.master, "Vui lòng đợi " + TimeUtil.getTimeLeft(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION / 1000) + " nữa");
         }
     }
 
@@ -143,8 +150,7 @@ public class Pet extends Player {
             master.nPoint.setFullHpMp();
             Service.getInstance().point(master);
         } else {
-            Service.getInstance().sendThongBao(this.master, "Vui lòng đợi "
-                    + TimeUtil.getTimeLeft(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION / 1000) + " nữa");
+            Service.getInstance().sendThongBao(this.master, "Vui lòng đợi " + TimeUtil.getTimeLeft(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION / 1000) + " nữa");
         }
     }
 
@@ -169,8 +175,7 @@ public class Pet extends Player {
             master.nPoint.setFullHpMp();
             Service.getInstance().point(master);
         } else {
-            Service.getInstance().sendThongBao(this.master, "Vui lòng đợi "
-                    + TimeUtil.getTimeLeft(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION / 1000) + " nữa");
+            Service.getInstance().sendThongBao(this.master, "Vui lòng đợi " + TimeUtil.getTimeLeft(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION / 1000) + " nữa");
         }
     }
 
@@ -195,8 +200,7 @@ public class Pet extends Player {
             master.nPoint.setFullHpMp();
             Service.getInstance().point(master);
         } else {
-            Service.getInstance().sendThongBao(this.master, "Vui lòng đợi "
-                    + TimeUtil.getTimeLeft(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION / 1000) + " nữa");
+            Service.getInstance().sendThongBao(this.master, "Vui lòng đợi " + TimeUtil.getTimeLeft(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION / 1000) + " nữa");
         }
     }
 
@@ -221,8 +225,7 @@ public class Pet extends Player {
             master.nPoint.setFullHpMp();
             Service.getInstance().point(master);
         } else {
-            Service.getInstance().sendThongBao(this.master, "Vui lòng đợi "
-                    + TimeUtil.getTimeLeft(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION / 1000) + " nữa");
+            Service.getInstance().sendThongBao(this.master, "Vui lòng đợi " + TimeUtil.getTimeLeft(lastTimeUnfusion, TIME_WAIT_AFTER_UNFUSION / 1000) + " nữa");
         }
     }
 
@@ -249,25 +252,17 @@ public class Pet extends Player {
         }
     }
 
-    public long lastTimeMoveIdle;
-    private int timeMoveIdle;
-    public boolean idle;
-
     private void moveIdle() {
         if (status == GOHOME || status == FUSION) {
             return;
         }
         if (idle && Util.canDoWithTime(lastTimeMoveIdle, timeMoveIdle)) {
             int dir = this.location.x - master.location.x <= 0 ? -1 : 1;
-            PlayerService.gI().playerMove(this, master.location.x
-                    + Util.nextInt(dir == -1 ? 30 : -50, dir == -1 ? 50 : 30), master.location.y);
+            PlayerService.gI().playerMove(this, master.location.x + Util.nextInt(dir == -1 ? 30 : -50, dir == -1 ? 50 : 30), master.location.y);
             lastTimeMoveIdle = System.currentTimeMillis();
             timeMoveIdle = Util.nextInt(5000, 8000);
         }
     }
-
-    private long lastTimeMoveAtHome;
-    private byte directAtHome = -1;
 
     @Override
     public void update() {
@@ -412,16 +407,12 @@ public class Pet extends Player {
         }
     }
 
-    private long lastTimeAskPea;
-
     public void askPea() {
         if (Util.canDoWithTime(lastTimeAskPea, 10000)) {
             Service.gI().chatJustForMe(master, this, "Sư phụ ơi cho con đậu thần đi, con đói sắp chết rồi !!");
             lastTimeAskPea = System.currentTimeMillis();
         }
     }
-
-    private int countTTNL;
 
     private boolean useSkill3() {
         try {
@@ -442,8 +433,7 @@ public class Pet extends Player {
                         this.countTTNL++;
                         return true;
                     }
-                    if (SkillService.gI().canUseSkillWithCooldown(this) && SkillService.gI().canUseSkillWithMana(this)
-                            && (this.nPoint.getCurrPercentHP() <= 20 || this.nPoint.getCurrPercentMP() <= 20)) {
+                    if (SkillService.gI().canUseSkillWithCooldown(this) && SkillService.gI().canUseSkillWithMana(this) && (this.nPoint.getCurrPercentHP() <= 20 || this.nPoint.getCurrPercentMP() <= 20)) {
                         SkillService.gI().useSkill(this, null, null, null);
                         this.countTTNL = 0;
                         return true;
@@ -554,9 +544,6 @@ public class Pet extends Player {
             return false;
         }
     }
-
-    //====================================================
-    private long lastTimeIncreasePoint;
 
     private void increasePoint() {
         if (this.nPoint != null && Util.canDoWithTime(lastTimeIncreasePoint, 1)) {

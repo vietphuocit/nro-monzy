@@ -13,6 +13,8 @@ import java.util.List;
 
 public class ItemMap {
 
+    private final long createTime;
+    private final int timeMoveToPlayer = 10000;
     public Zone zone;
     public int itemMapId;
     public ItemTemplate itemTemplate;
@@ -21,9 +23,9 @@ public class ItemMap {
     public int y;
     public long playerId;
     public List<ItemOption> options;
-    private final long createTime;
     public boolean isBlackBall;
     public boolean isNamecBall;
+    private long lastTimeMoveToPlayer;
 
     public ItemMap(Zone zone, int tempId, int quantity, int x, int y, long playerId) {
         this.zone = zone;
@@ -95,8 +97,7 @@ public class ItemMap {
             return;
         }
         if (Util.canDoWithTime(createTime, 20000) && !this.isNamecBall) {
-            if (this.zone.map.mapId != 21 && this.zone.map.mapId != 22
-                    && this.zone.map.mapId != 23 && this.itemTemplate.id != 78) {
+            if (this.zone.map.mapId != 21 && this.zone.map.mapId != 22 && this.zone.map.mapId != 23 && this.itemTemplate.id != 78) {
                 ItemMapService.gI().removeItemMapAndSendClient(this);
             }
         }
@@ -104,9 +105,6 @@ public class ItemMap {
             this.playerId = -1;
         }
     }
-
-    private final int timeMoveToPlayer = 10000;
-    private long lastTimeMoveToPlayer;
 
     private void reAppearItem() {
         ItemMapService.gI().sendItemMapDisappear(this);

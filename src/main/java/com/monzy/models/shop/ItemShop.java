@@ -52,10 +52,7 @@ public class ItemShop {
 
     @Override
     public String toString() {
-        return "ItemShop{" +
-                "temp=" + temp +
-                ", options=" + options +
-                '}';
+        return "ItemShop{" + "temp=" + temp + ", options=" + options + '}';
     }
 
 }

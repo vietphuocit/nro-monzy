@@ -7,7 +7,6 @@ import com.monzy.utils.Util;
 
 public class EffectSkill {
 
-    private Player player;
     //Cải trang Dracula Frost
     public boolean isBang;
     public long lastTimeHoaBang;
@@ -62,6 +61,7 @@ public class EffectSkill {
     public long lastTimeSocola;
     public int timeSocola;
     public int countPem1hp;
+    private Player player;
 
     public EffectSkill(Player player) {
         this.player = player;

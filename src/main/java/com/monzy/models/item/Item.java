@@ -21,10 +21,6 @@ public class Item {
     public List<ItemOption> itemOptions;
     public long createTime;
 
-    public boolean isNotNullItem() {
-        return this.template != null;
-    }
-
     public Item() {
         this.itemOptions = new ArrayList<>();
         this.createTime = System.currentTimeMillis();
@@ -34,6 +30,10 @@ public class Item {
         this.template = ItemService.gI().getTemplate(itemId);
         this.itemOptions = new ArrayList<>();
         this.createTime = System.currentTimeMillis();
+    }
+
+    public boolean isNotNullItem() {
+        return this.template != null;
     }
 
     public String getInfo() {
@@ -61,52 +61,8 @@ public class Item {
         this.itemOptions = null;
     }
 
-    public static class ItemOption {
-
-        private static final Map<String, String> OPTION_STRING = new HashMap<String, String>();
-        public int param;
-        public Template.ItemOptionTemplate optionTemplate;
-
-        public ItemOption() {
-        }
-
-        public ItemOption(ItemOption io) {
-            this.param = io.param;
-            this.optionTemplate = io.optionTemplate;
-        }
-
-        public ItemOption(int tempId, int param) {
-            this.optionTemplate = ItemService.gI().getItemOptionTemplate(tempId);
-            this.param = param;
-        }
-
-        public ItemOption(Template.ItemOptionTemplate temp, int param) {
-            this.optionTemplate = temp;
-            this.param = param;
-        }
-
-        public String getOptionString() {
-            return Util.replace(this.optionTemplate.name, "#", String.valueOf(this.param));
-        }
-
-        public void dispose() {
-            this.optionTemplate = null;
-        }
-
-        @Override
-        public String toString() {
-            final String n = "\"";
-            return "{"
-                    + n + "id" + n + ":" + n + optionTemplate.id + n + ","
-                    + n + "param" + n + ":" + n + param + n
-                    + "}";
-        }
-
-    }
-
     public boolean isSKH() {
-        for (ItemOption itemOption : itemOptions
-        ) {
+        for (ItemOption itemOption : itemOptions) {
             if (itemOption.optionTemplate.id >= 127 && itemOption.optionTemplate.id <= 135) {
                 return true;
             }
@@ -306,6 +262,46 @@ public class Item {
             default:
                 return "";
         }
+    }
+
+    public static class ItemOption {
+
+        private static final Map<String, String> OPTION_STRING = new HashMap<String, String>();
+        public int param;
+        public Template.ItemOptionTemplate optionTemplate;
+
+        public ItemOption() {
+        }
+
+        public ItemOption(ItemOption io) {
+            this.param = io.param;
+            this.optionTemplate = io.optionTemplate;
+        }
+
+        public ItemOption(int tempId, int param) {
+            this.optionTemplate = ItemService.gI().getItemOptionTemplate(tempId);
+            this.param = param;
+        }
+
+        public ItemOption(Template.ItemOptionTemplate temp, int param) {
+            this.optionTemplate = temp;
+            this.param = param;
+        }
+
+        public String getOptionString() {
+            return Util.replace(this.optionTemplate.name, "#", String.valueOf(this.param));
+        }
+
+        public void dispose() {
+            this.optionTemplate = null;
+        }
+
+        @Override
+        public String toString() {
+            final String n = "\"";
+            return "{" + n + "id" + n + ":" + n + optionTemplate.id + n + "," + n + "param" + n + ":" + n + param + n + "}";
+        }
+
     }
 
 }

@@ -71,8 +71,7 @@ public class ShopServiceNew {
     }
 
     private Shop resolveShop(Player player, Shop shop, boolean allGender) {
-        if (shop.tagName != null && (shop.tagName.equals("BUA_1H")
-                || shop.tagName.equals("BUA_8H") || shop.tagName.equals("BUA_1M"))) {
+        if (shop.tagName != null && (shop.tagName.equals("BUA_1H") || shop.tagName.equals("BUA_8H") || shop.tagName.equals("BUA_1M"))) {
             return this.resolveShopBua(player, new Shop(shop));
         }
         return allGender ? new Shop(shop) : new Shop(shop, player.gender);
@@ -461,8 +460,7 @@ public class ShopServiceNew {
                 cost = 1;
             }
             cost *= quantity;
-            String text = "Bạn có muốn bán\nx" + quantity
-                    + " " + item.template.name + "\nvới giá là " + Util.numberToMoney(cost) + " vàng?";
+            String text = "Bạn có muốn bán\nx" + quantity + " " + item.template.name + "\nvới giá là " + Util.numberToMoney(cost) + " vàng?";
             Message msg = new Message(7);
             try {
                 msg.writer().writeByte(where);
@@ -500,8 +498,7 @@ public class ShopServiceNew {
             }
             pl.inventory.gold += cost;
             Service.gI().sendMoney(pl);
-            Service.gI().sendThongBao(pl, "Đã bán " + item.template.name
-                    + " thu được " + Util.numberToMoney(cost) + " vàng");
+            Service.gI().sendThongBao(pl, "Đã bán " + item.template.name + " thu được " + Util.numberToMoney(cost) + " vàng");
             if (where == 0) {
                 InventoryService.gI().subQuantityItemsBody(pl, item, quantity);
                 InventoryService.gI().sendItemBody(pl);
@@ -529,9 +526,7 @@ public class ShopServiceNew {
                 if (item.isNotNullItem()) {
                     if (InventoryService.gI().getCountEmptyBag(player) != 0) {
                         InventoryService.gI().addItemBag(player, item);
-                        Service.gI().sendThongBao(player,
-                                "Bạn nhận được " + (item.template.id == 189
-                                        ? Util.numberToMoney(item.quantity) + " vàng" : item.template.name));
+                        Service.gI().sendThongBao(player, "Bạn nhận được " + (item.template.id == 189 ? Util.numberToMoney(item.quantity) + " vàng" : item.template.name));
                         InventoryService.gI().sendItemBags(player);
                         items.remove(index);
                     } else {
@@ -549,9 +544,7 @@ public class ShopServiceNew {
                 for (int i = items.size() - 1; i >= 0; i--) {
                     item = items.get(i);
                     if (InventoryService.gI().addItemBag(player, item)) {
-                        Service.gI().sendThongBao(player,
-                                "Bạn nhận được " + (item.template.id == 189
-                                        ? Util.numberToMoney(item.quantity) + " vàng" : item.template.name));
+                        Service.gI().sendThongBao(player, "Bạn nhận được " + (item.template.id == 189 ? Util.numberToMoney(item.quantity) + " vàng" : item.template.name));
                         items.remove(i);
                     }
                 }

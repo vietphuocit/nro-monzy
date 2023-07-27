@@ -49,14 +49,7 @@ public class Card {
     @Override
     public String toString() {
         final String n = "\"";
-        return "{"
-                + n + "id" + n + ":" + n + id + n + ","
-                + n + "amount" + n + ":" + n + amount + n + ","
-                + n + "max" + n + ":" + n + maxAmount + n + ","
-                + n + "option" + n + ":" + optionCards + ","
-                + n + "level" + n + ":" + n + level + n + ","
-                + n + "used" + n + ":" + n + used + n
-                + "}";
+        return "{" + n + "id" + n + ":" + n + id + n + "," + n + "amount" + n + ":" + n + amount + n + "," + n + "max" + n + ":" + n + maxAmount + n + "," + n + "option" + n + ":" + optionCards + "," + n + "level" + n + ":" + n + level + n + "," + n + "used" + n + ":" + n + used + n + "}";
     }
 
 }

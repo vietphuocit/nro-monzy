@@ -10,7 +10,7 @@ import com.monzy.models.player.Player;
 import com.monzy.models.skill.Skill;
 import com.monzy.server.Manager;
 import com.monzy.server.ServerNotify;
-import com.monzy.services.*;
+import com.monzy.services.EffectSkillService;
 import com.monzy.utils.SkillUtil;
 import com.monzy.utils.Util;
 
@@ -19,9 +19,25 @@ import java.util.Map;
 
 public class Boss extends Player implements IBossNew, IBossOutfit {
 
-    public int currentLevel = -1;
     protected final BossData[] data;
+    private final Map<Integer, Integer> ITEM_REWARD = new HashMap<Integer, Integer>() {{
+        put(859, 10);
+        put(956, 10);
+        put(1142, 10);
+        put(15, 5);
+        put(16, 10);
+    }};
+    private final Map<Integer, Integer> MANH_THIEN_SU = new HashMap<Integer, Integer>() {{
+        put(1066, 33);
+        put(1067, 33);
+        put(1068, 33);
+        put(1069, 10);
+        put(1070, 10);
+    }};
+    public int currentLevel = -1;
     public BossStatus bossStatus;
+    public Boss[][] bossAppearTogether;
+    public Zone zoneFinal = null;
     protected Zone lastZone;
     protected long lastTimeRest;
     protected int secondsRest;
@@ -37,8 +53,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
     protected int timeTargetPlayer;
     protected Player playerTarget;
     protected Boss parentBoss;
-    public Boss[][] bossAppearTogether;
-    public Zone zoneFinal = null;
+    protected long lastTimeAttack;
 
     public Boss(int id, BossData... data) throws Exception {
         this.id = id;
@@ -233,8 +248,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
         if (nextLevel >= this.data.length) {
             nextLevel = 0;
         }
-        if (this.data[nextLevel].getTypeAppear() == TypeAppear.DEFAULT_APPEAR
-                && Util.canDoWithTime(lastTimeRest, secondsRest * 1000L)) {
+        if (this.data[nextLevel].getTypeAppear() == TypeAppear.DEFAULT_APPEAR && Util.canDoWithTime(lastTimeRest, secondsRest * 1000L)) {
             this.changeStatus(BossStatus.RESPAWN);
         }
     }
@@ -270,8 +284,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
                 if (this.parentBoss == null) {
                     ChangeMapService.gI().changeMapBySpaceShip(this, this.zone, -1);
                 } else {
-                    ChangeMapService.gI().changeMapBySpaceShip(this, this.zone,
-                            this.parentBoss.location.x + Util.nextInt(-100, 100));
+                    ChangeMapService.gI().changeMapBySpaceShip(this, this.zone, this.parentBoss.location.x + Util.nextInt(-100, 100));
                 }
                 this.wakeupAnotherBossWhenAppear();
             } else {
@@ -297,7 +310,8 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
     }
 
     protected void notifyJoinMap() {
-        if (this.id >= -22 && this.id <= -20) return;
+        if (this.id >= -22 && this.id <= -20)
+            return;
         if (this.zone.map.mapId == 140 || MapService.gI().isMapMaBu(this.zone.map.mapId) || MapService.gI().isMapBlackBallWar(this.zone.map.mapId) || MapService.gI().isMapBanDoKhoBau(this.zone.map.mapId) || MapService.gI().isNguHS(this.zone.map.mapId))
             return;
         ServerNotify.gI().notify("BOSS " + this.name + " vừa xuất hiện tại " + this.zone.map.mapName);
@@ -354,17 +368,12 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
         this.attack();
     }
 
-    protected long lastTimeAttack;
-
     @Override
     public void attack() {
         if (Util.canDoWithTime(this.lastTimeAttack, 100) && this.typePk == ConstPlayer.PK_ALL) {
             this.lastTimeAttack = System.currentTimeMillis();
             try {
-                Player pl = this.zone.getPlayers().stream()
-                        .skip((int) (this.zone.getPlayers().size() * Math.random()))
-                        .findFirst()
-                        .orElse(null);
+                Player pl = this.zone.getPlayers().stream().skip((int) (this.zone.getPlayers().size() * Math.random())).findFirst().orElse(null);
                 if (pl == null || pl.isDie() || pl.isNewPet) {
                     return;
                 }
@@ -416,6 +425,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
         }
         return false;
     }
+    //end loop
 
     @Override
     public void doneChatE() {
@@ -435,7 +445,6 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
         }
         this.wakeupAnotherBossWhenDisappear();
     }
-    //end loop
 
     @Override
     public int injured(Player plAtt, int damage, boolean piercing, boolean isMobAttack) {
@@ -502,8 +511,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
                 if (!boss.isDie()) {
                     boss.chat(textChat);
                 }
-            } else if (this.parentBoss != null && this.parentBoss.bossAppearTogether != null
-                    && this.parentBoss.bossAppearTogether[this.parentBoss.currentLevel] != null) {
+            } else if (this.parentBoss != null && this.parentBoss.bossAppearTogether != null && this.parentBoss.bossAppearTogether[this.parentBoss.currentLevel] != null) {
                 Boss boss = this.parentBoss.bossAppearTogether[this.parentBoss.currentLevel][prefix];
                 if (!boss.isDie()) {
                     boss.chat(textChat);
@@ -593,21 +601,6 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
         long currentTimeMillis = lastTimeRest + secondsRest * 1000L - System.currentTimeMillis();
         return (currentTimeMillis / 60000) - (currentTimeMillis / (60 * 60000) * 60);
     }
-
-    private final Map<Integer, Integer> ITEM_REWARD = new HashMap<Integer, Integer>() {{
-        put(859, 10);
-        put(956, 10);
-        put(1142, 10);
-        put(15, 5);
-        put(16, 10);
-    }};
-    private final Map<Integer, Integer> MANH_THIEN_SU = new HashMap<Integer, Integer>() {{
-        put(1066, 33);
-        put(1067, 33);
-        put(1068, 33);
-        put(1069, 10);
-        put(1070, 10);
-    }};
 
 }
 /**

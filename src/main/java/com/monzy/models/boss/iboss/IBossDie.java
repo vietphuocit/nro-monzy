@@ -1,4 +1,3 @@
-
 package com.monzy.models.boss.iboss;
 
 import com.monzy.models.player.Player;

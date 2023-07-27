@@ -10,7 +10,6 @@ import com.monzy.models.item.Item;
 import com.monzy.models.player.Player;
 import com.monzy.server.io.MyKeyHandler;
 import com.monzy.server.io.MySession;
-import com.monzy.services.*;
 import com.monzy.utils.Logger;
 import com.monzy.utils.TimeUtil;
 import com.monzy.utils.Util;
@@ -25,24 +24,13 @@ import java.util.logging.Level;
 
 public class ServerManager {
 
-    public static String timeStart;
     public static final Map CLIENTS = new HashMap();
+    public static String timeStart;
     public static String NAME = "Girlkun75";
     public static int PORT = 14445;
-    private static ServerManager instance;
     public static ServerSocket listenSocket;
     public static boolean isRunning;
-
-    public void init() {
-        Manager.gI();
-        try {
-            if (Manager.LOCAL) return;
-            Database.executeUpdate("update account set last_time_login = '2000-01-01', last_time_logout = '2001-01-01'");
-        } catch (Exception e) {
-            Logger.log("ServerManager init(): " + e.getMessage());
-        }
-        HistoryTransactionDAO.deleteHistory();
-    }
+    private static ServerManager instance;
 
     public static ServerManager gI() {
         if (instance == null) {
@@ -57,6 +45,17 @@ public class ServerManager {
         ServerManager.gI().run();
     }
 
+    public void init() {
+        Manager.gI();
+        try {
+            if (Manager.LOCAL) return;
+            Database.executeUpdate("update account set last_time_login = '2000-01-01', last_time_logout = '2001-01-01'");
+        } catch (Exception e) {
+            Logger.log("ServerManager init(): " + e.getMessage());
+        }
+        HistoryTransactionDAO.deleteHistory();
+    }
+
     public void run() {
         isRunning = true;
         activeCommandLine();
@@ -68,7 +67,7 @@ public class ServerManager {
 //        new Thread(ChonAiDay.gI(), "Thread CAD").start();
 //        NgocRongNamecService.gI().initNgocRongNamec((byte) 0);
 //        new Thread(NgocRongNamecService.gI(), "Thread NRNM").start();
-        new Thread(new TopService() , "Thread Top").start();
+        new Thread(new TopService(), "Thread Top").start();
         new Thread(new PaymentService(), "Thread Payment").start();
         new Thread(new ShopKyGuiService(), "Thread Shop Ky Gui").start();
         new Thread(new GiftService(), "Thread Gift Code").start();
@@ -83,29 +82,24 @@ public class ServerManager {
 
     private void act() throws Exception {
         MonzyServer.gI().init().setAcceptHandler(new ISessionAcceptHandler() {
-                    @Override
-                    public void sessionInit(ISession is) {
+            @Override
+            public void sessionInit(ISession is) {
 //                antiddos girlkun
-                        if (!canConnectWithIp(is.getIP())) {
-                            is.disconnect();
-                            return;
-                        }
-                        is = is.setMessageHandler(Controller.getInstance())
-                                .setSendCollect(new MessageSendCollect())
-                                .setKeyHandler(new MyKeyHandler())
-                                .startCollect();
-                    }
+                if (!canConnectWithIp(is.getIP())) {
+                    is.disconnect();
+                    return;
+                }
+                is = is.setMessageHandler(Controller.getInstance()).setSendCollect(new MessageSendCollect()).setKeyHandler(new MyKeyHandler()).startCollect();
+            }
 
-                    @Override
-                    public void sessionDisconnect(ISession session) {
-                        Client.gI().kickSession((MySession) session);
-                    }
-                }).setTypeSessioClone(MySession.class)
-                .setDoSomeThingWhenClose(() -> {
-                    System.out.println("server close");
-                    System.exit(0);
-                })
-                .start(PORT);
+            @Override
+            public void sessionDisconnect(ISession session) {
+                Client.gI().kickSession((MySession) session);
+            }
+        }).setTypeSessioClone(MySession.class).setDoSomeThingWhenClose(() -> {
+            System.out.println("server close");
+            System.exit(0);
+        }).start(PORT);
     }
 
     private void activeServerSocket() {

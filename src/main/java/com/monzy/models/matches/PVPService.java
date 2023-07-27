@@ -17,24 +17,24 @@ import java.io.IOException;
 public class PVPService {
 
     private static final int[] GOLD_CHALLENGE = {1000000, 10000000, 100000000};
-    private final String[] optionsGoldChallenge;
     //cmd controller
     private static final byte OPEN_GOLD_SELECT = 0;
     private static final byte ACCEPT_PVP = 1;
     private static PVPService i;
-
-    public static PVPService gI() {
-        if (i == null) {
-            i = new PVPService();
-        }
-        return i;
-    }
+    private final String[] optionsGoldChallenge;
 
     public PVPService() {
         this.optionsGoldChallenge = new String[GOLD_CHALLENGE.length];
         for (int i = 0; i < GOLD_CHALLENGE.length; i++) {
             this.optionsGoldChallenge[i] = Util.numberToMoney(GOLD_CHALLENGE[i]) + " vàng";
         }
+    }
+
+    public static PVPService gI() {
+        if (i == null) {
+            i = new PVPService();
+        }
+        return i;
     }
 
     //**************************************************************************THÁCH ĐẤU
@@ -66,10 +66,7 @@ public class PVPService {
             return;
         }
         pl.iDMark.setIdPlayThachDau(plMap.id);
-        NpcService.gI().createMenuConMeo(pl, ConstNpc.MAKE_MATCH_PVP,
-                -1, plMap.name + " (sức mạnh " + Util.numberToMoney(plMap.nPoint.power)
-                        + ")\nBạn muốn cược bao nhiêu vàng?",
-                this.optionsGoldChallenge);
+        NpcService.gI().createMenuConMeo(pl, ConstNpc.MAKE_MATCH_PVP, -1, plMap.name + " (sức mạnh " + Util.numberToMoney(plMap.nPoint.power) + ")\nBạn muốn cược bao nhiêu vàng?", this.optionsGoldChallenge);
     }
 
     public void sendInvitePVP(Player pl, byte selectGold) {
@@ -144,8 +141,7 @@ public class PVPService {
             return;
         }
         pl.iDMark.setIdEnemy(idEnemy);
-        NpcService.gI().createMenuConMeo(pl, ConstNpc.REVENGE,
-                -1, "Bạn muốn đến ngay chỗ hắn?", "Ok", "Từ chối");
+        NpcService.gI().createMenuConMeo(pl, ConstNpc.REVENGE, -1, "Bạn muốn đến ngay chỗ hắn?", "Ok", "Từ chối");
     }
 
     public void acceptRevenge(Player pl) {

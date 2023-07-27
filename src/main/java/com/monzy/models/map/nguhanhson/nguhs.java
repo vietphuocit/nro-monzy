@@ -1,4 +1,3 @@
-
 package com.monzy.models.map.nguhanhson;
 
 import com.monzy.models.player.Player;
@@ -17,9 +16,9 @@ public class nguhs {
     public static final byte HOUR_CLOSE_MAP_NHS = 23;
     public static final byte MIN_CLOSE_MAP_NHS = 59;
     public static final byte SECOND_CLOSE_MAP_NHS = 59;
-    private static nguhs i;
     public static long TIME_OPEN_NHS;
     public static long TIME_CLOSE_NHS;
+    private static nguhs i;
     private int day = -1;
 
     public static nguhs gI() {

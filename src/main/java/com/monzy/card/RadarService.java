@@ -3,6 +3,7 @@ package com.monzy.card;
 import com.monzy.models.player.Player;
 import com.network.io.Message;
 
+import javax.smartcardio.Card;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,8 +12,8 @@ import java.util.List;
  */
 public class RadarService {
 
-    public List<RadarCard> RADAR_TEMPLATE = new ArrayList<>();
     private static RadarService instance;
+    public List<RadarCard> RADAR_TEMPLATE = new ArrayList<>();
 
     public static RadarService gI() {
         if (instance == null) {

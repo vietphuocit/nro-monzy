@@ -4,9 +4,9 @@ public class AntiLogin {
 
     private static final byte MAX_WRONG = 3;
     private static final int TIME_ANTI = 900000;
+    public byte wrongLogin;
     private long lastTimeLogin;
     private int timeCanLogin;
-    public byte wrongLogin;
 
     public boolean canLogin() {
         return true;

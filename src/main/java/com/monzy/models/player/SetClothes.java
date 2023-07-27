@@ -4,12 +4,6 @@ import com.monzy.models.item.Item;
 
 public class SetClothes {
 
-    private Player player;
-
-    public SetClothes(Player player) {
-        this.player = player;
-    }
-
     public byte krilin;
     public byte kaioken;
     public byte songoku;
@@ -24,6 +18,11 @@ public class SetClothes {
     public byte setGOD;
     public boolean godClothes;
     public int ctHaiTac = -1;
+    private Player player;
+
+    public SetClothes(Player player) {
+        this.player = player;
+    }
 
     public void setup() {
         setDefault();

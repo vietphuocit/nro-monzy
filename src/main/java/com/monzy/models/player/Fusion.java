@@ -6,9 +6,9 @@ import com.monzy.utils.Util;
 public class Fusion {
 
     public static final int TIME_FUSION = 600000;
-    private Player player;
     public byte typeFusion;
     public long lastTimeFusion;
+    private Player player;
 
     public Fusion(Player player) {
         this.player = player;

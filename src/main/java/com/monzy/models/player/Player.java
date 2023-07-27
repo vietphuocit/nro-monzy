@@ -27,7 +27,8 @@ import com.monzy.models.skill.SkillSpecial;
 import com.monzy.models.task.TaskPlayer;
 import com.monzy.server.Client;
 import com.monzy.server.io.MySession;
-import com.monzy.services.*;
+import com.monzy.services.ChangeMapService;
+import com.monzy.services.EffectSkillService;
 import com.monzy.services.func.ChonAiDay;
 import com.monzy.services.func.Conbine;
 import com.monzy.utils.Logger;
@@ -41,6 +42,33 @@ import java.util.stream.Collectors;
 
 public class Player {
 
+    //--------------------------------------------------------------------------
+    /*
+     * {380, 381, 382}: ht lưỡng long nhất thể xayda trái đất
+     * {383, 384, 385}: ht porata xayda trái đất
+     * {391, 392, 393}: ht namếc
+     * {870, 871, 872}: ht c2 trái đất
+     * {873, 874, 875}: ht c2 namếc
+     * {867, 878, 869}: ht c2 xayda
+     * {2033,2034,2035}: ht c3 td
+     * {2030,2031,2032}: ht c3 nm
+     * {2027,2028,2029}: ht c3 xd*/
+    private static final short[][] idOutfitFusion = {{380, 381, 382},    // thuong xd, td
+            {383, 384, 385},    // porata xd, td
+            {391, 392, 393},    // thuong, porata namec
+            {870, 871, 872},    // porata 2 td
+            {873, 874, 875},    // porata 2 nm
+            {867, 868, 869},    // porata 2 xd
+            {2048, 2049, 2050}, // porata 3 td
+            {2051, 2052, 2053}, // porata 3 nm
+            {2054, 2055, 2056}, // porata 3 xd
+            {2057, 2058, 2059}, // porata 4 td
+            {2060, 2061, 2062}, // porata 4 nm
+            {2063, 2064, 2065}, // porata 4 xd
+            {1080, 1081, 1082}, // porata 5 td
+            {1086, 1087, 1088}, // porata 5 nm
+            {1083, 1084, 1085}, // porata 5 xd
+    };
     public MySession session;
     public boolean beforeDispose;
     public boolean banv = false;
@@ -150,9 +178,38 @@ public class Player {
         return true;
     }
 
-    //--------------------------------------------------------------------------
-    public void setSession(MySession session) {
-        this.session = session;
+    protected void setDie(Player plAtt) {
+        //xóa phù
+        if (this.effectSkin.xHPKI > 1) {
+            this.effectSkin.xHPKI = 1;
+            Service.gI().point(this);
+        }
+        //xóa tụ skill đặc biệt
+        this.playerSkill.prepareQCKK = false;
+        this.playerSkill.prepareLaze = false;
+        this.playerSkill.prepareTuSat = false;
+        //xóa hiệu ứng skill
+        this.effectSkill.removeSkillEffectWhenDie();
+        //
+        nPoint.setHp(0);
+        nPoint.setMp(0);
+        //xóa trứng
+        if (this.mobMe != null) {
+            this.mobMe.mobMeDie();
+        }
+        Service.gI().charDie(this);
+        //add kẻ thù
+        if (!this.isPet && !this.isNewPet && !this.isBoss && plAtt != null && !plAtt.isPet && !plAtt.isNewPet && !plAtt.isBoss) {
+            if (!plAtt.itemTime.isUseAnDanh) {
+                FriendAndEnemyService.gI().addEnemy(this, plAtt);
+            }
+        }
+        //kết thúc pk
+        if (this.pvp != null) {
+            this.pvp.lose(this, TYPE_LOSE_PVP.DEAD);
+        }
+//        PVPServcice.gI().finishPVP(this, PVP.TYPE_DIE);
+        BlackBallWar.gI().dropBlackBall(this);
     }
 
     public void sendMessage(Message msg) {
@@ -163,6 +220,11 @@ public class Player {
 
     public MySession getSession() {
         return this.session;
+    }
+
+    //--------------------------------------------------------------------------
+    public void setSession(MySession session) {
+        this.session = session;
     }
 
     public boolean isPl() {
@@ -259,35 +321,6 @@ public class Player {
         }
     }
 
-    //--------------------------------------------------------------------------
-    /*
-     * {380, 381, 382}: ht lưỡng long nhất thể xayda trái đất
-     * {383, 384, 385}: ht porata xayda trái đất
-     * {391, 392, 393}: ht namếc
-     * {870, 871, 872}: ht c2 trái đất
-     * {873, 874, 875}: ht c2 namếc
-     * {867, 878, 869}: ht c2 xayda
-     * {2033,2034,2035}: ht c3 td
-     * {2030,2031,2032}: ht c3 nm
-     * {2027,2028,2029}: ht c3 xd*/
-    private static final short[][] idOutfitFusion = {
-            {380, 381, 382},    // thuong xd, td
-            {383, 384, 385},    // porata xd, td
-            {391, 392, 393},    // thuong, porata namec
-            {870, 871, 872},    // porata 2 td
-            {873, 874, 875},    // porata 2 nm
-            {867, 868, 869},    // porata 2 xd
-            {2048, 2049, 2050}, // porata 3 td
-            {2051, 2052, 2053}, // porata 3 nm
-            {2054, 2055, 2056}, // porata 3 xd
-            {2057, 2058, 2059}, // porata 4 td
-            {2060, 2061, 2062}, // porata 4 nm
-            {2063, 2064, 2065}, // porata 4 xd
-            {1080, 1081, 1082}, // porata 5 td
-            {1086, 1087, 1088}, // porata 5 nm
-            {1083, 1084, 1085}, // porata 5 xd
-    };
-
     // Sua id vat pham muon co aura lai
     public byte getAura() {
         if (this.inventory.itemsBody.isEmpty() || this.inventory.itemsBody.size() < 10) {
@@ -357,24 +390,12 @@ public class Player {
         if (this.inventory.itemsBody.isEmpty() || this.inventory.itemsBody.size() < 10) {
             return -1;
         }
-
         List<Item> items = this.inventory.itemsBody.subList(0, 5);
-        List<Item.ItemOption> itemOptions = items.stream()
-                .map(item -> item.itemOptions.stream()
-                        .filter(io -> io.optionTemplate.id == 72)
-                        .findFirst()
-                        .orElse(null))
-                .collect(Collectors.toList());
-
+        List<Item.ItemOption> itemOptions = items.stream().map(item -> item.itemOptions.stream().filter(io -> io.optionTemplate.id == 72).findFirst().orElse(null)).collect(Collectors.toList());
         if (itemOptions.stream().anyMatch(Objects::isNull)) {
             return -1;
         }
-
-        int minLevel = itemOptions.stream()
-                .mapToInt(io -> io.param)
-                .min()
-                .orElse(-1);
-
+        int minLevel = itemOptions.stream().mapToInt(io -> io.param).min().orElse(-1);
         if (minLevel >= 8) {
             return 8;
         } else if (minLevel == 7) {
@@ -617,40 +638,6 @@ public class Player {
         }
     }
 
-    protected void setDie(Player plAtt) {
-        //xóa phù
-        if (this.effectSkin.xHPKI > 1) {
-            this.effectSkin.xHPKI = 1;
-            Service.gI().point(this);
-        }
-        //xóa tụ skill đặc biệt
-        this.playerSkill.prepareQCKK = false;
-        this.playerSkill.prepareLaze = false;
-        this.playerSkill.prepareTuSat = false;
-        //xóa hiệu ứng skill
-        this.effectSkill.removeSkillEffectWhenDie();
-        //
-        nPoint.setHp(0);
-        nPoint.setMp(0);
-        //xóa trứng
-        if (this.mobMe != null) {
-            this.mobMe.mobMeDie();
-        }
-        Service.gI().charDie(this);
-        //add kẻ thù
-        if (!this.isPet && !this.isNewPet && !this.isBoss && plAtt != null && !plAtt.isPet && !plAtt.isNewPet && !plAtt.isBoss) {
-            if (!plAtt.itemTime.isUseAnDanh) {
-                FriendAndEnemyService.gI().addEnemy(this, plAtt);
-            }
-        }
-        //kết thúc pk
-        if (this.pvp != null) {
-            this.pvp.lose(this, TYPE_LOSE_PVP.DEAD);
-        }
-//        PVPServcice.gI().finishPVP(this, PVP.TYPE_DIE);
-        BlackBallWar.gI().dropBlackBall(this);
-    }
-
     //--------------------------------------------------------------------------
     public void setClanMember() {
         if (this.clanMember != null) {
@@ -872,20 +859,14 @@ public class Player {
     }
 
     public boolean isSkinFusion(Item item) {
-        return item.template.id == 601
-                || item.template.id == 602
-                || item.template.id == 603
-                || item.template.id == 639
-                || item.template.id == 640
-                || item.template.id == 641;
+        return item.template.id == 601 || item.template.id == 602 || item.template.id == 603 || item.template.id == 639 || item.template.id == 640 || item.template.id == 641;
     }
 
     public boolean isUseSkinEvent() {
         if (!inventory.itemsBody.get(5).isNotNullItem()) {
             return false;
         }
-        return inventory.itemsBody.get(5).template.id == 1010
-                || inventory.itemsBody.get(5).template.id == 1011
-                || inventory.itemsBody.get(5).template.id == 1012;
+        return inventory.itemsBody.get(5).template.id == 1010 || inventory.itemsBody.get(5).template.id == 1011 || inventory.itemsBody.get(5).template.id == 1012;
     }
+
 }

@@ -12,7 +12,6 @@ import com.monzy.models.player.Player;
 import com.monzy.server.Maintenance;
 import com.monzy.server.Manager;
 import com.monzy.server.ServerNotify;
-import com.monzy.services.*;
 import com.monzy.utils.Util;
 import com.network.io.Message;
 
@@ -31,10 +30,11 @@ public class Mob {
     public Location location;
     public byte pDame;
     public int pTiemNang;
-    private long maxTiemNang;
     public long lastTimeDie;
     public int lvMob = 0;
     public int status = 5;
+    private long maxTiemNang;
+    private long lastTimeAttackPlayer;
 
     public Mob(Mob mob) {
         this.point = new MobPoint(this);
@@ -61,8 +61,6 @@ public class Mob {
     public void setTiemNang() {
         this.maxTiemNang = (long) this.point.getHpFull() * (this.pTiemNang + Util.nextInt(-2, 2)) / 100;
     }
-
-    private long lastTimeAttackPlayer;
 
     public boolean isDie() {
         return this.point.gethp() <= 0;
@@ -98,8 +96,7 @@ public class Mob {
     }
 
     public long getTiemNangForPlayer(Player pl, long dame) {
-        if (dame == 0)
-            return 1;
+        if (dame == 0) return 1;
         int levelPlayer = Service.gI().getCurrLevel(pl);
         int n = levelPlayer - this.level;
         long pDameHit = dame * 100 / point.getHpFull();

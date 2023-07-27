@@ -12,6 +12,8 @@ import com.monzy.utils.Util;
 
 public class SuperAndroid17 extends Boss {
 
+    private long st;
+
     public SuperAndroid17() throws Exception {
         super(BossID.SUPER_ANDROID_17, BossesData.SUPER_ANDROID_17);
         this.nPoint.defg = (short) (this.nPoint.hpg / 1000);
@@ -23,8 +25,7 @@ public class SuperAndroid17 extends Boss {
     @Override
     public void reward(Player plKill) {
         if (Util.isTrue(15, 100)) {
-            ItemMap it = new ItemMap(this.zone, 1230, 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24), plKill.id);
+            ItemMap it = new ItemMap(this.zone, 1230, 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
             Service.gI().dropItemMap(this.zone, it);
         }
     }
@@ -64,8 +65,6 @@ public class SuperAndroid17 extends Boss {
         super.joinMap(); //To change body of generated methods, choose Tools | Templates.
         st = System.currentTimeMillis();
     }
-
-    private long st;
 
     @Override
     public void leaveMap() {

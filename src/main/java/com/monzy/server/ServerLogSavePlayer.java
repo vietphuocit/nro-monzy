@@ -11,6 +11,8 @@ import java.util.logging.Logger;
 public class ServerLogSavePlayer implements Runnable {
 
     private static ServerLogSavePlayer i;
+    private final List<String> list;
+    private BufferedWriter bw;
 
     private ServerLogSavePlayer() {
         this.list = new ArrayList<>();
@@ -28,9 +30,6 @@ public class ServerLogSavePlayer implements Runnable {
         }
         return i;
     }
-
-    private final List<String> list;
-    private BufferedWriter bw;
 
     @Override
     public void run() {

@@ -2,13 +2,10 @@ package com.monzy.models.boss;
 
 import com.monzy.models.boss.list_boss.AnTrom;
 import com.monzy.models.boss.list_boss.Mabu;
-import com.monzy.models.boss.list_boss.android.*;
 import com.monzy.models.boss.list_boss.black.Black;
 import com.monzy.models.boss.list_boss.black.Zamasu;
-import com.monzy.models.boss.list_boss.cell.*;
 import com.monzy.models.boss.list_boss.cooler.Cooler;
 import com.monzy.models.boss.list_boss.cooler.Cooler2;
-import com.monzy.models.boss.list_boss.doraemon.*;
 import com.monzy.models.boss.list_boss.fide.Fide;
 import com.monzy.models.boss.list_boss.fide.FideGold;
 import com.monzy.models.boss.list_boss.hanhtinhberus.Bill;
@@ -16,7 +13,6 @@ import com.monzy.models.boss.list_boss.hanhtinhberus.Whis;
 import com.monzy.models.boss.list_boss.nappa.Kuku;
 import com.monzy.models.boss.list_boss.nappa.MapDauDinh;
 import com.monzy.models.boss.list_boss.nappa.Rambo;
-import com.monzy.models.boss.list_boss.nrden.*;
 import com.monzy.models.boss.list_boss.tdst.TDST;
 import com.monzy.models.boss.list_boss.tdst.TDST1;
 import com.monzy.models.player.Player;
@@ -29,8 +25,14 @@ import java.util.List;
 
 public class BossManager implements Runnable {
 
-    private static BossManager I;
     public static final byte ratioReward = 2;
+    private static BossManager I;
+    private final List<Boss> bosses;
+    private boolean loadedBoss;
+
+    private BossManager() {
+        this.bosses = new ArrayList<>();
+    }
 
     public static BossManager gI() {
         if (BossManager.I == null) {
@@ -38,13 +40,6 @@ public class BossManager implements Runnable {
         }
         return BossManager.I;
     }
-
-    private BossManager() {
-        this.bosses = new ArrayList<>();
-    }
-
-    private boolean loadedBoss;
-    private final List<Boss> bosses;
 
     public void addBoss(Boss boss) {
         this.bosses.add(boss);
@@ -316,9 +311,7 @@ public class BossManager implements Runnable {
 
     public synchronized void callBoss(Player player, int mapId) {
         try {
-            if (BossManager.gI().existBossOnPlayer(player) ||
-                    player.zone.items.stream().anyMatch(itemMap -> ItemMapService.gI().isBlackBall(itemMap.itemTemplate.id)) ||
-                    player.zone.getPlayers().stream().anyMatch(p -> p.iDMark.isHoldBlackBall())) {
+            if (BossManager.gI().existBossOnPlayer(player) || player.zone.items.stream().anyMatch(itemMap -> ItemMapService.gI().isBlackBall(itemMap.itemTemplate.id)) || player.zone.getPlayers().stream().anyMatch(p -> p.iDMark.isHoldBlackBall())) {
                 return;
             }
             Boss k = null;

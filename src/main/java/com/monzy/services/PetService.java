@@ -18,6 +18,45 @@ public class PetService {
         return i;
     }
 
+    public static void Pet2(Player pl, int h, int b, int l) {
+        if (pl.newpet != null) {
+            pl.newpet.dispose();
+//            pl.newpet1.dispose();
+        }
+        pl.newpet = new NewPet(pl, (short) h, (short) b, (short) l);
+        //   pl.newpet1 = new NewPet(pl, (short) h, (short) b, (short) l);
+        pl.newpet.name = "$";
+        //  pl.newpet1.name = "$";
+        pl.newpet.gender = pl.gender;
+        //  pl.newpet1.gender = pl.gender;
+        pl.newpet.nPoint.tiemNang = 1;
+        //   pl.newpet1.nPoint.tiemNang = 1;
+        pl.newpet.nPoint.power = 1;
+        //  pl.newpet1.nPoint.power = 1;
+        pl.newpet.nPoint.limitPower = 1;
+        //   pl.newpet1.nPoint.limitPower = 1;
+        pl.newpet.nPoint.hpg = 500000000;
+        //  pl.newpet1.nPoint.hpg = 500000000;
+        pl.newpet.nPoint.mpg = 500000000;
+        // pl.newpet1.nPoint.mpg = 500000000;
+        pl.newpet.nPoint.hp = 500000000;
+        pl.newpet.nPoint.mp = 500000000;
+        pl.newpet.nPoint.dameg = 1;
+        pl.newpet.nPoint.defg = 1;
+        pl.newpet.nPoint.critg = 1;
+        pl.newpet.nPoint.stamina = 1;
+        pl.newpet.nPoint.setBasePoint();
+        pl.newpet.nPoint.setFullHpMp();
+//        pl.newpet1.nPoint.hp = 500000000;
+//        pl.newpet1.nPoint.mp = 500000000;
+//        pl.newpet1.nPoint.dameg = 1;
+//        pl.newpet1.nPoint.defg = 1;
+//        pl.newpet1.nPoint.critg = 1;
+//        pl.newpet1.nPoint.stamina = 1;
+//        pl.newpet1.nPoint.setBasePoint();
+//        pl.newpet1.nPoint.setFullHpMp();
+    }
+
     public void createNormalPet(Player player, int gender, byte... limitPower) {
         new Thread(() -> {
             try {
@@ -312,45 +351,6 @@ public class PetService {
         }
         pet.nPoint.setFullHpMp();
         player.pet = pet;
-    }
-
-    public static void Pet2(Player pl, int h, int b, int l) {
-        if (pl.newpet != null) {
-            pl.newpet.dispose();
-//            pl.newpet1.dispose();
-        }
-        pl.newpet = new NewPet(pl, (short) h, (short) b, (short) l);
-        //   pl.newpet1 = new NewPet(pl, (short) h, (short) b, (short) l);
-        pl.newpet.name = "$";
-        //  pl.newpet1.name = "$";
-        pl.newpet.gender = pl.gender;
-        //  pl.newpet1.gender = pl.gender;
-        pl.newpet.nPoint.tiemNang = 1;
-        //   pl.newpet1.nPoint.tiemNang = 1;
-        pl.newpet.nPoint.power = 1;
-        //  pl.newpet1.nPoint.power = 1;
-        pl.newpet.nPoint.limitPower = 1;
-        //   pl.newpet1.nPoint.limitPower = 1;
-        pl.newpet.nPoint.hpg = 500000000;
-        //  pl.newpet1.nPoint.hpg = 500000000;
-        pl.newpet.nPoint.mpg = 500000000;
-        // pl.newpet1.nPoint.mpg = 500000000;
-        pl.newpet.nPoint.hp = 500000000;
-        pl.newpet.nPoint.mp = 500000000;
-        pl.newpet.nPoint.dameg = 1;
-        pl.newpet.nPoint.defg = 1;
-        pl.newpet.nPoint.critg = 1;
-        pl.newpet.nPoint.stamina = 1;
-        pl.newpet.nPoint.setBasePoint();
-        pl.newpet.nPoint.setFullHpMp();
-//        pl.newpet1.nPoint.hp = 500000000;
-//        pl.newpet1.nPoint.mp = 500000000;
-//        pl.newpet1.nPoint.dameg = 1;
-//        pl.newpet1.nPoint.defg = 1;
-//        pl.newpet1.nPoint.critg = 1;
-//        pl.newpet1.nPoint.stamina = 1;
-//        pl.newpet1.nPoint.setBasePoint();
-//        pl.newpet1.nPoint.setFullHpMp();
     }
     //--------------------------------------------------------------------------
 }

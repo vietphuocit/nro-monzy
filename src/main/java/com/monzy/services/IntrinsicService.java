@@ -11,8 +11,8 @@ import java.util.List;
 
 public class IntrinsicService {
 
-    private static IntrinsicService I;
     private static final int[] COST_OPEN = {10, 20, 40, 80, 160, 320, 640, 1280};
+    private static IntrinsicService I;
 
     public static IntrinsicService gI() {
         if (IntrinsicService.I == null) {
@@ -74,34 +74,27 @@ public class IntrinsicService {
     }
 
     public void showMenu(Player player) {
-        NpcService.gI().createMenuConMeo(player, ConstNpc.INTRINSIC, -1,
-                "Nội tại là một kỹ năng bị động hỗ trợ đặc biệt\nBạn có muốn mở hoặc thay đổi nội tại không?",
-                "Xem\ntất cả\nNội Tại", "Mở\nNội Tại", "Mở VIP", "Từ chối");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.INTRINSIC, -1, "Nội tại là một kỹ năng bị động hỗ trợ đặc biệt\nBạn có muốn mở hoặc thay đổi nội tại không?", "Xem\ntất cả\nNội Tại", "Mở\nNội Tại", "Mở VIP", "Từ chối");
     }
 
     public void setTSTD(Player player) {
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_SKH_THIEN_SU_TD, -1,
-                "chọn lẹ đi để tau đi chơi với ny", "Set\nTaiyoken", "Set\nGenki", "Set\nkamejoko", "Từ chối");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_SKH_THIEN_SU_TD, -1, "chọn lẹ đi để tau đi chơi với ny", "Set\nTaiyoken", "Set\nGenki", "Set\nkamejoko", "Từ chối");
     }
 
     public void setTSNM(Player player) {
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_SKH_THIEN_SU_NM, -1,
-                "chọn lẹ đi để tau đi chơi với ny", "Set\ngod ki", "Set\ngod dame", "Set\nsummon", "Từ chối");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_SKH_THIEN_SU_NM, -1, "chọn lẹ đi để tau đi chơi với ny", "Set\ngod ki", "Set\ngod dame", "Set\nsummon", "Từ chối");
     }
 
     public void setTSXD(Player player) {
-        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_SKH_THIEN_SU_XD, -1,
-                "chọn lẹ đi để tau đi chơi với ny", "Set\ngod galick", "Set\nmonkey", "Set\ngod hp", "Từ chối");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_SKH_THIEN_SU_XD, -1, "chọn lẹ đi để tau đi chơi với ny", "Set\ngod galick", "Set\nmonkey", "Set\ngod hp", "Từ chối");
     }
 
     public void showConfirmOpen(Player player) {
-        NpcService.gI().createMenuConMeo(player, ConstNpc.CONFIRM_OPEN_INTRINSIC, -1, "Bạn muốn đổi Nội Tại khác\nvới giá là "
-                + COST_OPEN[player.playerIntrinsic.countOpen] + " Tr vàng ?", "Mở\nNội Tại", "Từ chối");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.CONFIRM_OPEN_INTRINSIC, -1, "Bạn muốn đổi Nội Tại khác\nvới giá là " + COST_OPEN[player.playerIntrinsic.countOpen] + " Tr vàng ?", "Mở\nNội Tại", "Từ chối");
     }
 
     public void showConfirmOpenVip(Player player) {
-        NpcService.gI().createMenuConMeo(player, ConstNpc.CONFIRM_OPEN_INTRINSIC_VIP, -1,
-                "Bạn có muốn mở Nội Tại\nvới giá là 100 ngọc và\ntái lập giá vàng quay lại ban đầu không?", "Mở\nNội VIP", "Từ chối");
+        NpcService.gI().createMenuConMeo(player, ConstNpc.CONFIRM_OPEN_INTRINSIC_VIP, -1, "Bạn có muốn mở Nội Tại\nvới giá là 100 ngọc và\ntái lập giá vàng quay lại ban đầu không?", "Mở\nNội VIP", "Từ chối");
     }
 
     private void changeIntrinsic(Player player) {
@@ -122,8 +115,7 @@ public class IntrinsicService {
                 changeIntrinsic(player);
                 player.playerIntrinsic.countOpen++;
             } else {
-                Service.gI().sendThongBao(player, "Bạn không đủ vàng, còn thiếu "
-                        + Util.numberToMoney(goldRequire - player.inventory.gold) + " vàng nữa");
+                Service.gI().sendThongBao(player, "Bạn không đủ vàng, còn thiếu " + Util.numberToMoney(goldRequire - player.inventory.gold) + " vàng nữa");
             }
         } else {
             Service.gI().sendThongBao(player, "Yêu cầu sức mạnh tối thiểu 10 tỷ");
@@ -139,8 +131,7 @@ public class IntrinsicService {
                 changeIntrinsic(player);
                 player.playerIntrinsic.countOpen = 0;
             } else {
-                Service.gI().sendThongBao(player, "Bạn không có đủ ngọc, còn thiếu "
-                        + (gemRequire - player.inventory.gem) + " ngọc nữa");
+                Service.gI().sendThongBao(player, "Bạn không có đủ ngọc, còn thiếu " + (gemRequire - player.inventory.gem) + " ngọc nữa");
             }
         } else {
             Service.gI().sendThongBao(player, "Yêu cầu sức mạnh tối thiểu 10 tỷ");

@@ -20,7 +20,7 @@ public class FideGold extends Boss {
     public void reward(Player plKill) {
         ItemMap it = new ItemMap(this.zone, 629, 1, plKill.location.x, plKill.location.y, plKill.id);
         it.options.addAll(caiTrangFideGold().itemOptions);
-        if(Util.isTrue(50, 100)) {
+        if (Util.isTrue(50, 100)) {
             Service.gI().dropItemMap(this.zone, it);
         }
         rewardItem(plKill, 859, 956, 1142);
@@ -43,4 +43,5 @@ public class FideGold extends Boss {
         }
         return item;
     }
+
 }

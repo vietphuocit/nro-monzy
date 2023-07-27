@@ -9,9 +9,9 @@ import com.network.io.Message;
 
 public final class MobMe extends Mob {
 
-    private Player player;
     private final long lastTimeSpawn;
     private final int timeSurvive;
+    private Player player;
 
     public MobMe(Player player) {
         super();

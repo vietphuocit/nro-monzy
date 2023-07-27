@@ -19,9 +19,9 @@ public class Session implements ISession {
     private static ISession I;
     private static int ID_INIT;
     public TypeSession typeSession;
+    public int id;
     private byte[] KEYS = "Girlkun75".getBytes();
     private boolean sentKey;
-    public int id;
     private Socket socket;
     private boolean connected;
     private boolean reconnect;
@@ -33,23 +33,6 @@ public class Session implements ISession {
     private String ip;
     private String host;
     private int port;
-
-    public static ISession gI() throws Exception {
-        if (I == null) {
-            throw new Exception("Instance chưa được khởi tạo!");
-        } else {
-            return I;
-        }
-    }
-
-    public static ISession initInstance(String host, int port) throws Exception {
-        if (I != null) {
-            throw new Exception("Instance đã được khởi tạo!");
-        } else {
-            I = new Session(host, port);
-            return I;
-        }
-    }
 
     public Session(String host, int port) throws IOException {
         this.id = 752002;
@@ -75,6 +58,23 @@ public class Session implements ISession {
         this.connected = true;
         this.ip = ((InetSocketAddress) socket.getRemoteSocketAddress()).getAddress().toString().replace("/", "");
         this.initThreadSession();
+    }
+
+    public static ISession gI() throws Exception {
+        if (I == null) {
+            throw new Exception("Instance chưa được khởi tạo!");
+        } else {
+            return I;
+        }
+    }
+
+    public static ISession initInstance(String host, int port) throws Exception {
+        if (I != null) {
+            throw new Exception("Instance đã được khởi tạo!");
+        } else {
+            I = new Session(host, port);
+            return I;
+        }
     }
 
     public void sendMessage(Message msg) {
@@ -166,18 +166,6 @@ public class Session implements ISession {
         }
     }
 
-    public void setKey(Message message) throws Exception {
-        if (this.keyHandler == null) {
-            throw new Exception("Key handler chưa được khởi tạo!");
-        } else {
-            this.keyHandler.setKey(this, message);
-        }
-    }
-
-    public void setKey(byte[] key) {
-        this.KEYS = key;
-    }
-
     public boolean sentKey() {
         return this.sentKey;
     }
@@ -202,6 +190,18 @@ public class Session implements ISession {
 
     public byte[] getKey() {
         return this.KEYS;
+    }
+
+    public void setKey(Message message) throws Exception {
+        if (this.keyHandler == null) {
+            throw new Exception("Key handler chưa được khởi tạo!");
+        } else {
+            this.keyHandler.setKey(this, message);
+        }
+    }
+
+    public void setKey(byte[] key) {
+        this.KEYS = key;
     }
 
     public TypeSession getTypeSession() {

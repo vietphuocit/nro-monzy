@@ -19,14 +19,6 @@ import java.util.List;
 public class NgocRongNamecService implements Runnable {
 
     private static NgocRongNamecService instance;
-
-    public static NgocRongNamecService gI() {
-        if (instance == null) {
-            instance = new NgocRongNamecService();
-        }
-        return instance;
-    }
-
     public int[] mapNrNamec = {-1, -1, -1, -1, -1, -1, -1};
     public String[] nameNrNamec = {"", "", "", "", "", "", ""};
     public byte[] zoneNrNamec = {-1, -1, -1, -1, -1, -1, -1};
@@ -37,6 +29,13 @@ public class NgocRongNamecService implements Runnable {
     public long tOpenNrNamec = 0;
     public long lastTimeReinit;
     public boolean isReinit;
+
+    public static NgocRongNamecService gI() {
+        if (instance == null) {
+            instance = new NgocRongNamecService();
+        }
+        return instance;
+    }
 
     public void initNgocRongNamec(byte type) { //type 0:INIT NGOC RONG, type 1: INIT HOA THACH NGOC RONG
         ArrayList<Integer> listMap = new ArrayList<>();

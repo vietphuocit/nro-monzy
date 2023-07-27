@@ -27,15 +27,13 @@ public class SubMenuService {
             case BAN:
                 if (plTarget != null) {
                     String[] selects = new String[]{"Đồng ý", "Hủy"};
-                    NpcService.gI().createMenuConMeo(player, ConstNpc.BAN_PLAYER, -1,
-                            "Bạn có chắc chắn muốn ban " + plTarget.name, selects, plTarget);
+                    NpcService.gI().createMenuConMeo(player, ConstNpc.BAN_PLAYER, -1, "Bạn có chắc chắn muốn ban " + plTarget.name, selects, plTarget);
                 }
                 break;
             case BUFF_PET:
                 if (plTarget != null) {
                     String[] selects = new String[]{"Đồng ý", "Hủy"};
-                    NpcService.gI().createMenuConMeo(player, ConstNpc.BUFF_PET, -1,
-                            "Bạn có chắc chắn muốn phát đệ tử cho " + plTarget.name, selects, plTarget);
+                    NpcService.gI().createMenuConMeo(player, ConstNpc.BUFF_PET, -1, "Bạn có chắc chắn muốn phát đệ tử cho " + plTarget.name, selects, plTarget);
                 }
                 break;
         }

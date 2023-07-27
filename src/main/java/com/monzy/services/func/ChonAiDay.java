@@ -19,12 +19,12 @@ import java.util.List;
  */
 public class ChonAiDay implements Runnable {
 
+    private static ChonAiDay instance;
     public int goldNormar;
     public int goldVip;
     public long lastTimeEnd;
     public List<Player> PlayersNormar = new ArrayList<>();
     public List<Player> PlayersVIP = new ArrayList<>();
-    private static ChonAiDay instance;
 
     public static ChonAiDay gI() {
         if (instance == null) {

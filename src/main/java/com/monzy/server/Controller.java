@@ -19,7 +19,7 @@ import com.monzy.models.npc.NpcManager;
 import com.monzy.models.player.Player;
 import com.monzy.models.shop.ShopServiceNew;
 import com.monzy.server.io.MySession;
-import com.monzy.services.*;
+import com.monzy.services.ChangeMapService;
 import com.monzy.services.func.Input;
 import com.monzy.services.func.LuckyRound;
 import com.monzy.services.func.UseItem;
@@ -28,6 +28,7 @@ import com.monzy.utils.Util;
 import com.network.handler.IMessageHandler;
 import com.network.io.Message;
 import com.network.session.ISession;
+import org.omg.IOP.TransactionService;
 
 import java.io.IOException;
 
@@ -724,10 +725,7 @@ public class Controller implements IMessageHandler {
         //clear vt sk
         clearVTSK(player);
         if (TaskService.gI().getIdTask(player) == ConstTask.TASK_0_0) {
-            NpcService.gI().createTutorial(player, -1,
-                    "Chào mừng " + player.name + " đến với ngọc rồng online server MONZY\n"
-                            + "Nhiệm vụ đầu tiên của bạn là di chuyển\n"
-                            + "Bạn hãy di chuyển nhân vật theo mũi tên chỉ hướng");
+            NpcService.gI().createTutorial(player, -1, "Chào mừng " + player.name + " đến với ngọc rồng online server MONZY\n" + "Nhiệm vụ đầu tiên của bạn là di chuyển\n" + "Bạn hãy di chuyển nhân vật theo mũi tên chỉ hướng");
         }
         if (player.inventory.itemsBody.get(10).isNotNullItem()) {
             new Thread(() -> {

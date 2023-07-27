@@ -18,17 +18,9 @@ import java.util.stream.Stream;
 
 public class CombineService {
 
-    private static final int TIME_COMBINE = 1;
     // LIMIT STAR AND LEVEL ITEM
     public static final byte MAX_STAR_ITEM = 8;
     public static final byte MAX_LEVEL_ITEM = 8;
-    // STATUS COMBINE
-    private static final byte OPEN_TAB_COMBINE = 0;
-    private static final byte REOPEN_TAB_COMBINE = 1;
-    private static final byte COMBINE_SUCCESS = 2;
-    private static final byte COMBINE_FAIL = 3;
-    private static final byte COMBINE_CHANGE_OPTION = 4;
-    private static final byte COMBINE_DRAGON_BALL = 5;
     public static final byte OPEN_ITEM = 6;
     // BA HIT MIT DAO KAME
     public static final int EP_SAO_TRANG_BI = 500;
@@ -54,17 +46,25 @@ public class CombineService {
     public static final int RUBY_NANG_CAP_THIEN_SU = 10000;
     public static final long GOLD_NANG_CAP_SKH_VIP = 30000000000L;
     public static final int RUBY_NANG_CAP_SKH_VIP = 20000;
+    private static final int TIME_COMBINE = 1;
+    // STATUS COMBINE
+    private static final byte OPEN_TAB_COMBINE = 0;
+    private static final byte REOPEN_TAB_COMBINE = 1;
+    private static final byte COMBINE_SUCCESS = 2;
+    private static final byte COMBINE_FAIL = 3;
+    private static final byte COMBINE_CHANGE_OPTION = 4;
+    private static final byte COMBINE_DRAGON_BALL = 5;
     private static final int RATIO_NANG_CHIEN_LINH = 20;
     private static final int GOLD_NANG_CHIEN_LINH = 1_000_000_000;
     private static final int RUBY_NANG_CHIEN_LINH = 5000;
     private static final int RATIO_DOI_CHI_SO_AN_CHIEN_LINH = 50;
     private static final int GOLD_DOI_CHI_SO_AN_CHIEN_LINH = 500_000_000;
     private static final int RUBY_DOI_CHI_SO_AN_CHIEN_LINH = 1000;
+    private static CombineService i;
     private final Npc baHatMit;
     private final Npc npsthiensu64;
     private final Npc khidaumoi;
     private final Npc trungLinhThu;
-    private static CombineService i;
 
     public CombineService() {
         this.baHatMit = NpcManager.getNpc(ConstNpc.BA_HAT_MIT);
@@ -304,10 +304,7 @@ public class CombineService {
                     break;
                 }
                 Item firstItemCombine = player.conbine.itemsCombine.get(0);
-                String npcSay = "|2|Con có muốn đổi các món sau:\n|7|"
-                        + player.conbine.itemsCombine.stream().map(item -> item.template.name).collect(Collectors.joining("\n"))
-                        + "\n|2|Lấy " + player.conbine.itemsCombine.stream().filter(Item::isDTL).findFirst().get().typeName() + " Hủy diệt " + (firstItemCombine.template.gender == 0 ? "Trái đất" : firstItemCombine.template.gender == 1 ? "Namec" : "Xayda")
-                        + "\n|1|Cần " + Util.numberToMoney(player.conbine.goldCombine) + " vàng và " + player.conbine.rubyCombine + " hồng ngọc";
+                String npcSay = "|2|Con có muốn đổi các món sau:\n|7|" + player.conbine.itemsCombine.stream().map(item -> item.template.name).collect(Collectors.joining("\n")) + "\n|2|Lấy " + player.conbine.itemsCombine.stream().filter(Item::isDTL).findFirst().get().typeName() + " Hủy diệt " + (firstItemCombine.template.gender == 0 ? "Trái đất" : firstItemCombine.template.gender == 1 ? "Namec" : "Xayda") + "\n|1|Cần " + Util.numberToMoney(player.conbine.goldCombine) + " vàng và " + player.conbine.rubyCombine + " hồng ngọc";
                 this.baHatMit.createOtherMenu(player, ConstNpc.MENU_NANG_CAP_DO_HD, WordUtils.capitalize(npcSay), "Nâng cấp", "Từ chối");
                 break;
             }
@@ -334,9 +331,7 @@ public class CombineService {
                     break;
                 }
                 Item itemThanLinh = player.conbine.itemsCombine.stream().filter(item -> item.isNotNullItem() && item.isDTL()).findFirst().get();
-                String npcSay = "|2|Con Có Muốn Dổi Các Món Sau:\n|7|" + player.conbine.itemsCombine.stream().map(item -> item.template.name).collect(Collectors.joining("\n"))
-                        + "\n|2|Lấy " + player.conbine.itemsCombine.stream().filter(item -> item.template.type == 27).findFirst().get().template.name.split("\\(")[1].split("\\)")[0] + " Thiên Sứ " + (itemThanLinh.template.gender == 0 ? "Trái Đất" : itemThanLinh.template.gender == 1 ? "Namec" : "Xayda")
-                        + "\n|1|Cần " + Util.numberToMoney(player.conbine.goldCombine) + " vàng và " + player.conbine.rubyCombine + " hồng ngọc";
+                String npcSay = "|2|Con Có Muốn Dổi Các Món Sau:\n|7|" + player.conbine.itemsCombine.stream().map(item -> item.template.name).collect(Collectors.joining("\n")) + "\n|2|Lấy " + player.conbine.itemsCombine.stream().filter(item -> item.template.type == 27).findFirst().get().template.name.split("\\(")[1].split("\\)")[0] + " Thiên Sứ " + (itemThanLinh.template.gender == 0 ? "Trái Đất" : itemThanLinh.template.gender == 1 ? "Namec" : "Xayda") + "\n|1|Cần " + Util.numberToMoney(player.conbine.goldCombine) + " vàng và " + player.conbine.rubyCombine + " hồng ngọc";
                 this.baHatMit.createOtherMenu(player, ConstNpc.MENU_NANG_CAP_DO_HD, WordUtils.capitalize(npcSay), "Nâng cấp", "Từ chối");
                 break;
             }
@@ -530,9 +525,7 @@ public class CombineService {
                 if (checkInventory(player)) {
                     break;
                 }
-                String npcSay = "|2|Con có muốn nâng cấp\n|7|" + player.conbine.itemsCombine.get(0).template.name
-                        + "\n|1|Thành " + player.conbine.itemsCombine.get(0).typeName() + " kích hoạt VIP tương ứng"
-                        + "\n|1|Cần " + Util.numberToMoney(GOLD_NANG_CAP_SKH_VIP) + " vàng và " + RUBY_NANG_CAP_SKH_VIP + " hồng ngọc";
+                String npcSay = "|2|Con có muốn nâng cấp\n|7|" + player.conbine.itemsCombine.get(0).template.name + "\n|1|Thành " + player.conbine.itemsCombine.get(0).typeName() + " kích hoạt VIP tương ứng" + "\n|1|Cần " + Util.numberToMoney(GOLD_NANG_CAP_SKH_VIP) + " vàng và " + RUBY_NANG_CAP_SKH_VIP + " hồng ngọc";
                 this.npsthiensu64.createOtherMenu(player, ConstNpc.MENU_NANG_CAP_SKH_VIP, WordUtils.capitalize(npcSay), "Nâng cấp", "Từ chối");
                 break;
             }
@@ -735,7 +728,6 @@ public class CombineService {
         sendEffectSuccessCombine(player);
         player.conbine.itemsCombine.clear();
         reOpenItemCombine(player);
-
     }
 
     /**
@@ -821,7 +813,6 @@ public class CombineService {
         sendEffectSuccessCombine(player);
         player.conbine.itemsCombine.clear();
         reOpenItemCombine(player);
-
     }
 
     public void chiSoCTKhi(Player player, Item ctkhi, int lvkhi) {
@@ -921,7 +912,6 @@ public class CombineService {
         }
     }
 
-
     private void nangCapBongTai(Player player) {
         if (player.conbine.itemsCombine.size() != 2) {
             baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Cần 1 Bông tai Porata cấp 1 hoặc 2 hoặc 3 và Mảnh vỡ bông tai", "Đóng");
@@ -1013,7 +1003,6 @@ public class CombineService {
             reOpenItemCombine(player);
         }
     }
-
     // BEGIN --- Nâng cấp cải trang khỉ
 
     private int getGoldNangKhi(int levelKhi) {
@@ -1555,7 +1544,8 @@ public class CombineService {
                 return false;
             } else if (trangBi.template.type == 3 && daNangCap.template.id == 221) {
                 return false;
-            } else return trangBi.template.type != 4 || daNangCap.template.id != 220;
+            } else
+                return trangBi.template.type != 4 || daNangCap.template.id != 220;
         } else {
             return true;
         }

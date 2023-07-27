@@ -23,12 +23,12 @@ import java.util.Map;
 
 public class MySession extends Session {
 
+    public static final byte[] KEYS = {0};
     private static final Map<String, AntiLogin> ANTILOGIN = new HashMap<>();
     public Player player;
     public byte timeWait = 100;
     public boolean connected;
     public boolean sentKey;
-    public static final byte[] KEYS = {0};
     public byte curR, curW;
     public String ipAddress;
     public boolean isAdmin;
@@ -124,8 +124,7 @@ public class MySession extends Session {
             return;
         }
         if (!this.isAdmin && Client.gI().getPlayers().size() >= Manager.MAX_PLAYER) {
-            Service.gI().sendThongBaoOK(this, "Máy chủ hiện đang quá tải, "
-                    + "cư dân vui lòng di chuyển sang máy chủ khác.");
+            Service.gI().sendThongBaoOK(this, "Máy chủ hiện đang quá tải, " + "cư dân vui lòng di chuyển sang máy chủ khác.");
             return;
         }
         if (this.player == null) {

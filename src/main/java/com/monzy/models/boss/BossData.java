@@ -22,9 +22,7 @@ public class BossData {
     private TypeAppear typeAppear;
     private int[] bossesAppearTogether;
 
-    private BossData(String name, byte gender, short[] outfit, int dame, int[] hp,
-                     int[] mapJoin, int[][] skillTemp, String[] textS, String[] textM,
-                     String[] textE) {
+    private BossData(String name, byte gender, short[] outfit, int dame, int[] hp, int[] mapJoin, int[][] skillTemp, String[] textS, String[] textM, String[] textE) {
         this.name = name;
         this.gender = gender;
         this.outfit = outfit;
@@ -39,30 +37,22 @@ public class BossData {
         this.typeAppear = TypeAppear.DEFAULT_APPEAR;
     }
 
-    public BossData(String name, byte gender, short[] outfit, int dame, int[] hp,
-                    int[] mapJoin, int[][] skillTemp, String[] textS, String[] textM,
-                    String[] textE, int secondsRest) {
+    public BossData(String name, byte gender, short[] outfit, int dame, int[] hp, int[] mapJoin, int[][] skillTemp, String[] textS, String[] textM, String[] textE, int secondsRest) {
         this(name, gender, outfit, dame, hp, mapJoin, skillTemp, textS, textM, textE);
         this.secondsRest = secondsRest;
     }
 
-    public BossData(String name, byte gender, short[] outfit, int dame, int[] hp,
-                    int[] mapJoin, int[][] skillTemp, String[] textS, String[] textM,
-                    String[] textE, int secondsRest, int[] bossesAppearTogether) {
+    public BossData(String name, byte gender, short[] outfit, int dame, int[] hp, int[] mapJoin, int[][] skillTemp, String[] textS, String[] textM, String[] textE, int secondsRest, int[] bossesAppearTogether) {
         this(name, gender, outfit, dame, hp, mapJoin, skillTemp, textS, textM, textE, secondsRest);
         this.bossesAppearTogether = bossesAppearTogether;
     }
 
-    public BossData(String name, byte gender, short[] outfit, int dame, int[] hp,
-                    int[] mapJoin, int[][] skillTemp, String[] textS, String[] textM,
-                    String[] textE, TypeAppear typeAppear) {
+    public BossData(String name, byte gender, short[] outfit, int dame, int[] hp, int[] mapJoin, int[][] skillTemp, String[] textS, String[] textM, String[] textE, TypeAppear typeAppear) {
         this(name, gender, outfit, dame, hp, mapJoin, skillTemp, textS, textM, textE);
         this.typeAppear = typeAppear;
     }
 
-    public BossData(String name, byte gender, short[] outfit, int dame, int[] hp,
-                    int[] mapJoin, int[][] skillTemp, String[] textS, String[] textM,
-                    String[] textE, int secondsRest, TypeAppear typeAppear) {
+    public BossData(String name, byte gender, short[] outfit, int dame, int[] hp, int[] mapJoin, int[][] skillTemp, String[] textS, String[] textM, String[] textE, int secondsRest, TypeAppear typeAppear) {
         this(name, gender, outfit, dame, hp, mapJoin, skillTemp, textS, textM, textE, secondsRest);
         this.typeAppear = typeAppear;
     }

@@ -21,12 +21,14 @@ import java.util.List;
 
 public class Clan {
 
-    public static int NEXT_ID = 0;
-    public int clanMessageId = 0;
-    private final List<ClanMessage> clanMessages;
     public static final byte LEADER = 0;
     public static final byte DEPUTY = 1;
     public static final byte MEMBER = 2;
+    public static int NEXT_ID = 0;
+    public final List<ClanMember> members;
+    public final List<Player> membersInGame;
+    private final List<ClanMessage> clanMessages;
+    public int clanMessageId = 0;
     public int id;
     public int imgId;
     public String name;
@@ -41,8 +43,6 @@ public class Clan {
     public boolean haveGoneDoanhTrai;
     public String playerOpenDoanhTrai;
     public DoanhTrai doanhTrai;
-    public final List<ClanMember> members;
-    public final List<Player> membersInGame;
 
     public Clan() {
         this.id = NEXT_ID++;
@@ -271,9 +271,7 @@ public class Clan {
         String member = dataArray.toJSONString();
         PreparedStatement ps = null;
         try (Connection con = Database.getConnection()) {
-            ps = con.prepareStatement("insert into clan_sv" + Manager.SERVER
-                    + "(id, name, slogan, img_id, power_point, max_member, clan_point, level, members) "
-                    + "values (?,?,?,?,?,?,?,?,?)");
+            ps = con.prepareStatement("insert into clan_sv" + Manager.SERVER + "(id, name, slogan, img_id, power_point, max_member, clan_point, level, members) " + "values (?,?,?,?,?,?,?,?,?)");
             ps.setInt(1, this.id);
             ps.setString(2, this.name);
             ps.setString(3, this.slogan);
@@ -317,9 +315,7 @@ public class Clan {
         String member = dataArray.toJSONString();
         PreparedStatement ps = null;
         try (Connection con = Database.getConnection()) {
-            ps = con.prepareStatement("update clan_sv" + Manager.SERVER
-                    + " set slogan = ?, img_id = ?, power_point = ?, max_member = ?, clan_point = ?, "
-                    + "level = ?, members = ? where id = ? limit 1");
+            ps = con.prepareStatement("update clan_sv" + Manager.SERVER + " set slogan = ?, img_id = ?, power_point = ?, max_member = ?, clan_point = ?, " + "level = ?, members = ? where id = ? limit 1");
             ps.setString(1, this.slogan);
             ps.setInt(2, this.imgId);
             ps.setLong(3, this.powerPoint);

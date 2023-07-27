@@ -123,8 +123,7 @@ public class ImageUtil {
 //                    System.out.println("mob: " + mobId);
                 }
                 //từng bộ phận
-                saveImage(imagesInfo[i], "C:\\Users\\admin\\Desktop\\read mob\\imginfo\\x" + zoomLevel
-                        + "\\" + mobId, mobId + "_" + id);
+                saveImage(imagesInfo[i], "C:\\Users\\admin\\Desktop\\read mob\\imginfo\\x" + zoomLevel + "\\" + mobId, mobId + "_" + id);
             }
             int nFrame = dis.readShort();
             BufferedImage[] frames = new BufferedImage[nFrame];
@@ -136,13 +135,11 @@ public class ImageUtil {
                     int dx = dis.readShort() * zoomLevel;
                     int dy = dis.readShort() * zoomLevel;
                     int imageId = dis.readByte();
-                    g.drawImage(imagesInfo[imageId], (500 + dx), (500 + dy),
-                            null);
+                    g.drawImage(imagesInfo[imageId], (500 + dx), (500 + dy), null);
                 }
                 frames[i] = frame;
                 //hình quái từng frame
-                saveImage(trimImage(frame), "C:\\Users\\admin\\Desktop\\read mob\\frame\\x" + zoomLevel
-                        + "\\" + mobId, mobId + "_" + i);
+                saveImage(trimImage(frame), "C:\\Users\\admin\\Desktop\\read mob\\frame\\x" + zoomLevel + "\\" + mobId, mobId + "_" + i);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -183,8 +180,7 @@ public class ImageUtil {
 //                    System.out.println("mob: " + mobId);
                 }
                 //từng bộ phận
-                saveImage(imagesInfo[i], "C:\\Users\\admin\\Desktop\\read mob\\imginfo\\x" + zoomLevel
-                        + "\\" + mobId, mobId + "_" + id);
+                saveImage(imagesInfo[i], "C:\\Users\\admin\\Desktop\\read mob\\imginfo\\x" + zoomLevel + "\\" + mobId, mobId + "_" + id);
             }
             int nFrame = dis.readShort();
             BufferedImage[] frames = new BufferedImage[nFrame];
@@ -196,13 +192,11 @@ public class ImageUtil {
                     int dx = dis.readShort() * zoomLevel;
                     int dy = dis.readShort() * zoomLevel;
                     int imageId = dis.readByte();
-                    g.drawImage(imagesInfo[imageId], (100 + dx), (100 + dy),
-                            null);
+                    g.drawImage(imagesInfo[imageId], (100 + dx), (100 + dy), null);
                 }
                 frames[i] = frame;
                 //hình quái từng frame
-                saveImage(trimImage(frame), "C:\\Users\\admin\\Desktop\\read mob\\frame\\x" + zoomLevel
-                        + "\\" + mobId, mobId + "_" + i);
+                saveImage(trimImage(frame), "C:\\Users\\admin\\Desktop\\read mob\\frame\\x" + zoomLevel + "\\" + mobId, mobId + "_" + i);
             }
             int nAFrame = dis.readShort();
             for (int i = 0; i < nAFrame; i++) {
@@ -210,10 +204,8 @@ public class ImageUtil {
 //                System.out.println("frame id: " + frameId);
             }
             //------------------------------------------------------------------
-            ImageOutputStream output
-                    = new FileImageOutputStream(new File("C:\\Users\\admin\\Desktop\\read mob\\framegif\\" + mobId + ".gif"));
-            GifSequenceWriter writer
-                    = new GifSequenceWriter(output, frames[0].getType(), 300, true);
+            ImageOutputStream output = new FileImageOutputStream(new File("C:\\Users\\admin\\Desktop\\read mob\\framegif\\" + mobId + ".gif"));
+            GifSequenceWriter writer = new GifSequenceWriter(output, frames[0].getType(), 300, true);
             // write out the first image to our sequence...
             writer.writeToSequence(frames[0]);
             for (int i = 1; i < frames.length - 1; i++) {

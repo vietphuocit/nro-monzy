@@ -14,18 +14,17 @@ import com.monzy.utils.Util;
 public class DaiHoiVoThuatService {
 
     private static DaiHoiVoThuatService instance;
+    public DaiHoiVoThuat daihoi;
+
+    public DaiHoiVoThuatService(DaiHoiVoThuat dh) {
+        daihoi = dh;
+    }
 
     public static DaiHoiVoThuatService gI(DaiHoiVoThuat dh) {
         if (instance == null) {
             instance = new DaiHoiVoThuatService(dh);
         }
         return instance;
-    }
-
-    public DaiHoiVoThuat daihoi;
-
-    public DaiHoiVoThuatService(DaiHoiVoThuat dh) {
-        daihoi = dh;
     }
 
     public void Update() {

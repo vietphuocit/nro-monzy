@@ -14,36 +14,27 @@ public class SkillSpecial {
     public static final int TIME_GONG = 2000;
     public static final int TIME_END_24_25 = 3000;
     public static final int TIME_END_26 = 11000;
-
+    public Skill skillSpecial;
+    public byte dir;
+    public short _xPlayer;
+    public short _yPlayer;
+    public short _xObjTaget;
+    public short _yObjTaget;
+    public List<Player> playersTaget;
+    public List<Mob> mobsTaget;
+    public boolean isStartSkillSpecial;
+    public byte stepSkillSpecial;
+    public long lastTimeSkillSpecial;
     private Player player;
+    private Timer timer;
+    private TimerTask timerTask;
+    private boolean isActive = false;
 
     public SkillSpecial(Player player) {
         this.player = player;
         this.playersTaget = new ArrayList<>();
         this.mobsTaget = new ArrayList<>();
     }
-
-    public Skill skillSpecial;
-
-    public byte dir;
-
-    public short _xPlayer;
-
-    public short _yPlayer;
-
-    public short _xObjTaget;
-
-    public short _yObjTaget;
-
-    public List<Player> playersTaget;
-
-    public List<Mob> mobsTaget;
-
-    public boolean isStartSkillSpecial;
-
-    public byte stepSkillSpecial;
-
-    public long lastTimeSkillSpecial;
 
     private void update() {
         if (this.isStartSkillSpecial) {
@@ -77,10 +68,6 @@ public class SkillSpecial {
         this.mobsTaget.clear();
         this.close();
     }
-
-    private Timer timer;
-    private TimerTask timerTask;
-    private boolean isActive = false;
 
     private void close() {
         try {
