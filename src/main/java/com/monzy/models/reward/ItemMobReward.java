@@ -1,12 +1,7 @@
 package com.monzy.models.reward;
 
 import com.monzy.models.Template;
-import com.monzy.models.item.Item;
-import com.monzy.models.map.ItemMap;
-import com.monzy.models.map.Zone;
-import com.monzy.models.player.Player;
 import com.monzy.server.Manager;
-import com.monzy.utils.Util;
 import lombok.Data;
 
 import java.util.ArrayList;

@@ -4,7 +4,6 @@ import com.monzy.models.boss.Boss;
 import com.monzy.models.boss.BossID;
 import com.monzy.models.boss.BossesData;
 import com.monzy.models.player.Player;
-import com.monzy.services.TaskService;
 
 public class KingKong extends Boss {
 
