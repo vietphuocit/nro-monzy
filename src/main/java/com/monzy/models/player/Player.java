@@ -27,8 +27,7 @@ import com.monzy.models.skill.SkillSpecial;
 import com.monzy.models.task.TaskPlayer;
 import com.monzy.server.Client;
 import com.monzy.server.io.MySession;
-import com.monzy.services.ChangeMapService;
-import com.monzy.services.EffectSkillService;
+import com.monzy.services.*;
 import com.monzy.services.func.ChonAiDay;
 import com.monzy.services.func.Conbine;
 import com.monzy.utils.Logger;
@@ -628,6 +627,7 @@ public class Player {
             this.nPoint.subHP(damage);
             if (isDie()) {
                 if (this.zone.map.mapId == 112) {
+                    assert plAtt != null;
                     plAtt.pointPvp++;
                 }
                 setDie(plAtt);

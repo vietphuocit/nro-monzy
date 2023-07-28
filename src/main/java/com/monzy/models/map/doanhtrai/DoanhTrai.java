@@ -14,9 +14,9 @@ import java.util.List;
 public class DoanhTrai {
 
     //bang hội đủ số người mới đc mở
-    public static final int N_PLAYER_CLAN = 0;
+    public static final int N_PLAYER_CLAN = 5;
     //số người đứng cùng khu
-    public static final int N_PLAYER_MAP = 0;
+    public static final int N_PLAYER_MAP = 2;
     public static final int AVAILABLE = 10;
     public static final int TIME_DOANH_TRAI = 1800000;
     private int id;
@@ -77,7 +77,3 @@ public class DoanhTrai {
     }
 
 }
-/**
- * Vui lòng không sao chép mã nguồn này dưới mọi hình thức. Hãy tôn trọng tác
- * giả của mã nguồn này. Xin cảm ơn! - GirlBeo
- */

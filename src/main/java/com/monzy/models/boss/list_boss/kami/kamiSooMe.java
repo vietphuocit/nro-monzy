@@ -5,7 +5,7 @@
  */
 package com.monzy.models.boss.list_boss.kami;
 
-import com.monzy.models.boss.Boss;
+import com.monzy.models.boss.*;
 import com.monzy.models.map.ItemMap;
 import com.monzy.models.player.Player;
 import com.monzy.services.EffectSkillService;
@@ -61,15 +61,12 @@ public class kamiSooMe extends Boss {
                 if (damage > nPoint.hpMax) {
                     EffectSkillService.gI().breakShield(this);
                 }
-                damage = damage;
                 if (damage > nPoint.mpMax) {
                     EffectSkillService.gI().breakShield(this);
                 }
-                damage = damage;
                 if (damage > nPoint.tlNeDon) {
                     EffectSkillService.gI().breakShield(this);
                 }
-                damage = damage;
             }
             this.nPoint.subHP(damage);
             if (isDie()) {
@@ -101,7 +98,3 @@ public class kamiSooMe extends Boss {
     }
 
 }
-/**
- * Vui lòng không sao chép mã nguồn này dưới mọi hình thức. Hãy tôn trọng tác
- * giả của mã nguồn này. Xin cảm ơn! - GirlBeo
- */

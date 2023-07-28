@@ -32,7 +32,7 @@ import com.monzy.models.skill.Skill;
 import com.monzy.server.Client;
 import com.monzy.server.Maintenance;
 import com.monzy.server.Manager;
-import com.monzy.services.ChangeMapService;
+import com.monzy.services.*;
 import com.monzy.services.func.ChonAiDay;
 import com.monzy.services.func.Input;
 import com.monzy.services.func.LuckyRound;
@@ -162,44 +162,41 @@ public class NpcFactory {
                 if (canOpenNpc(player)) {
                     if (this.mapId == 140) {
                         if (player.iDMark.isBaseMenu()) {
-                            switch (select) {
-                                case 0: {
-                                    Boss oldBossClone = BossManager.gI().getBossById(Util.createIdBossClone((int) player.id));
-                                    if (oldBossClone != null) {
-                                        this.npcChat(player, "Nhà ngươi hãy tiêu diệt Boss lúc trước gọi ra đã, con boss đó đang ở khu " + oldBossClone.zone.zoneId);
-                                    } else if (player.inventory.gold < 200_000_000) {
-                                        this.npcChat(player, "Nhà ngươi không đủ 200 Triệu vàng ");
-                                    } else {
-                                        List<Skill> skillList = new ArrayList<>();
-                                        for (byte i = 0; i < player.playerSkill.skills.size(); i++) {
-                                            Skill skill = player.playerSkill.skills.get(i);
-                                            if (skill.point > 0) {
-                                                skillList.add(skill);
-                                            }
+                            if (select == 0) {
+                                Boss oldBossClone = BossManager.gI().getBossById(Util.createIdBossClone((int) player.id));
+                                if (oldBossClone != null) {
+                                    this.npcChat(player, "Nhà ngươi hãy tiêu diệt Boss lúc trước gọi ra đã, con boss đó đang ở khu " + oldBossClone.zone.zoneId);
+                                } else if (player.inventory.gold < 200_000_000) {
+                                    this.npcChat(player, "Nhà ngươi không đủ 200 Triệu vàng ");
+                                } else {
+                                    List<Skill> skillList = new ArrayList<>();
+                                    for (byte i = 0; i < player.playerSkill.skills.size(); i++) {
+                                        Skill skill = player.playerSkill.skills.get(i);
+                                        if (skill.point > 0) {
+                                            skillList.add(skill);
                                         }
-                                        int[][] skillTemp = new int[skillList.size()][3];
-                                        for (byte i = 0; i < skillList.size(); i++) {
-                                            Skill skill = skillList.get(i);
-                                            if (skill.point > 0) {
-                                                skillTemp[i][0] = skill.template.id;
-                                                skillTemp[i][1] = skill.point;
-                                                skillTemp[i][2] = skill.coolDown;
-                                            }
-                                        }
-                                        BossData bossDataClone = new BossData("Nhân Bản" + player.name, player.gender, new short[]{player.getHead(), player.getBody(), player.getLeg(), player.getFlagBag(), player.idAura, player.getEffFront()}, player.nPoint.dame, new int[]{player.nPoint.hpMax}, new int[]{140}, skillTemp, new String[]{"|-2|Boss nhân bản đã xuất hiện rồi"}, //text chat 1
-                                                new String[]{"|-1|Ta sẽ chiếm lấy thân xác của ngươi hahaha!"}, //text chat 2
-                                                new String[]{"|-1|Lần khác ta sẽ xử đẹp ngươi"}, //text chat 3
-                                                60);
-                                        try {
-                                            new NhanBan(Util.createIdBossClone((int) player.id), bossDataClone, player.zone);
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        //trừ vàng khi gọi boss
-                                        player.inventory.gold -= 200_000_000;
-                                        Service.gI().sendMoney(player);
                                     }
-                                    break;
+                                    int[][] skillTemp = new int[skillList.size()][3];
+                                    for (byte i = 0; i < skillList.size(); i++) {
+                                        Skill skill = skillList.get(i);
+                                        if (skill.point > 0) {
+                                            skillTemp[i][0] = skill.template.id;
+                                            skillTemp[i][1] = skill.point;
+                                            skillTemp[i][2] = skill.coolDown;
+                                        }
+                                    }
+                                    BossData bossDataClone = new BossData("Nhân Bản" + player.name, player.gender, new short[]{player.getHead(), player.getBody(), player.getLeg(), player.getFlagBag(), player.idAura, player.getEffFront()}, player.nPoint.dame, new int[]{player.nPoint.hpMax}, new int[]{140}, skillTemp, new String[]{"|-2|Boss nhân bản đã xuất hiện rồi"}, //text chat 1
+                                            new String[]{"|-1|Ta sẽ chiếm lấy thân xác của ngươi hahaha!"}, //text chat 2
+                                            new String[]{"|-1|Lần khác ta sẽ xử đẹp ngươi"}, //text chat 3
+                                            60);
+                                    try {
+                                        new NhanBan(Util.createIdBossClone((int) player.id), bossDataClone, player.zone);
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    //trừ vàng khi gọi boss
+                                    player.inventory.gold -= 200_000_000;
+                                    Service.gI().sendMoney(player);
                                 }
                             }
                         }
@@ -290,8 +287,7 @@ public class NpcFactory {
 
             @Override
             public void confirmMenu(Player player, int select) {
-                if (canOpenNpc(player)) {
-                }
+                canOpenNpc(player);
             }
         };
     }
@@ -309,8 +305,7 @@ public class NpcFactory {
 
             @Override
             public void confirmMenu(Player player, int select) {
-                if (canOpenNpc(player)) {
-                }
+                canOpenNpc(player);
             }
         };
     }
@@ -385,14 +380,12 @@ public class NpcFactory {
             public void confirmMenu(Player player, int select) {
                 if (canOpenNpc(player)) {
                     if (player.iDMark.isBaseMenu()) {
-                        switch (select) {
-                            case 0://Shop
-                                if (player.gender == ConstPlayer.TRAI_DAT) {
-                                    ShopServiceNew.gI().opendShop(player, "BUNMA", true);
-                                } else {
-                                    this.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Xin lỗi cưng, chị chỉ bán đồ cho người Trái Đất", "Đóng");
-                                }
-                                break;
+                        if (select == 0) {//Shop
+                            if (player.gender == ConstPlayer.TRAI_DAT) {
+                                ShopServiceNew.gI().opendShop(player, "BUNMA", true);
+                            } else {
+                                this.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Xin lỗi cưng, chị chỉ bán đồ cho người Trái Đất", "Đóng");
+                            }
                         }
                     }
                 }
@@ -421,14 +414,12 @@ public class NpcFactory {
             public void confirmMenu(Player player, int select) {
                 if (canOpenNpc(player)) {
                     if (player.iDMark.isBaseMenu()) {
-                        switch (select) {
-                            case 0://Shop
-                                if (player.gender == ConstPlayer.NAMEC) {
-                                    ShopServiceNew.gI().opendShop(player, "DENDE", true);
-                                } else {
-                                    this.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Xin lỗi anh, em chỉ bán đồ cho dân tộc Namếc", "Đóng");
-                                }
-                                break;
+                        if (select == 0) {//Shop
+                            if (player.gender == ConstPlayer.NAMEC) {
+                                ShopServiceNew.gI().opendShop(player, "DENDE", true);
+                            } else {
+                                this.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Xin lỗi anh, em chỉ bán đồ cho dân tộc Namếc", "Đóng");
+                            }
                         }
                     } else if (player.iDMark.getIndexMenu() == 1) {
                         if (player.zone.map.mapId == 7 && player.idNRNM != -1) {
@@ -465,14 +456,12 @@ public class NpcFactory {
             public void confirmMenu(Player player, int select) {
                 if (canOpenNpc(player)) {
                     if (player.iDMark.isBaseMenu()) {
-                        switch (select) {
-                            case 0://Shop
-                                if (player.gender == ConstPlayer.XAYDA) {
-                                    ShopServiceNew.gI().opendShop(player, "APPULE", true);
-                                } else {
-                                    this.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Về hành tinh hạ đẳng của ngươi mà mua đồ cùi nhé. Tại đây ta chỉ bán đồ cho người Xayda thôi", "Đóng");
-                                }
-                                break;
+                        if (select == 0) {//Shop
+                            if (player.gender == ConstPlayer.XAYDA) {
+                                ShopServiceNew.gI().opendShop(player, "APPULE", true);
+                            } else {
+                                this.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Về hành tinh hạ đẳng của ngươi mà mua đồ cùi nhé. Tại đây ta chỉ bán đồ cho người Xayda thôi", "Đóng");
+                            }
                         }
                     }
                 }
@@ -713,10 +702,8 @@ public class NpcFactory {
                     }
                     if (this.mapId == 68) {
                         if (player.iDMark.isBaseMenu()) {
-                            switch (select) {
-                                case 0:
-                                    ChangeMapService.gI().changeMapBySpaceShip(player, 19, -1, 1100);
-                                    break;
+                            if (select == 0) {
+                                ChangeMapService.gI().changeMapBySpaceShip(player, 19, -1, 1100);
                             }
                         }
                     }
@@ -816,8 +803,7 @@ public class NpcFactory {
 
             @Override
             public void confirmMenu(Player player, int select) {
-                if (canOpenNpc(player)) {
-                }
+                canOpenNpc(player);
             }
         };
     }
@@ -1014,9 +1000,6 @@ public class NpcFactory {
                                 Service.gI().sendThongBao(player, "Không đủ điểm, bạn còn " + (500 - player.pointPvp) + " điểm nữa");
                             }
                         }
-                        if (select == 1) {
-//                            Service.gI().showListTop(player, Manager.topNHS);
-                        }
                     }
                 }
             }
@@ -1081,12 +1064,12 @@ public class NpcFactory {
 
     public static Npc calick(int mapId, int status, int cx, int cy, int tempId, int avartar) {
         return new Npc(mapId, status, cx, cy, tempId, avartar) {
-            private final byte COUNT_CHANGE = 50;
             private int count;
 
             private void changeMap() {
                 if (this.mapId != 102) {
                     count++;
+                    byte COUNT_CHANGE = 50;
                     if (this.count >= COUNT_CHANGE) {
                         count = 0;
                         this.map.npcs.remove(this);
@@ -1174,11 +1157,9 @@ public class NpcFactory {
                         }
                     } else if (this.mapId == 139) {
                         if (player.iDMark.isBaseMenu()) {
-                            switch (select) {
-                                //về trạm vũ trụ
-                                case 0:
-                                    ChangeMapService.gI().changeMapBySpaceShip(player, 24 + player.gender, -1, -1);
-                                    break;
+                            //về trạm vũ trụ
+                            if (select == 0) {
+                                ChangeMapService.gI().changeMapBySpaceShip(player, 24 + player.gender, -1, -1);
                             }
                         }
                     }
@@ -1338,10 +1319,8 @@ public class NpcFactory {
                 if (canOpenNpc(player)) {
                     if (this.mapId == 48) {
                         if (player.iDMark.isBaseMenu()) {
-                            switch (select) {
-                                case 0:
-                                    this.createOtherMenu(player, ConstNpc.MENU_DI_CHUYEN, "Con muốn đi đâu?", "Về\nthần điện", "Thánh địa\nKaio", "Con\nđường\nrắn độc", "Từ chối");
-                                    break;
+                            if (select == 0) {
+                                this.createOtherMenu(player, ConstNpc.MENU_DI_CHUYEN, "Con muốn đi đâu?", "Về\nthần điện", "Thánh địa\nKaio", "Con\nđường\nrắn độc", "Từ chối");
                             }
                         } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_DI_CHUYEN) {
                             switch (select) {
@@ -1381,10 +1360,8 @@ public class NpcFactory {
                 if (canOpenNpc(player)) {
                     if (this.mapId == 50) {
                         if (player.iDMark.isBaseMenu()) {
-                            switch (select) {
-                                case 0:
-                                    ChangeMapService.gI().changeMap(player, 48, -1, 354, 240);
-                                    break;
+                            if (select == 0) {
+                                ChangeMapService.gI().changeMap(player, 48, -1, 354, 240);
                             }
                         }
                     }
@@ -1518,7 +1495,7 @@ public class NpcFactory {
                         return;
                     }
                     if (player.clan.getMembers().size() < DoanhTrai.N_PLAYER_CLAN) {
-                        this.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Bang hội phải có ít nhất 5 thành viên mới có thể mở", "Đóng");
+                        this.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Bang hội phải có ít nhất " + DoanhTrai.N_PLAYER_CLAN + " thành viên mới có thể mở", "Đóng");
                         return;
                     }
                     if (player.clan.doanhTrai != null) {
@@ -1829,9 +1806,8 @@ public class NpcFactory {
                                 }
                                 if (index != 0) {
                                     String[] options = new String[index + 1];
-                                    for (int i = 0; i < index; i++) {
-                                        options[i] = optionRewards[i];
-                                    }
+                                    if (index >= 0)
+                                        System.arraycopy(optionRewards, 0, options, 0, index);
                                     options[options.length - 1] = "Từ chối";
                                     this.createOtherMenu(player, ConstNpc.MENU_REWARD_BDW, "Ngươi có một vài phần thưởng ngọc " + "rồng sao đen đây!", options);
                                 } else {
@@ -2014,20 +1990,16 @@ public class NpcFactory {
             @Override
             public void confirmMenu(Player player, int select) {
                 if (canOpenNpc(player)) {
-                    switch (this.mapId) {
-                        case 48:
-                            switch (player.iDMark.getIndexMenu()) {
-                                case ConstNpc.BASE_MENU:
-                                    if (select == 0) {
-                                        createOtherMenu(player, ConstNpc.IGNORE_MENU, "Ngươi đang có: " + player.inventory.coupon + " điểm", "Đóng");
-                                        break;
-                                    }
-                                    if (select == 1) {
-                                        ShopServiceNew.gI().opendShop(player, "BILL", false);
-                                        break;
-                                    }
+                    if (this.mapId == 48) {
+                        if (player.iDMark.getIndexMenu() == ConstNpc.BASE_MENU) {
+                            if (select == 0) {
+                                createOtherMenu(player, ConstNpc.IGNORE_MENU, "Ngươi đang có: " + player.inventory.coupon + " điểm", "Đóng");
+                                return;
                             }
-                            break;
+                            if (select == 1) {
+                                ShopServiceNew.gI().opendShop(player, "BILL", false);
+                            }
+                        }
                     }
                 }
             }
@@ -2054,15 +2026,13 @@ public class NpcFactory {
                 if (canOpenNpc(player)) {
                     if (this.mapId == 47 || this.mapId == 84) {
                         if (player.iDMark.isBaseMenu()) {
-                            switch (select) {
-                                case 0:
-                                    if (player.playerTask.sideTask.template != null) {
-                                        String npcSay = "Nhiệm vụ hiện tại: " + player.playerTask.sideTask.getName() + " (" + player.playerTask.sideTask.getLevel() + ")" + "\nHiện tại đã hoàn thành: " + player.playerTask.sideTask.count + "/" + player.playerTask.sideTask.maxCount + " (" + player.playerTask.sideTask.getPercentProcess() + "%)\nSố nhiệm vụ còn lại trong ngày: " + player.playerTask.sideTask.leftTask + "/" + ConstTask.MAX_SIDE_TASK;
-                                        this.createOtherMenu(player, ConstNpc.MENU_OPTION_PAY_SIDE_TASK, npcSay, "Trả nhiệm\nvụ", "Hủy nhiệm\nvụ");
-                                    } else {
-                                        this.createOtherMenu(player, ConstNpc.MENU_OPTION_LEVEL_SIDE_TASK, "Tôi có vài nhiệm vụ theo cấp bậc, " + "sức cậu có thể làm được cái nào?", "Dễ", "Bình thường", "Khó", "Siêu khó", "Địa ngục", "Từ chối");
-                                    }
-                                    break;
+                            if (select == 0) {
+                                if (player.playerTask.sideTask.template != null) {
+                                    String npcSay = "Nhiệm vụ hiện tại: " + player.playerTask.sideTask.getName() + " (" + player.playerTask.sideTask.getLevel() + ")" + "\nHiện tại đã hoàn thành: " + player.playerTask.sideTask.count + "/" + player.playerTask.sideTask.maxCount + " (" + player.playerTask.sideTask.getPercentProcess() + "%)\nSố nhiệm vụ còn lại trong ngày: " + player.playerTask.sideTask.leftTask + "/" + ConstTask.MAX_SIDE_TASK;
+                                    this.createOtherMenu(player, ConstNpc.MENU_OPTION_PAY_SIDE_TASK, npcSay, "Trả nhiệm\nvụ", "Hủy nhiệm\nvụ");
+                                } else {
+                                    this.createOtherMenu(player, ConstNpc.MENU_OPTION_LEVEL_SIDE_TASK, "Tôi có vài nhiệm vụ theo cấp bậc, " + "sức cậu có thể làm được cái nào?", "Dễ", "Bình thường", "Khó", "Siêu khó", "Địa ngục", "Từ chối");
+                                }
                             }
                         } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_OPTION_LEVEL_SIDE_TASK) {
                             switch (select) {
@@ -2138,26 +2108,21 @@ public class NpcFactory {
             @Override
             public void confirmMenu(Player player, int select) {
                 if (canOpenNpc(player)) {
-                    switch (this.mapId) {
-                        case 5:
-                            switch (player.iDMark.getIndexMenu()) {
-                                case ConstNpc.BASE_MENU:
-                                    if (select == 0) {
-                                        Service.gI().showListTop(player, Manager.TOP_SM);
-                                        break;
-                                    }
-                                    if (select == 1) {
-                                        Service.gI().showListTop(player, Manager.TOP_NV);
-                                        break;
-                                    }
-                                    if (select == 2) {
-                                        Service.gI().showListTop(player, Manager.TOP_NAP);
-//                                        Service.getInstance().sendThongBaoOK(player, TopService.getTopNap());
-                                        break;
-                                    }
-                                    break;
+                    if (this.mapId == 5) {
+                        if (player.iDMark.getIndexMenu() == ConstNpc.BASE_MENU) {
+                            if (select == 0) {
+                                Service.gI().showListTop(player, Manager.TOP_SM);
+                                return;
                             }
-                            break;
+                            if (select == 1) {
+                                Service.gI().showListTop(player, Manager.TOP_NV);
+                                return;
+                            }
+                            if (select == 2) {
+                                Service.gI().showListTop(player, Manager.TOP_NAP);
+//                                        Service.getInstance().sendThongBaoOK(player, TopService.getTopNap());
+                            }
+                        }
                     }
                 }
             }
@@ -2182,14 +2147,12 @@ public class NpcFactory {
             @Override
             public void confirmMenu(Player player, int select) {
                 if (canOpenNpc(player)) {
-                    switch (player.iDMark.getIndexMenu()) {
-                        case ConstNpc.BASE_MENU:
-                            if (this.mapId == 131) {
-                                if (select == 0) {
-                                    ChangeMapService.gI().changeMapBySpaceShip(player, 80, -1, 870);
-                                }
+                    if (player.iDMark.getIndexMenu() == ConstNpc.BASE_MENU) {
+                        if (this.mapId == 131) {
+                            if (select == 0) {
+                                ChangeMapService.gI().changeMapBySpaceShip(player, 80, -1, 870);
                             }
-                            break;
+                        }
                     }
                 }
             }
@@ -2221,11 +2184,9 @@ public class NpcFactory {
                         }
                     } else if (this.mapId == 156) {
                         if (player.iDMark.isBaseMenu()) {
-                            switch (select) {
-                                //về lanh dia bang hoi
-                                case 0:
-                                    ChangeMapService.gI().changeMapBySpaceShip(player, 153, -1, 432);
-                                    break;
+                            //về lanh dia bang hoi
+                            if (select == 0) {
+                                ChangeMapService.gI().changeMapBySpaceShip(player, 153, -1, 432);
                             }
                         }
                     }
@@ -2266,7 +2227,8 @@ public class NpcFactory {
                                 Service.gI().sendThongBao(player, "Bạn vừa nhận được trang phục tộc Yardart");
                             }
                         }
-                    } catch (Exception ex) {
+                    } catch (Exception e) {
+                        System.err.println(getClass().getName() + ": " + e.getMessage());
                     }
                 }
             }
@@ -2304,12 +2266,10 @@ public class NpcFactory {
                                     break;
                             }
                         } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_NANG_KHI) {
-                            switch (player.conbine.typeCombine) {
-                                case CombineService.NANG_CAP_KHI:
-                                    if (select == 0) {
-                                        CombineService.gI().startCombine(player);
-                                    }
-                                    break;
+                            if (player.conbine.typeCombine == CombineService.NANG_CAP_KHI) {
+                                if (select == 0) {
+                                    CombineService.gI().startCombine(player);
+                                }
                             }
                         }
                     }
@@ -2399,23 +2359,21 @@ public class NpcFactory {
                             }
                         }
                         if (player.iDMark.getIndexMenu() == 1) { // action doi item
-                            switch (select) {
-                                case 0: // trade
-                                    if (player.pointPvp >= 500) {
-                                        player.pointPvp -= 500;
-                                        Item item = ItemService.gI().createNewItem((short) (1104));
-                                        item.itemOptions.add(new Item.ItemOption(49, 30));
-                                        item.itemOptions.add(new Item.ItemOption(77, 15));
-                                        item.itemOptions.add(new Item.ItemOption(103, 20));
-                                        item.itemOptions.add(new Item.ItemOption(207, 0));
-                                        item.itemOptions.add(new Item.ItemOption(33, 0));
-//                                      
-                                        InventoryService.gI().addItemBag(player, item);
-                                        Service.gI().sendThongBao(player, "Chúc Mừng Bạn Đổi Cải Trang Thành Công !");
-                                    } else {
-                                        Service.gI().sendThongBao(player, "Không đủ điểm bạn còn " + (500 - player.pointPvp) + " Điểm nữa");
-                                    }
-                                    break;
+                            if (select == 0) { // trade
+                                if (player.pointPvp >= 500) {
+                                    player.pointPvp -= 500;
+                                    Item item = ItemService.gI().createNewItem((short) (1104));
+                                    item.itemOptions.add(new Item.ItemOption(49, 30));
+                                    item.itemOptions.add(new Item.ItemOption(77, 15));
+                                    item.itemOptions.add(new Item.ItemOption(103, 20));
+                                    item.itemOptions.add(new Item.ItemOption(207, 0));
+                                    item.itemOptions.add(new Item.ItemOption(33, 0));
+//
+                                    InventoryService.gI().addItemBag(player, item);
+                                    Service.gI().sendThongBao(player, "Chúc Mừng Bạn Đổi Cải Trang Thành Công !");
+                                } else {
+                                    Service.gI().sendThongBao(player, "Không đủ điểm bạn còn " + (500 - player.pointPvp) + " Điểm nữa");
+                                }
                             }
                         }
                     }
@@ -2443,19 +2401,17 @@ public class NpcFactory {
                 if (canOpenNpc(player)) {
                     if (this.mapId == 7) {
                         if (player.iDMark.getIndexMenu() == 0) { //
-                            switch (select) {
-                                case 0:
-                                    ChangeMapService.gI().changeMapBySpaceShip(player, 170, -1, 264);
-                                    break; // den hanh tinh cereal
+                            if (select == 0) {
+                                ChangeMapService.gI().changeMapBySpaceShip(player, 170, -1, 264);
+                                // den hanh tinh cereal
                             }
                         }
                     }
                     if (this.mapId == 170) {
                         if (player.iDMark.getIndexMenu() == 0) { //
-                            switch (select) {
-                                case 0:
-                                    ChangeMapService.gI().changeMapBySpaceShip(player, 7, -1, 432);
-                                    break; // quay ve
+                            if (select == 0) {
+                                ChangeMapService.gI().changeMapBySpaceShip(player, 7, -1, 432);
+                                // quay ve
                             }
                         }
                     }
@@ -2480,10 +2436,9 @@ public class NpcFactory {
                 if (canOpenNpc(player)) {
                     if (this.mapId == 171) {
                         if (player.iDMark.getIndexMenu() == 0) { //
-                            switch (select) {
-                                case 0:
-                                    this.npcChat(player, "Chức Năng Đang Được Update!");
-                                    break; // goi rong
+                            if (select == 0) {
+                                this.npcChat(player, "Chức Năng Đang Được Update!");
+                                // goi rong
                             }
                         }
                     }
@@ -2550,7 +2505,7 @@ public class NpcFactory {
                             InventoryService.gI().subQuantityItemsBag(player, voSo, 99);
                             InventoryService.gI().subQuantityItemsBag(player, voOc, 99);
                             InventoryService.gI().subQuantityItemsBag(player, saoBien, 10);
-                            short idsDeoLung[] = {994, 996, 997};
+                            short[] idsDeoLung = {994, 996, 997};
                             Item deoLung = ItemService.gI().randomItemEvent(idsDeoLung[Util.nextInt(0, 2)]);
                             InventoryService.gI().addItemBag(player, deoLung);
                             InventoryService.gI().sendItemBags(player);
@@ -2680,9 +2635,7 @@ public class NpcFactory {
 
                         @Override
                         public void confirmMenu(Player player, int select) {
-                            if (canOpenNpc(player)) {
-//                                ShopService.gI().openShopNormal(player, this, ConstNpc.SHOP_BUNMA_TL_0, 0, player.gender);
-                            }
+                            canOpenNpc(player);//                                ShopService.gI().openShopNormal(player, this, ConstNpc.SHOP_BUNMA_TL_0, 0, player.gender);
                         }
                     };
             }
@@ -2864,10 +2817,8 @@ public class NpcFactory {
                         }
                         break;
                     case ConstNpc.MENU_MOD:
-                        switch (select) {
-                            case 0:
-                                Input.gI().createFormMTV(player);
-                                break;
+                        if (select == 0) {
+                            Input.gI().createFormMTV(player);
                         }
                         break;
                     case ConstNpc.MENU_SKH_THIEN_SU_TD:
@@ -2910,17 +2861,15 @@ public class NpcFactory {
                         }
                         break;
                     case ConstNpc.CONFIRM_DISSOLUTION_CLAN:
-                        switch (select) {
-                            case 0:
-                                Clan clan = player.clan;
-                                clan.deleteDB(clan.id);
-                                Manager.CLANS.remove(clan);
-                                player.clan = null;
-                                player.clanMember = null;
-                                ClanService.gI().sendMyClan(player);
-                                ClanService.gI().sendClanId(player);
-                                Service.gI().sendThongBao(player, "Đã giải tán bang hội.");
-                                break;
+                        if (select == 0) {
+                            Clan clan = player.clan;
+                            clan.deleteDB(clan.id);
+                            Manager.CLANS.remove(clan);
+                            player.clan = null;
+                            player.clanMember = null;
+                            ClanService.gI().sendMyClan(player);
+                            ClanService.gI().sendClanId(player);
+                            Service.gI().sendThongBao(player, "Đã giải tán bang hội.");
                         }
                         break;
 //                    case ConstNpc.CONFIRM_ACTIVE:

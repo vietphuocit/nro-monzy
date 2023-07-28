@@ -4,10 +4,10 @@ import com.monzy.jdbc.daos.HistoryTransactionDAO;
 import com.monzy.models.item.Item;
 import com.monzy.models.player.Inventory;
 import com.monzy.models.player.Player;
+import com.monzy.services.*;
 import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
 import com.network.io.Message;
-import org.omg.IOP.TransactionService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -86,7 +86,7 @@ public class Trade {
                     goldTrade2 = quantity;
                 }
             } else {
-                Item item = null;
+                Item item;
                 if (pl.equals(this.player1)) {
                     item = itemsBag1.get(index);
                 } else {
@@ -152,6 +152,7 @@ public class Trade {
             msg.cleanup();
             Service.getInstance().sendThongBao(pl, "Không thể giao dịch vật phẩm này");
         } catch (Exception e) {
+            System.err.println(getClass().getName() + ": " + e.getMessage());
         }
     }
 
@@ -164,6 +165,7 @@ public class Trade {
             pl.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
+            System.err.println(getClass().getName() + ": " + e.getMessage());
         }
     }
 
@@ -213,6 +215,7 @@ public class Trade {
             player2.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
+            System.err.println(getClass().getName() + ": " + e.getMessage());
         }
     }
 

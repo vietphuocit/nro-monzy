@@ -2,6 +2,7 @@ package com.monzy.models.player;
 
 import com.monzy.models.item.Item;
 import com.monzy.models.mob.Mob;
+import com.monzy.services.*;
 import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
 
@@ -60,9 +61,10 @@ public class EffectSkin {
                     }
                 }
             } catch (Exception e) {
+                System.err.println(getClass().getName() + ": " + e.getMessage());
             }
-            for (int i = 0; i < cts.length; i++) {
-                if (cts[i] != 0) {
+            for (int j : cts) {
+                if (j != 0) {
                     count++;
                 }
             }
@@ -159,30 +161,6 @@ public class EffectSkin {
                         pl.injured(null, subHp, true, false);
                     }
                     this.lastTimeOdo = System.currentTimeMillis();
-                }
-            }
-        } catch (Exception e) {
-            Logger.error("");
-        }
-    }
-
-    private void Test() {
-        try {
-            int param = this.player.nPoint.test;
-            if (param > 0) {
-                if (Util.canDoWithTime(lastTimeTest, 10000)) {
-                    List<Player> players = new ArrayList<>();
-                    for (Player pl : players) {
-                        int subHp = pl.nPoint.hpMax * param * 100;
-                        if (subHp >= pl.nPoint.hp) {
-                            subHp = pl.nPoint.hp + 1;
-                        }
-                        Service.gI().chat(pl, test[Util.nextInt(0, test.length + 1)]);
-                        PlayerService.gI().sendInfoHpMpMoney(pl);
-                        Service.gI().Send_Info_NV(pl);
-                        pl.injured(null, subHp, true, false);
-                    }
-                    this.lastTimeTest = System.currentTimeMillis();
                 }
             }
         } catch (Exception e) {

@@ -12,6 +12,7 @@ import com.monzy.models.player.Player;
 import com.monzy.server.Maintenance;
 import com.monzy.server.Manager;
 import com.monzy.server.ServerNotify;
+import com.monzy.services.*;
 import com.monzy.utils.Util;
 import com.network.io.Message;
 
@@ -137,17 +138,13 @@ public class Mob {
                 Service.gI().sendMessAllPlayerInMap(zone, msg);
                 msg.cleanup();
             } catch (Exception e) {
+                System.err.println(getClass().getName() + ": " + e.getMessage());
             }
         }
         if (this.isDie() && !Maintenance.isRunning) {
-            switch (zone.map.type) {
-                case ConstMap.MAP_DOANH_TRAI:
-                    break;
-                default:
-                    if (Util.canDoWithTime(lastTimeDie, 5000)) {
-                        this.hoiSinh();
-                        this.sendMobHoiSinh();
-                    }
+            if (Util.canDoWithTime(lastTimeDie, 5000) && zone.map.type != ConstMap.MAP_DOANH_TRAI && zone.map.type != ConstMap.MAP_BAN_DO_KHO_BAU) {
+                this.hoiSinh();
+                this.sendMobHoiSinh();
             }
         }
         effectSkill.update();
@@ -180,6 +177,7 @@ public class Mob {
                 }
             }
         } catch (Exception e) {
+            System.err.println(getClass().getName() + ": " + e.getMessage());
         }
         return plAttack;
     }
@@ -205,6 +203,7 @@ public class Mob {
                 player.sendMessage(msg);
                 msg.cleanup();
             } catch (Exception e) {
+                System.err.println(getClass().getName() + ": " + e.getMessage());
             }
         }
     }
@@ -219,6 +218,7 @@ public class Mob {
             Service.gI().sendMessAnotherNotMeInMap(player, msg);
             msg.cleanup();
         } catch (Exception e) {
+            System.err.println(getClass().getName() + ": " + e.getMessage());
         }
     }
 
@@ -239,6 +239,7 @@ public class Mob {
             Service.gI().sendMessAllPlayerInMap(this.zone, msg);
             msg.cleanup();
         } catch (Exception e) {
+            System.err.println(getClass().getName() + ": " + e.getMessage());
         }
     }
 
@@ -255,6 +256,7 @@ public class Mob {
             msg.cleanup();
             hutItem(plKill, items);
         } catch (Exception e) {
+            System.err.println(getClass().getName() + ": " + e.getMessage());
         }
     }
 
@@ -425,6 +427,7 @@ public class Mob {
             Service.gI().sendMessAllPlayerInMap(this.zone, msg);
             msg.cleanup();
         } catch (Exception e) {
+            System.err.println(getClass().getName() + ": " + e.getMessage());
         }
     }
 

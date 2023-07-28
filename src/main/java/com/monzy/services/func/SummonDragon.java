@@ -10,6 +10,7 @@ import com.monzy.models.map.Zone;
 import com.monzy.models.player.Inventory;
 import com.monzy.models.player.Player;
 import com.monzy.server.Client;
+import com.monzy.services.*;
 import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
 import com.network.io.Message;
@@ -18,10 +19,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author 💖 Trần Lại 💖
- * @copyright 💖 GirlkuN 💖
- */
 public class SummonDragon {
 
     public static final byte WISHED = 0;
@@ -43,8 +40,7 @@ public class SummonDragon {
     public static final String[] SHENRON_3_STARS_WHISHES = new String[]{"Giàu có\n+75\nHồng Ngọc", "Giàu có\n+20 triệu\nVàng", "+2 triệu\nSức mạnh\nvà tiềm năng"};
     //--------------------------------------------------------------------------
     private static SummonDragon instance;
-    private final Map pl_dragonStar;
-    private final int timeResummonShenron = 120000;
+    private final Map<Object, Object> pl_dragonStar;
     private final int timeShenronWait = 300000;
     private final Thread update;
     public boolean isPlayerDisconnect;
@@ -129,6 +125,7 @@ public class SummonDragon {
                     Service.getInstance().sendThongBao(pl, "Không thể thực hiện");
                     return;
                 }
+                int timeResummonShenron = 120000;
                 if (Util.canDoWithTime(lastTimeShenronAppeared, timeResummonShenron)) {
                     //gọi rồng
                     playerSummonShenron = pl;
@@ -148,6 +145,7 @@ public class SummonDragon {
                         try {
                             InventoryService.gI().subQuantityItemsBag(pl, InventoryService.gI().findItemBag(pl, i), 1);
                         } catch (Exception ex) {
+                            System.err.println(getClass().getName() + ": " + ex.getMessage());
                         }
                     }
                     InventoryService.gI().sendItemBags(pl);
@@ -213,6 +211,7 @@ public class SummonDragon {
             }
             Service.getInstance().sendMessAllPlayer(msg);
         } catch (Exception e) {
+            System.err.println(getClass().getName() + ": " + e.getMessage());
         }
     }
 
@@ -260,6 +259,7 @@ public class SummonDragon {
             Service.getInstance().sendMessAllPlayerIgnoreMe(playerSummonShenron, msg);
             msg.cleanup();
         } catch (Exception e) {
+            System.err.println(getClass().getName() + ": " + e.getMessage());
         }
     }
 

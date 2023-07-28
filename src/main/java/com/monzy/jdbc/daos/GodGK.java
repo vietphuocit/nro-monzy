@@ -13,14 +13,15 @@ import com.monzy.models.item.ItemTime;
 import com.monzy.models.npc.specialnpc.BillEgg;
 import com.monzy.models.npc.specialnpc.MabuEgg;
 import com.monzy.models.npc.specialnpc.MagicTree;
-import com.monzy.models.player.Pet;
 import com.monzy.models.player.Player;
+import com.monzy.models.player.*;
 import com.monzy.models.skill.Skill;
 import com.monzy.models.task.TaskMain;
 import com.monzy.server.Client;
 import com.monzy.server.Manager;
 import com.monzy.server.io.MySession;
 import com.monzy.server.model.AntiLogin;
+import com.monzy.services.*;
 import com.monzy.utils.Logger;
 import com.monzy.utils.SkillUtil;
 import com.monzy.utils.TimeUtil;
@@ -40,13 +41,14 @@ public class GodGK {
     public static List<OptionCard> loadOptionCard(JSONArray json) {
         List<OptionCard> ops = new ArrayList<>();
         try {
-            for (int i = 0; i < json.size(); i++) {
-                JSONObject ob = (JSONObject) json.get(i);
+            for (Object o : json) {
+                JSONObject ob = (JSONObject) o;
                 if (ob != null) {
                     ops.add(new OptionCard(Integer.parseInt(ob.get("id").toString()), Integer.parseInt(ob.get("param").toString()), Byte.parseByte(ob.get("active").toString())));
                 }
             }
         } catch (Exception e) {
+            System.err.println(GodGK.class.getName() + ": " + e.getMessage());
         }
         return ops;
     }
@@ -56,6 +58,7 @@ public class GodGK {
         MonzyResultSet rs = null;
         try {
             rs = Database.executeQuery("select * from account where username = ? and password = ?", session.uu, (session.pp));
+            assert rs != null;
             if (rs.first()) {
                 session.userId = rs.getInt("account.id");
                 session.isAdmin = rs.getBoolean("is_admin");
@@ -88,7 +91,6 @@ public class GodGK {
                     if (plInGame != null) {
                         Client.gI().kickSession(plInGame.getSession());
                         Service.gI().sendThongBaoOK(session, "Ai đó đã vô acc bạn :3");
-                    } else {
                     }
 //                    Service.gI().sendThongBaoOK(session, "Tài khoản đang được đăng nhập tại máy chủ khác");
                 } else {
@@ -96,6 +98,7 @@ public class GodGK {
                         Service.gI().sendThongBaoOK(session, "Vui lòng chờ " + (Manager.SECOND_WAIT_LOGIN - secondsPass) + "s");
                     } else {//set time logout trước rồi đọc data player
                         rs = Database.executeQuery("select * from player where account_id = ? limit 1", session.userId);
+                        assert rs != null;
                         if (!rs.first()) {
                             Service.gI().switchToCreateChar(session);
                             DataGame.sendDataItemBG(session);
@@ -146,8 +149,8 @@ public class GodGK {
                             dataArray.clear();
                             // data rada card
                             dataArray = (JSONArray) JSONValue.parse(rs.getString("data_card"));
-                            for (int i = 0; i < dataArray.size(); i++) {
-                                JSONObject obj = (JSONObject) dataArray.get(i);
+                            for (Object value : dataArray) {
+                                JSONObject obj = (JSONObject) value;
                                 player.cards.add(new Card(Short.parseShort(obj.get("id").toString()), Byte.parseByte(obj.get("amount").toString()), Byte.parseByte(obj.get("max").toString()), Byte.parseByte(obj.get("level").toString()), loadOptionCard((JSONArray) JSONValue.parse(obj.get("option").toString())), Byte.parseByte(obj.get("used").toString())));
                             }
                             dataArray.clear();
@@ -180,7 +183,7 @@ public class GodGK {
                             player.nPoint.dameg = Integer.parseInt(String.valueOf(dataArray.get(7)));
                             player.nPoint.defg = Integer.parseInt(String.valueOf(dataArray.get(8)));
                             player.nPoint.critg = Byte.parseByte(String.valueOf(dataArray.get(9)));
-                            dataArray.get(10); //** Năng động
+                            //dataArray.get(10); Năng động
                             plHp = Integer.parseInt(String.valueOf(dataArray.get(11)));
                             plMp = Integer.parseInt(String.valueOf(dataArray.get(12)));
                             dataArray.clear();
@@ -195,7 +198,7 @@ public class GodGK {
                             dataArray.clear();
                             //data phần thưởng sao đen
                             dataArray = (JSONArray) JSONValue.parse(rs.getString("data_black_ball"));
-                            JSONArray dataBlackBall = null;
+                            JSONArray dataBlackBall;
                             for (int i = 0; i < dataArray.size(); i++) {
                                 dataBlackBall = (JSONArray) JSONValue.parse(String.valueOf(dataArray.get(i)));
                                 player.rewardBlackBall.timeOutOfDateReward[i] = Long.parseLong(String.valueOf(dataBlackBall.get(0)));
@@ -210,15 +213,15 @@ public class GodGK {
                             dataArray.clear();
                             //data body
                             dataArray = (JSONArray) JSONValue.parse(rs.getString("items_body"));
-                            for (int i = 0; i < dataArray.size(); i++) {
-                                Item item = null;
-                                JSONArray dataItem = (JSONArray) JSONValue.parse(dataArray.get(i).toString());
+                            for (Object value : dataArray) {
+                                Item item;
+                                JSONArray dataItem = (JSONArray) JSONValue.parse(value.toString());
                                 short tempId = Short.parseShort(String.valueOf(dataItem.get(0)));
                                 if (tempId != -1) {
                                     item = ItemService.gI().createNewItem(tempId, Integer.parseInt(String.valueOf(dataItem.get(1))));
                                     JSONArray options = (JSONArray) JSONValue.parse(String.valueOf(dataItem.get(2)).replaceAll("\"", ""));
-                                    for (int j = 0; j < options.size(); j++) {
-                                        JSONArray opt = (JSONArray) JSONValue.parse(String.valueOf(options.get(j)));
+                                    for (Object option : options) {
+                                        JSONArray opt = (JSONArray) JSONValue.parse(String.valueOf(option));
                                         item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))), Integer.parseInt(String.valueOf(opt.get(1)))));
                                     }
                                     item.createTime = Long.parseLong(String.valueOf(dataItem.get(3)));
@@ -238,15 +241,15 @@ public class GodGK {
                             dataArray.clear();
                             //data bag
                             dataArray = (JSONArray) JSONValue.parse(rs.getString("items_bag"));
-                            for (int i = 0; i < dataArray.size(); i++) {
-                                Item item = null;
-                                JSONArray dataItem = (JSONArray) JSONValue.parse(dataArray.get(i).toString());
+                            for (Object value : dataArray) {
+                                Item item;
+                                JSONArray dataItem = (JSONArray) JSONValue.parse(value.toString());
                                 short tempId = Short.parseShort(String.valueOf(dataItem.get(0)));
                                 if (tempId != -1) {
                                     item = ItemService.gI().createNewItem(tempId, Integer.parseInt(String.valueOf(dataItem.get(1))));
                                     JSONArray options = (JSONArray) JSONValue.parse(String.valueOf(dataItem.get(2)).replaceAll("\"", ""));
-                                    for (int j = 0; j < options.size(); j++) {
-                                        JSONArray opt = (JSONArray) JSONValue.parse(String.valueOf(options.get(j)));
+                                    for (Object option : options) {
+                                        JSONArray opt = (JSONArray) JSONValue.parse(String.valueOf(option));
                                         item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))), Integer.parseInt(String.valueOf(opt.get(1)))));
                                     }
                                     item.createTime = Long.parseLong(String.valueOf(dataItem.get(3)));
@@ -263,15 +266,15 @@ public class GodGK {
                             dataArray.clear();
                             //data box
                             dataArray = (JSONArray) JSONValue.parse(rs.getString("items_box"));
-                            for (int i = 0; i < dataArray.size(); i++) {
-                                Item item = null;
-                                JSONArray dataItem = (JSONArray) JSONValue.parse(dataArray.get(i).toString());
+                            for (Object value : dataArray) {
+                                Item item;
+                                JSONArray dataItem = (JSONArray) JSONValue.parse(value.toString());
                                 short tempId = Short.parseShort(String.valueOf(dataItem.get(0)));
                                 if (tempId != -1) {
                                     item = ItemService.gI().createNewItem(tempId, Integer.parseInt(String.valueOf(dataItem.get(1))));
                                     JSONArray options = (JSONArray) JSONValue.parse(String.valueOf(dataItem.get(2)).replaceAll("\"", ""));
-                                    for (int j = 0; j < options.size(); j++) {
-                                        JSONArray opt = (JSONArray) JSONValue.parse(String.valueOf(options.get(j)));
+                                    for (Object option : options) {
+                                        JSONArray opt = (JSONArray) JSONValue.parse(String.valueOf(option));
                                         item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))), Integer.parseInt(String.valueOf(opt.get(1)))));
                                     }
                                     item.createTime = Long.parseLong(String.valueOf(dataItem.get(3)));
@@ -288,15 +291,15 @@ public class GodGK {
                             dataArray.clear();
                             //data box lucky round
                             dataArray = (JSONArray) JSONValue.parse(rs.getString("items_box_lucky_round"));
-                            for (int i = 0; i < dataArray.size(); i++) {
-                                Item item = null;
-                                JSONArray dataItem = (JSONArray) JSONValue.parse(dataArray.get(i).toString());
+                            for (Object value : dataArray) {
+                                Item item;
+                                JSONArray dataItem = (JSONArray) JSONValue.parse(value.toString());
                                 short tempId = Short.parseShort(String.valueOf(dataItem.get(0)));
                                 if (tempId != -1) {
                                     item = ItemService.gI().createNewItem(tempId, Integer.parseInt(String.valueOf(dataItem.get(1))));
                                     JSONArray options = (JSONArray) JSONValue.parse(String.valueOf(dataItem.get(2)).replaceAll("\"", ""));
-                                    for (int j = 0; j < options.size(); j++) {
-                                        JSONArray opt = (JSONArray) JSONValue.parse(String.valueOf(options.get(j)));
+                                    for (Object option : options) {
+                                        JSONArray opt = (JSONArray) JSONValue.parse(String.valueOf(option));
                                         item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))), Integer.parseInt(String.valueOf(opt.get(1)))));
                                     }
                                     player.inventory.itemsBoxCrackBall.add(item);
@@ -306,8 +309,8 @@ public class GodGK {
                             //data friends
                             dataArray = (JSONArray) JSONValue.parse(rs.getString("friends"));
                             if (dataArray != null) {
-                                for (int i = 0; i < dataArray.size(); i++) {
-                                    JSONArray dataFE = (JSONArray) JSONValue.parse(String.valueOf(dataArray.get(i)));
+                                for (Object o : dataArray) {
+                                    JSONArray dataFE = (JSONArray) JSONValue.parse(String.valueOf(o));
                                     Friend friend = new Friend();
                                     friend.id = Integer.parseInt(String.valueOf(dataFE.get(0)));
                                     friend.name = String.valueOf(dataFE.get(1));
@@ -324,8 +327,8 @@ public class GodGK {
                             //data enemies
                             dataArray = (JSONArray) JSONValue.parse(rs.getString("enemies"));
                             if (dataArray != null) {
-                                for (int i = 0; i < dataArray.size(); i++) {
-                                    JSONArray dataFE = (JSONArray) JSONValue.parse(String.valueOf(dataArray.get(i)));
+                                for (Object o : dataArray) {
+                                    JSONArray dataFE = (JSONArray) JSONValue.parse(String.valueOf(o));
                                     Enemy enemy = new Enemy();
                                     enemy.id = Integer.parseInt(String.valueOf(dataFE.get(0)));
                                     enemy.name = String.valueOf(dataFE.get(1));
@@ -455,7 +458,7 @@ public class GodGK {
                                 JSONArray dataSkill = (JSONArray) JSONValue.parse(String.valueOf(o));
                                 int tempId = Integer.parseInt(String.valueOf(dataSkill.get(0)));
                                 byte point = Byte.parseByte(String.valueOf(dataSkill.get(1)));
-                                Skill skill = null;
+                                Skill skill;
                                 if (point != 0) {
                                     skill = SkillUtil.createSkill(tempId, point);
                                 } else {
@@ -508,15 +511,15 @@ public class GodGK {
                                 int mp = Integer.parseInt(String.valueOf(dataArray.get(11)));
                                 //data body
                                 dataArray = (JSONArray) JSONValue.parse(String.valueOf(petData.get(2)));
-                                for (int i = 0; i < dataArray.size(); i++) {
-                                    Item item = null;
-                                    JSONArray dataItem = (JSONArray) JSONValue.parse(String.valueOf(dataArray.get(i)));
+                                for (Object value : dataArray) {
+                                    Item item;
+                                    JSONArray dataItem = (JSONArray) JSONValue.parse(String.valueOf(value));
                                     short tempId = Short.parseShort(String.valueOf(dataItem.get(0)));
                                     if (tempId != -1) {
                                         item = ItemService.gI().createNewItem(tempId, Integer.parseInt(String.valueOf(dataItem.get(1))));
                                         JSONArray options = (JSONArray) JSONValue.parse(String.valueOf(dataItem.get(2)).replaceAll("\"", ""));
-                                        for (int j = 0; j < options.size(); j++) {
-                                            JSONArray opt = (JSONArray) JSONValue.parse(String.valueOf(options.get(j)));
+                                        for (Object option : options) {
+                                            JSONArray opt = (JSONArray) JSONValue.parse(String.valueOf(option));
                                             item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))), Integer.parseInt(String.valueOf(opt.get(1)))));
                                         }
                                         item.createTime = Long.parseLong(String.valueOf(dataItem.get(3)));
@@ -534,7 +537,7 @@ public class GodGK {
                                     JSONArray skillTemp = (JSONArray) JSONValue.parse(String.valueOf(o));
                                     int tempId = Integer.parseInt(String.valueOf(skillTemp.get(0)));
                                     byte point = Byte.parseByte(String.valueOf(skillTemp.get(1)));
-                                    Skill skill = null;
+                                    Skill skill;
                                     if (point != 0) {
                                         skill = SkillUtil.createSkill(tempId, point);
                                     } else {
@@ -591,6 +594,7 @@ public class GodGK {
         }
         try {
             rs = Database.executeQuery("select * from player where id = ? limit 1", id);
+            assert rs != null;
             if (rs.first()) {
                 int plHp;
                 int plMp;
@@ -648,7 +652,7 @@ public class GodGK {
                 player.nPoint.dameg = Integer.parseInt(String.valueOf(dataArray.get(7)));
                 player.nPoint.defg = Integer.parseInt(String.valueOf(dataArray.get(8)));
                 player.nPoint.critg = Byte.parseByte(String.valueOf(dataArray.get(9)));
-                dataArray.get(10); //** Năng động
+                //dataArray.get(10);  Năng động
                 plHp = Integer.parseInt(String.valueOf(dataArray.get(11)));
                 plMp = Integer.parseInt(String.valueOf(dataArray.get(12)));
                 dataArray.clear();
@@ -663,7 +667,7 @@ public class GodGK {
                 dataArray.clear();
                 //data phần thưởng sao đen
                 dataArray = (JSONArray) JSONValue.parse(rs.getString("data_black_ball"));
-                JSONArray dataBlackBall = null;
+                JSONArray dataBlackBall;
                 for (int i = 0; i < dataArray.size(); i++) {
                     dataBlackBall = (JSONArray) JSONValue.parse(String.valueOf(dataArray.get(i)));
                     player.rewardBlackBall.timeOutOfDateReward[i] = Long.parseLong(String.valueOf(dataBlackBall.get(0)));
@@ -673,15 +677,15 @@ public class GodGK {
                 dataArray.clear();
                 //data body
                 dataArray = (JSONArray) JSONValue.parse(rs.getString("items_body"));
-                for (int i = 0; i < dataArray.size(); i++) {
-                    Item item = null;
-                    JSONArray dataItem = (JSONArray) JSONValue.parse(dataArray.get(i).toString());
+                for (Object value : dataArray) {
+                    Item item;
+                    JSONArray dataItem = (JSONArray) JSONValue.parse(value.toString());
                     short tempId = Short.parseShort(String.valueOf(dataItem.get(0)));
                     if (tempId != -1) {
                         item = ItemService.gI().createNewItem(tempId, Integer.parseInt(String.valueOf(dataItem.get(1))));
                         JSONArray options = (JSONArray) JSONValue.parse(String.valueOf(dataItem.get(2)).replaceAll("\"", ""));
-                        for (int j = 0; j < options.size(); j++) {
-                            JSONArray opt = (JSONArray) JSONValue.parse(String.valueOf(options.get(j)));
+                        for (Object option : options) {
+                            JSONArray opt = (JSONArray) JSONValue.parse(String.valueOf(option));
                             item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))), Integer.parseInt(String.valueOf(opt.get(1)))));
                         }
                         item.createTime = Long.parseLong(String.valueOf(dataItem.get(3)));
@@ -696,15 +700,15 @@ public class GodGK {
                 dataArray.clear();
                 //data bag
                 dataArray = (JSONArray) JSONValue.parse(rs.getString("items_bag"));
-                for (int i = 0; i < dataArray.size(); i++) {
-                    Item item = null;
-                    JSONArray dataItem = (JSONArray) JSONValue.parse(dataArray.get(i).toString());
+                for (Object value : dataArray) {
+                    Item item;
+                    JSONArray dataItem = (JSONArray) JSONValue.parse(value.toString());
                     short tempId = Short.parseShort(String.valueOf(dataItem.get(0)));
                     if (tempId != -1) {
                         item = ItemService.gI().createNewItem(tempId, Integer.parseInt(String.valueOf(dataItem.get(1))));
                         JSONArray options = (JSONArray) JSONValue.parse(String.valueOf(dataItem.get(2)).replaceAll("\"", ""));
-                        for (int j = 0; j < options.size(); j++) {
-                            JSONArray opt = (JSONArray) JSONValue.parse(String.valueOf(options.get(j)));
+                        for (Object option : options) {
+                            JSONArray opt = (JSONArray) JSONValue.parse(String.valueOf(option));
                             item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))), Integer.parseInt(String.valueOf(opt.get(1)))));
                         }
                         item.createTime = Long.parseLong(String.valueOf(dataItem.get(3)));
@@ -719,15 +723,15 @@ public class GodGK {
                 dataArray.clear();
                 //data box
                 dataArray = (JSONArray) JSONValue.parse(rs.getString("items_box"));
-                for (int i = 0; i < dataArray.size(); i++) {
-                    Item item = null;
-                    JSONArray dataItem = (JSONArray) JSONValue.parse(dataArray.get(i).toString());
+                for (Object value : dataArray) {
+                    Item item;
+                    JSONArray dataItem = (JSONArray) JSONValue.parse(value.toString());
                     short tempId = Short.parseShort(String.valueOf(dataItem.get(0)));
                     if (tempId != -1) {
                         item = ItemService.gI().createNewItem(tempId, Integer.parseInt(String.valueOf(dataItem.get(1))));
                         JSONArray options = (JSONArray) JSONValue.parse(String.valueOf(dataItem.get(2)).replaceAll("\"", ""));
-                        for (int j = 0; j < options.size(); j++) {
-                            JSONArray opt = (JSONArray) JSONValue.parse(String.valueOf(options.get(j)));
+                        for (Object option : options) {
+                            JSONArray opt = (JSONArray) JSONValue.parse(String.valueOf(option));
                             item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))), Integer.parseInt(String.valueOf(opt.get(1)))));
                         }
                         item.createTime = Long.parseLong(String.valueOf(dataItem.get(3)));
@@ -742,15 +746,15 @@ public class GodGK {
                 dataArray.clear();
                 //data box lucky round
                 dataArray = (JSONArray) JSONValue.parse(rs.getString("items_box_lucky_round"));
-                for (int i = 0; i < dataArray.size(); i++) {
-                    Item item = null;
-                    JSONArray dataItem = (JSONArray) JSONValue.parse(dataArray.get(i).toString());
+                for (Object value : dataArray) {
+                    Item item;
+                    JSONArray dataItem = (JSONArray) JSONValue.parse(value.toString());
                     short tempId = Short.parseShort(String.valueOf(dataItem.get(0)));
                     if (tempId != -1) {
                         item = ItemService.gI().createNewItem(tempId, Integer.parseInt(String.valueOf(dataItem.get(1))));
                         JSONArray options = (JSONArray) JSONValue.parse(String.valueOf(dataItem.get(2)).replaceAll("\"", ""));
-                        for (int j = 0; j < options.size(); j++) {
-                            JSONArray opt = (JSONArray) JSONValue.parse(String.valueOf(options.get(j)));
+                        for (Object option : options) {
+                            JSONArray opt = (JSONArray) JSONValue.parse(String.valueOf(option));
                             item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))), Integer.parseInt(String.valueOf(opt.get(1)))));
                         }
                         player.inventory.itemsBoxCrackBall.add(item);
@@ -760,8 +764,8 @@ public class GodGK {
                 //data friends
                 dataArray = (JSONArray) JSONValue.parse(rs.getString("friends"));
                 if (dataArray != null) {
-                    for (int i = 0; i < dataArray.size(); i++) {
-                        JSONArray dataFE = (JSONArray) JSONValue.parse(String.valueOf(dataArray.get(i)));
+                    for (Object o : dataArray) {
+                        JSONArray dataFE = (JSONArray) JSONValue.parse(String.valueOf(o));
                         Friend friend = new Friend();
                         friend.id = Integer.parseInt(String.valueOf(dataFE.get(0)));
                         friend.name = String.valueOf(dataFE.get(1));
@@ -778,8 +782,8 @@ public class GodGK {
                 //data enemies
                 dataArray = (JSONArray) JSONValue.parse(rs.getString("enemies"));
                 if (dataArray != null) {
-                    for (int i = 0; i < dataArray.size(); i++) {
-                        JSONArray dataFE = (JSONArray) JSONValue.parse(String.valueOf(dataArray.get(i)));
+                    for (Object o : dataArray) {
+                        JSONArray dataFE = (JSONArray) JSONValue.parse(String.valueOf(o));
                         Enemy enemy = new Enemy();
                         enemy.id = Integer.parseInt(String.valueOf(dataFE.get(0)));
                         enemy.name = String.valueOf(dataFE.get(1));
@@ -904,7 +908,7 @@ public class GodGK {
                     JSONArray dataSkill = (JSONArray) JSONValue.parse(String.valueOf(o));
                     int tempId = Integer.parseInt(String.valueOf(dataSkill.get(0)));
                     byte point = Byte.parseByte(String.valueOf(dataSkill.get(1)));
-                    Skill skill = null;
+                    Skill skill;
                     if (point != 0) {
                         skill = SkillUtil.createSkill(tempId, point);
                     } else {
@@ -957,15 +961,15 @@ public class GodGK {
                     int mp = Integer.parseInt(String.valueOf(dataArray.get(11)));
                     //data body
                     dataArray = (JSONArray) JSONValue.parse(String.valueOf(petData.get(2)));
-                    for (int i = 0; i < dataArray.size(); i++) {
-                        Item item = null;
-                        JSONArray dataItem = (JSONArray) JSONValue.parse(String.valueOf(dataArray.get(i)));
+                    for (Object value : dataArray) {
+                        Item item;
+                        JSONArray dataItem = (JSONArray) JSONValue.parse(String.valueOf(value));
                         short tempId = Short.parseShort(String.valueOf(dataItem.get(0)));
                         if (tempId != -1) {
                             item = ItemService.gI().createNewItem(tempId, Integer.parseInt(String.valueOf(dataItem.get(1))));
                             JSONArray options = (JSONArray) JSONValue.parse(String.valueOf(dataItem.get(2)).replaceAll("\"", ""));
-                            for (int j = 0; j < options.size(); j++) {
-                                JSONArray opt = (JSONArray) JSONValue.parse(String.valueOf(options.get(j)));
+                            for (Object option : options) {
+                                JSONArray opt = (JSONArray) JSONValue.parse(String.valueOf(option));
                                 item.itemOptions.add(new Item.ItemOption(Integer.parseInt(String.valueOf(opt.get(0))), Integer.parseInt(String.valueOf(opt.get(1)))));
                             }
                             item.createTime = Long.parseLong(String.valueOf(dataItem.get(3)));
@@ -979,11 +983,11 @@ public class GodGK {
                     }
                     //data skills
                     dataArray = (JSONArray) JSONValue.parse(String.valueOf(petData.get(3)));
-                    for (int i = 0; i < dataArray.size(); i++) {
-                        JSONArray skillTemp = (JSONArray) JSONValue.parse(String.valueOf(dataArray.get(i)));
+                    for (Object o : dataArray) {
+                        JSONArray skillTemp = (JSONArray) JSONValue.parse(String.valueOf(o));
                         int tempId = Integer.parseInt(String.valueOf(skillTemp.get(0)));
                         byte point = Byte.parseByte(String.valueOf(skillTemp.get(1)));
-                        Skill skill = null;
+                        Skill skill;
                         if (point != 0) {
                             skill = SkillUtil.createSkill(tempId, point);
                         } else {

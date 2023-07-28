@@ -5,9 +5,6 @@ import com.monzy.services.PlayerService;
 import com.monzy.services.Service;
 import com.monzy.utils.Util;
 
-/**
- * @Stole By Arriety
- */
 public class NewPet extends Player {
 
     public static int idb = -400000;

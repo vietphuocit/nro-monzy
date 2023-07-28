@@ -5,9 +5,7 @@
  */
 package com.monzy.models.boss.list_boss.kami;
 
-import com.monzy.models.boss.Boss;
-import com.monzy.models.boss.BossID;
-import com.monzy.models.boss.BossManager;
+import com.monzy.models.boss.*;
 import com.monzy.models.map.ItemMap;
 import com.monzy.models.player.Player;
 import com.monzy.services.EffectSkillService;
@@ -54,15 +52,12 @@ public class cumberYellow extends Boss {
                 if (damage > nPoint.hpMax) {
                     EffectSkillService.gI().breakShield(this);
                 }
-                damage = damage;
                 if (damage > nPoint.mpMax) {
                     EffectSkillService.gI().breakShield(this);
                 }
-                damage = damage;
                 if (damage > nPoint.tlNeDon) {
                     EffectSkillService.gI().breakShield(this);
                 }
-                damage = damage;
             }
             this.nPoint.subHP(damage);
             if (isDie()) {

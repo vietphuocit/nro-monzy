@@ -15,11 +15,12 @@ import com.monzy.jdbc.daos.PlayerDAO;
 import com.monzy.kygui.ShopKyGuiService;
 import com.monzy.models.map.blackball.BlackBallWar;
 import com.monzy.models.matches.PVPService;
+import com.monzy.models.npc.Npc;
 import com.monzy.models.npc.NpcManager;
 import com.monzy.models.player.Player;
 import com.monzy.models.shop.ShopServiceNew;
 import com.monzy.server.io.MySession;
-import com.monzy.services.ChangeMapService;
+import com.monzy.services.*;
 import com.monzy.services.func.Input;
 import com.monzy.services.func.LuckyRound;
 import com.monzy.services.func.UseItem;
@@ -28,7 +29,6 @@ import com.monzy.utils.Util;
 import com.network.handler.IMessageHandler;
 import com.network.io.Message;
 import com.network.session.ISession;
-import org.omg.IOP.TransactionService;
 
 import java.io.IOException;
 
@@ -46,8 +46,7 @@ public class Controller implements IMessageHandler {
     @Override
     public void onMessage(ISession s, Message _msg) {
         MySession _session = (MySession) s;
-        long st = System.currentTimeMillis();
-        Player player = null;
+        Player player;
         try {
             player = _session.player;
             byte cmd = _msg.command;
@@ -221,10 +220,10 @@ public class Controller implements IMessageHandler {
                     if (player != null && !Maintenance.isRunning) {
                         byte typeBuy = _msg.reader().readByte();
                         int tempId = _msg.reader().readShort();
-                        int quantity = 0;
                         try {
-                            quantity = _msg.reader().readShort();
+                            _msg.reader().readShort();
                         } catch (Exception e) {
+                            System.err.println(getClass().getName() + ": " + e.getMessage());
                         }
                         ShopServiceNew.gI().takeItem(player, typeBuy, tempId);
                     }
@@ -278,8 +277,6 @@ public class Controller implements IMessageHandler {
                             Service.gI().openFlagUI(player);
                         } else if (act == 1) {
                             Service.gI().chooseFlag(player, _msg.reader().readByte());
-                        } else {
-//                        Util.log("id map" + player.map.id);
                         }
                     }
                     break;
@@ -288,10 +285,11 @@ public class Controller implements IMessageHandler {
                         int toX = player.location.x;
                         int toY = player.location.y;
                         try {
-                            byte b = _msg.reader().readByte();
+                            _msg.reader().readByte();
                             toX = _msg.reader().readShort();
                             toY = _msg.reader().readShort();
                         } catch (Exception e) {
+                            System.err.println(getClass().getName() + ": " + e.getMessage());
                         }
                         PlayerService.gI().playerMove(player, toX, toY);
                     }
@@ -350,7 +348,9 @@ public class Controller implements IMessageHandler {
                 case 22:
                     if (player != null) {
                         _msg.reader().readByte();
-                        NpcManager.getNpc(ConstNpc.DAU_THAN).confirmMenu(player, _msg.reader().readByte());
+                        Npc dauThan = NpcManager.getNpc(ConstNpc.DAU_THAN);
+                        assert dauThan != null;
+                        dauThan.confirmMenu(player, _msg.reader().readByte());
                     }
                     break;
                 case -33:
@@ -412,9 +412,7 @@ public class Controller implements IMessageHandler {
                     }
                     break;
                 case -40:
-                    if (_session != null) {
-                        UseItem.gI().getItem(_session, _msg);
-                    }
+                    UseItem.gI().getItem(_session, _msg);
                     break;
                 case -41:
                     Service.gI().sendCaption(_session, _msg.reader().readByte());
@@ -561,7 +559,7 @@ public class Controller implements IMessageHandler {
 
     public void messageNotMap(MySession _session, Message _msg) {
         if (_msg != null) {
-            Player player = null;
+            Player player;
             try {
                 player = _session.player;
                 byte cmd = _msg.reader().readByte();
@@ -609,7 +607,7 @@ public class Controller implements IMessageHandler {
 
     public void messageSubCommand(MySession _session, Message _msg) {
         if (_msg != null) {
-            Player player = null;
+            Player player;
             try {
                 player = _session.player;
                 byte command = _msg.reader().readByte();
@@ -645,6 +643,7 @@ public class Controller implements IMessageHandler {
                 int hair = msg.reader().readByte();
                 if (name.length() <= 10) {
                     rs = Database.executeQuery("select * from player where name = ?", name);
+                    assert rs != null;
                     if (rs.first()) {
                         Service.gI().sendThongBaoOK(session, "Tên nhân vật đã tồn tại");
                     } else {
@@ -733,6 +732,7 @@ public class Controller implements IMessageHandler {
                     Thread.sleep(1000);
                     Service.gI().sendPetFollow(player, (short) (player.inventory.itemsBody.get(10).template.iconID - 1));
                 } catch (Exception e) {
+                    System.err.println(getClass().getName() + ": " + e.getMessage());
                 }
             }).start();
         }
@@ -743,12 +743,8 @@ public class Controller implements IMessageHandler {
     }
 
     private void clearVTSK(Player player) {
-        player.inventory.itemsBag.stream().filter(item -> item.isNotNullItem() && item.template.id == 610).forEach(item -> {
-            InventoryService.gI().subQuantityItemsBag(player, item, item.quantity);
-        });
-        player.inventory.itemsBox.stream().filter(item -> item.isNotNullItem() && item.template.id == 610).forEach(item -> {
-            InventoryService.gI().subQuantityItemsBox(player, item, item.quantity);
-        });
+        player.inventory.itemsBag.stream().filter(item -> item.isNotNullItem() && item.template.id == 610).forEach(item -> InventoryService.gI().subQuantityItemsBag(player, item, item.quantity));
+        player.inventory.itemsBox.stream().filter(item -> item.isNotNullItem() && item.template.id == 610).forEach(item -> InventoryService.gI().subQuantityItemsBox(player, item, item.quantity));
         InventoryService.gI().sendItemBags(player);
     }
 

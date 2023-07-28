@@ -4,6 +4,7 @@ import com.monzy.consts.ConstPlayer;
 import com.monzy.models.mob.Mob;
 import com.monzy.models.skill.Skill;
 import com.monzy.server.Manager;
+import com.monzy.services.*;
 import com.monzy.utils.SkillUtil;
 import com.monzy.utils.TimeUtil;
 import com.monzy.utils.Util;
@@ -81,6 +82,7 @@ public class Pet extends Player {
                 Pet.this.status = Pet.ATTACK;
                 Thread.sleep(2000);
             } catch (Exception e) {
+                System.err.println(getClass().getName() + ": " + e.getMessage());
             }
             ChangeMapService.gI().goToMap(this, MapService.gI().getMapCanJoin(this, master.gender + 21, -1));
             this.zone.load_Me_To_Another(this);
@@ -249,6 +251,7 @@ public class Pet extends Player {
             Service.gI().sendMessAllPlayerInMap(master, msg);
             msg.cleanup();
         } catch (Exception e) {
+            System.err.println(getClass().getName() + ": " + e.getMessage());
         }
     }
 

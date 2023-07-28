@@ -16,7 +16,6 @@ import com.monzy.utils.Logger;
 import com.monzy.utils.TimeUtil;
 import com.monzy.utils.Util;
 import com.network.io.Message;
-import org.omg.IOP.TransactionService;
 
 import java.util.List;
 
@@ -91,36 +90,36 @@ public class ChangeMapService {
     /**
      * Mở tab chọn khu
      *
-     * @param pl
+     * @param player player
      */
-    public void openZoneUI(Player pl) {
-        if (pl.zone == null) {
-            Service.gI().sendThongBaoOK(pl, "Không thể đổi khu vực trong map này");
+    public void openZoneUI(Player player) {
+        if (player.zone == null) {
+            Service.gI().sendThongBaoOK(player, "Không thể đổi khu vực trong map này");
             return;
         }
-        if (!pl.isAdmin()) {
-            if (MapService.gI().isMapOffline(pl.zone.map.mapId)) {
-                Service.gI().sendThongBaoOK(pl, "Không thể đổi khu vực trong map này");
+        if (!player.isAdmin()) {
+            if (MapService.gI().isMapOffline(player.zone.map.mapId)) {
+                Service.gI().sendThongBaoOK(player, "Không thể đổi khu vực trong map này");
                 return;
             }
-            if (MapService.gI().isMapDoanhTrai(pl.zone.map.mapId)) {
-                Service.gI().sendThongBaoOK(pl, "Không thể đổi khu vực trong map này");
+            if (MapService.gI().isMapDoanhTrai(player.zone.map.mapId)) {
+                Service.gI().sendThongBaoOK(player, "Không thể đổi khu vực trong map này");
                 return;
             }
-            if (MapService.gI().isMapMaBu(pl.zone.map.mapId)) {
-                Service.gI().sendThongBaoOK(pl, "Không thể đổi khu vực trong map này");
+            if (MapService.gI().isMapMaBu(player.zone.map.mapId)) {
+                Service.gI().sendThongBaoOK(player, "Không thể đổi khu vực trong map này");
                 return;
             }
-            if (pl.zone.map.mapId == 51) {
-                Service.gI().sendThongBaoOK(pl, "Không thể đổi khu vực trong map này");
+            if (player.zone.map.mapId == 51) {
+                Service.gI().sendThongBaoOK(player, "Không thể đổi khu vực trong map này");
                 return;
             }
         }
         Message msg;
         try {
             msg = new Message(29);
-            msg.writer().writeByte(pl.zone.map.zones.size());
-            for (Zone zone : pl.zone.map.zones) {
+            msg.writer().writeByte(player.zone.map.zones.size());
+            for (Zone zone : player.zone.map.zones) {
                 msg.writer().writeByte(zone.zoneId);
                 int numPlayers = zone.getNumOfPlayers();
                 msg.writer().writeByte((numPlayers < 5 ? 0 : (numPlayers < 8 ? 1 : 2)));
@@ -128,68 +127,64 @@ public class ChangeMapService {
                 msg.writer().writeByte(zone.maxPlayer);
                 msg.writer().writeByte(0);
             }
-            pl.sendMessage(msg);
+            player.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
+            System.err.println(getClass().getName() + ": " + e.getMessage());
         }
     }
 
     /**
      * Chuyển khu
      *
-     * @param pl
-     * @param zoneId
+     * @param player player
+     * @param zoneId zoneId
      */
-    public void changeZone(Player pl, int zoneId) {
-        if (pl.zone == null) {
-            Service.gI().sendThongBaoOK(pl, "Không thể đổi khu vực trong map này");
+    public void changeZone(Player player, int zoneId) {
+        if (player.zone == null) {
+            Service.gI().sendThongBaoOK(player, "Không thể đổi khu vực trong map này");
             return;
         }
-        if (!pl.isAdmin() || !pl.isBoss) {
-            if (MapService.gI().isMapOffline(pl.zone.map.mapId)) {
-                Service.gI().sendThongBaoOK(pl, "Không thể đổi khu vực trong map này");
+        if (!player.isAdmin() || !player.isBoss) {
+            if (MapService.gI().isMapOffline(player.zone.map.mapId)) {
+                Service.gI().sendThongBaoOK(player, "Không thể đổi khu vực trong map này");
                 return;
             }
-            if (MapService.gI().isMapDoanhTrai(pl.zone.map.mapId)) {
-                Service.gI().sendThongBaoOK(pl, "Không thể đổi khu vực trong map này");
+            if (MapService.gI().isMapDoanhTrai(player.zone.map.mapId)) {
+                Service.gI().sendThongBaoOK(player, "Không thể đổi khu vực trong map này");
                 return;
             }
-            if (MapService.gI().isMapMaBu(pl.zone.map.mapId)) {
-                Service.gI().sendThongBaoOK(pl, "Không thể đổi khu vực trong map này");
+            if (MapService.gI().isMapMaBu(player.zone.map.mapId)) {
+                Service.gI().sendThongBaoOK(player, "Không thể đổi khu vực trong map này");
                 return;
             }
-            if (pl.zone.map.mapId == 51) {
-                Service.gI().sendThongBaoOK(pl, "Không thể đổi khu vực trong map này");
+            if (player.zone.map.mapId == 51) {
+                Service.gI().sendThongBaoOK(player, "Không thể đổi khu vực trong map này");
                 return;
             }
         }
-        if (pl.isAdmin() || pl.isBoss || Util.canDoWithTime(pl.iDMark.getLastTimeChangeZone(), 10000)) {
-            pl.iDMark.setLastTimeChangeZone(System.currentTimeMillis());
-            Map map = pl.zone.map;
+        if (player.isAdmin() || player.isBoss || Util.canDoWithTime(player.iDMark.getLastTimeChangeZone(), 10000)) {
+            player.iDMark.setLastTimeChangeZone(System.currentTimeMillis());
+            Map map = player.zone.map;
             if (zoneId >= 0 && zoneId <= map.zones.size() - 1) {
                 Zone zoneJoin = map.zones.get(zoneId);
-                if (zoneJoin != null && (zoneJoin.getNumOfPlayers() >= zoneJoin.maxPlayer && !pl.isAdmin() && !pl.isBoss)) {
-                    Service.gI().sendThongBaoOK(pl, "Khu vực đã đầy");
+                if (zoneJoin != null && (zoneJoin.getNumOfPlayers() >= zoneJoin.maxPlayer && !player.isAdmin() && !player.isBoss)) {
+                    Service.gI().sendThongBaoOK(player, "Khu vực đã đầy");
                     return;
                 }
                 if (zoneJoin != null) {
-                    changeMap(pl, zoneJoin, -1, -1, pl.location.x, pl.location.y, NON_SPACE_SHIP);
+                    changeMap(player, zoneJoin, -1, -1, player.location.x, player.location.y, NON_SPACE_SHIP);
                 }
             } else {
-                Service.gI().sendThongBao(pl, "Không thể thực hiện");
+                Service.gI().sendThongBao(player, "Không thể thực hiện");
             }
         } else {
-            Service.gI().sendThongBaoOK(pl, "Không thể đổi khu vực lúc này, vui lòng đợi " + TimeUtil.getTimeLeft(pl.iDMark.getLastTimeChangeZone(), 10));
+            Service.gI().sendThongBaoOK(player, "Không thể đổi khu vực lúc này, vui lòng đợi " + TimeUtil.getTimeLeft(player.iDMark.getLastTimeChangeZone(), 10));
         }
     }
 
     /**
      * Chuyển map bằng tàu vũ trụ
-     *
-     * @param pl
-     * @param mapId
-     * @param zone
-     * @param x
      */
     public void changeMapBySpaceShip(Player pl, int mapId, int zone, int x) {
         if (!pl.isAdmin() || !pl.isBoss) {
@@ -235,11 +230,6 @@ public class ChangeMapService {
 
     /**
      * Chuyển map đứng trên mặt đất
-     *
-     * @param pl
-     * @param mapId
-     * @param zoneId
-     * @param x
      */
     public void changeMapInYard(Player pl, int mapId, int zoneId, int x) {
         Zone zoneJoin = MapService.gI().getMapCanJoin(pl, mapId, zoneId);
@@ -251,10 +241,6 @@ public class ChangeMapService {
 
     /**
      * Chuyển map đứng trên mặt đất
-     *
-     * @param pl
-     * @param zoneJoin
-     * @param x
      */
     public void changeMapInYard(Player pl, Zone zoneJoin, int x) {
         changeMap(pl, zoneJoin, -1, -1, x, zoneJoin.map.yPhysicInTop(x, 100), NON_SPACE_SHIP);
@@ -262,12 +248,6 @@ public class ChangeMapService {
 
     /**
      * Chuyển map
-     *
-     * @param pl
-     * @param mapId
-     * @param zone
-     * @param x
-     * @param y
      */
     public void changeMap(Player pl, int mapId, int zone, int x, int y) {
         changeMap(pl, null, mapId, zone, x, y, NON_SPACE_SHIP);
@@ -275,11 +255,6 @@ public class ChangeMapService {
 
     /**
      * Chuyển map
-     *
-     * @param pl
-     * @param zoneJoin
-     * @param x
-     * @param y
      */
     public void changeMap(Player pl, Zone zoneJoin, int x, int y) {
         changeMap(pl, zoneJoin, -1, -1, x, y, NON_SPACE_SHIP);
@@ -287,11 +262,6 @@ public class ChangeMapService {
 
     /**
      * Chuyển map bằng dịch chuyển
-     *
-     * @param pl
-     * @param zoneJoin
-     * @param x
-     * @param y
      */
     public void changeMapYardrat(Player pl, Zone zoneJoin, int x, int y) {
         if (pl.idNRNM != -1) {
@@ -343,7 +313,7 @@ public class ChangeMapService {
             }
             pl.iDMark.setIdSpaceShip(NON_SPACE_SHIP);
             if (currMapIsCold != nextMapIsCold) {
-                if (!currMapIsCold && nextMapIsCold) {
+                if (!currMapIsCold) {
                     Service.gI().sendThongBao(pl, "Bạn đã đến hành tinh Cold");
                     Service.gI().sendThongBao(pl, "Sức tấn công và HP của bạn bị giảm 50% vì quá lạnh");
                 } else {
@@ -369,7 +339,7 @@ public class ChangeMapService {
 
     public void changeMapWaypoint(Player player) {
         Zone zoneJoin = null;
-        WayPoint wp = null;
+        WayPoint wp;
         int xGo = player.location.x;
         int yGo = player.location.y;
         if (player.zone.map.mapId == 45 || player.zone.map.mapId == 46) {
@@ -454,6 +424,7 @@ public class ChangeMapService {
                 msg.cleanup();
             }
         } catch (Exception e) {
+            System.err.println(getClass().getName() + ": " + e.getMessage());
         }
     }
 
@@ -492,6 +463,7 @@ public class ChangeMapService {
                 }
             }
         } catch (Exception e) {
+            System.err.println(getClass().getName() + ": " + e.getMessage());
         }
         try {
             List<Player> players = player.zone.getHumanoids();
@@ -560,6 +532,7 @@ public class ChangeMapService {
                 }
             }
         } catch (Exception e) {
+            System.err.println(getClass().getName() + ": " + e.getMessage());
         }
     }
 
@@ -582,6 +555,7 @@ public class ChangeMapService {
             }
             msg.cleanup();
         } catch (Exception e) {
+            System.err.println(getClass().getName() + ": " + e.getMessage());
         }
     }
 
@@ -632,7 +606,7 @@ public class ChangeMapService {
             player.iDMark.setLastTimeGoToFuture(System.currentTimeMillis());
             player.iDMark.setGotoFuture(true);
             spaceShipArrive(player, (byte) 1, DEFAULT_SPACE_SHIP);
-            effectChangeMap(player, 60, EFFECT_GO_TO_TUONG_LAI);
+            effectChangeMap(player, EFFECT_GO_TO_TUONG_LAI);
         }
     }
 
@@ -641,7 +615,7 @@ public class ChangeMapService {
             player.iDMark.setLastTimeGoToBDKB(System.currentTimeMillis());
             player.iDMark.setGoToBDKB(true);
             spaceShipArrive(player, (byte) 1, DEFAULT_SPACE_SHIP);
-            effectChangeMap(player, 60, EFFECT_GO_TO_BDKB);
+            effectChangeMap(player, EFFECT_GO_TO_BDKB);
         }
     }
 
@@ -653,15 +627,16 @@ public class ChangeMapService {
         ChangeMapService.this.changeMapBySpaceShip(player, 139, -1, Util.nextInt(60, 200));
     }
 
-    private void effectChangeMap(Player player, int seconds, byte type) {
+    private void effectChangeMap(Player player, byte type) {
         Message msg;
         try {
             msg = new Message(-105);
-            msg.writer().writeShort(seconds);
+            msg.writer().writeShort(60);
             msg.writer().writeByte(type);
             player.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
+            System.err.println(getClass().getName() + ": " + e.getMessage());
         }
     }
 

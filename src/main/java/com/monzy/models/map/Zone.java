@@ -9,6 +9,7 @@ import com.monzy.models.npc.Npc;
 import com.monzy.models.npc.NpcManager;
 import com.monzy.models.player.Pet;
 import com.monzy.models.player.Player;
+import com.monzy.services.*;
 import com.monzy.utils.FileIO;
 import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
@@ -19,14 +20,12 @@ import java.util.List;
 
 public class Zone {
 
-    public static final byte PLAYERS_TIEU_CHUAN_TRONG_MAP = 7;
     public final List<Mob> mobs;
     public final List<ItemMap> items;
     private final List<Player> humanoids; //player, boss, pet
     private final List<Player> notBosses; //player, pet
     private final List<Player> players; //player
     private final List<Player> bosses; //boss
-    private final List<Player> pets; //pet
     public int countItemAppeaerd = 0;
     public Map map;
     public int zoneId;
@@ -46,7 +45,6 @@ public class Zone {
         this.notBosses = new ArrayList<>();
         this.players = new ArrayList<>();
         this.bosses = new ArrayList<>();
-        this.pets = new ArrayList<>();
         this.mobs = new ArrayList<>();
         this.items = new ArrayList<>();
         this.trapMaps = new ArrayList<>();
@@ -126,9 +124,6 @@ public class Zone {
             if (player.isBoss) {
                 this.bosses.add(player);
             }
-            if (player.isPet || player.isNewPet) {
-                this.pets.add(player);
-            }
         }
     }
 
@@ -137,7 +132,6 @@ public class Zone {
         this.notBosses.remove(player);
         this.players.remove(player);
         this.bosses.remove(player);
-        this.pets.remove(player);
     }
 
     public ItemMap getItemMapByItemMapId(int itemId) {
@@ -324,8 +318,7 @@ public class Zone {
                         infoPlayer(((Pet) player).master, player);
                     }
                 } else {
-                    for (int i = 0; i < players.size(); i++) {
-                        Player pl = players.get(i);
+                    for (Player pl : players) {
                         if (!player.equals(pl)) {
                             infoPlayer(pl, player);
                         }
@@ -438,6 +431,7 @@ public class Zone {
                 msg.cleanup();
             }
         } catch (Exception e) {
+            System.err.println(getClass().getName() + ": " + e.getMessage());
         }
     }
 
@@ -511,6 +505,7 @@ public class Zone {
 //                msg.writer().writeShort(0);
             try {
                 byte[] bgItem = FileIO.readFile("data/monzy/map/item_bg_map_data/" + this.map.mapId);
+                assert bgItem != null;
                 msg.writer().write(bgItem);
             } catch (Exception e) {
                 msg.writer().writeShort(0);
@@ -519,6 +514,7 @@ public class Zone {
 //                msg.writer().writeShort(0);
             try {
                 byte[] effItem = FileIO.readFile("data/monzy/map/eff_map/" + this.map.mapId);
+                assert effItem != null;
                 msg.writer().write(effItem);
             } catch (Exception e) {
                 msg.writer().writeShort(0);

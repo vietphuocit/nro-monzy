@@ -3,7 +3,6 @@ package com.monzy.card;
 import com.monzy.models.player.Player;
 import com.network.io.Message;
 
-import javax.smartcardio.Card;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,6 +63,7 @@ public class RadarService {
             pl.sendMessage(m);
             m.cleanup();
         } catch (Exception e) {
+            System.err.println(getClass().getName() + ": " + e.getMessage());
         }
     }
 
@@ -77,6 +77,7 @@ public class RadarService {
             pl.sendMessage(message);
             message.cleanup();
         } catch (Exception e) {
+            System.err.println(getClass().getName() + ": " + e.getMessage());
         }
     }
 
@@ -90,6 +91,7 @@ public class RadarService {
             pl.sendMessage(message);
             message.cleanup();
         } catch (Exception e) {
+            System.err.println(getClass().getName() + ": " + e.getMessage());
         }
     }
 
@@ -104,6 +106,7 @@ public class RadarService {
             pl.sendMessage(message);
             message.cleanup();
         } catch (Exception e) {
+            System.err.println(getClass().getName() + ": " + e.getMessage());
         }
     }
 

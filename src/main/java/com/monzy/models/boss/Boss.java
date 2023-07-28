@@ -10,7 +10,7 @@ import com.monzy.models.player.Player;
 import com.monzy.models.skill.Skill;
 import com.monzy.server.Manager;
 import com.monzy.server.ServerNotify;
-import com.monzy.services.EffectSkillService;
+import com.monzy.services.*;
 import com.monzy.utils.SkillUtil;
 import com.monzy.utils.Util;
 
@@ -101,10 +101,10 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
         this.playerSkill.skills.clear();
         this.playerSkill.skillSelect = null;
         int[][] skillTemp = data[this.currentLevel].getSkillTemp();
-        for (int i = 0; i < skillTemp.length; i++) {
-            Skill skill = SkillUtil.createSkill(skillTemp[i][0], skillTemp[i][1]);
-            if (skillTemp[i].length == 3) {
-                skill.coolDown = skillTemp[i][2];
+        for (int[] ints : skillTemp) {
+            Skill skill = SkillUtil.createSkill(ints[0], ints[1]);
+            if (ints.length == 3) {
+                skill.coolDown = ints[2];
             }
             this.playerSkill.skills.add(skill);
         }
@@ -160,9 +160,8 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
 
     public Zone getMapJoin() {
         int mapId = this.data[this.currentLevel].getMapJoin()[Util.nextInt(0, Math.min(10, this.data[this.currentLevel].getMapJoin().length - 1))];
-        Zone map = MapService.gI().getMapWithRandZone(mapId);
         //to do: check boss in map
-        return map;
+        return MapService.gI().getMapWithRandZone(mapId);
     }
 
     @Override
@@ -554,9 +553,9 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
     }
 
     public boolean rewardItem(Player plKill, int... ids) {
-        for (int i = 0; i < ids.length; i++) {
-            if (Util.isTrue(getRatioById(ids[i]), 100)) {
-                ItemMap it = new ItemMap(this.zone, ids[i], 1, plKill.location.x, plKill.location.y, plKill.id);
+        for (int j : ids) {
+            if (Util.isTrue(getRatioById(j), 100)) {
+                ItemMap it = new ItemMap(this.zone, j, 1, plKill.location.x, plKill.location.y, plKill.id);
                 Service.gI().dropItemMap(this.zone, it);
                 return true;
             }
@@ -564,7 +563,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
         return false;
     }
 
-    public boolean rewardDTL(Player plKill) {
+    public void rewardDTL(Player plKill) {
         int randomIdDoThan;
         if (Util.isTrue(10, 100)) {
             randomIdDoThan = Manager.IDS_DO_THAN[Util.nextInt(9, 12)];
@@ -577,20 +576,17 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
             itemMap.options.clear();
             itemMap.options.addAll(item.itemOptions);
             Service.gI().dropItemMap(this.zone, itemMap);
-            return true;
         }
-        return false;
     }
 
-    public boolean rewardManhThienSu(Player plKill) {
+    public void rewardManhThienSu(Player plKill) {
         for (Map.Entry<Integer, Integer> entry : MANH_THIEN_SU.entrySet()) {
             if (Util.isTrue(entry.getValue(), 100)) {
                 ItemMap it = new ItemMap(this.zone, entry.getKey(), 1, plKill.location.x, plKill.location.y, plKill.id);
                 Service.gI().dropItemMap(this.zone, it);
-                return true;
+                return;
             }
         }
-        return false;
     }
 
     public int getRatioById(int id) {
@@ -603,7 +599,3 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
     }
 
 }
-/**
- * Vui lòng không sao chép mã nguồn này dưới mọi hình thức. Hãy tôn trọng tác
- * giả của mã nguồn này. Xin cảm ơn! - GirlBeo
- */

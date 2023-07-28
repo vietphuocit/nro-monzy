@@ -10,6 +10,7 @@ import com.monzy.models.item.Item;
 import com.monzy.models.player.Player;
 import com.monzy.server.io.MyKeyHandler;
 import com.monzy.server.io.MySession;
+import com.monzy.services.*;
 import com.monzy.utils.Logger;
 import com.monzy.utils.TimeUtil;
 import com.monzy.utils.Util;
@@ -24,7 +25,7 @@ import java.util.logging.Level;
 
 public class ServerManager {
 
-    public static final Map CLIENTS = new HashMap();
+    public static final Map<Object, Object> CLIENTS = new HashMap<>();
     public static String timeStart;
     public static String NAME = "Girlkun75";
     public static int PORT = 14445;
@@ -89,7 +90,7 @@ public class ServerManager {
                     is.disconnect();
                     return;
                 }
-                is = is.setMessageHandler(Controller.getInstance()).setSendCollect(new MessageSendCollect()).setKeyHandler(new MyKeyHandler()).startCollect();
+                is.setMessageHandler(Controller.getInstance()).setSendCollect(new MessageSendCollect()).setKeyHandler(new MyKeyHandler()).startCollect();
             }
 
             @Override
@@ -106,6 +107,7 @@ public class ServerManager {
         try {
             this.act();
         } catch (Exception e) {
+            System.err.println(getClass().getName() + ": " + e.getMessage());
         }
         //        try {
 //            Logger.log(Logger.PURPLE, "Start server......... Current thread: " + Thread.activeCount() + "\n");
@@ -172,9 +174,7 @@ public class ServerManager {
                 } else if (line.equals("nplayer")) {
                     Logger.error("Player in game: " + Client.gI().getPlayers().size() + "\n");
                 } else if (line.equals("admin")) {
-                    new Thread(() -> {
-                        Client.gI().close();
-                    }).start();
+                    new Thread(() -> Client.gI().close()).start();
                 } else if (line.startsWith("bang")) {
                     new Thread(() -> {
                         try {

@@ -2,10 +2,13 @@ package com.monzy.models.boss;
 
 import com.monzy.models.boss.list_boss.AnTrom;
 import com.monzy.models.boss.list_boss.Mabu;
+import com.monzy.models.boss.list_boss.android.*;
 import com.monzy.models.boss.list_boss.black.Black;
 import com.monzy.models.boss.list_boss.black.Zamasu;
+import com.monzy.models.boss.list_boss.cell.*;
 import com.monzy.models.boss.list_boss.cooler.Cooler;
 import com.monzy.models.boss.list_boss.cooler.Cooler2;
+import com.monzy.models.boss.list_boss.doraemon.*;
 import com.monzy.models.boss.list_boss.fide.Fide;
 import com.monzy.models.boss.list_boss.fide.FideGold;
 import com.monzy.models.boss.list_boss.hanhtinhberus.Bill;
@@ -13,6 +16,7 @@ import com.monzy.models.boss.list_boss.hanhtinhberus.Whis;
 import com.monzy.models.boss.list_boss.nappa.Kuku;
 import com.monzy.models.boss.list_boss.nappa.MapDauDinh;
 import com.monzy.models.boss.list_boss.nappa.Rambo;
+import com.monzy.models.boss.list_boss.nrden.*;
 import com.monzy.models.boss.list_boss.tdst.TDST;
 import com.monzy.models.boss.list_boss.tdst.TDST1;
 import com.monzy.models.player.Player;
@@ -54,30 +58,6 @@ public class BossManager implements Runnable {
             return;
         }
         try {
-/**
- this.createBoss(BossID.KAMIRIN);
- this.createBoss(BossID.KAMILOC);
- this.createBoss(BossID.KAMI_SOOME);
- this.createBoss(BossID.CUMBERBLACK);
- this.createBoss(BossID.CUMBERYELLOW);
- this.createBoss(BossID.SUPER_XEN);
- this.createBoss(BossID.SONGOKU_TA_AC);
- this.createBoss(BossID.CUMBER);
- this.createBoss(BossID.COOLER_GOLD);
- this.createBoss(BossID.THIEN_SU_VADOS);
- this.createBoss(BossID.THIEN_SU_WHIS);
- this.createBoss(BossID.THIEN_SU_VADOS);
- this.createBoss(BossID.THIEN_SU_WHIS);
- this.createBoss(BossID.THIEN_SU_VADOS);
- this.createBoss(BossID.THIEN_SU_WHIS);
- this.createBoss(BossID.THIEN_SU_VADOS);
- this.createBoss(BossID.THIEN_SU_WHIS);
- this.createBoss(BossID.ZAMASZIN);
- this.createBoss(BossID.BLACK2);
- this.createBoss(BossID.ZAMASMAX);
- this.createBoss(BossID.BLACK);
- this.createBoss(BossID.BLACK3);
- */
             this.createBoss(BossID.AN_TROM);
             this.createBoss(BossID.AN_TROM);
             this.createBoss(BossID.AN_TROM);
@@ -201,70 +181,6 @@ public class BossManager implements Runnable {
                     return new Zamasu();
                 case BossID.FIDE_GOLD:
                     return new FideGold();
-                /**
-                 case BossID.CUMBERYELLOW:
-                 return new cumberYellow();
-                 case BossID.CUMBERBLACK:
-                 return new cumberBlack();
-                 case BossID.KAMIRIN:
-                 return new kamiRin();
-                 case BossID.KAMILOC:
-                 return new kamiLoc();
-                 case BossID.KAMI_SOOME:
-                 return new kamiSooMe();
-                 case BossID.DRABURA:
-                 return new Drabura();
-                 case BossID.DRABURA_2:
-                 return new Drabura2();
-                 case BossID.BUI_BUI:
-                 return new BuiBui();
-                 case BossID.BUI_BUI_2:
-                 return new BuiBui2();
-                 case BossID.YA_CON:
-                 return new Yacon();
-                 case BossID.MABU_12H:
-                 return new MabuBoss();
-                 case BossID.SUPER_XEN:
-                 return new SuperXen();
-                 case BossID.SUPER_ANDROID_17:
-                 return new SuperAndroid17();
-                 case BossID.TRUNG_UY_TRANG:
-                 return new TrungUyTrang();
-                 case BossID.VUA_COLD:
-                 return new Kingcold();
-                 case BossID.FIDE_ROBOT:
-                 return new FideRobot();
-                 case BossID.COOLER:
-                 return new Cooler();
-                 case BossID.ZAMASMAX:
-                 return new ZamasMax();
-                 case BossID.ZAMASZIN:
-                 return new ZamasKaio();
-                 case BossID.BLACK2:
-                 return new SuperBlack2();
-                 case BossID.BLACK1:
-                 return new BlackGokuTL();
-                 case BossID.BLACK:
-                 return new Black();
-                 case BossID.BLACK3:
-                 return new BlackGokuBase();
-                 case BossID.COOLER_GOLD:
-                 return new CoolerGold();
-                 case BossID.CUMBER:
-                 return new Cumber();
-                 case BossID.THAN_HUY_DIET_CHAMPA:
-                 return new Champa();
-                 case BossID.THIEN_SU_VADOS:
-                 return new Vados();
-                 case BossID.THAN_HUY_DIET:
-                 return new ThanHuyDiet();
-                 case BossID.THIEN_SU_WHIS:
-                 return new ThienSuWhis();
-                 case BossID.SONGOKU_TA_AC:
-                 return new SongokuTaAc();
-                 case BossID.BROLY:
-                 return new Broly();
-                 */
                 default:
                     return null;
             }

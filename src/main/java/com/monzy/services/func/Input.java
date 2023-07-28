@@ -11,6 +11,7 @@ import com.monzy.models.payment.TransactionHistory;
 import com.monzy.models.player.Player;
 import com.monzy.server.Client;
 import com.monzy.server.Manager;
+import com.monzy.services.*;
 import com.monzy.utils.Util;
 import com.network.io.Message;
 import com.network.session.ISession;
@@ -18,6 +19,7 @@ import com.network.session.ISession;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Input {
 
@@ -42,7 +44,7 @@ public class Input {
     public static final byte NUMERIC = 0;
     public static final byte ANY = 1;
     public static final byte PASSWORD = 2;
-    private static final Map<Integer, Object> PLAYER_ID_OBJECT = new HashMap<Integer, Object>();
+    private static final Map<Integer, Object> PLAYER_ID_OBJECT = new HashMap<>();
     public static String LOAI_THE;
     public static String MENH_GIA;
     private static Input intance;
@@ -67,8 +69,8 @@ public class Input {
             switch (player.iDMark.getTypeInput()) {
                 case GIVE_IT:
                     String name = text[0];
-                    int id = Integer.valueOf(text[1]);
-                    int q = Integer.valueOf(text[2]);
+                    int id = Integer.parseInt(text[1]);
+                    int q = Integer.parseInt(text[2]);
                     if (Client.gI().getPlayer(name) != null) {
                         Item item = ItemService.gI().createNewItem(((short) id));
                         item.quantity = q;
@@ -163,7 +165,7 @@ public class Input {
                 case CHANGE_NAME:
                     Player plChanged = (Player) PLAYER_ID_OBJECT.get((int) player.id);
                     if (plChanged != null) {
-                        if (Database.executeQuery("select * from player where name = ?", text[0]).next()) {
+                        if (Objects.requireNonNull(Database.executeQuery("select * from player where name = ?", text[0])).next()) {
                             Service.gI().sendThongBao(player, "Tên nhân vật đã tồn tại");
                         } else {
                             plChanged.name = text[0];
@@ -179,7 +181,7 @@ public class Input {
                     }
                     break;
                 case CHANGE_NAME_BY_ITEM: {
-                    if (Database.executeQuery("select * from player where name = ?", text[0]).next()) {
+                    if (Objects.requireNonNull(Database.executeQuery("select * from player where name = ?", text[0])).next()) {
                         Service.gI().sendThongBao(player, "Tên nhân vật đã tồn tại");
                         createFormChangeNameByItem(player);
                         break;
@@ -430,6 +432,7 @@ public class Input {
                         InventoryService.gI().sendItemBags(player);
                         Service.getInstance().sendThongBao(player, "Chúc Mừng Bạn Đổi x" + slruongcandoi + " " + ruongdongvang.template.name + " Thành Công !");
                     } else {
+                        assert dongxuvang != null;
                         Service.getInstance().sendThongBao(player, "Không đủ Bông Hồng bạn còn thiếu " + (sldongxuvangbitru - dongxuvang.quantity) + " Đồng Xu Vàng nữa!");
                     }
                     break;
@@ -441,7 +444,7 @@ public class Input {
                         Service.gI().sendThongBao(player, "giới hạn");
                     } else if (player.getSession().vnd >= goldTrade * coinGold) {
                         PlayerDAO.subVND(player, goldTrade * coinGold);
-                        Item thoiVang = ItemService.gI().createNewItem((short) 861, goldTrade * 1);// x3
+                        Item thoiVang = ItemService.gI().createNewItem((short) 861, goldTrade);// x3
                         InventoryService.gI().addItemBag(player, thoiVang);
                         InventoryService.gI().sendItemBags(player);
                         Service.gI().sendThongBao(player, "bạn nhận được " + goldTrade * ratioGold + " " + thoiVang.template.name);
@@ -467,6 +470,7 @@ public class Input {
                     break;
             }
         } catch (Exception e) {
+            System.err.println(getClass().getName() + ": " + e.getMessage());
         }
     }
 
@@ -484,6 +488,7 @@ public class Input {
             pl.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
+            System.err.println(getClass().getName() + ": " + e.getMessage());
         }
     }
 
@@ -500,6 +505,7 @@ public class Input {
             session.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
+            System.err.println(getClass().getName() + ": " + e.getMessage());
         }
     }
 

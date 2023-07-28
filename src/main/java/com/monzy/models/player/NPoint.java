@@ -8,7 +8,7 @@ import com.monzy.models.intrinsic.Intrinsic;
 import com.monzy.models.item.Item;
 import com.monzy.models.skill.Skill;
 import com.monzy.server.Manager;
-import com.monzy.services.EffectSkillService;
+import com.monzy.services.*;
 import com.monzy.utils.Logger;
 import com.monzy.utils.SkillUtil;
 import com.monzy.utils.Util;
@@ -111,7 +111,6 @@ public class NPoint {
     public short test;
     private Player player;
     private Intrinsic intrinsic;
-    private int percentDameIntrinsic;
     //--------------------------------------------------------------------------
     private long lastTimeHoiPhuc;
     /*-------------------------------------------------------------------------*/
@@ -504,7 +503,7 @@ public class NPoint {
             this.hpMax *= 1.40;
         }
         //huýt sáo
-        if (!this.player.isPet || (this.player.isPet && ((Pet) this.player).status != Pet.FUSION)) {
+        if (!this.player.isPet || ((Pet) this.player).status != Pet.FUSION) {
             if (this.player.effectSkill.tiLeHPHuytSao != 0) {
                 this.hpMax += ((long) this.hpMax * this.player.effectSkill.tiLeHPHuytSao / 100L);
             }
@@ -685,7 +684,7 @@ public class NPoint {
         }
         //khỉ
         if (this.player.effectSkill.isMonkey) {
-            if (!this.player.isPet || (this.player.isPet && ((Pet) this.player).status != Pet.FUSION)) {
+            if (!this.player.isPet || ((Pet) this.player).status != Pet.FUSION) {
                 int percent = SkillUtil.getPercentDameMonkey(player.effectSkill.levelMonkey);
                 this.dame += ((long) this.dame * percent / 100);
             }
@@ -808,7 +807,7 @@ public class NPoint {
         setIsCrit();
         long dameAttack = this.dame;
         intrinsic = this.player.playerIntrinsic.intrinsic;
-        percentDameIntrinsic = 0;
+        int percentDameIntrinsic = 0;
         int percentDameSkill = 0;
         byte percentXDame = 0;
         Skill skillSelect = player.playerSkill.skillSelect;

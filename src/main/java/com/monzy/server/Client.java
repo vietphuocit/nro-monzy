@@ -15,7 +15,6 @@ import com.monzy.services.func.SummonDragon;
 import com.monzy.utils.Logger;
 import com.network.server.MonzySessionManager;
 import com.network.session.ISession;
-import com.sun.corba.se.spi.activation.ServerManager;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -26,11 +25,10 @@ import java.util.Map;
 public class Client implements Runnable {
 
     private static Client i;
-    private final Map<Long, Player> players_id = new HashMap<Long, Player>();
-    private final Map<Integer, Player> players_userId = new HashMap<Integer, Player>();
-    private final Map<String, Player> players_name = new HashMap<String, Player>();
+    private final Map<Long, Player> players_id = new HashMap<>();
+    private final Map<Integer, Player> players_userId = new HashMap<>();
+    private final Map<String, Player> players_name = new HashMap<>();
     private final List<Player> players = new ArrayList<>();
-    private final boolean running = true;
 
     private Client() {
         new Thread(this).start();
@@ -187,6 +185,7 @@ public class Client implements Runnable {
                 update();
                 Thread.sleep(800 - (System.currentTimeMillis() - st));
             } catch (Exception e) {
+                System.err.println(getClass().getName() + ": " + e.getMessage());
             }
         }
     }
