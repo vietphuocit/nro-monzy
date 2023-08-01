@@ -56,7 +56,7 @@ public class Controller implements IMessageHandler {
       //            }
       //            System.out.println("***************************CMD receive: " + cmd);
       switch (cmd) {
-        case -100:
+        case -100: // ký gửi
           {
             byte action = _msg.reader().readByte();
             switch (action) {
@@ -106,52 +106,54 @@ public class Controller implements IMessageHandler {
             }
             break;
           }
-        case 127:
-          if (player != null) {
-            byte actionRadar = _msg.reader().readByte();
-            switch (actionRadar) {
-              case 0:
-                RadarService.gI().sendRadar(player, player.cards);
-                break;
-              case 1:
-                short idC = _msg.reader().readShort();
-                Card card =
-                    player.cards.stream()
-                        .filter(r -> r != null && r.id == idC)
-                        .findFirst()
-                        .orElse(null);
-                if (card != null) {
-                  if (card.level == 0) {
-                    return;
-                  }
-                  if (card.used == 0) {
-                    if (player.cards.stream().anyMatch(c -> c != null && c.used == 1)) {
-                      Service.gI().sendThongBao(player, "Số thẻ sử dụng đã đạt tối đa");
+        case 127: // radar
+          {
+            if (player != null) {
+              byte actionRadar = _msg.reader().readByte();
+              switch (actionRadar) {
+                case 0:
+                  RadarService.gI().sendRadar(player, player.cards);
+                  break;
+                case 1:
+                  short idC = _msg.reader().readShort();
+                  Card card =
+                      player.cards.stream()
+                          .filter(r -> r != null && r.id == idC)
+                          .findFirst()
+                          .orElse(null);
+                  if (card != null) {
+                    if (card.level == 0) {
                       return;
                     }
-                    card.used = 1;
-                    RadarCard radarTemplate =
-                        RadarService.gI().RADAR_TEMPLATE.stream()
-                            .filter(r -> r.Id == idC)
-                            .findFirst()
-                            .orElse(null);
-                    if (radarTemplate != null && card.level >= 2) {
-                      player.idAura = radarTemplate.AuraId;
+                    if (card.used == 0) {
+                      if (player.cards.stream().anyMatch(c -> c != null && c.used == 1)) {
+                        Service.gI().sendThongBao(player, "Số thẻ sử dụng đã đạt tối đa");
+                        return;
+                      }
+                      card.used = 1;
+                      RadarCard radarTemplate =
+                          RadarService.gI().RADAR_TEMPLATE.stream()
+                              .filter(r -> r.Id == idC)
+                              .findFirst()
+                              .orElse(null);
+                      if (radarTemplate != null && card.level >= 2) {
+                        player.idAura = radarTemplate.AuraId;
+                      }
+                    } else {
+                      card.used = 0;
+                      player.idAura = -1;
                     }
-                  } else {
-                    card.used = 0;
-                    player.idAura = -1;
+                    RadarService.gI().Radar1(player, idC, card.used);
+                    Service.gI().point(player);
                   }
-                  RadarService.gI().Radar1(player, idC, card.used);
-                  Service.gI().point(player);
-                }
-                break;
+                  break;
+              }
             }
+            break;
           }
-          break;
         case -105:
           if (player.type == 0 && player.maxTime == 30) {
-            ChangeMapService.gI().changeMap(player, 102, 0, 100, 336);
+            player.iDMark.setLastTimeGoToFuture(System.currentTimeMillis() - 40000);
           } else if (player.type == 1 && player.maxTime == 5) {
             ChangeMapService.gI().changeMap(player, 160, 0, -1, 5);
           }

@@ -283,12 +283,13 @@ public class Player {
           MapMaBu.gI().update(this);
           if (!isBoss
               && this.iDMark.isGotoFuture()
-              && Util.canDoWithTime(this.iDMark.getLastTimeGoToFuture(), 6000)) {
+              && Util.canDoWithTime(this.iDMark.getLastTimeGoToFuture(), 40000)) {
             ChangeMapService.gI().changeMapBySpaceShip(this, 102, -1, Util.nextInt(60, 200));
             this.iDMark.setGotoFuture(false);
           }
-          if (this.iDMark.isGoToBDKB()
-              && Util.canDoWithTime(this.iDMark.getLastTimeGoToBDKB(), 6000)) {
+          if (!isBoss
+              && this.iDMark.isGoToBDKB()
+              && Util.canDoWithTime(this.iDMark.getLastTimeGoToBDKB(), 2500)) {
             ChangeMapService.gI().changeMapBySpaceShip(this, 135, -1, 35);
             this.iDMark.setGoToBDKB(false);
           }

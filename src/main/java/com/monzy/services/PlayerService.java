@@ -217,76 +217,6 @@ public class PlayerService {
     }
   }
 
-  public void quaVip1(Player playerVip1) {
-    try {
-      Database.executeUpdate(
-          "update account set vip1 = 1 where id = ? and username = ?",
-          playerVip1.getSession().userId,
-          playerVip1.getSession().uu);
-    } catch (Exception e) {
-    }
-    Service.gI()
-        .sendThongBao(
-            playerVip1, "Bạn là Vip1, quà đã được đặt trong hành trang!, cảm ơn bạn đã đóng góp");
-    playerVip1.iDMark.setVip1(true);
-  }
-
-  public void quaVip2(Player playerVip2) {
-    try {
-      Database.executeUpdate(
-          "update account set vip2 = 1 where id = ? and username = ?",
-          playerVip2.getSession().userId,
-          playerVip2.getSession().uu);
-    } catch (Exception e) {
-    }
-    Service.gI()
-        .sendThongBao(
-            playerVip2, "Bạn là Vip2, quà đã được đặt trong hành trang!, cảm ơn bạn đã đóng góp");
-    playerVip2.iDMark.setVip2(true);
-  }
-
-  public void quaVip3(Player playerVip3) {
-    try {
-      Database.executeUpdate(
-          "update account set vip3 = 1 where id = ? and username = ?",
-          playerVip3.getSession().userId,
-          playerVip3.getSession().uu);
-    } catch (Exception e) {
-    }
-    Service.gI()
-        .sendThongBao(
-            playerVip3, "Bạn là Vip3, quà đã được đặt trong hành trang!, cảm ơn bạn đã đóng góp");
-    playerVip3.iDMark.setVip3(true);
-  }
-
-  public void quaVip4(Player playerVip4) {
-    try {
-      Database.executeUpdate(
-          "update account set vip4 = 1 where id = ? and username = ?",
-          playerVip4.getSession().userId,
-          playerVip4.getSession().uu);
-    } catch (Exception e) {
-    }
-    Service.gI()
-        .sendThongBao(
-            playerVip4, "Bạn là Vip4, quà đã được đặt trong hành trang!, cảm ơn bạn đã đóng góp");
-    playerVip4.iDMark.setVip4(true);
-  }
-
-  public void quaVip5(Player playerVip5) {
-    try {
-      Database.executeUpdate(
-          "update account set vip5 = 1 where id = ? and username = ?",
-          playerVip5.getSession().userId,
-          playerVip5.getSession().uu);
-    } catch (Exception e) {
-    }
-    Service.gI()
-        .sendThongBao(
-            playerVip5, "Bạn là Vip5, quà đã được đặt trong hành trang!, cảm ơn bạn đã đóng góp");
-    playerVip5.iDMark.setVip5(true);
-  }
-
   public void banPlayer(Player playerBaned) {
     try {
       Database.executeUpdate(
@@ -304,50 +234,45 @@ public class PlayerService {
 
   public void hoiSinh(Player player) {
     if (player.isDie()) {
-      boolean canHs = false;
       if (MapService.gI().isMapBlackBallWar(player.zone.map.mapId)) {
         if (player.inventory.gold >= COST_GOLD_HOI_SINH_NRSD) {
           player.inventory.gold -= COST_GOLD_HOI_SINH_NRSD;
-          canHs = true;
-        } else {
-          Service.gI()
-              .sendThongBao(
-                  player,
-                  "Không đủ vàng để thực hiện, còn thiếu "
-                      + Util.numberToMoney(COST_GOLD_HOI_SINH_NRSD - player.inventory.gold)
-                      + " vàng");
           return;
         }
-      } else if (MapService.gI().isMapBanDoKhoBau(player.zone.map.mapId)
-          || MapService.gI().isNguHS(player.zone.map.mapId)) {
-        Service.gI().sendThongBao(player, "Không thể hồi sinh trong khu vực này");
+        Service.gI()
+            .sendThongBao(
+                player,
+                "Không đủ vàng để thực hiện, còn thiếu "
+                    + Util.numberToMoney(COST_GOLD_HOI_SINH_NRSD - player.inventory.gold)
+                    + " vàng");
         return;
-      } else if (MapService.gI().isMapPVP(player.zone.map.mapId)) {
+      }
+      //      if (MapService.gI().isMapBanDoKhoBau(player.zone.map.mapId) ||
+      // MapService.gI().isNguHS(player.zone.map.mapId)) {
+      //        Service.gI().sendThongBao(player, "Không thể hồi sinh trong khu vực này");
+      //        return;
+      //      }
+      if (MapService.gI().isMapPVP(player.zone.map.mapId)) {
         if (player.inventory.gold >= COST_GOLD_HOI_SINH_PVP) {
           player.inventory.gold -= COST_GOLD_HOI_SINH_PVP;
-          canHs = true;
-        } else {
-          Service.gI()
-              .sendThongBao(
-                  player,
-                  "Không đủ vàng để thực hiện, còn thiếu "
-                      + Util.numberToMoney(COST_GOLD_HOI_SINH_PVP - player.inventory.gold)
-                      + " vàng");
           return;
         }
+        Service.gI()
+            .sendThongBao(
+                player,
+                "Không đủ vàng để thực hiện, còn thiếu "
+                    + Util.numberToMoney(COST_GOLD_HOI_SINH_PVP - player.inventory.gold)
+                    + " vàng");
+        return;
+      }
+      if (player.inventory.gem >= COST_GEM_HOI_SINH) {
+        player.inventory.gem -= COST_GEM_HOI_SINH;
       } else {
-        if (player.inventory.gem >= COST_GEM_HOI_SINH) {
-          player.inventory.gem -= COST_GEM_HOI_SINH;
-          canHs = true;
-        } else {
-          Service.gI().sendThongBao(player, "?");
-          return;
-        }
+        Service.gI().sendThongBao(player, "Hết ngọc rồi phên");
+        return;
       }
-      if (canHs) {
-        Service.gI().sendMoney(player);
-        Service.gI().hsChar(player, player.nPoint.hpMax, player.nPoint.mpMax);
-      }
+      Service.gI().sendMoney(player);
+      Service.gI().hsChar(player, player.nPoint.hpMax, player.nPoint.mpMax);
     }
   }
 
