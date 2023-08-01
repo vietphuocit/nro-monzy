@@ -11,26 +11,34 @@ import com.monzy.utils.Util;
 
 public class AnTrom extends Boss {
 
-    public AnTrom() throws Exception {
-        super(BossID.AN_TROM, BossesData.AN_TROM);
-    }
+  public AnTrom() throws Exception {
+    super(BossID.AN_TROM, BossesData.AN_TROM);
+  }
 
-    @Override
-    public int injured(Player plAtt, int damage, boolean piercing, boolean isMobAttack) {
-        return super.injured(plAtt, 1, piercing, isMobAttack);
-    }
+  @Override
+  public int injured(Player plAtt, int damage, boolean piercing, boolean isMobAttack) {
+    return super.injured(plAtt, 1, piercing, isMobAttack);
+  }
 
-    @Override
-    public void reward(Player plKill) {
-        Service.gI().dropItemMap(this.zone, new ItemMap(this.zone, 457, Util.nextInt(1, 5), plKill.location.x, plKill.location.y, plKill.id));
-    }
+  @Override
+  public void reward(Player plKill) {
+    Service.gI()
+        .dropItemMap(
+            this.zone,
+            new ItemMap(
+                this.zone,
+                457,
+                Util.nextInt(1, 5),
+                plKill.location.x,
+                plKill.location.y,
+                plKill.id));
+  }
 
-    @Override
-    public void attack() {
-        if (Util.canDoWithTime(this.lastTimeAttack, 500) && this.typePk == ConstPlayer.PK_ALL) {
-            this.lastTimeAttack = System.currentTimeMillis();
-            moveTo(Util.isTrue(50, 100) ? 84 : 660, 336);
-        }
+  @Override
+  public void attack() {
+    if (Util.canDoWithTime(this.lastTimeAttack, 500) && this.typePk == ConstPlayer.PK_ALL) {
+      this.lastTimeAttack = System.currentTimeMillis();
+      moveTo(Util.isTrue(50, 100) ? 84 : 660, 336);
     }
-
+  }
 }

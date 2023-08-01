@@ -9,16 +9,13 @@ import com.monzy.utils.Util;
 
 public class Rong2Sao extends Boss {
 
-    public Rong2Sao() throws Exception {
-        super(Util.randomBossId(), BossesData.Rong_2Sao);
-    }
+  public Rong2Sao() throws Exception {
+    super(Util.randomBossId(), BossesData.Rong_2Sao);
+  }
 
-    @Override
-    public void reward(Player plKill) {
-        ItemMap it = new ItemMap(this.zone, 373, 1, this.location.x, this.location.y, -1);
-        Service.gI().dropItemMap(this.zone, it);
-    }
-
+  @Override
+  public void reward(Player plKill) {
+    ItemMap it = new ItemMap(this.zone, 373, 1, this.location.x, this.location.y, -1);
+    Service.gI().dropItemMap(this.zone, it);
+  }
 }
-
-

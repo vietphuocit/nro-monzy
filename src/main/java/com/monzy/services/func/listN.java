@@ -5,9 +5,4 @@
  */
 package com.monzy.services.func;
 
-/**
- * @author Administrator
- */
-class listN {
-
-}
+class listN {}

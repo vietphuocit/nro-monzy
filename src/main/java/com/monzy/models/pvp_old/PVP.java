@@ -1,16 +1,16 @@
-//package com.girlkun.models.pvp_old;
+// package com.girlkun.models.pvp_old;
 //
-//import com.girlkun.consts.ConstPlayer;
-//import com.girlkun.models.player.Player;
-//import com.girlkun.services.PlayerService;
-//import com.girlkun.utils.Util;
+// import com.girlkun.consts.ConstPlayer;
+// import com.girlkun.models.player.Player;
+// import com.girlkun.services.PlayerService;
+// import com.girlkun.utils.Util;
 //
-///**
+/// **
 // *
 // *@Stole By Arriety 💖
 // *
 // */
-//public abstract class PVP {
+// public abstract class PVP {
 //
 //    public static final byte TYPE_LEAVE_MAP = 7;
 //    public static final byte TYPE_DIE = 5;
@@ -35,7 +35,8 @@
 //    }
 //
 //    public void update() {
-//        if (this.timeLeftPVP != -1 && this.start && Util.canDoWithTime(lastTimeStart, timeLeftPVP)) {
+//        if (this.timeLeftPVP != -1 && this.start && Util.canDoWithTime(lastTimeStart,
+// timeLeftPVP)) {
 //            if(player1.nPoint.getCurrPercentHP() < player2.nPoint.getCurrPercentHP()){
 //                finishPVP(player1, TYPE_LOWER_HP);
 //            }
@@ -60,4 +61,4 @@
 //    public void dispose() {
 //
 //    }
-//}
+// }

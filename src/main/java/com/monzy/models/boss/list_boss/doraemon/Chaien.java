@@ -8,20 +8,23 @@ import com.monzy.models.player.Player;
 
 public class Chaien extends Boss {
 
-    public Chaien() throws Exception {
-        super(BossID.CHAIEN, BossesData.CHAIEN);
-    }
+  public Chaien() throws Exception {
+    super(BossID.CHAIEN, BossesData.CHAIEN);
+  }
 
-    @Override
-    public void reward(Player plKill) {
-        rewardItem(plKill, 16);
-        super.reward(plKill);
-    }
+  @Override
+  public void reward(Player plKill) {
+    rewardItem(plKill, 16);
+    super.reward(plKill);
+  }
 
-    @Override
-    public boolean chatS() {
-        Boss xuka = BossManager.gI().getBosses().stream().filter(boss -> boss.id == BossID.XUKA).findFirst().get();
-        return super.chatS() && xuka.isDie();
-    }
-
+  @Override
+  public boolean chatS() {
+    Boss xuka =
+        BossManager.gI().getBosses().stream()
+            .filter(boss -> boss.id == BossID.XUKA)
+            .findFirst()
+            .get();
+    return super.chatS() && xuka.isDie();
+  }
 }

@@ -6,8 +6,7 @@ import com.monzy.models.boss.BossesData;
 
 public class MapDauDinh extends Boss {
 
-    public MapDauDinh() throws Exception {
-        super(BossID.MAP_DAU_DINH, BossesData.MAP_DAU_DINH);
-    }
-
+  public MapDauDinh() throws Exception {
+    super(BossID.MAP_DAU_DINH, BossesData.MAP_DAU_DINH);
+  }
 }

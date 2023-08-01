@@ -5,9 +5,4 @@
  */
 package com.monzy.services;
 
-/**
- * @Stole By Arriety
- */
-class Player {
-
-}
+class Player {}

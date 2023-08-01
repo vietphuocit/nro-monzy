@@ -11,3 +11,6 @@ Dockerfile
 /sql
 
 /out
+
+*.zip
+*.rar

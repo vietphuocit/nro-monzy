@@ -6,30 +6,8 @@ import com.monzy.models.boss.BossesData;
 
 public class Fide extends Boss {
 
-    public Fide() throws Exception {
-        super(BossID.FIDE, BossesData.FIDE_DAI_CA_1, BossesData.FIDE_DAI_CA_2, BossesData.FIDE_DAI_CA_3);
-    }
-
+  public Fide() throws Exception {
+    super(
+        BossID.FIDE, BossesData.FIDE_DAI_CA_1, BossesData.FIDE_DAI_CA_2, BossesData.FIDE_DAI_CA_3);
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

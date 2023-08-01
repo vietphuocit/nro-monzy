@@ -10,30 +10,29 @@ import com.monzy.utils.Util;
 
 public class DrKore extends Boss {
 
-    public DrKore() throws Exception {
-        super(BossID.DR_KORE, BossesData.DR_KORE);
-    }
+  public DrKore() throws Exception {
+    super(BossID.DR_KORE, BossesData.DR_KORE);
+  }
 
-    @Override
-    public void reward(Player plKill) {
-        super.reward(plKill);
-    }
+  @Override
+  public void reward(Player plKill) {
+    super.reward(plKill);
+  }
 
-    @Override
-    public int injured(Player plAtt, int damage, boolean piercing, boolean isMobAttack) {
-        if (plAtt != null) {
-            switch (plAtt.playerSkill.skillSelect.template.id) {
-                case Skill.KAMEJOKO:
-                case Skill.MASENKO:
-                case Skill.ANTOMIC:
-                    PlayerService.gI().hoiPhuc(this, damage, 0);
-                    if (Util.isTrue(1, 1)) {
-                        this.chat("Hấp thụ.. các ngươi nghĩ sao vậy?");
-                    }
-                    return 0;
-            }
-        }
-        return super.injured(plAtt, damage, piercing, isMobAttack);
+  @Override
+  public int injured(Player plAtt, int damage, boolean piercing, boolean isMobAttack) {
+    if (plAtt != null) {
+      switch (plAtt.playerSkill.skillSelect.template.id) {
+        case Skill.KAMEJOKO:
+        case Skill.MASENKO:
+        case Skill.ANTOMIC:
+          PlayerService.gI().hoiPhuc(this, damage, 0);
+          if (Util.isTrue(1, 1)) {
+            this.chat("Hấp thụ.. các ngươi nghĩ sao vậy?");
+          }
+          return 0;
+      }
     }
-
+    return super.injured(plAtt, damage, piercing, isMobAttack);
+  }
 }

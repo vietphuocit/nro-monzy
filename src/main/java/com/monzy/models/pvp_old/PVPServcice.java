@@ -1,29 +1,29 @@
-//package com.girlkun.models.pvp_old;
+// package com.girlkun.models.pvp_old;
 //
-//import com.girlkun.consts.ConstNpc;
-//import com.girlkun.models.map.Zone;
-//import com.girlkun.models.player.Player;
-//import com.girlkun.models.pvp_old.ChallengePVP;
-//import com.girlkun.models.pvp_old.PVP;
-//import com.girlkun.models.pvp_old.RevengePVP;
-//import com.girlkun.server.io.Message;
-//import com.girlkun.services.NpcService;
-//import com.girlkun.services.PlayerService;
-//import com.girlkun.services.Service;
-//import com.girlkun.services.func.ChangeMapService;
-//import com.girlkun.utils.Util;
-//import java.io.IOException;
-//import java.util.ArrayList;
-//import java.util.HashMap;
-//import java.util.List;
-//import java.util.Map;
+// import com.girlkun.consts.ConstNpc;
+// import com.girlkun.models.map.Zone;
+// import com.girlkun.models.player.Player;
+// import com.girlkun.models.pvp_old.ChallengePVP;
+// import com.girlkun.models.pvp_old.PVP;
+// import com.girlkun.models.pvp_old.RevengePVP;
+// import com.girlkun.server.io.Message;
+// import com.girlkun.services.NpcService;
+// import com.girlkun.services.PlayerService;
+// import com.girlkun.services.Service;
+// import com.girlkun.services.func.ChangeMapService;
+// import com.girlkun.utils.Util;
+// import java.io.IOException;
+// import java.util.ArrayList;
+// import java.util.HashMap;
+// import java.util.List;
+// import java.util.Map;
 //
-///**
+/// **
 // *
 // * @Stole By Arriety 💖
 // *
 // */
-//public class PVPServcice implements Runnable {
+// public class PVPServcice implements Runnable {
 //
 //    private static final int[] GOLD_CHALLENGE = {1000000, 10000000, 100000000};
 //    private String[] optionsGoldChallenge;
@@ -81,7 +81,8 @@
 //        if (pvp1 == null && pvp2 == null) {
 //            PLAYER_VS_PLAYER.put(pl, plMap);
 //            NpcService.gI().createMenuConMeo(pl, ConstNpc.MAKE_MATCH_PVP,
-//                    -1, plMap.name + " (sức mạnh " + Util.numberToMoney(plMap.nPoint.power) + ")\nBạn muốn cược bao nhiêu vàng?",
+//                    -1, plMap.name + " (sức mạnh " + Util.numberToMoney(plMap.nPoint.power) +
+// ")\nBạn muốn cược bao nhiêu vàng?",
 //                    this.optionsGoldChallenge);
 //        } else {
 //            Service.getInstance().hideWaitDialog(pl);
@@ -97,7 +98,8 @@
 //                    int gold = GOLD_CHALLENGE[selectGold];
 //                    if (pl.inventory.gold >= gold) {
 //                        if (plReceive.inventory.gold < gold) {
-//                            Service.getInstance().sendThongBao(pl, "Đối thủ chỉ có " + plReceive.inventory.gold + " vàng, không đủ tiền cược");
+//                            Service.getInstance().sendThongBao(pl, "Đối thủ chỉ có " +
+// plReceive.inventory.gold + " vàng, không đủ tiền cược");
 //                        } else {
 //                            PLAYER_GOLD.put(pl, gold);
 //                            Message msg = null;
@@ -106,14 +108,16 @@
 //                                msg.writer().writeByte(3);
 //                                msg.writer().writeInt((int) pl.id);
 //                                msg.writer().writeInt(gold);
-//                                msg.writer().writeUTF(pl.name + " (sức mạnh " + Util.numberToMoney(pl.nPoint.power) + ") muốn thách đấu bạn với mức cược " + gold);
+//                                msg.writer().writeUTF(pl.name + " (sức mạnh " +
+// Util.numberToMoney(pl.nPoint.power) + ") muốn thách đấu bạn với mức cược " + gold);
 //                                plReceive.sendMessage(msg);
 //                                msg.cleanup();
 //                            } catch (Exception e) {
 //                            }
 //                        }
 //                    } else {
-//                        Service.getInstance().sendThongBao(pl, "Bạn chỉ có " + pl.inventory.gold + " vàng, không đủ tiền cược");
+//                        Service.getInstance().sendThongBao(pl, "Bạn chỉ có " + pl.inventory.gold +
+// " vàng, không đủ tiền cược");
 //                    }
 //                } else {
 //                    Service.getInstance().sendThongBao(pl, "Đối thủ chưa kích hoạt tài khoản");
@@ -121,7 +125,8 @@
 //            }
 //        } else {
 //            Service.getInstance().sendThongBaoFromAdmin(pl,
-//                    "|5|VUI LÒNG KÍCH HOẠT TÀI KHOẢN TẠI\n|7|NROGOD.COM\n|5|ĐỂ MỞ KHÓA TÍNH NĂNG THÁCH ĐẤU");
+//                    "|5|VUI LÒNG KÍCH HOẠT TÀI KHOẢN TẠI\n|7|NROGOD.COM\n|5|ĐỂ MỞ KHÓA TÍNH NĂNG
+// THÁCH ĐẤU");
 //        }
 //    }
 //
@@ -185,7 +190,8 @@
 //        if (pvp1 == null && pvp2 == null) {
 //            PLAYER_VS_PLAYER.put(pl, enemy);
 //            NpcService.gI().createMenuConMeo(pl, ConstNpc.REVENGE,
-//                    -1, "Bạn muốn đến ngay chỗ hắn, phí là 1 ngọc và được tìm thoải mái trong 5 phút nhé", "Ok", "Từ chối");
+//                    -1, "Bạn muốn đến ngay chỗ hắn, phí là 1 ngọc và được tìm thoải mái trong 5
+// phút nhé", "Ok", "Từ chối");
 //        } else {
 //            Service.getInstance().hideWaitDialog(pl);
 //            Service.getInstance().sendThongBao(pl, "Không thể thực hiện");
@@ -199,7 +205,8 @@
 //            Player enemy = PLAYER_VS_PLAYER.get(pl);
 //            if (enemy != null) {
 //                Zone mapGo = enemy.zone;
-//                if ((mapGo = ChangeMapService.gI().checkMapCanJoin(pl, mapGo)) != null && !mapGo.isFullPlayer()) {
+//                if ((mapGo = ChangeMapService.gI().checkMapCanJoin(pl, mapGo)) != null &&
+// !mapGo.isFullPlayer()) {
 //                    RevengePVP pvp = new RevengePVP(pl, enemy);
 //                    PLAYER_PVP.put(pl, pvp);
 //                    PLAYER_PVP.put(enemy, pvp);
@@ -209,7 +216,8 @@
 //                    pvp.lastTimeGoToMapEnemy = System.currentTimeMillis();
 //                    pvp.start();
 //                } else {
-//                    Service.getInstance().sendThongBao(pl, "Không thể tới khu vực này, vui lòng đợi sau ít phút");
+//                    Service.getInstance().sendThongBao(pl, "Không thể tới khu vực này, vui lòng
+// đợi sau ít phút");
 //                }
 //            }
 //        } else {
@@ -230,4 +238,4 @@
 //            }
 //        }
 //    }
-//}
+// }

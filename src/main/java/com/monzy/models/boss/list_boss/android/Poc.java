@@ -7,13 +7,12 @@ import com.monzy.models.player.Player;
 
 public class Poc extends Boss {
 
-    public Poc() throws Exception {
-        super(BossID.POC, BossesData.POC);
-    }
+  public Poc() throws Exception {
+    super(BossID.POC, BossesData.POC);
+  }
 
-    @Override
-    public void reward(Player plKill) {
-        super.reward(plKill);
-    }
-
+  @Override
+  public void reward(Player plKill) {
+    super.reward(plKill);
+  }
 }

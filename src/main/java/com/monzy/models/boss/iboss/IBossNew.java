@@ -5,57 +5,53 @@ import com.monzy.models.player.Player;
 
 public interface IBossNew {
 
-    void update();
+  void update();
 
-    void initBase();
+  void initBase();
 
-    void changeStatus(BossStatus status);
+  void changeStatus(BossStatus status);
 
-    Player getPlayerAttack();
+  Player getPlayerAttack();
 
-    void changeToTypePK();
+  void changeToTypePK();
 
-    void changeToTypeNonPK();
+  void changeToTypeNonPK();
 
-    void moveToPlayer(Player player);
+  void moveToPlayer(Player player);
 
-    void moveTo(int x, int y);
+  void moveTo(int x, int y);
 
-    void checkPlayerDie(Player player);
+  void checkPlayerDie(Player player);
 
-    void wakeupAnotherBossWhenAppear();
+  void wakeupAnotherBossWhenAppear();
 
-    void wakeupAnotherBossWhenDisappear();
+  void wakeupAnotherBossWhenDisappear();
 
-    void reward(Player plKill);
+  void reward(Player plKill);
 
-    void attack();
+  void attack();
 
-    //loop
-    void rest();
+  // loop
+  void rest();
 
-    void respawn();
+  void respawn();
 
-    void joinMap();
+  void joinMap();
 
-    boolean chatS();
+  boolean chatS();
 
-    void doneChatS();
+  void doneChatS();
 
-    void active();
+  void active();
 
-    void chatM();
+  void chatM();
 
-    void die(Player plKill);
+  void die(Player plKill);
 
-    boolean chatE();
+  boolean chatE();
 
-    void doneChatE();
+  void doneChatE();
 
-    void leaveMap();
-    //end loop
+  void leaveMap();
+  // end loop
 }
-/**
- * Vui lòng không sao chép mã nguồn này dưới mọi hình thức. Hãy tôn trọng tác
- * giả của mã nguồn này. Xin cảm ơn! - GirlBeo
- */

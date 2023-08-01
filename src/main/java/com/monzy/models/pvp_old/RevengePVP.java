@@ -1,17 +1,17 @@
-//package com.girlkun.models.pvp_old;
+// package com.girlkun.models.pvp_old;
 //
-//import com.girlkun.consts.ConstPlayer;
-//import com.girlkun.models.player.Player;
-//import com.girlkun.services.PlayerService;
-//import com.girlkun.services.Service;
-//import com.girlkun.utils.Util;
+// import com.girlkun.consts.ConstPlayer;
+// import com.girlkun.models.player.Player;
+// import com.girlkun.services.PlayerService;
+// import com.girlkun.services.Service;
+// import com.girlkun.utils.Util;
 //
-///**
+/// **
 // *
 // * @Stole By Arriety 💖
 // *
 // */
-//public class RevengePVP extends PVP {
+// public class RevengePVP extends PVP {
 //
 //    private static final int TIME_WAIT = 3000;
 //
@@ -50,7 +50,8 @@
 //                Service.getInstance().chat(loser, "Cay quá");
 //                break;
 //            case PVP.TYPE_LEAVE_MAP:
-//                Service.getInstance().chat(winer, loser.name + " suy cho cùng cũng chỉ là con thỏ đế");
+//                Service.getInstance().chat(winer, loser.name + " suy cho cùng cũng chỉ là con thỏ
+// đế");
 //                break;
 //        }
 //    }
@@ -59,4 +60,4 @@
 //    public void reward(Player plWin) {
 //    }
 //
-//}
+// }

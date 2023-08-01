@@ -5,9 +5,4 @@
  */
 package com.monzy.server.model;
 
-/**
- * @author Administrator
- */
-class Util {
-
-}
+class Util {}

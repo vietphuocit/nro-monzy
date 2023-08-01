@@ -11,29 +11,25 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * @author Administrator
- */
 public class GiftCode {
 
-    public HashMap<Integer, Integer> details = new HashMap<>();
-    public ArrayList<Integer> idsPlayer = new ArrayList<>();
-    public ArrayList<ItemOption> option = new ArrayList<>();
-    String code;
-    int countLeft;
-    Timestamp dateCreate;
-    Timestamp dateExpired;
+  public HashMap<Integer, Integer> details = new HashMap<>();
+  public ArrayList<Integer> idsPlayer = new ArrayList<>();
+  public ArrayList<ItemOption> option = new ArrayList<>();
+  String code;
+  int countLeft;
+  Timestamp dateCreate;
+  Timestamp dateExpired;
 
-    public boolean isUsedGiftCode(int idPlayer) {
-        return idsPlayer.contains(idPlayer);
-    }
+  public boolean isUsedGiftCode(int idPlayer) {
+    return idsPlayer.contains(idPlayer);
+  }
 
-    public void addPlayerUsed(int idPlayer) {
-        idsPlayer.add(idPlayer);
-    }
+  public void addPlayerUsed(int idPlayer) {
+    idsPlayer.add(idPlayer);
+  }
 
-    public boolean timeCode() {
-        return this.dateCreate.getTime() > this.dateExpired.getTime();
-    }
-
+  public boolean timeCode() {
+    return this.dateCreate.getTime() > this.dateExpired.getTime();
+  }
 }

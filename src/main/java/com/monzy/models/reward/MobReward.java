@@ -8,34 +8,11 @@ import java.util.List;
 @Data
 public class MobReward {
 
-    private int mobId;
-    private List<ItemMobReward> itemReward;
+  private int mobId;
+  private List<ItemMobReward> itemReward;
 
-    public MobReward(int mobId) {
-        this.mobId = mobId;
-        this.itemReward = new ArrayList<>();
-    }
-
+  public MobReward(int mobId) {
+    this.mobId = mobId;
+    this.itemReward = new ArrayList<>();
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

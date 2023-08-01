@@ -2,38 +2,15 @@ package com.monzy.models.boss.iboss;
 
 public interface IBossOutfit {
 
-    short getHead();
+  short getHead();
 
-    short getBody();
+  short getBody();
 
-    short getLeg();
+  short getLeg();
 
-    short getFlagBag();
+  short getFlagBag();
 
-    byte getAura();
+  byte getAura();
 
-    byte getEffFront();
-
+  byte getEffFront();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

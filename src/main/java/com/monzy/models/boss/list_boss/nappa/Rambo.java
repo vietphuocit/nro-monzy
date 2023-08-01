@@ -6,8 +6,7 @@ import com.monzy.models.boss.BossesData;
 
 public class Rambo extends Boss {
 
-    public Rambo() throws Exception {
-        super(BossID.RAMBO, BossesData.RAMBO);
-    }
-
+  public Rambo() throws Exception {
+    super(BossID.RAMBO, BossesData.RAMBO);
+  }
 }

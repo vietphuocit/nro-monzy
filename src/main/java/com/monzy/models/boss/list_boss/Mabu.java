@@ -13,20 +13,16 @@ import com.monzy.services.InventoryService;
 import com.monzy.services.ItemService;
 import com.monzy.services.Service;
 
-/**
- * @@Stole By Arriety
- */
 public class Mabu extends Boss {
 
-    public Mabu() throws Exception {
-        super(BossID.MABU, BossesData.MABU);
-    }
+  public Mabu() throws Exception {
+    super(BossID.MABU, BossesData.MABU);
+  }
 
-    @Override
-    public void reward(Player plKill) {
-        InventoryService.gI().addItemBag(plKill, ItemService.gI().createNewItem(((short) 568)));
-        InventoryService.gI().sendItemBags(plKill);
-        Service.gI().sendThongBao(plKill, "Bạn nhận được Trứng Bư!");
-    }
-
+  @Override
+  public void reward(Player plKill) {
+    InventoryService.gI().addItemBag(plKill, ItemService.gI().createNewItem(((short) 568)));
+    InventoryService.gI().sendItemBags(plKill);
+    Service.gI().sendThongBao(plKill, "Bạn nhận được Trứng Bư!");
+  }
 }

@@ -6,8 +6,7 @@ import com.monzy.models.boss.BossesData;
 
 public class Kuku extends Boss {
 
-    public Kuku() throws Exception {
-        super(BossID.KUKU, BossesData.KUKU);
-    }
-
+  public Kuku() throws Exception {
+    super(BossID.KUKU, BossesData.KUKU);
+  }
 }

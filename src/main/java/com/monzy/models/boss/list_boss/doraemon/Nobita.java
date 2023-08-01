@@ -8,42 +8,23 @@ import com.monzy.models.player.Player;
 
 public class Nobita extends Boss {
 
-    public Nobita() throws Exception {
-        super(BossID.NOBITA, BossesData.NOBITA);
-    }
+  public Nobita() throws Exception {
+    super(BossID.NOBITA, BossesData.NOBITA);
+  }
 
-    @Override
-    public void reward(Player plKill) {
-        rewardItem(plKill, 16);
-        super.reward(plKill);
-    }
+  @Override
+  public void reward(Player plKill) {
+    rewardItem(plKill, 16);
+    super.reward(plKill);
+  }
 
-    @Override
-    public boolean chatS() {
-        Boss doraemon = BossManager.gI().getBosses().stream().filter(boss -> boss.id == BossID.DORAEMON).findFirst().get();
-        return super.chatS() && doraemon.isDie();
-    }
-
+  @Override
+  public boolean chatS() {
+    Boss doraemon =
+        BossManager.gI().getBosses().stream()
+            .filter(boss -> boss.id == BossID.DORAEMON)
+            .findFirst()
+            .get();
+    return super.chatS() && doraemon.isDie();
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

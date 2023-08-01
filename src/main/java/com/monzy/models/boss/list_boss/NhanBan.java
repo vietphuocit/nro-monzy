@@ -9,28 +9,31 @@ import com.monzy.models.player.Player;
 import com.monzy.services.Service;
 import com.monzy.utils.Util;
 
-/**
- * @Stole By Arriety
- */
 public class NhanBan extends Boss {
 
-    public NhanBan(int bossID, BossData bossData, Zone zone) throws Exception {
-        super(bossID, bossData);
-        this.zone = zone;
-    }
+  public NhanBan(int bossID, BossData bossData, Zone zone) throws Exception {
+    super(bossID, bossData);
+    this.zone = zone;
+  }
 
-    @Override
-    public void reward(Player plKill) {
-        // Vật phẩm rơi khi diệt boss nhân bản
-        ItemMap it = new ItemMap(this.zone, Util.nextInt(1099, 1103), Util.nextInt(3, 4), plKill.location.x, plKill.location.y, plKill.id);
-        Service.gI().dropItemMap(this.zone, it);
-    }
+  @Override
+  public void reward(Player plKill) {
+    // Vật phẩm rơi khi diệt boss nhân bản
+    ItemMap it =
+        new ItemMap(
+            this.zone,
+            Util.nextInt(1099, 1103),
+            Util.nextInt(3, 4),
+            plKill.location.x,
+            plKill.location.y,
+            plKill.id);
+    Service.gI().dropItemMap(this.zone, it);
+  }
 
-    @Override
-    public void leaveMap() {
-        super.leaveMap();
-        BossManager.gI().removeBoss(this);
-        this.dispose();
-    }
-
+  @Override
+  public void leaveMap() {
+    super.leaveMap();
+    BossManager.gI().removeBoss(this);
+    this.dispose();
+  }
 }

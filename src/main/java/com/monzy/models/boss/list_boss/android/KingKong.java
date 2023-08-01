@@ -7,13 +7,12 @@ import com.monzy.models.player.Player;
 
 public class KingKong extends Boss {
 
-    public KingKong() throws Exception {
-        super(BossID.KING_KONG, BossesData.KING_KONG);
-    }
+  public KingKong() throws Exception {
+    super(BossID.KING_KONG, BossesData.KING_KONG);
+  }
 
-    @Override
-    public void reward(Player plKill) {
-        super.reward(plKill);
-    }
-
+  @Override
+  public void reward(Player plKill) {
+    super.reward(plKill);
+  }
 }

@@ -5,9 +5,13 @@
  */
 package com.monzy.models.boss;
 
-/**
- * @Stole By Arriety
- */
 public enum BossStatus {
-    REST, RESPAWN, JOIN_MAP, CHAT_S, ACTIVE, DIE, CHAT_E, LEAVE_MAP
+  REST,
+  RESPAWN,
+  JOIN_MAP,
+  CHAT_S,
+  ACTIVE,
+  DIE,
+  CHAT_E,
+  LEAVE_MAP
 }

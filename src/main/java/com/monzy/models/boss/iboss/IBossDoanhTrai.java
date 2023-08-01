@@ -1,26 +1,3 @@
 package com.monzy.models.boss.iboss;
 
-public interface IBossDoanhTrai {
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+public interface IBossDoanhTrai {}

@@ -7,13 +7,12 @@ import com.monzy.models.player.Player;
 
 public class Pic extends Boss {
 
-    public Pic() throws Exception {
-        super(BossID.PIC, BossesData.PIC);
-    }
+  public Pic() throws Exception {
+    super(BossID.PIC, BossesData.PIC);
+  }
 
-    @Override
-    public void reward(Player plKill) {
-        super.reward(plKill);
-    }
-
+  @Override
+  public void reward(Player plKill) {
+    super.reward(plKill);
+  }
 }

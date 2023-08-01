@@ -8,15 +8,20 @@ import com.monzy.services.Service;
 
 public class TDST1 extends Boss {
 
-    public TDST1() throws Exception {
-        super(BossID.TDST_1, BossesData.SO_4_1, BossesData.SO_3_1, BossesData.SO_2_1, BossesData.SO_1_1, BossesData.TIEU_DOI_TRUONG_1);
-    }
+  public TDST1() throws Exception {
+    super(
+        BossID.TDST_1,
+        BossesData.SO_4_1,
+        BossesData.SO_3_1,
+        BossesData.SO_2_1,
+        BossesData.SO_1_1,
+        BossesData.TIEU_DOI_TRUONG_1);
+  }
 
-    @Override
-    public void reward(Player plKill) {
-        plKill.inventory.ruby += 50;
-        Service.gI().sendMoney(plKill);
-        Service.gI().sendThongBao(plKill, "Bạn vừa nhận được 50 hồng ngọc ");
-    }
-
+  @Override
+  public void reward(Player plKill) {
+    plKill.inventory.ruby += 50;
+    Service.gI().sendMoney(plKill);
+    Service.gI().sendThongBao(plKill, "Bạn vừa nhận được 50 hồng ngọc ");
+  }
 }

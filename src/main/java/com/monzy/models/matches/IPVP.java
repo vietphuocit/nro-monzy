@@ -4,25 +4,19 @@ import com.monzy.models.player.Player;
 
 public interface IPVP {
 
-    void start();
+  void start();
 
-    void finish();
+  void finish();
 
-    void dispose();
+  void dispose();
 
-    void update();
+  void update();
 
-    void reward(Player plWin);
+  void reward(Player plWin);
 
-    void sendResult(Player plLose, TYPE_LOSE_PVP typeLose);
+  void sendResult(Player plLose, TYPE_LOSE_PVP typeLose);
 
-    void lose(Player plLose, TYPE_LOSE_PVP typeLose);
+  void lose(Player plLose, TYPE_LOSE_PVP typeLose);
 
-    boolean isInPVP(Player pl);
-
+  boolean isInPVP(Player pl);
 }
-/**
- * Vui lòng không sao chép mã nguồn này dưới mọi hình thức
- * Hãy tôn trọng tác giả của mã nguồn này
- * Xin cảm ơn! - Girlkun75
- */

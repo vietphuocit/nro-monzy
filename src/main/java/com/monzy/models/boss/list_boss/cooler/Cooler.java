@@ -7,14 +7,13 @@ import com.monzy.models.player.Player;
 
 public class Cooler extends Boss {
 
-    public Cooler() throws Exception {
-        super(BossID.COOLER, BossesData.COOLER);
-    }
+  public Cooler() throws Exception {
+    super(BossID.COOLER, BossesData.COOLER);
+  }
 
-    @Override
-    public void reward(Player plKill) {
-        super.reward(plKill);
-        rewardDTL(plKill);
-    }
-
+  @Override
+  public void reward(Player plKill) {
+    super.reward(plKill);
+    rewardDTL(plKill);
+  }
 }

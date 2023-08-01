@@ -10,47 +10,48 @@ import java.util.logging.Logger;
 
 public class ServerLogSavePlayer implements Runnable {
 
-    private static ServerLogSavePlayer i;
-    private final List<String> list;
-    private BufferedWriter bw;
+  private static ServerLogSavePlayer i;
+  private final List<String> list;
+  private BufferedWriter bw;
 
-    private ServerLogSavePlayer() {
-        this.list = new ArrayList<>();
+  private ServerLogSavePlayer() {
+    this.list = new ArrayList<>();
+    try {
+      this.bw =
+          new BufferedWriter(
+              new FileWriter("log/log_save_player" + System.currentTimeMillis() + ".sql", true));
+      new Thread(this, "Log file save player").start();
+    } catch (IOException ex) {
+      Logger.getLogger(ServerLogSavePlayer.class.getName()).log(Level.SEVERE, null, ex);
+    }
+  }
+
+  public static ServerLogSavePlayer gI() {
+    if (i == null) {
+      i = new ServerLogSavePlayer();
+    }
+    return i;
+  }
+
+  @Override
+  public void run() {
+    while (true) {
+      while (!this.list.isEmpty()) {
+        String text = this.list.remove(0);
         try {
-            this.bw = new BufferedWriter(new FileWriter("log/log_save_player" + System.currentTimeMillis() + ".sql", true));
-            new Thread(this, "Log file save player").start();
+          bw.write(text.substring(text.indexOf(":") + 2) + "\n");
+          bw.flush();
         } catch (IOException ex) {
-            Logger.getLogger(ServerLogSavePlayer.class.getName()).log(Level.SEVERE, null, ex);
         }
+      }
+      try {
+        Thread.sleep(100);
+      } catch (InterruptedException ex) {
+      }
     }
+  }
 
-    public static ServerLogSavePlayer gI() {
-        if (i == null) {
-            i = new ServerLogSavePlayer();
-        }
-        return i;
-    }
-
-    @Override
-    public void run() {
-        while (true) {
-            while (!this.list.isEmpty()) {
-                String text = this.list.remove(0);
-                try {
-                    bw.write(text.substring(text.indexOf(":") + 2) + "\n");
-                    bw.flush();
-                } catch (IOException ex) {
-                }
-            }
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException ex) {
-            }
-        }
-    }
-
-    public void add(String text) {
-        list.add(text);
-    }
-
+  public void add(String text) {
+    list.add(text);
+  }
 }

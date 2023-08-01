@@ -7,35 +7,13 @@ import com.monzy.models.player.Player;
 
 public class Xuka extends Boss {
 
-    public Xuka() throws Exception {
-        super(BossID.XUKA, BossesData.XUKA);
-    }
+  public Xuka() throws Exception {
+    super(BossID.XUKA, BossesData.XUKA);
+  }
 
-    @Override
-    public void reward(Player plKill) {
-        rewardItem(plKill, 16);
-        super.reward(plKill);
-    }
-
+  @Override
+  public void reward(Player plKill) {
+    rewardItem(plKill, 16);
+    super.reward(plKill);
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

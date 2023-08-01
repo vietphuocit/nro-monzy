@@ -8,34 +8,37 @@ import com.monzy.models.player.Player;
 
 public class Whis extends Boss {
 
-    public Whis() throws Exception {
-        super(BossID.WISH, BossesData.WISH);
-    }
+  public Whis() throws Exception {
+    super(BossID.WISH, BossesData.WISH);
+  }
 
-    @Override
-    public void reward(Player plKill) {
-        rewardManhThienSu(plKill);
-        super.reward(plKill);
-    }
+  @Override
+  public void reward(Player plKill) {
+    rewardManhThienSu(plKill);
+    super.reward(plKill);
+  }
 
-    @Override
-    public int injured(Player plAtt, int damage, boolean piercing, boolean isMobAttack) {
-        if (!this.effectSkill.isShielding) {
-            return 0;
-        } else {
-            this.nPoint.subHP(1);
-            if (isDie()) {
-                this.setDie(plAtt);
-                die(plAtt);
-            }
-            return 1;
-        }
+  @Override
+  public int injured(Player plAtt, int damage, boolean piercing, boolean isMobAttack) {
+    if (!this.effectSkill.isShielding) {
+      return 0;
+    } else {
+      this.nPoint.subHP(1);
+      if (isDie()) {
+        this.setDie(plAtt);
+        die(plAtt);
+      }
+      return 1;
     }
+  }
 
-    @Override
-    public boolean chatS() {
-        Boss berus = BossManager.gI().getBosses().stream().filter(boss -> boss.id == BossID.BILL).findFirst().get();
-        return super.chatS() && berus.isDie();
-    }
-
+  @Override
+  public boolean chatS() {
+    Boss berus =
+        BossManager.gI().getBosses().stream()
+            .filter(boss -> boss.id == BossID.BILL)
+            .findFirst()
+            .get();
+    return super.chatS() && berus.isDie();
+  }
 }
