@@ -9,36 +9,40 @@ import com.monzy.services.*;
 import com.monzy.utils.Util;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Data;
 
+@Data
 public class BanDoKhoBau implements Runnable {
 
-  public int id;
-  public byte level;
-  public final List<Zone> zones;
+  private int id;
+  private int level;
+  private List<Zone> zones;
 
-  public Clan clan;
-  public boolean isOpened;
-  private long lastTimeOpen;
+  private Clan clan;
+  private Player player;
+  private boolean isOpened;
   private boolean running;
+  private long lastTimeOpen;
   private long lastTimeUpdate;
 
   public BanDoKhoBau(int id) {
     this.id = id;
     this.zones = new ArrayList<>();
     this.running = true;
-    new Thread(this, "Ban do kho bau").start();
+    new Thread(this, "Ban do kho bau " + id).start();
   }
 
   @Override
   public void run() {
     while (running) {
+      if (Util.canDoWithTime(lastTimeUpdate, 1000)) {
+        update();
+        lastTimeUpdate = System.currentTimeMillis();
+      }
       try {
-        Thread.sleep(10000);
-        if (Util.canDoWithTime(lastTimeUpdate, 10000)) {
-          update();
-          lastTimeUpdate = System.currentTimeMillis();
-        }
-      } catch (Exception ignored) {
+        Thread.sleep(1000);
+      } catch (Exception e) {
+        e.printStackTrace();
       }
     }
   }
@@ -53,17 +57,15 @@ public class BanDoKhoBau implements Runnable {
     }
   }
 
-  public void openBanDoKhoBau(Player plOpen, Clan clan, byte level) {
+  public void openBanDoKhoBau(Player player, Clan clan, byte level) {
     this.level = level;
-    this.lastTimeOpen = System.currentTimeMillis();
-    this.isOpened = true;
     this.clan = clan;
-    this.clan.timeOpenBanDoKhoBau = this.lastTimeOpen;
-    this.clan.playerOpenBanDoKhoBau = plOpen;
+    this.isOpened = true;
+    this.lastTimeOpen = System.currentTimeMillis();
     this.clan.banDoKhoBau = this;
 
     resetBanDo();
-    ChangeMapService.gI().goToDBKB(plOpen);
+    ChangeMapService.gI().goToDBKB(player);
     sendTextBanDoKhoBau();
   }
 
@@ -82,30 +84,18 @@ public class BanDoKhoBau implements Runnable {
   }
 
   public void finish() {
-    List<Player> playerInBDKB = new ArrayList<>();
-    for (Zone zone : zones) {
-      List<Player> players = zone.getPlayers();
-      for (Player pl : players) {
-        playerInBDKB.add(pl);
-        kickOutOfBDKB(pl);
+    for (Player player : this.clan.membersInGame) {
+      if (player.isDie()) PlayerService.gI().hoiSinh(player);
+      if (MapService.gI().isMapBanDoKhoBau(player.zone.map.mapId)) {
+        Service.gI().sendThongBao(player, "Hang Kho Báu Đã Sập Bạn Đang Được Đưa Ra Ngoài");
+        ChangeMapService.gI().changeMapBySpaceShip(player, 5, -1, 1038);
       }
     }
-    for (Player pl : playerInBDKB) {
-      ChangeMapService.gI().changeMapBySpaceShip(pl, 5, -1, 64);
-    }
-
+    this.level = 0;
     this.clan.banDoKhoBau = null;
     this.clan = null;
+    this.player = null;
     this.isOpened = false;
-  }
-
-  private void kickOutOfBDKB(Player player) {
-    if (MapService.gI().isMapBanDoKhoBau(player.zone.map.mapId)) {
-      Service.gI().sendThongBao(player, "Hang Kho Báu Đã Sập Bạn Đang Được Đưa Ra Ngoài");
-      ChangeMapService.gI().changeMapBySpaceShip(player, 5, -1, 1038);
-      running = false;
-      this.clan.banDoKhoBau = null;
-    }
   }
 
   public Zone getMapById(int mapId) {

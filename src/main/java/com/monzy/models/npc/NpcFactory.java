@@ -18,6 +18,7 @@ import com.monzy.models.item.Item;
 import com.monzy.models.map.Map;
 import com.monzy.models.map.MapMaBu.MapMaBu;
 import com.monzy.models.map.Zone;
+import com.monzy.models.map.bdkb.BanDoKhoBauService;
 import com.monzy.models.map.blackball.BlackBallWar;
 import com.monzy.models.map.doanhtrai.DoanhTrai;
 import com.monzy.models.map.doanhtrai.DoanhTraiService;
@@ -392,7 +393,7 @@ public class NpcFactory {
                       player,
                       ConstNpc.MENU_OPENED_DBKB,
                       "Bang hội của con đang đi tìm kho báu dưới biển cấp độ "
-                          + player.clan.banDoKhoBau.level
+                          + player.clan.banDoKhoBau.getLevel()
                           + "\nCon có muốn đi theo không?",
                       "Đồng ý",
                       "Từ chối");
@@ -403,11 +404,11 @@ public class NpcFactory {
           }
           if (player.iDMark.getIndexMenu() == ConstNpc.MENU_OPENED_DBKB) {
             if (select == 0) {
-              if (player.nPoint.power < BanDoKhoBauService.POWER_CAN_GO_TO_DBKB) {
+              if (player.nPoint.power < BanDoKhoBauService.POWER_HAS_GO_TO_DBKB) {
                 this.npcChat(
                     player,
                     "Sức mạnh của con phải ít nhất phải đạt "
-                        + Util.numberToMoney(BanDoKhoBauService.POWER_CAN_GO_TO_DBKB));
+                        + Util.numberToMoney(BanDoKhoBauService.POWER_HAS_GO_TO_DBKB));
                 return;
               }
               ChangeMapService.gI().goToDBKB(player);
@@ -416,11 +417,11 @@ public class NpcFactory {
           }
           if (player.iDMark.getIndexMenu() == ConstNpc.MENU_OPEN_DBKB) {
             if (select == 0) {
-              if (player.nPoint.power < BanDoKhoBauService.POWER_CAN_GO_TO_DBKB) {
+              if (player.nPoint.power < BanDoKhoBauService.POWER_HAS_GO_TO_DBKB) {
                 this.npcChat(
                     player,
                     "Sức mạnh của con phải ít nhất phải đạt "
-                        + Util.numberToMoney(BanDoKhoBauService.POWER_CAN_GO_TO_DBKB));
+                        + Util.numberToMoney(BanDoKhoBauService.POWER_HAS_GO_TO_DBKB));
                 return;
               }
               Input.gI().createFormChooseLevelBDKB(player);

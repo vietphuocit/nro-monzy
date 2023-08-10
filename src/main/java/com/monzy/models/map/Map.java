@@ -13,7 +13,7 @@ import com.monzy.models.npc.Npc;
 import com.monzy.models.npc.NpcFactory;
 import com.monzy.models.player.Player;
 import com.monzy.server.Manager;
-import com.monzy.services.BanDoKhoBauService;
+import com.monzy.models.map.bdkb.BanDoKhoBauService;
 import com.monzy.services.Service;
 import com.monzy.utils.Util;
 import java.util.ArrayList;

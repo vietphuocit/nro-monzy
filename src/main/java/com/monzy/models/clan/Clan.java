@@ -45,8 +45,6 @@ public class Clan {
   public final List<ClanMember> members;
   public final List<Player> membersInGame;
   public BanDoKhoBau banDoKhoBau;
-  public long timeOpenBanDoKhoBau;
-  public Player playerOpenBanDoKhoBau;
 
   public Clan() {
     this.id = NEXT_ID++;

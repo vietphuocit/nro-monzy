@@ -742,9 +742,19 @@ public class Service {
       BossManager.gI().showListBoss(player);
       return;
     }
-    if (text.equals("us")) {
-      DataGame.updateSkill(player.session);
-      return;
+    if (text.equals("thread")) {
+      int activeThreadCount = Thread.activeCount();
+      System.out.println("Số lượng luồng đang chạy: " + activeThreadCount);
+
+      Thread[] threads = new Thread[activeThreadCount];
+      Thread.enumerate(threads);
+
+      System.out.println("Tên của các luồng đang chạy:");
+      for (Thread thread : threads) {
+        if (thread != null) {
+          System.out.println(thread.getName());
+        }
+      }
     }
     if (text.equals("banv")) {
       long now = System.currentTimeMillis();

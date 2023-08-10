@@ -1,8 +1,9 @@
-package com.monzy.services;
+package com.monzy.models.map.bdkb;
 
 import com.monzy.models.item.Item;
-import com.monzy.models.map.bdkb.BanDoKhoBau;
 import com.monzy.models.player.Player;
+import com.monzy.services.InventoryService;
+import com.monzy.services.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ public class BanDoKhoBauService {
 
   private static BanDoKhoBauService i;
   public static final List<BanDoKhoBau> LIST_BAN_DO_KHO_BAU;
-  public static final long POWER_CAN_GO_TO_DBKB = 0;
+  public static final long POWER_HAS_GO_TO_DBKB = 0;
   public static final int MAX_AVAILABLE = 10;
   public static final int TIME_BAN_DO_KHO_BAU = 1800000;
 
@@ -51,7 +52,7 @@ public class BanDoKhoBauService {
     }
     BanDoKhoBau banDoKhoBau = null;
     for (BanDoKhoBau bdkb : LIST_BAN_DO_KHO_BAU) {
-      if (!bdkb.isOpened) {
+      if (!bdkb.isOpened()) {
         banDoKhoBau = bdkb;
         break;
       }

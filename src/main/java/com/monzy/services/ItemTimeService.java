@@ -4,6 +4,7 @@ import static com.monzy.models.item.ItemTime.*;
 
 import com.monzy.consts.ConstPlayer;
 import com.monzy.models.item.Item;
+import com.monzy.models.map.bdkb.BanDoKhoBauService;
 import com.monzy.models.player.Fusion;
 import com.monzy.models.player.Player;
 import com.monzy.utils.Logger;
@@ -205,9 +206,9 @@ public class ItemTimeService {
   }
 
   public void sendTextBanDoKhoBau(Player player) {
-    if (player.clan != null && player.clan.timeOpenBanDoKhoBau != 0) {
+    if (player.clan != null && player.clan.banDoKhoBau != null && player.clan.banDoKhoBau.getLastTimeOpen() != 0) {
       int secondPassed =
-              (int) ((System.currentTimeMillis() - player.clan.timeOpenBanDoKhoBau) / 1000);
+              (int) ((System.currentTimeMillis() - player.clan.banDoKhoBau.getLastTimeOpen()) / 1000);
       int secondsLeft = (BanDoKhoBauService.TIME_BAN_DO_KHO_BAU / 1000) - secondPassed;
       sendTextTime(player, BAN_DO_KHO_BAU, "Bản đồ kho báu", secondsLeft);
     }

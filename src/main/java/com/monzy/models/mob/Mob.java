@@ -65,7 +65,7 @@ public class Mob {
     this.maxTiemNang = (long) this.point.getHpFull() * (this.pTiemNang + Util.nextInt(-2, 2)) / 100;
   }
 
-  public static void initMobBanDoKhoBau(Mob mob, byte level) {
+  public static void initMobBanDoKhoBau(Mob mob, int level) {
     mob.point.dame = level * 3250 * mob.level * 4;
     mob.point.maxHp = level * 12472 * mob.level * 2 + level * 7263 * mob.tempId;
   }
