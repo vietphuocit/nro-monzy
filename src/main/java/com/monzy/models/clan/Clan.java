@@ -14,6 +14,7 @@ import com.network.io.Message;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import org.json.simple.JSONArray;
@@ -45,6 +46,7 @@ public class Clan {
   public final List<ClanMember> members;
   public final List<Player> membersInGame;
   public BanDoKhoBau banDoKhoBau;
+  public long lastTimeOpenBanDo;
 
   public Clan() {
     this.id = NEXT_ID++;
@@ -362,5 +364,11 @@ public class Clan {
     } catch (Exception e) {
       Logger.logException(Clan.class, e, "Có lỗi khi delete clan");
     }
+  }
+
+  public boolean hasGoneOpenDoanhTrai() {
+    LocalDate currentDate = LocalDate.now();
+    LocalDate lastOpenDate = LocalDate.ofEpochDay(lastTimeOpenDoanhTrai / (24 * 60 * 60 * 1000));
+    return currentDate.isAfter(lastOpenDate);
   }
 }

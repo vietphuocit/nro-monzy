@@ -5,6 +5,7 @@ import static com.monzy.models.item.ItemTime.*;
 import com.monzy.consts.ConstPlayer;
 import com.monzy.models.item.Item;
 import com.monzy.models.map.bdkb.BanDoKhoBauService;
+import com.monzy.models.map.doanhtrai.DoanhTraiService;
 import com.monzy.models.player.Fusion;
 import com.monzy.models.player.Player;
 import com.monzy.utils.Logger;
@@ -196,19 +197,17 @@ public class ItemTimeService {
   }
 
   public void sendTextDoanhTrai(Player player) {
-    //        if (player.clan != null && !player.clan.haveGoneDoanhTrai
-    //                && player.clan.timeOpenDoanhTrai != 0) {
-    //            int secondPassed = (int) ((System.currentTimeMillis() -
-    // player.clan.timeOpenDoanhTrai) / 1000);
-    //            int secondsLeft = (DoanhTrai.TIME_DOANH_TRAI / 1000) - secondPassed;
-    //            sendTextTime(player, DOANH_TRAI, "Doanh trại độc nhãn", secondsLeft);
-    //        }
+    if (player.clan != null && player.clan.doanhTrai != null && player.clan.lastTimeOpenDoanhTrai != 0) {
+      int secondPassed =
+              (int) ((System.currentTimeMillis() - player.clan.lastTimeOpenDoanhTrai) / 1000);
+      int secondsLeft = (DoanhTraiService.TIME_DOANH_TRAI / 1000) - secondPassed;
+      sendTextTime(player, BAN_DO_KHO_BAU, "Doanh trại độc nhãn", secondsLeft);}
   }
 
   public void sendTextBanDoKhoBau(Player player) {
-    if (player.clan != null && player.clan.banDoKhoBau != null && player.clan.banDoKhoBau.getLastTimeOpen() != 0) {
+    if (player.clan != null && player.clan.banDoKhoBau != null && player.clan.lastTimeOpenBanDo != 0) {
       int secondPassed =
-              (int) ((System.currentTimeMillis() - player.clan.banDoKhoBau.getLastTimeOpen()) / 1000);
+              (int) ((System.currentTimeMillis() - player.clan.lastTimeOpenBanDo) / 1000);
       int secondsLeft = (BanDoKhoBauService.TIME_BAN_DO_KHO_BAU / 1000) - secondPassed;
       sendTextTime(player, BAN_DO_KHO_BAU, "Bản đồ kho báu", secondsLeft);
     }

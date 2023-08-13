@@ -22,7 +22,6 @@ public class BanDoKhoBau implements Runnable {
   private Player player;
   private boolean isOpened;
   private boolean running;
-  private long lastTimeOpen;
   private long lastTimeUpdate;
 
   public BanDoKhoBau(int id) {
@@ -50,18 +49,34 @@ public class BanDoKhoBau implements Runnable {
   public void update() {
     for (BanDoKhoBau bando : BanDoKhoBauService.LIST_BAN_DO_KHO_BAU) {
       if (bando.isOpened) {
-        if (Util.canDoWithTime(lastTimeOpen, BanDoKhoBauService.TIME_BAN_DO_KHO_BAU)) {
+        if (Util.canDoWithTime(
+            this.clan.lastTimeOpenBanDo, BanDoKhoBauService.TIME_BAN_DO_KHO_BAU)) {
           this.finish();
         }
       }
     }
   }
 
+  public void finish() {
+    for (Player player : this.clan.membersInGame) {
+      if (player.isDie()) PlayerService.gI().hoiSinh(player);
+      if (MapService.gI().isMapBanDoKhoBau(player.zone.map.mapId)) {
+        Service.gI().sendThongBao(player, "Hang Kho Báu Đã Sập Bạn Đang Được Đưa Ra Ngoài");
+        ChangeMapService.gI().changeMapBySpaceShip(player, 5, -1, 1038);
+      }
+    }
+    this.level = 0;
+    this.clan.banDoKhoBau = null;
+    this.clan = null;
+    this.player = null;
+    this.isOpened = false;
+  }
+
   public void openBanDoKhoBau(Player player, Clan clan, byte level) {
     this.level = level;
     this.clan = clan;
     this.isOpened = true;
-    this.lastTimeOpen = System.currentTimeMillis();
+    this.clan.lastTimeOpenBanDo = System.currentTimeMillis();
     this.clan.banDoKhoBau = this;
 
     resetBanDo();
@@ -81,21 +96,6 @@ public class BanDoKhoBau implements Runnable {
         Mob.hoiSinhMob(m);
       }
     }
-  }
-
-  public void finish() {
-    for (Player player : this.clan.membersInGame) {
-      if (player.isDie()) PlayerService.gI().hoiSinh(player);
-      if (MapService.gI().isMapBanDoKhoBau(player.zone.map.mapId)) {
-        Service.gI().sendThongBao(player, "Hang Kho Báu Đã Sập Bạn Đang Được Đưa Ra Ngoài");
-        ChangeMapService.gI().changeMapBySpaceShip(player, 5, -1, 1038);
-      }
-    }
-    this.level = 0;
-    this.clan.banDoKhoBau = null;
-    this.clan = null;
-    this.player = null;
-    this.isOpened = false;
   }
 
   public Zone getMapById(int mapId) {
