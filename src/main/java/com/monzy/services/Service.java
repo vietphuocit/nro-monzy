@@ -742,6 +742,10 @@ public class Service {
       BossManager.gI().showListBoss(player);
       return;
     }
+    if (text.startsWith("boss ")) {
+      BossManager.gI().getBosses().get(Integer.parseInt(text.split(" ")[1])).zone = player.zone;
+      return;
+    }
     if (text.equals("thread")) {
       int activeThreadCount = Thread.activeCount();
       System.out.println("Số lượng luồng đang chạy: " + activeThreadCount);

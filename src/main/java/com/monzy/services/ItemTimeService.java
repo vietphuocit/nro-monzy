@@ -5,7 +5,7 @@ import static com.monzy.models.item.ItemTime.*;
 import com.monzy.consts.ConstPlayer;
 import com.monzy.models.item.Item;
 import com.monzy.models.map.bdkb.BanDoKhoBauService;
-import com.monzy.models.map.doanhtrai.DoanhTraiService;
+import com.monzy.models.map.doanhtraidocnhan.DoanhTraiDocNhanService;
 import com.monzy.models.player.Fusion;
 import com.monzy.models.player.Player;
 import com.monzy.utils.Logger;
@@ -197,11 +197,11 @@ public class ItemTimeService {
   }
 
   public void sendTextDoanhTrai(Player player) {
-    if (player.clan != null && player.clan.doanhTrai != null && player.clan.lastTimeOpenDoanhTrai != 0) {
+    if (player.clan != null && player.clan.doanhTraiDocNhan != null && player.clan.lastTimeOpenDTDN != 0) {
       int secondPassed =
-              (int) ((System.currentTimeMillis() - player.clan.lastTimeOpenDoanhTrai) / 1000);
-      int secondsLeft = (DoanhTraiService.TIME_DOANH_TRAI / 1000) - secondPassed;
-      sendTextTime(player, BAN_DO_KHO_BAU, "Doanh trại độc nhãn", secondsLeft);}
+              (int) ((System.currentTimeMillis() - player.clan.lastTimeOpenDTDN) / 1000);
+      int secondsLeft = (DoanhTraiDocNhanService.TIME_DOANH_TRAI / 1000) - secondPassed;
+      sendTextTime(player, DOANH_TRAI, "Doanh trại độc nhãn", secondsLeft);}
   }
 
   public void sendTextBanDoKhoBau(Player player) {

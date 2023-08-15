@@ -2,7 +2,7 @@ package com.monzy.models.clan;
 
 import com.database.Database;
 import com.monzy.models.map.bdkb.BanDoKhoBau;
-import com.monzy.models.map.doanhtrai.DoanhTrai;
+import com.monzy.models.map.doanhtraidocnhan.DoanhTraiDocNhan;
 import com.monzy.models.player.Player;
 import com.monzy.server.Client;
 import com.monzy.server.Manager;
@@ -14,7 +14,6 @@ import com.network.io.Message;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import org.json.simple.JSONArray;
@@ -42,11 +41,13 @@ public class Clan {
   public boolean haveGoneDoanhTrai;
   public long timeOpenDoanhTrai;
   public Player playerOpenDoanhTrai;
-  public DoanhTrai doanhTrai;
+//  public DoanhTrai doanhTrai;
   public final List<ClanMember> members;
   public final List<Player> membersInGame;
   public BanDoKhoBau banDoKhoBau;
   public long lastTimeOpenBanDo;
+  public DoanhTraiDocNhan doanhTraiDocNhan;
+  public long lastTimeOpenDTDN;
 
   public Clan() {
     this.id = NEXT_ID++;
@@ -367,8 +368,9 @@ public class Clan {
   }
 
   public boolean hasGoneOpenDoanhTrai() {
-    LocalDate currentDate = LocalDate.now();
-    LocalDate lastOpenDate = LocalDate.ofEpochDay(lastTimeOpenDoanhTrai / (24 * 60 * 60 * 1000));
-    return currentDate.isAfter(lastOpenDate);
+    return false;
+//    LocalDate currentDate = LocalDate.now();
+//    LocalDate lastOpenDate = LocalDate.ofEpochDay(lastTimeOpenDoanhTrai / (24 * 60 * 60 * 1000));
+//    return currentDate.isAfter(lastOpenDate);
   }
 }

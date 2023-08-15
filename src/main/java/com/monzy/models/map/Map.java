@@ -7,8 +7,8 @@ import com.monzy.models.map.MapMaBu.MapMaBu;
 import com.monzy.models.map.bdkb.BanDoKhoBau;
 import com.monzy.models.map.bdkb.BanDoKhoBauService;
 import com.monzy.models.map.blackball.BlackBallWar;
-import com.monzy.models.map.doanhtrai.DoanhTrai;
-import com.monzy.models.map.doanhtrai.DoanhTraiService;
+import com.monzy.models.map.doanhtraidocnhan.DoanhTraiDocNhan;
+import com.monzy.models.map.doanhtraidocnhan.DoanhTraiDocNhanService;
 import com.monzy.models.mob.Mob;
 import com.monzy.models.npc.Npc;
 import com.monzy.models.npc.NpcFactory;
@@ -92,7 +92,7 @@ public class Map implements Runnable {
         nZone = MapMaBu.AVAILABLE;
         break;
       case ConstMap.MAP_DOANH_TRAI:
-        nZone = DoanhTrai.MAX_AVAILABLE;
+        nZone = DoanhTraiDocNhanService.MAX_AVAILABLE;
         break;
       case ConstMap.MAP_BAN_DO_KHO_BAU:
         nZone = BanDoKhoBauService.MAX_AVAILABLE;
@@ -104,7 +104,7 @@ public class Map implements Runnable {
       this.zones.add(zone);
       switch (this.type) {
         case ConstMap.MAP_DOANH_TRAI:
-          DoanhTraiService.gI().addMapDoanhTrai(i, zone);
+          DoanhTraiDocNhan.addZone(i, zone);
           break;
         case ConstMap.MAP_BAN_DO_KHO_BAU:
           BanDoKhoBau.addZone(i, zone);

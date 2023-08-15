@@ -20,8 +20,7 @@ import com.monzy.models.map.MapMaBu.MapMaBu;
 import com.monzy.models.map.Zone;
 import com.monzy.models.map.bdkb.BanDoKhoBauService;
 import com.monzy.models.map.blackball.BlackBallWar;
-import com.monzy.models.map.doanhtrai.DoanhTrai;
-import com.monzy.models.map.doanhtrai.DoanhTraiService;
+import com.monzy.models.map.doanhtraidocnhan.DoanhTraiDocNhanService;
 import com.monzy.models.map.nguhanhson.nguhs;
 import com.monzy.models.matches.PVPService;
 import com.monzy.models.matches.pvp.DaiHoiVoThuat;
@@ -1978,22 +1977,22 @@ public class NpcFactory {
                 "Đóng");
             return;
           }
-          if (player.clan.getMembers().size() < DoanhTrai.N_PLAYER_CLAN) {
+          if (player.clan.getMembers().size() < DoanhTraiDocNhanService.N_PLAYER_IN_CLAN) {
             this.createOtherMenu(
                 player,
                 ConstNpc.IGNORE_MENU,
-                "Bang hội phải có ít nhất " + DoanhTrai.N_PLAYER_CLAN + " thành viên mới có thể mở",
+                "Bang hội phải có ít nhất " + DoanhTraiDocNhanService.N_PLAYER_IN_CLAN + " thành viên mới có thể mở",
                 "Đóng");
             return;
           }
-          if (player.clan.doanhTrai != null) {
+          if (player.clan.doanhTraiDocNhan != null) {
             createOtherMenu(
                 player,
                 ConstNpc.MENU_JOIN_DOANH_TRAI,
                 "Bang hội của ngươi đang đánh trại độc nhãn\n"
                     + "Thời gian còn lại là "
                     + TimeUtil.getSecondLeft(
-                        player.clan.doanhTrai.getLastTimeOpen(), DoanhTrai.TIME_DOANH_TRAI / 1000)
+                        player.clan.lastTimeOpenDTDN, DoanhTraiDocNhanService.TIME_DOANH_TRAI / 1000)
                     + ". Ngươi có muốn tham gia không?",
                 "Tham gia",
                 "Không",
@@ -2010,12 +2009,12 @@ public class NpcFactory {
               nPlSameClan++;
             }
           }
-          if (nPlSameClan < DoanhTrai.N_PLAYER_MAP) {
+          if (nPlSameClan < DoanhTraiDocNhanService.N_PLAYER_IN_MAP) {
             createOtherMenu(
                 player,
                 ConstNpc.IGNORE_MENU,
                 "Ngươi phải có ít nhất "
-                    + DoanhTrai.N_PLAYER_MAP
+                    + DoanhTraiDocNhanService.N_PLAYER_IN_MAP
                     + " đồng đội cùng bang đứng gần mới có thể\nvào\n"
                     + "tuy nhiên ta khuyên ngươi nên đi cùng với 3-4 người để khỏi chết.\n"
                     + "Hahaha.",
@@ -2032,12 +2031,12 @@ public class NpcFactory {
                 "Hướng\ndẫn\nthêm");
             return;
           }
-          if (player.clan.haveGoneDoanhTrai) {
+          if (player.clan.hasGoneOpenDoanhTrai()) {
             createOtherMenu(
                 player,
                 ConstNpc.IGNORE_MENU,
                 "Bang hội của ngươi đã đi trại lúc "
-                    + TimeUtil.formatTime(player.clan.lastTimeOpenDoanhTrai, "HH:mm:ss")
+                    + TimeUtil.formatTime(player.clan.lastTimeOpenDTDN, "HH:mm:ss")
                     + " hôm nay. Người mở\n"
                     + "("
                     + player.clan.playerOpenDoanhTrai
@@ -2063,7 +2062,7 @@ public class NpcFactory {
           switch (player.iDMark.getIndexMenu()) {
             case ConstNpc.MENU_JOIN_DOANH_TRAI:
               if (select == 0) {
-                DoanhTraiService.gI().joinDoanhTrai(player);
+                DoanhTraiDocNhanService.gI().openDoanhTraiDocNhan(player);
               } else if (select == 2) {
                 NpcService.gI().createTutorial(player, this.avartar, ConstNpc.HUONG_DAN_DOANH_TRAI);
               }

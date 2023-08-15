@@ -97,7 +97,7 @@ public class MapService {
       return getMapById(mapId).zones.get(0);
     }
     if (this.isMapDoanhTrai(mapId)) {
-      if (player.clan == null || player.clan.doanhTrai == null) {
+      if (player.clan == null || player.clan.doanhTraiDocNhan == null) {
         return null;
       }
       if (this.isMapDoanhTrai(player.zone.map.mapId)) {
@@ -112,7 +112,7 @@ public class MapService {
           }
         }
       }
-      return player.clan.doanhTrai.getMapById(mapId);
+      return player.clan.doanhTraiDocNhan.getMapById(mapId);
     }
     if (this.isMapBanDoKhoBau(mapId)) {
       if (player.clan == null || player.clan.banDoKhoBau == null) {

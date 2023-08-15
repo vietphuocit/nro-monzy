@@ -47,12 +47,9 @@ public class BanDoKhoBau implements Runnable {
   }
 
   public void update() {
-    for (BanDoKhoBau bando : BanDoKhoBauService.LIST_BAN_DO_KHO_BAU) {
-      if (bando.isOpened) {
-        if (Util.canDoWithTime(
-            this.clan.lastTimeOpenBanDo, BanDoKhoBauService.TIME_BAN_DO_KHO_BAU)) {
-          this.finish();
-        }
+    if (this.isOpened) {
+      if (Util.canDoWithTime(this.clan.lastTimeOpenBanDo, BanDoKhoBauService.TIME_BAN_DO_KHO_BAU)) {
+        this.finish();
       }
     }
   }
