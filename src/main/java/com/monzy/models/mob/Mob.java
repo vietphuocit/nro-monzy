@@ -171,6 +171,13 @@ public class Mob {
     if (this.isDie() && !Maintenance.isRunning) {
       switch (zone.map.type) {
         case ConstMap.MAP_DOANH_TRAI:
+          if(zone.getBosses().size() > 0 && tempId == 22) {
+            if (Util.canDoWithTime(lastTimeDie, 5000)) {
+              this.hoiSinh();
+              this.sendMobHoiSinh();
+            }
+          }
+          break;
         case ConstMap.MAP_BAN_DO_KHO_BAU:
           break;
         default:

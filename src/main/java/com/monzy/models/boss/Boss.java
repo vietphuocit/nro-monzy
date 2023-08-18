@@ -13,7 +13,6 @@ import com.monzy.server.ServerNotify;
 import com.monzy.services.*;
 import com.monzy.utils.SkillUtil;
 import com.monzy.utils.Util;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -170,7 +169,9 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
             .getMapJoin()[
             Util.nextInt(0, Math.min(10, this.data[this.currentLevel].getMapJoin().length - 1))];
     // to do: check boss in map
-    return MapService.gI().getMapWithRandZone(mapId);
+    Zone zone = MapService.gI().getMapWithRandZone(mapId);
+    if (zone.getBosses().size() != 0 && MapService.gI().isMapDoanhTrai(zone.map.mapId)) return getMapJoin();
+    return zone;
   }
 
   @Override
@@ -387,7 +388,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
 
   @Override
   public void attack() {
-    if (Util.canDoWithTime(this.lastTimeAttack, 100) && this.typePk == ConstPlayer.PK_ALL) {
+    if (Util.canDoWithTime(this.lastTimeAttack, 333) && this.typePk == ConstPlayer.PK_ALL) {
       this.lastTimeAttack = System.currentTimeMillis();
       try {
         Player pl =

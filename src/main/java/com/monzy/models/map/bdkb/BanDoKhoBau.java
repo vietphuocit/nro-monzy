@@ -28,7 +28,7 @@ public class BanDoKhoBau implements Runnable {
     this.id = id;
     this.zones = new ArrayList<>();
     this.running = true;
-    new Thread(this, "Ban do kho bau " + id).start();
+    new Thread(this, "Bản đồ kho báu " + id).start();
   }
 
   @Override

@@ -5,17 +5,17 @@ import com.monzy.models.boss.*;
 import com.monzy.models.map.Zone;
 import com.monzy.models.skill.Skill;
 
-public class TrungUyXanhLo extends Boss {
-  public TrungUyXanhLo(Zone zone, int dame, int hp) throws Exception {
+public class NinjaAoTimClone extends Boss {
+  public NinjaAoTimClone(int id, Zone zone, int dame, int hp) throws Exception {
     super(
-        BossID.TRUNG_UY_XANH_LO,
+        id,
         new BossData(
-            "Trung Uý Xanh Lơ", // name
+            "Ninja Áo Tím", // name
             ConstPlayer.TRAI_DAT, // gender
-            new short[] {135, 136, 137, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+            new short[] {123, 124, 125, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
             dame, // dame
             new int[] {hp}, // hp
-            new int[] {62}, // map join
+            new int[] {57}, // map join
             new int[][] {{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
             new String[] {}, // text chat 1
             new String[] {}, // text chat 2

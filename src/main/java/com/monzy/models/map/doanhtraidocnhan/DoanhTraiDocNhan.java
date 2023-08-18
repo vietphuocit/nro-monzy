@@ -1,6 +1,6 @@
 package com.monzy.models.map.doanhtraidocnhan;
 
-import com.monzy.models.boss.list_boss.doanh_trai.TrungUyTrang;
+import com.monzy.models.boss.list_boss.doanh_trai.BossDoanhTrai;
 import com.monzy.models.clan.Clan;
 import com.monzy.models.map.Zone;
 import com.monzy.models.mob.Mob;
@@ -8,6 +8,7 @@ import com.monzy.models.player.Player;
 import com.monzy.services.*;
 import com.monzy.utils.Util;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import lombok.Data;
 
@@ -27,7 +28,7 @@ public class DoanhTraiDocNhan implements Runnable {
     this.id = id;
     this.zones = new ArrayList<>();
     this.running = true;
-    new Thread(this, "Doanh Trai Doc Nhan " + id).start();
+    new Thread(this, "Doanh trại độc nhãn " + id).start();
   }
 
   @Override
@@ -84,17 +85,13 @@ public class DoanhTraiDocNhan implements Runnable {
   }
 
   private void resetDoanhTrai() {
-    long totalDame = 0;
-    long totalHp = 0;
-    for (Player pl : this.clan.membersInGame) {
-      totalDame += pl.nPoint.dame;
-      totalHp += pl.nPoint.hpMax;
-    }
+    int maxDame = this.clan.membersInGame.stream().max(Comparator.comparingInt(Player::getHPMax)).get().getSDMax();
+    int maxHp = this.clan.membersInGame.stream().max(Comparator.comparingInt(Player::getHPMax)).get().getHPMax();
     // Hồi sinh quái
     for (Zone zone : this.zones) {
       for (Mob mob : zone.mobs) {
-        mob.point.dame = 1;
-        mob.point.maxHp = (int) totalDame;
+        mob.point.dame = maxHp / 20;
+        mob.point.maxHp = maxDame * 20;
         mob.hoiSinh();
       }
     }
@@ -104,7 +101,7 @@ public class DoanhTraiDocNhan implements Runnable {
     }
     // Hồi sinh boss
     try {
-      new TrungUyTrang(this.getMapById(59));
+      new BossDoanhTrai(this, maxHp / 10, maxDame * 40);
     } catch (Exception e) {
       e.printStackTrace();
     }

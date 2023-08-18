@@ -899,4 +899,12 @@ public class Player {
         || inventory.itemsBody.get(5).template.id == 1011
         || inventory.itemsBody.get(5).template.id == 1012;
   }
+
+  public int getHPMax() {
+    return nPoint.hpMax;
+  }
+
+  public int getSDMax() {
+    return nPoint.dame;
+  }
 }

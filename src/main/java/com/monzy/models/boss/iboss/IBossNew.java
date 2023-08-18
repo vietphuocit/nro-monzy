@@ -29,7 +29,7 @@ public interface IBossNew {
 
   void reward(Player plKill);
 
-  void attack();
+  void attack() throws Exception;
 
   // loop
   void rest();

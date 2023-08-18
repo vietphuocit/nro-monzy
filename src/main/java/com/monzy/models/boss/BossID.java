@@ -28,7 +28,6 @@ public class BossID {
   public static final int XEN_CON_2 = -104;
   public static final int XEN_CON_3 = -105;
   public static final int XEN_CON_4 = -106;
-  public static final int TRUNG_UY_TRANG = -200;
   public static final int COOLER_GOLD = -201;
   public static final int VUA_COLD = -202;
   public static final int HIT = -204;
@@ -96,6 +95,19 @@ public class BossID {
   public static final int ZAMASU = -2005;
   public static final int THAN_ZAMASU = -2006;
   public static final int FIDE_GOLD = -2007;
+  // BOSS DOANH TRAI
+  public static final int TRUNG_UY_TRANG = -2008;
+  public static final int TRUNG_UY_XANH_LO = -2009;
+  public static final int TRUNG_UY_THEP = -2010;
+  public static final int NINJA_AO_TIM = -2011;
+  public static final int NINJA_AO_TIM_CLONE_1 = -2012;
+  public static final int NINJA_AO_TIM_CLONE_2 = -2013;
+  public static final int NINJA_AO_TIM_CLONE_3 = -2014;
+  public static final int NINJA_AO_TIM_CLONE_4 = -2015;
+  public static final int ROBOT_VE_SI = -2016;
+  public static final int ROBOT_VE_SI_1 = -2017;
+  public static final int ROBOT_VE_SI_2 = -2018;
+  public static final int ROBOT_VE_SI_3 = -2019;
 
   private BossID() {}
 }

@@ -194,35 +194,36 @@ public class ChangeMapService {
   }
 
   /** Chuyển map bằng tàu vũ trụ */
-  public void changeMapBySpaceShip(Player player, int mapId, int zone, int x) {
-    if (!prepareForSpaceShipChangeMap(player)) return;
-    changeMap(player, null, mapId, zone, x, 5, AUTO_SPACE_SHIP);
-  }
-
-  public void changeMapBySpaceShip(Player player, Zone zoneJoin, int x) {
-    if (!prepareForSpaceShipChangeMap(player)) return;
-    changeMap(player, zoneJoin, -1, -1, x, 5, AUTO_SPACE_SHIP);
+  public void changeMapBySpaceShip(Player pl, int mapId, int zone, int x) {
+    if (!pl.isAdmin() || !pl.isBoss) {
+      if (prepareForSpaceShipChangeMap(pl)) return;
+      changeMap(pl, null, mapId, zone, x, 5, AUTO_SPACE_SHIP);
+    }
   }
 
   private boolean prepareForSpaceShipChangeMap(Player player) {
-    if (player.isBoss) {
-      return false;
-    }
-    if (player.idNRNM != -1) {
-      Service.gI().sendThongBaoOK(player, "Không thể thực hiện khi có ngọc rồng namec");
-      return false;
-    }
     if (player.isDie()) {
       if (player.haveTennisSpaceShip) {
         Service.gI().hsChar(player, player.nPoint.hpMax, player.nPoint.mpMax);
       } else {
         Service.gI().hsChar(player, 1, 1);
       }
-    } else if (player.haveTennisSpaceShip) {
-      player.nPoint.setFullHpMp();
-      PlayerService.gI().sendInfoHpMp(player);
+    } else {
+      if (player.haveTennisSpaceShip) {
+        player.nPoint.setFullHpMp();
+        PlayerService.gI().sendInfoHpMp(player);
+      }
     }
-    return true;
+    if (player.idNRNM != -1) {
+      Service.gI().sendThongBaoOK(player, "Không thể thực hiện khi có ngọc rồng namec");
+      return true;
+    }
+    return false;
+  }
+
+  public void changeMapBySpaceShip(Player pl, Zone zoneJoin, int x) {
+    if (prepareForSpaceShipChangeMap(pl)) return;
+    changeMap(pl, zoneJoin, -1, -1, x, 5, AUTO_SPACE_SHIP);
   }
 
   /** Chuyển map đứng trên mặt đất */

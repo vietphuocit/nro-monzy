@@ -742,8 +742,8 @@ public class Service {
       BossManager.gI().showListBoss(player);
       return;
     }
-    if (text.startsWith("boss ")) {
-      BossManager.gI().getBosses().get(Integer.parseInt(text.split(" ")[1])).zone = player.zone;
+    if (text.startsWith("xy")) {
+      System.out.println(player.location.x + " - " + player.location.y);
       return;
     }
     if (text.equals("thread")) {
