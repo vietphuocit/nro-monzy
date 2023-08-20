@@ -30,16 +30,15 @@ import com.monzy.services.ItemService;
 import com.monzy.services.MapService;
 import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
-
 import java.io.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 
 public class Manager {
 
@@ -650,7 +649,7 @@ public class Manager {
         itemTemp.id = rs.getShort("id");
         itemTemp.type = rs.getByte("type");
         itemTemp.gender = rs.getByte("gender");
-        itemTemp.name = rs.getString("name");
+        itemTemp.name = rs.getShort("id") + " " + rs.getString("name");
         itemTemp.description = rs.getString("description");
         itemTemp.iconID = rs.getShort("icon_id");
         itemTemp.part = rs.getShort("part");

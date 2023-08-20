@@ -32,7 +32,7 @@ public class ShopServiceNew {
     return ShopServiceNew.I;
   }
 
-  public void opendShop(Player player, String tagName, boolean allGender) {
+  public void openShop(Player player, String tagName, boolean allGender) {
     if (tagName.equals("ITEMS_LUCKY_ROUND")) {
       openShopType4(player, tagName, player.inventory.itemsBoxCrackBall);
       return;
@@ -356,7 +356,7 @@ public class ShopServiceNew {
     }
     InventoryService.gI().addItemBag(player, ItemService.gI().createItemFromItemShop(is));
     InventoryService.gI().sendItemBags(player);
-    opendShop(player, shop.tagName, true);
+    openShop(player, shop.tagName, true);
   }
 
   /**

@@ -799,8 +799,7 @@ public class Input {
         pl,
         VND_TO_HONG_NGOC,
         "Quy đổi Hồng Ngọc tỉ lệ 1-1"
-            + "\n50.000 Vnd = 50.000 Hồng ngọc "
-            + "\nNạp tiền Tại: MONZY ",
+            + "\n50.000 Vnd = 50.000 Hồng ngọc ",
         new SubInput("Nhập số lượng muốn đổi", NUMERIC));
   }
 
@@ -810,8 +809,7 @@ public class Input {
         VND_TO_THOI_VANG,
         "Quy đổi Thỏi Vàng"
             + "\nNhập 10 Có nghĩa là  10.000đ"
-            + "\nTỉ Lệ Quy Đổi 10.000đ = 40 Thỏi Vàng"
-            + "\nNạp tiền Tại: MONZY ",
+            + "\nTỉ Lệ Quy Đổi 10.000đ = 40 Thỏi Vàng",
         new SubInput("Nhập số lượng muốn đổi", NUMERIC));
   }
 

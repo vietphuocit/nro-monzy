@@ -8,7 +8,6 @@ import com.monzy.server.Client;
 import com.monzy.server.Manager;
 import com.monzy.server.ServerManager;
 import com.monzy.utils.Util;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -36,17 +35,8 @@ public class NgocRongNamecService implements Runnable {
 
   public void initNgocRongNamec(
       byte type) { // type 0:INIT NGOC RONG, type 1: INIT HOA THACH NGOC RONG
-    ArrayList<Integer> listMap = new ArrayList<>();
-    listMap.add(8);
-    listMap.add(9);
-    listMap.add(10);
-    listMap.add(11);
-    listMap.add(12);
-    listMap.add(13);
-    listMap.add(31);
-    listMap.add(32);
-    listMap.add(33);
-    listMap.add(34);
+    ArrayList<Integer> listMap =
+        new ArrayList<>(Arrays.asList(8, 9, 10, 11, 12, 13, 31, 32, 33, 34));
     for (byte i = 0; i < (byte) 7; i++) {
       int index = Util.nextInt(0, listMap.size() - 1);
       int idZone = Util.nextInt(0, Manager.MAPS.get(listMap.get(index)).zones.size() - 1);

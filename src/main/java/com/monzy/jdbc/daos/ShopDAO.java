@@ -85,7 +85,7 @@ public class ShopDAO {
       PreparedStatement ps =
           con.prepareStatement(
               "select * from item_shop where is_sell = 1 and tab_id = ? "
-                  + "order by create_time desc");
+                  + "order by id asc");
       ps.setInt(1, tabShop.id);
       ResultSet rs = ps.executeQuery();
       while (rs.next()) {
@@ -108,6 +108,7 @@ public class ShopDAO {
           ps.close();
         }
       } catch (SQLException ex) {
+        System.err.println(ex.getMessage());
       }
     } catch (Exception e) {
       Logger.logException(ShopDAO.class, e);

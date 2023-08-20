@@ -96,24 +96,24 @@ public class MapService {
     if (isMapOffline(mapId)) {
       return getMapById(mapId).zones.get(0);
     }
-//    if (this.isMapDoanhTrai(mapId)) {
-//      if (player.clan == null || player.clan.doanhTraiDocNhan == null) {
-//        return null;
-//      }
-//      if (this.isMapDoanhTrai(player.zone.map.mapId)) {
-//        for (Mob mob : player.zone.mobs) {
-//          if (!mob.isDie()) {
-//            return null;
-//          }
-//        }
-//        for (Player boss : player.zone.getBosses()) {
-//          if (!boss.isDie()) {
-//            return null;
-//          }
-//        }
-//      }
-//      return player.clan.doanhTraiDocNhan.getMapById(mapId);
-//    }
+    if (this.isMapDoanhTrai(mapId)) {
+      if (player.clan == null || player.clan.doanhTraiDocNhan == null) {
+        return null;
+      }
+      if (this.isMapDoanhTrai(player.zone.map.mapId)) {
+        for (Mob mob : player.zone.mobs) {
+          if (!mob.isDie()) {
+            return null;
+          }
+        }
+        for (Player boss : player.zone.getBosses()) {
+          if (!boss.isDie()) {
+            return null;
+          }
+        }
+      }
+      return player.clan.doanhTraiDocNhan.getMapById(mapId);
+    }
     if (this.isMapBanDoKhoBau(mapId)) {
       if (player.clan == null || player.clan.banDoKhoBau == null) {
         return null;

@@ -451,7 +451,7 @@ public class CombineService {
                   + " hồng ngọc";
           this.baHatMit.createOtherMenu(
               player,
-              ConstNpc.MENU_NANG_CAP_DO_HD,
+              ConstNpc.MENU_START_COMBINE,
               WordUtils.capitalize(npcSay),
               "Nâng cấp",
               "Từ chối");
@@ -518,7 +518,7 @@ public class CombineService {
                   + " hồng ngọc";
           this.baHatMit.createOtherMenu(
               player,
-              ConstNpc.MENU_NANG_CAP_DO_HD,
+              ConstNpc.MENU_START_COMBINE,
               WordUtils.capitalize(npcSay),
               "Nâng cấp",
               "Từ chối");
