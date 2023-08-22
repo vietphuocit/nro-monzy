@@ -34,12 +34,12 @@ public class Database {
     private static final HikariConfig config = new HikariConfig();
     private static final HikariDataSource ds;
     public static boolean LOG_QUERY = false;
-    private static String DRIVER = "com.mysql.jdbc.Driver";
+    private static String DRIVER = "com.mysql.cj.jdbc.Driver";
     private static String DB_HOST = "localhost";
     private static String DB_PORT = "3306";
     private static String DB_NAME = "monzy";
-    private static String DB_USER = "root";
-    private static String DB_PASSWORD = "";
+    private static String DB_USER = "vietphuocit";
+    private static String DB_PASSWORD = "pHUOCTK123..";
     private static int MIN_CONN = 1;
     private static int MAX_CONN = 1;
     private static long MAX_LIFE_TIME = 120000L;

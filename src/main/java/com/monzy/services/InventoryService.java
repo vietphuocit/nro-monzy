@@ -301,11 +301,11 @@ public class InventoryService {
       case 4:
       case 5:
       case 32:
+      case 21:
+      case 11:
       case 23:
       case 24:
-      case 11:
       case 72:
-      case 21:
       case 27:
         break;
       default:
@@ -345,10 +345,9 @@ public class InventoryService {
       case 32:
         index = 6;
         break;
-      case 23:
-      case 24:
+      case 21:
         if (!player.isPet) {
-          index = 9;
+          index = 7;
         }
         break;
       case 11:
@@ -356,14 +355,15 @@ public class InventoryService {
           index = 8;
         }
         break;
+      case 23:
+      case 24:
+        if (!player.isPet) {
+          index = 9;
+        }
+        break;
       case 72:
         if (!player.isPet) {
           index = 10;
-        }
-        break;
-      case 21:
-        if (!player.isPet) {
-          index = 7;
         }
         break;
       case 27:

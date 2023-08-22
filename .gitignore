@@ -2,10 +2,6 @@
 
 dependency-reduced-pom.xml
 
-Dockerfile
-
-/data/monzy/monzy.properties
-
 /target
 
 /sql

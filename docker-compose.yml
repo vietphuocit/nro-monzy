@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:8.0.26
+    environment:
+      MYSQL_ROOT_PASSWORD: "pHUOCTK123.."
+      MYSQL_DATABASE: "monzy"
+      MYSQL_USER: "vietphuocit"
+      MYSQL_PASSWORD: "pHUOCTK123.."
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql-init-scripts:/docker-entrypoint-initdb.d
+    command: --log-bin-trust-function-creators=1
+
+  build:
+    image: maven:3.8.1-openjdk-8
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: mvn clean install
+
+  server:
+    image: openjdk:8-jdk
+    volumes:
+      - ./data:/app/data
+      - ./target/Monzy-1.0-SNAPSHOT.jar:/app/Monzy-1.0-SNAPSHOT.jar
+    ports:
+      - "14445:14445"
+    working_dir: /app
+    command: java -jar Monzy-1.0-SNAPSHOT.jar
