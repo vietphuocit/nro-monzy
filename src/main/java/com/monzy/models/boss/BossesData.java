@@ -1060,6 +1060,274 @@ public class BossesData {
           new String[] {}, // text chat 2
           new String[] {}, // text chat 3
           REST_24_H);
+
+    /**
+     * Boss DHVT 23
+     */
+    public static final BossData SOI_HEC_QUYN =
+            BossData.builder()
+                    .name("Sói Hẹc Quyn")
+                    .gender(ConstPlayer.TRAI_DAT)
+                    .dame(1000)
+                    .hp(new int[] {10000})
+                    .outfit(new short[] {394, 395, 396, -1, -1, -1})
+                    .mapJoin(new int[] {129})
+                    .skillTemp(
+                            new int[][] {
+                                    {Skill.DRAGON, 1, 100},
+                                    {Skill.DRAGON, 2, 200},
+                                    {Skill.DRAGON, 3, 300},
+                                    {Skill.DRAGON, 7, 700},
+                                    {Skill.KAMEJOKO, 1, 1000},
+                                    {Skill.KAMEJOKO, 2, 1200},
+                                    {Skill.KAMEJOKO, 5, 1500},
+                                    {Skill.KAMEJOKO, 7, 1700},
+                                    {Skill.GALICK, 1, 100}
+                            })
+                    .secondsRest(REST_5_S)
+                    .build();
+    public static final BossData O_DO =
+            BossData.builder()
+                    .name("Ở Dơ")
+                    .gender(ConstPlayer.TRAI_DAT)
+                    .dame(3000)
+                    .hp(new int[] {25000})
+                    .outfit(new short[] {400, 401, 402, -1, -1, -1})
+                    .mapJoin(new int[] {129})
+                    .skillTemp(
+                            new int[][] {
+                                    {Skill.DRAGON, 1, 100},
+                                    {Skill.DRAGON, 2, 200},
+                                    {Skill.DRAGON, 3, 300},
+                                    {Skill.DRAGON, 7, 700},
+                                    {Skill.KAMEJOKO, 1, 1000},
+                                    {Skill.KAMEJOKO, 2, 1200},
+                                    {Skill.KAMEJOKO, 5, 1500},
+                                    {Skill.KAMEJOKO, 7, 1700},
+                                    {Skill.GALICK, 1, 100}
+                            })
+                    .secondsRest(REST_5_S)
+                    .build();
+    public static final BossData XINBATO =
+            BossData.builder()
+                    .name("Xinbatô")
+                    .gender(ConstPlayer.TRAI_DAT)
+                    .dame(6000)
+                    .hp(new int[] {50000})
+                    .outfit(new short[] {359, 360, 361, -1, -1, -1})
+                    .mapJoin(new int[] {129})
+                    .skillTemp(
+                            new int[][] {
+                                    {Skill.DRAGON, 1, 100},
+                                    {Skill.DRAGON, 2, 200},
+                                    {Skill.DRAGON, 3, 300},
+                                    {Skill.DRAGON, 7, 700},
+                                    {Skill.KAMEJOKO, 1, 1000},
+                                    {Skill.KAMEJOKO, 2, 1200},
+                                    {Skill.KAMEJOKO, 5, 1500},
+                                    {Skill.KAMEJOKO, 7, 1700},
+                                    {Skill.GALICK, 1, 100}
+                            })
+                    .secondsRest(REST_5_S)
+                    .build();
+    public static final BossData CHA_PA =
+            BossData.builder()
+                    .name("Cha pa")
+                    .gender(ConstPlayer.TRAI_DAT)
+                    .dame(9000)
+                    .hp(new int[] {100000})
+                    .outfit(new short[] {362, 363, 364, -1, -1, -1})
+                    .mapJoin(new int[] {129})
+                    .skillTemp(
+                            new int[][] {
+                                    {Skill.DRAGON, 1, 100},
+                                    {Skill.DRAGON, 2, 200},
+                                    {Skill.DRAGON, 3, 300},
+                                    {Skill.DRAGON, 7, 700},
+                                    {Skill.KAMEJOKO, 1, 1000},
+                                    {Skill.KAMEJOKO, 2, 1200},
+                                    {Skill.KAMEJOKO, 5, 1500},
+                                    {Skill.KAMEJOKO, 7, 1700},
+                                    {Skill.GALICK, 1, 100}
+                            })
+                    .secondsRest(REST_5_S)
+                    .build();
+    public static final BossData PON_PUT =
+            BossData.builder()
+                    .name("Pon put")
+                    .gender(ConstPlayer.TRAI_DAT)
+                    .dame(15000)
+                    .hp(new int[] {250000})
+                    .outfit(new short[] {365, 366, 367, -1, -1, -1})
+                    .mapJoin(new int[] {129})
+                    .skillTemp(
+                            new int[][] {
+                                    {Skill.DRAGON, 1, 100},
+                                    {Skill.DRAGON, 2, 200},
+                                    {Skill.DRAGON, 3, 300},
+                                    {Skill.DRAGON, 7, 700},
+                                    {Skill.KAMEJOKO, 1, 1000},
+                                    {Skill.KAMEJOKO, 2, 1200},
+                                    {Skill.KAMEJOKO, 5, 1500},
+                                    {Skill.KAMEJOKO, 7, 1700},
+                                    {Skill.GALICK, 1, 100}
+                            })
+                    .secondsRest(REST_5_S)
+                    .build();
+    public static final BossData CHAN_XU =
+            BossData.builder()
+                    .name("Chan xư")
+                    .gender(ConstPlayer.TRAI_DAT)
+                    .dame(20000)
+                    .hp(new int[] {500000})
+                    .outfit(new short[] {371, 372, 373, -1, -1, -1})
+                    .mapJoin(new int[] {129})
+                    .skillTemp(
+                            new int[][] {
+                                    {Skill.DRAGON, 1, 100},
+                                    {Skill.DRAGON, 2, 200},
+                                    {Skill.DRAGON, 3, 300},
+                                    {Skill.DRAGON, 7, 700},
+                                    {Skill.KAMEJOKO, 1, 1000},
+                                    {Skill.KAMEJOKO, 2, 1200},
+                                    {Skill.KAMEJOKO, 5, 1500},
+                                    {Skill.KAMEJOKO, 7, 1700},
+                                    {Skill.GALICK, 1, 100}
+                            })
+                    .secondsRest(REST_5_S)
+                    .build();
+    public static final BossData TAU_PAY_PAY =
+            BossData.builder()
+                    .name("Tàu Pảy Pảy")
+                    .gender(ConstPlayer.TRAI_DAT)
+                    .dame(30000)
+                    .hp(new int[] {2000000})
+                    .outfit(new short[] {92, 93, 94, -1, -1, -1})
+                    .mapJoin(new int[] {129})
+                    .skillTemp(
+                            new int[][] {
+                                    {Skill.DRAGON, 1, 100},
+                                    {Skill.DRAGON, 2, 200},
+                                    {Skill.DRAGON, 3, 300},
+                                    {Skill.DRAGON, 7, 700},
+                                    {Skill.KAMEJOKO, 1, 1000},
+                                    {Skill.KAMEJOKO, 2, 1200},
+                                    {Skill.KAMEJOKO, 5, 1500},
+                                    {Skill.KAMEJOKO, 7, 1700},
+                                    {Skill.GALICK, 1, 100}
+                            })
+                    .secondsRest(REST_5_S)
+                    .build();
+    public static final BossData YAMCHA =
+            BossData.builder()
+                    .name("Yamcha")
+                    .gender(ConstPlayer.TRAI_DAT)
+                    .dame(40000)
+                    .hp(new int[] {5000000})
+                    .outfit(new short[] {374, 375, 376, -1, -1, -1})
+                    .mapJoin(new int[] {129})
+                    .skillTemp(
+                            new int[][] {
+                                    {Skill.DRAGON, 1, 100},
+                                    {Skill.DRAGON, 2, 200},
+                                    {Skill.DRAGON, 3, 300},
+                                    {Skill.DRAGON, 7, 700},
+                                    {Skill.KAMEJOKO, 1, 1000},
+                                    {Skill.KAMEJOKO, 2, 1200},
+                                    {Skill.KAMEJOKO, 5, 1500},
+                                    {Skill.KAMEJOKO, 7, 1700},
+                                    {Skill.GALICK, 1, 100}
+                            })
+                    .secondsRest(REST_5_S)
+                    .build();
+    public static final BossData JACKY_CHUN =
+            BossData.builder()
+                    .name("Jacky Chun")
+                    .gender(ConstPlayer.TRAI_DAT)
+                    .dame(50000)
+                    .hp(new int[] {25000000})
+                    .outfit(new short[] {356, 357, 358, -1, -1, -1})
+                    .mapJoin(new int[] {129})
+                    .skillTemp(
+                            new int[][] {
+                                    {Skill.DRAGON, 1, 100},
+                                    {Skill.DRAGON, 2, 200},
+                                    {Skill.DRAGON, 3, 300},
+                                    {Skill.DRAGON, 7, 700},
+                                    {Skill.KAMEJOKO, 1, 1000},
+                                    {Skill.KAMEJOKO, 2, 1200},
+                                    {Skill.KAMEJOKO, 5, 1500},
+                                    {Skill.KAMEJOKO, 7, 1700},
+                                    {Skill.GALICK, 1, 100}
+                            })
+                    .secondsRest(REST_5_S)
+                    .build();
+    public static final BossData THIEN_XIN_HANG =
+            BossData.builder()
+                    .name("Thiên Xin Hăng")
+                    .gender(ConstPlayer.TRAI_DAT)
+                    .dame(100000)
+                    .hp(new int[] {75000000})
+                    .outfit(new short[] {368, 369, 370, -1, -1, -1})
+                    .mapJoin(new int[] {129})
+                    .skillTemp(
+                            new int[][] {
+                                    {Skill.DRAGON, 1, 100},
+                                    {Skill.DRAGON, 2, 200},
+                                    {Skill.DRAGON, 3, 300},
+                                    {Skill.DRAGON, 7, 700},
+                                    {Skill.KAMEJOKO, 1, 1000},
+                                    {Skill.KAMEJOKO, 2, 1200},
+                                    {Skill.KAMEJOKO, 5, 1500},
+                                    {Skill.KAMEJOKO, 7, 1700},
+                                    {Skill.THAI_DUONG_HA_SAN, 1, 30000}
+                            })
+                    .secondsRest(REST_5_S)
+                    .build();
+    public static final BossData THIEN_XIN_HANG_CLONE =
+            BossData.builder()
+                    .name("Thiên Xin Hăng")
+                    .gender(ConstPlayer.TRAI_DAT)
+                    .dame(10000)
+                    .hp(new int[] {100000})
+                    .outfit(new short[] {368, 369, 370, -1, -1, -1})
+                    .mapJoin(new int[] {129})
+                    .skillTemp(
+                            new int[][] {
+                                    {Skill.DRAGON, 1, 100},
+                                    {Skill.DRAGON, 2, 200},
+                                    {Skill.DRAGON, 3, 300},
+                                    {Skill.DRAGON, 7, 700},
+                                    {Skill.KAMEJOKO, 1, 1000},
+                                    {Skill.KAMEJOKO, 2, 1200},
+                                    {Skill.KAMEJOKO, 5, 1500},
+                                    {Skill.KAMEJOKO, 7, 1700},
+                                    //                    {Skill.THAI_DUONG_HA_SAN, 1, 15000}
+                            })
+                    .secondsRest(REST_5_S)
+                    .build();
+    public static final BossData LIU_LIU =
+            BossData.builder()
+                    .name("Lêu Lêu")
+                    .gender(ConstPlayer.TRAI_DAT)
+                    .dame(250000)
+                    .hp(new int[] {1000000000})
+                    .outfit(new short[] {397, 398, 399, -1, -1, -1})
+                    .mapJoin(new int[] {129})
+                    .skillTemp(
+                            new int[][] {
+                                    {Skill.DRAGON, 1, 100},
+                                    {Skill.DRAGON, 2, 200},
+                                    {Skill.DRAGON, 3, 300},
+                                    {Skill.DRAGON, 7, 700},
+                                    {Skill.KAMEJOKO, 1, 1000},
+                                    {Skill.KAMEJOKO, 2, 1200},
+                                    {Skill.KAMEJOKO, 5, 1500},
+                                    {Skill.KAMEJOKO, 7, 1700},
+                                    {Skill.GALICK, 1, 100}
+                            })
+                    .secondsRest(REST_5_S)
+                    .build();
   // ****************************    END    *******************************
   //  public static final BossData BROLY_2 =
   //      new BossData(

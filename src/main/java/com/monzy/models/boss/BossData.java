@@ -1,5 +1,6 @@
 package com.monzy.models.boss;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
@@ -21,6 +22,7 @@ public class BossData {
   private int secondsRest;
   private TypeAppear typeAppear;
   private int[] bossesAppearTogether;
+
 
   private BossData(
       String name,
@@ -45,6 +47,21 @@ public class BossData {
     this.textE = textE;
     this.secondsRest = 0;
     this.typeAppear = TypeAppear.DEFAULT_APPEAR;
+  }
+
+  @Builder
+  public BossData(String name, byte gender, int dame, int[] hp, short[] outfit, int[] mapJoin, int[][] skillTemp, int secondsRest, String[] textS, String[] textM, String[] textE) {
+    this.name = name;
+    this.gender = gender;
+    this.dame = dame;
+    this.hp = hp;
+    this.outfit = outfit;
+    this.mapJoin = mapJoin;
+    this.skillTemp = skillTemp;
+    this.secondsRest = secondsRest;
+    this.textS = new String[]{};
+    this.textM = new String[]{};
+    this.textE = new String[]{};
   }
 
   public BossData(

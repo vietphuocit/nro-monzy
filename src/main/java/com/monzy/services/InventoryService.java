@@ -14,6 +14,7 @@ import com.network.io.Message;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 public class InventoryService {
 
@@ -847,5 +848,10 @@ public class InventoryService {
       }
     }
     return -1;
+  }
+
+  public boolean findItemWoodChest(Player player) {
+    return Stream.concat(player.inventory.itemsBag.stream(), player.inventory.itemsBox.stream())
+            .anyMatch(item -> item.isNotNullItem() && item.template.id == 570);
   }
 }

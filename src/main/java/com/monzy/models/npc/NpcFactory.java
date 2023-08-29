@@ -1,7 +1,5 @@
 package com.monzy.models.npc;
 
-import static com.monzy.services.func.SummonDragon.*;
-
 import com.monzy.consts.ConstMap;
 import com.monzy.consts.ConstNpc;
 import com.monzy.consts.ConstPlayer;
@@ -19,6 +17,7 @@ import com.monzy.models.map.MapMaBu.MapMaBu;
 import com.monzy.models.map.Zone;
 import com.monzy.models.map.bdkb.BanDoKhoBauService;
 import com.monzy.models.map.blackball.BlackBallWar;
+import com.monzy.models.map.dhvt.MartialCongressService;
 import com.monzy.models.map.doanhtraidocnhan.DoanhTraiDocNhanService;
 import com.monzy.models.map.nguhanhson.nguhs;
 import com.monzy.models.matches.PVPService;
@@ -38,8 +37,12 @@ import com.monzy.services.func.SummonDragon;
 import com.monzy.utils.Logger;
 import com.monzy.utils.TimeUtil;
 import com.monzy.utils.Util;
-import java.util.*;
+
+import java.util.HashMap;
+import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.monzy.services.func.SummonDragon.*;
 
 public class NpcFactory {
   // playerid - object
@@ -3074,39 +3077,114 @@ public class NpcFactory {
 
   public static Npc GhiDanh(int mapId, int status, int cx, int cy, int tempId, int avatar) {
     return new Npc(mapId, status, cx, cy, tempId, avatar) {
+      String[] menuselect = new String[]{};
+
       @Override
       public void openBaseMenu(Player pl) {
         if (canOpenNpc(pl)) {
-          createOtherMenu(
-              pl,
-              0,
-              DaiHoiVoThuatService.gI(DaiHoiVoThuat.gI().getDaiHoiNow()).Giai(pl),
-              "Thông tin\nChi tiết",
-              DaiHoiVoThuatService.gI(DaiHoiVoThuat.gI().getDaiHoiNow()).CanReg(pl)
-                  ? "Đăng ký"
-                  : "OK",
-              "Đại Hội\nVõ Thuật\nLần thứ\n23");
+          if (this.mapId == 52) {
+            createOtherMenu(pl, 0, DaiHoiVoThuatService.gI(DaiHoiVoThuat.gI().getDaiHoiNow()).Giai(pl), "Thông tin\nChi tiết", DaiHoiVoThuatService.gI(DaiHoiVoThuat.gI().getDaiHoiNow()).CanReg(pl) ? "Đăng ký" : "OK", "Đại Hội\nVõ Thuật\nLần thứ\n23");
+          } else if (this.mapId == 129) {
+            int goldChallenge = pl.goldChallenge;
+            if (pl.levelWoodChest == 0) {
+              menuselect = new String[]{"Hướng\ndẫn\nthêm", "Thi đấu\n" + Util.numberToMoney(goldChallenge) + " vàng", "Về\nĐại Hội\nVõ Thuật"};
+            } else {
+              menuselect = new String[]{"Hướng\ndẫn\nthêm", "Thi đấu\n" + Util.numberToMoney(goldChallenge) + " vàng", "Nhận thưởng\nRương cấp\n" + pl.levelWoodChest, "Về\nĐại Hội\nVõ Thuật"};
+            }
+            this.createOtherMenu(pl, ConstNpc.BASE_MENU, "Đại hội võ thuật lần thứ 23\nDiễn ra bất kể ngày đêm,ngày nghỉ ngày lễ\nPhần thưởng vô cùng quý giá\nNhanh chóng tham gia nào", menuselect, "Từ chối");
+          } else {
+            super.openBaseMenu(pl);
+          }
         }
       }
 
       @Override
       public void confirmMenu(Player player, int select) {
-        this.npcChat(player, "Chức Năng Đang Được Update!");
-        return;
-        //        if (canOpenNpc(player)) {
-        //          switch (select) {
-        //            case 0:
-        //              Service.gI().sendPopUpMultiLine(player, tempId, avartar,
-        // DaiHoiVoThuat.gI().Info());
-        //              break;
-        //            case 1:
-        //              if
-        // (DaiHoiVoThuatService.gI(DaiHoiVoThuat.gI().getDaiHoiNow()).CanReg(player)) {
-        //                DaiHoiVoThuatService.gI(DaiHoiVoThuat.gI().getDaiHoiNow()).Reg(player);
-        //              }
-        //              break;
-        //          }
-        //        }
+        if (canOpenNpc(player)) {
+          if (this.mapId == 52) {
+            switch (select) {
+              case 0:
+                Service.gI().sendPopUpMultiLine(player, tempId, avartar, DaiHoiVoThuat.gI().Info());
+                break;
+              case 1:
+                if (DaiHoiVoThuatService.gI(DaiHoiVoThuat.gI().getDaiHoiNow()).CanReg(player)) {
+                  DaiHoiVoThuatService.gI(DaiHoiVoThuat.gI().getDaiHoiNow()).Reg(player);
+                }
+                break;
+              case 2:
+                ChangeMapService.gI().changeMapNonSpaceship(player, 129, player.location.x, 360);
+                break;
+            }
+          } else if (this.mapId == 129) {
+            int goldchallenge = player.goldChallenge;
+            if (player.levelWoodChest == 0) {
+              switch (select) {
+                case 0:
+                  NpcService.gI().createTutorial(player, this.avartar, ConstNpc.NPC_DHVT23);
+                  break;
+                case 1:
+                  if (!InventoryService.gI().findItemWoodChest(player)) {
+                    if (player.inventory.gold >= goldchallenge) {
+                      MartialCongressService.gI().startChallenge(player);
+                      player.inventory.gold -= (goldchallenge);
+                      PlayerService.gI().sendInfoHpMpMoney(player);
+                      player.goldChallenge += 2000000;
+                    } else {
+                      Service.gI().sendThongBao(player, "Không đủ vàng, còn thiếu " + Util.numberToMoney(goldchallenge - player.inventory.gold) + " vàng");
+                    }
+                  } else {
+                    Service.gI().sendThongBao(player, "Hãy mở rương báu vật trước");
+                  }
+                  break;
+                case 2:
+                  ChangeMapService.gI().changeMapNonSpaceship(player, 52, player.location.x, 336);
+                  break;
+              }
+            } else {
+              switch (select) {
+                case 0:
+                  NpcService.gI().createTutorial(player, this.avartar, ConstNpc.NPC_DHVT23);
+                  break;
+                case 1:
+                  if (InventoryService.gI().findItemWoodChest(player)) {
+                    if (player.inventory.gold >= goldchallenge) {
+                      MartialCongressService.gI().startChallenge(player);
+                      player.inventory.gold -= (goldchallenge);
+                      PlayerService.gI().sendInfoHpMpMoney(player);
+                      player.goldChallenge += 2000000;
+                    } else {
+                      Service.gI().sendThongBao(player, "Không đủ vàng, còn thiếu " + Util.numberToMoney(goldchallenge - player.inventory.gold) + " vàng");
+                    }
+                  } else {
+                    Service.gI().sendThongBao(player, "Hãy mở rương báu vật trước");
+                  }
+                  break;
+                case 2:
+                  if (!player.receivedWoodChest) {
+                    if (InventoryService.gI().getCountEmptyBag(player) > 0) {
+                      Item it = ItemService.gI().createNewItem((short) 570);
+                      it.itemOptions.add(new Item.ItemOption(72, player.levelWoodChest));
+                      it.itemOptions.add(new Item.ItemOption(30, 0));
+                      it.createTime = System.currentTimeMillis();
+                      InventoryService.gI().addItemBag(player, it);
+                      InventoryService.gI().sendItemBags(player);
+                      player.receivedWoodChest = true;
+                      player.levelWoodChest = 0;
+                      Service.gI().sendThongBao(player, "Bạn nhận được rương gỗ");
+                    } else {
+                      this.npcChat(player, "Hành trang đã đầy");
+                    }
+                  } else {
+                    Service.gI().sendThongBao(player, "Mỗi ngày chỉ có thể nhận rương báu 1 lần");
+                  }
+                  break;
+                case 3:
+                  ChangeMapService.gI().changeMapNonSpaceship(player, 52, player.location.x, 336);
+                  break;
+              }
+            }
+          }
+        }
       }
     };
   }

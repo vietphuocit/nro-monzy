@@ -20,6 +20,7 @@ import java.util.List;
 
 public class Zone {
 
+  public static final byte PLAYERS_TIEU_CHUAN_TRONG_MAP = 7;
   public final List<Mob> mobs;
   public final List<ItemMap> items;
   private final List<Player> humanoids; // player, boss, pet

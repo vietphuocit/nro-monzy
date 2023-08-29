@@ -9,3 +9,4 @@ docker-compose up -d
 docker-compose down
 docker start nro-monzy-server-1
 docker ps
+sudo docker logs -f nro-monzy_server_1

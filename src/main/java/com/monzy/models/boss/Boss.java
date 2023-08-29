@@ -640,4 +640,14 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
     long currentTimeMillis = lastTimeRest + secondsRest * 1000L - System.currentTimeMillis();
     return (currentTimeMillis / 60000) - (currentTimeMillis / (60 * 60000) * 60);
   }
+
+  protected int getRangeCanAttackWithSkillSelect() {
+    int skillId = this.playerSkill.skillSelect.template.id;
+    if (skillId == Skill.KAMEJOKO || skillId == Skill.MASENKO || skillId == Skill.ANTOMIC) {
+      return Skill.RANGE_ATTACK_CHIEU_CHUONG;
+    } else if (skillId == Skill.DRAGON || skillId == Skill.DEMON || skillId == Skill.GALICK) {
+      return Skill.RANGE_ATTACK_CHIEU_DAM;
+    }
+    return 752002;
+  }
 }

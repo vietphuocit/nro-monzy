@@ -73,7 +73,7 @@ public class Player {
   public boolean muav = false;
   public boolean isPet;
   public boolean isNewPet;
-  public boolean isNewPet1;
+//  public boolean isNewPet1;
   public boolean isBoss;
   public int event;
   public IPVP pvp;
@@ -141,6 +141,9 @@ public class Player {
   public boolean isWin;
   public List<Card> cards = new ArrayList<>();
   public short idAura = -1;
+  public int levelWoodChest;
+  public boolean receivedWoodChest;
+  public int goldChallenge = 2000000;
 
   public Player() {
     lastTimeUseOption = System.currentTimeMillis();

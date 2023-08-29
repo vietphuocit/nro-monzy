@@ -15,6 +15,8 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.monzy.services.ChangeMapService.NON_SPACE_SHIP;
+
 public class MapService {
 
   private static MapService i;

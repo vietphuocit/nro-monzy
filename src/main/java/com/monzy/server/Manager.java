@@ -649,7 +649,7 @@ public class Manager {
         itemTemp.id = rs.getShort("id");
         itemTemp.type = rs.getByte("type");
         itemTemp.gender = rs.getByte("gender");
-        itemTemp.name = rs.getShort("id") + " " + rs.getString("name");
+        itemTemp.name = "[" + rs.getShort("id") + "] " + rs.getString("name");
         itemTemp.description = rs.getString("description");
         itemTemp.iconID = rs.getShort("icon_id");
         itemTemp.part = rs.getShort("part");

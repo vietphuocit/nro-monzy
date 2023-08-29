@@ -108,6 +108,21 @@ public class BossID {
   public static final int ROBOT_VE_SI_1 = -2017;
   public static final int ROBOT_VE_SI_2 = -2018;
   public static final int ROBOT_VE_SI_3 = -2019;
-
+  //Đại Hội Võ Thuật 23
+  public static final byte SOI_HEC_QUYN = -77;
+  public static final byte O_DO = -78;
+  public static final byte XINBATO = -79;
+  public static final byte CHA_PA = -80;
+  public static final byte PON_PUT = -81;
+  public static final byte CHAN_XU = -82;
+  public static final byte TAU_PAY_PAY = -83;
+  public static final byte YAMCHA = -84;
+  public static final byte JACKY_CHUN = -85;
+  public static final byte THIEN_XIN_HANG = -86;
+  public static final byte LIU_LIU = -87;
+  public static final byte THIEN_XIN_HANG_CLONE = -88;
+  public static final byte THIEN_XIN_HANG_CLONE1 = -89;
+  public static final byte THIEN_XIN_HANG_CLONE2 = -90;
+  public static final byte THIEN_XIN_HANG_CLONE3 = -91;
   private BossID() {}
 }

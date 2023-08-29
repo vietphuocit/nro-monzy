@@ -4,8 +4,11 @@ import com.database.Database;
 import com.monzy.giftcode.GiftCodeManager;
 import com.monzy.jdbc.daos.HistoryTransactionDAO;
 import com.monzy.kygui.ShopKyGuiManager;
+import com.monzy.kygui.ShopKyGuiService;
 import com.monzy.models.boss.BossManager;
 import com.monzy.models.item.Item;
+import com.monzy.models.map.dhvt.MartialCongressManager;
+import com.monzy.models.matches.pvp.DaiHoiVoThuat;
 import com.monzy.models.player.Player;
 import com.monzy.server.io.MyKeyHandler;
 import com.monzy.server.io.MySession;
@@ -17,9 +20,9 @@ import com.network.example.MessageSendCollect;
 import com.network.server.ISessionAcceptHandler;
 import com.network.server.MonzyServer;
 import com.network.session.ISession;
+
 import java.net.ServerSocket;
 import java.util.*;
-import java.util.logging.Level;
 
 public class ServerManager {
 
@@ -62,22 +65,17 @@ public class ServerManager {
 //    activeGame();
     activeServerSocket();
     //    NapThe.callbackAPI();
-    //        new Thread(DaiHoiVoThuat.gI(), "Thread DHVT").start();
+    new Thread(DaiHoiVoThuat.gI(), "Thread DHVT").start();
     //        ChonAiDay.gI().lastTimeEnd = System.currentTimeMillis() + 300000;
     //        new Thread(ChonAiDay.gI(), "Thread CAD").start();
     //        NgocRongNamecService.gI().initNgocRongNamec((byte) 0);
     //        new Thread(NgocRongNamecService.gI(), "Thread NRNM").start();
-    //    new Thread(new TopService(), "Thread Top").start();
+    new Thread(new TopService(), "Thread Top").start();
     //    new Thread(new PaymentService(), "Thread Payment").start();
-    //    new Thread(new ShopKyGuiService(), "Thread Shop Ky Gui").start();
+    new Thread(new ShopKyGuiService(), "Thread Shop Ky Gui").start();
     new Thread(new GiftService(), "Thread Gift Code").start();
-    try {
-      Thread.sleep(1000);
-      BossManager.gI().loadBoss();
-      Manager.MAPS.forEach(com.monzy.models.map.Map::initBoss);
-    } catch (InterruptedException ex) {
-      java.util.logging.Logger.getLogger(BossManager.class.getName()).log(Level.SEVERE, null, ex);
-    }
+    new Thread(new MartialCongressManager(), "Thread DHVT 23").start();
+    BossManager.gI().loadBoss();
   }
 
   private void act() throws Exception {
