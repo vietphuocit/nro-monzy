@@ -17,8 +17,11 @@ import com.monzy.server.io.MySession;
 import com.monzy.services.*;
 import com.monzy.utils.Logger;
 import com.monzy.utils.SkillUtil;
+import com.monzy.utils.TimeUtil;
 import com.monzy.utils.Util;
 import com.network.io.Message;
+
+import java.util.Date;
 
 public class UseItem {
 
@@ -236,7 +239,7 @@ public class UseItem {
               InventoryService.gI().sendItemBags(pl);
               SkillService.gI().learnSkillSpecial(pl, Skill.LIEN_HOAN_CHUONG);
               break;
-            case 361:
+            case 361: {
               if (pl.idNRNM != -1) {
                 Service.gI().sendThongBao(pl, "Không thể thực hiện");
                 return;
@@ -267,6 +270,7 @@ public class UseItem {
               InventoryService.gI().subQuantityItemsBag(pl, item, 1);
               InventoryService.gI().sendItemBags(pl);
               break;
+            }
             case 211: // nho tím
             case 212: // nho xanh
               eatGrapes(pl, item);
@@ -319,15 +323,15 @@ public class UseItem {
             case 454: // bông tai
               UseItem.gI().usePorata(pl);
               break;
-            case 1152:
-              UseItem.gI().usesdbuff(pl);
-              break;
-            case 1153:
-              UseItem.gI().usehpbuff(pl);
-              break;
-            case 1154:
-              UseItem.gI().usekibuff(pl);
-              break;
+//            case 1152: // tăng 5k sđ
+//              UseItem.gI().usesdbuff(pl);
+//              break;
+//            case 1153:
+//              UseItem.gI().usehpbuff(pl);
+//              break;
+//            case 1154:
+//              UseItem.gI().usekibuff(pl);
+//              break;
             case 193: // gói 10 viên capsule
               InventoryService.gI().subQuantityItemsBag(pl, item, 1);
             case 194: // capsule đặc biệt
@@ -336,30 +340,30 @@ public class UseItem {
             case 401: // đổi đệ tử
               changePet(pl, item);
               break;
-            case 1108: // đổi đệ tử
+            case 1108: // đổi đệ berus
               changePetBerus(pl, item);
               break;
-            case 1230:
-              UseItem.gI().useruondongvang(pl);
-              break;
-            case 1259:
-              UseItem.gI().hopquat1nap(pl);
-              break;
-            case 1264:
-              UseItem.gI().hopquat2nap(pl);
-              break;
-            case 1265:
-              UseItem.gI().hopquat3nap(pl);
-              break;
-            case 1266:
-              UseItem.gI().hopquat1SM(pl);
-              break;
-            case 1267:
-              UseItem.gI().hopquat2SM(pl);
-              break;
-            case 1268:
-              UseItem.gI().hopquat3SM(pl);
-              break;
+//            case 1230:
+//              UseItem.gI().useruondongvang(pl);
+//              break;
+//            case 1259:
+//              UseItem.gI().hopquat1nap(pl);
+//              break;
+//            case 1264:
+//              UseItem.gI().hopquat2nap(pl);
+//              break;
+//            case 1265:
+//              UseItem.gI().hopquat3nap(pl);
+//              break;
+//            case 1266:
+//              UseItem.gI().hopquat1SM(pl);
+//              break;
+//            case 1267:
+//              UseItem.gI().hopquat2SM(pl);
+//              break;
+//            case 1268:
+//              UseItem.gI().hopquat3SM(pl);
+//              break;
             case 722: // đổi đệ tử
               changePetPic(pl, item);
               break;
@@ -371,15 +375,6 @@ public class UseItem {
               break;
             case 921: // bông tai c2
               UseItem.gI().usePorata2(pl);
-              break;
-            case 1155: // bông tai c3
-              UseItem.gI().usePorata3(pl);
-              break;
-            case 1156: // bông tai c4
-              UseItem.gI().usePorata4(pl);
-              break;
-            case 2047: // bông tai c5
-              UseItem.gI().usePorata5(pl);
               break;
             case 2000: // hop qua skh, item 2000 td
             case 2001: // hop qua skh, item 2001 nm
@@ -395,33 +390,16 @@ public class UseItem {
               ItemService.gI().OpenItem736(pl, item);
               break;
             case 457:
-              usethoivang(pl);
+              useThoiVang(pl);
               break;
             case 987:
               Service.gI().sendThongBao(pl, "Bảo vệ trang bị không bị rớt cấp"); // đá bảo vệ
-              break;
-            case 1120:
-              useItemHopQuaTanThu(pl, item);
               break;
             case 2006:
               Input.gI().createFormChangeNameByItem(pl);
               break;
             case 1131:
-              if (pl.pet == null) {
-                Service.gI().sendThongBao(pl, "Ngươi làm gì có đệ tử?");
-                break;
-              }
-              if (pl.pet.playerSkill.skills.get(1).skillId != -1
-                  && pl.pet.playerSkill.skills.get(2).skillId != -1) {
-                pl.pet.openSkill2();
-                pl.pet.openSkill3();
-                InventoryService.gI().subQuantityItem(pl.inventory.itemsBag, item, 1);
-                InventoryService.gI().sendItemBags(pl);
-                Service.gI().sendThongBao(pl, "Đã đổi thành công chiêu 2 3 đệ tử");
-              } else {
-                Service.gI().sendThongBao(pl, "Ít nhất đệ tử ngươi phải có chiêu 2 chứ!");
-              }
-              break;
+              openManhTS(pl, item);
             case 2027:
             case 2028:
               {
@@ -447,6 +425,8 @@ public class UseItem {
               {
                 Input.gI().createFormSendRuby(pl);
               }
+            case 570:
+              openWoodChest(pl, item);
           }
           break;
       }
@@ -978,7 +958,7 @@ public class UseItem {
     }
   }
 
-  public void usethoivang(Player player) {
+  public void useThoiVang(Player player) {
     Item tv = null;
     for (Item item : player.inventory.itemsBag) {
       if (item.isNotNullItem() && item.template.id == 457) {
@@ -1658,4 +1638,89 @@ public class UseItem {
             "Set xayda",
             "Từ chổi");
   }
+
+  private void openManhTS(Player player, Item item) {
+    if (InventoryService.gI().getCountEmptyBag(player) > 0) {
+      short[] possibleItems = {1066, 1067, 1068, 1069, 1070};
+      byte selectedIndex = (byte) Util.nextInt(0, possibleItems.length - 2);
+      short[] icon = new short[2];
+      icon[0] = item.template.iconID;
+      Item newItem = ItemService.gI().createNewItem(possibleItems[selectedIndex]);
+      newItem.itemOptions.add(new ItemOption(73, 0));
+      newItem.quantity = (short) Util.nextInt(1, 99);
+      InventoryService.gI().addItemBag(player, newItem);
+      icon[1] = newItem.template.iconID;
+      InventoryService.gI().subQuantityItemsBag(player, item, 1);
+      InventoryService.gI().sendItemBags(player);
+      CombineService.gI().sendEffectOpenItem(player, icon[0], icon[1]);
+    } else {
+      Service.gI().sendThongBao(player, "Hàng trang đã đầy");
+    }
+  }
+
+  private void openWoodChest(Player pl, Item item) {
+    int time = (int) TimeUtil.diffDate(new Date(), new Date(item.createTime), TimeUtil.DAY);
+    if (time != 0) {
+      Item itemReward;
+      int param = item.itemOptions.size();
+      int gold;
+      int[] listItem = {441, 442, 443, 444, 445, 446, 447, 220, 221, 222, 223, 224, 225};
+      int[] listClothesReward;
+      int[] listItemReward;
+      String text = "Bạn nhận được\n";
+      if (param < 8) {
+        gold = 100000 * param;
+        listClothesReward = new int[]{randClothes(param)};
+        listItemReward = Util.pickNRandInArr(listItem, 3);
+      } else if (param < 10) {
+        gold = 250000 * param;
+        listClothesReward = new int[]{randClothes(param), randClothes(param)};
+        listItemReward = Util.pickNRandInArr(listItem, 4);
+      } else {
+        gold = 500000 * param;
+        listClothesReward = new int[]{randClothes(param), randClothes(param), randClothes(param)};
+        listItemReward = Util.pickNRandInArr(listItem, 5);
+        int ruby = Util.nextInt(1, 5);
+        pl.inventory.ruby += ruby;
+        pl.textRuongGo.add(text + "|1| " + ruby + " Hồng Ngọc");
+      }
+      for (int i : listClothesReward) {
+        itemReward = ItemService.gI().createNewItem((short) i);
+        RewardService.gI().initBaseOptionClothes(itemReward.template.id, itemReward.template.type, itemReward.itemOptions);
+        RewardService.gI().initStarOption(itemReward, new RewardService.RatioStar[]{new RewardService.RatioStar((byte) 1, 1, 2), new RewardService.RatioStar((byte) 2, 1, 3), new RewardService.RatioStar((byte) 3, 1, 4), new RewardService.RatioStar((byte) 4, 1, 5),});
+        InventoryService.gI().addItemBag(pl, itemReward);
+        pl.textRuongGo.add(text + itemReward.getInfoItem());
+      }
+      for (int i : listItemReward) {
+        itemReward = ItemService.gI().createNewItem((short) i);
+        RewardService.gI().initBaseOptionSaoPhaLe(itemReward);
+        itemReward.quantity = Util.nextInt(1, 5);
+        InventoryService.gI().addItemBag(pl, itemReward);
+        pl.textRuongGo.add(text + itemReward.getInfoItem());
+      }
+      if (param == 11) {
+        itemReward = ItemService.gI().createNewItem((short) 0);
+        itemReward.quantity = Util.nextInt(1, 3);
+        InventoryService.gI().addItemBag(pl, itemReward);
+        pl.textRuongGo.add(text + itemReward.getInfoItem());
+      }
+      NpcService.gI().createMenuConMeo(pl, ConstNpc.RUONG_GO, -1, "Bạn nhận được\n|1|+" + Util.numberToMoney(gold) + " vàng", "OK [" + pl.textRuongGo.size() + "]");
+      InventoryService.gI().subQuantityItemsBag(pl, item, 1);
+      pl.inventory.addGold(gold);
+      InventoryService.gI().sendItemBags(pl);
+      PlayerService.gI().sendInfoHpMpMoney(pl);
+    } else {
+      Service.gI().sendThongBao(pl, "Vui lòng đợi 24h");
+    }
+  }
+
+  private int randClothes(int level) {
+    return LIST_ITEM_CLOTHES[Util.nextInt(0, 2)][Util.nextInt(0, 4)][level - 1];
+  }
+
+  public static final int[][][] LIST_ITEM_CLOTHES = {
+      // áo , quần , găng ,giày,rada
+      //td -> nm -> xd
+      {{0, 33, 3, 34, 136, 137, 138, 139, 230, 231, 232, 233, 555}, {6, 35, 9, 36, 140, 141, 142, 143, 242, 243, 244, 245, 556}, {21, 24, 37, 38, 144, 145, 146, 147, 254, 255, 256, 257, 562}, {27, 30, 39, 40, 148, 149, 150, 151, 266, 267, 268, 269, 563}, {12, 57, 58, 59, 184, 185, 186, 187, 278, 279, 280, 281, 561}}, {{1, 41, 4, 42, 152, 153, 154, 155, 234, 235, 236, 237, 557}, {7, 43, 10, 44, 156, 157, 158, 159, 246, 247, 248, 249, 558}, {22, 46, 25, 45, 160, 161, 162, 163, 258, 259, 260, 261, 564}, {28, 47, 31, 48, 164, 165, 166, 167, 270, 271, 272, 273, 565}, {12, 57, 58, 59, 184, 185, 186, 187, 278, 279, 280, 281, 561}}, {{2, 49, 5, 50, 168, 169, 170, 171, 238, 239, 240, 241, 559}, {8, 51, 11, 52, 172, 173, 174, 175, 250, 251, 252, 253, 560}, {23, 53, 26, 54, 176, 177, 178, 179, 262, 263, 264, 265, 566}, {29, 55, 32, 56, 180, 181, 182, 183, 274, 275, 276, 277, 567}, {12, 57, 58, 59, 184, 185, 186, 187, 278, 279, 280, 281, 561}}};
+
 }

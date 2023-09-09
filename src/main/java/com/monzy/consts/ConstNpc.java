@@ -289,4 +289,6 @@ public class ConstNpc {
   public static final int SHOP_BUNMA_TL_0 = 510;
   public static final int SIDE_BOX_ITEM_REWARD = 511;
   public static final int MENU_TYPE_CARD = 528;
+  // new
+  public static final int RUONG_GO = 10001;
 }

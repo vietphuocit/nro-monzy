@@ -15,6 +15,7 @@ import com.monzy.server.ServerNotify;
 import com.monzy.services.*;
 import com.monzy.utils.Util;
 import com.network.io.Message;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -430,9 +431,9 @@ public class Mob {
       list.add(new ItemMap(zone, 2036, 1, x, player.location.y, player.id));
     }
     // up hồng ngọc bdkb
-    if (MapService.gI().isMapBanDoKhoBau(player.zone.map.mapId) && Util.isTrue(20, 100)) {
-      list.add(new ItemMap(zone, 861, Util.nextInt(10, 100), x, player.location.y, player.id));
-    }
+//    if (MapService.gI().isMapBanDoKhoBau(player.zone.map.mapId) && Util.isTrue(20, 100)) {
+//      list.add(new ItemMap(zone, 861, Util.nextInt(10, 100), x, player.location.y, player.id));
+//    }
     // vàng
     int gold = this.level * Util.nextInt(400, 600);
     gold = Math.min(gold + gold * (player.nPoint.getTlGold() / 100), 30000);
@@ -445,9 +446,10 @@ public class Mob {
     int spl = Util.nextInt(441, 447);
     // ngọc rồng
     int ngocRong = Util.nextInt(17, 20);
-    if (MapService.gI().isMapDoanhTrai(player.zone.map.mapId) && Util.isTrue(50, 100)) {
-      list.add(new ItemMap(zone, dnc, Util.nextInt(30, 40), x, player.location.y, player.id));
-    } else if (Util.isTrue(5, 100)) {
+//    if (MapService.gI().isMapDoanhTrai(player.zone.map.mapId) && Util.isTrue(50, 100)) {
+//      list.add(new ItemMap(zone, dnc, Util.nextInt(30, 40), x, player.location.y, player.id));
+//    } else
+    if (Util.isTrue(5, 100)) {
       list.add(new ItemMap(zone, dnc, 1, x, player.location.y, player.id));
     } else if (Util.isTrue(5, 100)) {
       ItemMap itemSPL = new ItemMap(zone, spl, 1, x, player.location.y, player.id);
@@ -458,18 +460,18 @@ public class Mob {
       list.add(new ItemMap(zone, ngocRong, 1, x, player.location.y, player.id));
     }
     // event
-    if (Util.isTrue((player.isUseSkinEvent() ? 5 : 1), 100)
-        && MapService.gI().isMapFuture(player.zone.map.mapId)) {
-      list.add(new ItemMap(zone, 695, 1, x, player.location.y, player.id));
-    }
-    if (Util.isTrue((player.isUseSkinEvent() ? 20 : 4), 100)
-        && MapService.gI().isMapClan(player.zone.map.mapId)) {
-      list.add(new ItemMap(zone, 696, 1, x, player.location.y, player.id));
-    }
+//    if (Util.isTrue((player.isUseSkinEvent() ? 5 : 1), 100)
+//        && MapService.gI().isMapFuture(player.zone.map.mapId)) {
+//      list.add(new ItemMap(zone, 695, 1, x, player.location.y, player.id));
+//    }
+//    if (Util.isTrue((player.isUseSkinEvent() ? 20 : 4), 100)
+//        && MapService.gI().isMapClan(player.zone.map.mapId)) {
+//      list.add(new ItemMap(zone, 696, 1, x, player.location.y, player.id));
+//    }
     // đồng xu vàng
-    if (Util.isTrue(3, 100)) {
-      list.add(new ItemMap(zone, 1229, 1, x, player.location.y, player.id));
-    }
+//    if (Util.isTrue(3, 100)) {
+//      list.add(new ItemMap(zone, 1229, 1, x, player.location.y, player.id));
+//    }
     //        if (player.isPet && player.getSession().actived && Util.isTrue(15, 100)) {
     //            list.add(new ItemMap(zone, 610, 1, x, player.location.y, player.id));
     //        }

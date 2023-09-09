@@ -44,6 +44,15 @@ public class Item {
     return strInfo;
   }
 
+  public String getInfoItem() {
+    String strInfo = "|1|" + template.name + "\n|0|";
+    for (ItemOption itemOption : itemOptions) {
+      strInfo += itemOption.getOptionString() + "\n";
+    }
+    strInfo += "|2|" + template.description;
+    return strInfo;
+  }
+
   public String getContent() {
     return "Yêu cầu sức mạnh " + this.template.strRequire + " trở lên";
   }

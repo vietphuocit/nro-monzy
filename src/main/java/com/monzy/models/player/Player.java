@@ -39,7 +39,7 @@ import java.util.stream.Collectors;
 
 public class Player {
 
-  // --------------------------------------------------------------------------
+  public List<String> textRuongGo = new ArrayList<>();
   /*
    * {380, 381, 382}: ht lưỡng long nhất thể xayda trái đất
    * {383, 384, 385}: ht porata xayda trái đất

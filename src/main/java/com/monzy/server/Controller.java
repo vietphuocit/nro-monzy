@@ -158,9 +158,9 @@ public class Controller implements IMessageHandler {
             ChangeMapService.gI().changeMap(player, 160, 0, -1, 5);
           }
           break;
-        case 42:
-          Service.gI().regisAccount(_session, _msg);
-          break;
+//        case 42: // đăng ký
+//          Service.gI().regisAccount(_session, _msg);
+//          break;
         case -127:
           if (player != null) {
             LuckyRound.gI().readOpenBall(player, _msg);

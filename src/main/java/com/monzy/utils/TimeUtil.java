@@ -34,9 +34,9 @@ public class TimeUtil {
       case WEEK:
         return (timeDiff / (7 * 24 * 60 * 60 * 1000));
       case MONTH:
-        return (timeDiff / (30 * 24 * 60 * 60 * 1000));
+        return (timeDiff / (30L * 24 * 60 * 60 * 1000));
       case YEAR:
-        return (timeDiff / (365 * 24 * 60 * 60 * 1000));
+        return (timeDiff / (365L * 24 * 60 * 60 * 1000));
       default:
         return 0;
     }

@@ -12,10 +12,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.text.NumberFormat;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-import java.util.Random;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -345,5 +342,17 @@ public class Util {
               }
             })
         .start();
+  }
+
+  public static int[] pickNRandInArr(int[] array, int n) {
+    List<Integer> list = new ArrayList<Integer>(array.length);
+    for (int i : array)
+      list.add(i);
+    Collections.shuffle(list);
+    int[] answer = new int[n];
+    for (int i = 0; i < n; i++)
+      answer[i] = list.get(i);
+    Arrays.sort(answer);
+    return answer;
   }
 }

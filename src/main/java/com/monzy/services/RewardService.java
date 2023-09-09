@@ -696,38 +696,44 @@ public class RewardService {
     }
   }
 
-  private void initBaseOptionSaoPhaLe(ItemMap item) {
+  public void initBaseOptionSaoPhaLe(Item item) {
     int optionId = -1;
-    switch (item.itemTemplate.id) {
-      case 441: // hút máu
+    int param = 5;
+    switch (item.template.id) {
+      case 441: //hút máu
         optionId = 95;
         break;
-      case 442: // hút ki
+      case 442: //hút ki
         optionId = 96;
         break;
-      case 443: // phản sát thương
+      case 443: //phản sát thương
         optionId = 97;
         break;
       case 444:
-        optionId = 73;
+        param = 3;
+        optionId = 98;
         break;
       case 445:
+        param = 3;
+        optionId = 99;
         break;
-      case 446: // vàng
+      case 446: //vàng
         optionId = 100;
         break;
-      case 447: // tnsm
+      case 447: //tnsm
         optionId = 101;
         break;
     }
-    item.options.add(new Item.ItemOption(optionId, 5));
+    if (optionId != -1) {
+      item.itemOptions.add(new Item.ItemOption(optionId, param));
+    }
   }
 
-  // sao pha lê
-  public void initStarOption(ItemMap item, RatioStar[] ratioStars) {
+  //sao pha lê
+  public void initStarOption(Item item, RatioStar[] ratioStars) {
     RatioStar ratioStar = ratioStars[Util.nextInt(0, ratioStars.length - 1)];
     if (Util.isTrue(ratioStar.ratio, ratioStar.typeRatio)) {
-      item.options.add(new Item.ItemOption(107, ratioStar.numStar));
+      item.itemOptions.add(new Item.ItemOption(107, ratioStar.numStar));
     }
   }
 
