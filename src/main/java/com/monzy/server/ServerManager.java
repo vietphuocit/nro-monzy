@@ -43,7 +43,10 @@ public class ServerManager {
   }
 
   public static void main(String[] args) {
+    System.out.println(TimeUtil.getTimeNow("dd/MM/yyyy HH:mm:ss"));
+    TimeZone.setDefault(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
     timeStart = TimeUtil.getTimeNow("dd/MM/yyyy HH:mm:ss");
+    System.out.println(timeStart);
     ServerManager.gI().run();
   }
 
