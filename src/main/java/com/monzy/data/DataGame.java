@@ -431,7 +431,7 @@ public class DataGame {
       session.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
-      Logger.logException(DataGame.class, e);
+      Logger.logException(DataGame.class, e, "Lỗi mapId: " + id);
     }
   }
 
