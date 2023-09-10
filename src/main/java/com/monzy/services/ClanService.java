@@ -445,7 +445,7 @@ public class ClanService {
         return;
       }
       FlagBag flagBag = FlagBagService.gI().getFlagBag(imgId);
-      if (flagBag != null) {
+      if (flagBag != null && (flagBag.gold > 0 || flagBag.gem > 0)) {
         if (flagBag.gold > 0) {
           if (player.inventory.gold >= flagBag.gold) {
             player.inventory.gold -= flagBag.gold;
@@ -610,7 +610,7 @@ public class ClanService {
       msg.cleanup();
     } catch (Exception e) {
       Logger.logException(
-          ClanService.class, e, "Lỗi send my clan " + player.clan.name + " - " + player.clan.id);
+          ClanService.class, e, "Lỗi send my clan " + player.clan.name + " - " + player.clan.id + " - player" + player.name);
     }
   }
 
@@ -675,7 +675,7 @@ public class ClanService {
       return;
     }
     FlagBag flagBag = FlagBagService.gI().getFlagBag(imgId);
-    if (flagBag == null) {
+    if (flagBag == null || (flagBag.gold < 0 && flagBag.gem < 0)) {
       return;
     }
     if (flagBag.gold > 0 && player.inventory.gold < flagBag.gold) {

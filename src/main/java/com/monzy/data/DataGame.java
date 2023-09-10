@@ -21,7 +21,7 @@ public class DataGame {
 
   public static final Map<Object, Object> MAP_MOUNT_NUM = new HashMap<>();
   private static final String MOUNT_NUM =
-      "733:1,734:2,735:3,743:4,744:5,746:6,795:7,849:8,897:9,920:10,1143:11,1141:15";
+      "733:1,734:2,735:3,743:4,744:5,746:6,795:7,849:8,897:9,920:10,1092:11,1106:13,1107:14";
   private static final List<Integer> list = new ArrayList<>();
   public static byte vsData = 80;
   public static byte vsMap = 80;
