@@ -174,7 +174,7 @@ public class UseItem {
           break;
       }
     } catch (Exception e) {
-      //            Logger.logException(UseItem.class, e);
+      Logger.logException(UseItem.class, e);
     }
   }
 
@@ -1133,6 +1133,7 @@ public class UseItem {
   }
 
   public void eatPea(Player player) {
+
     Item pea = null;
     for (Item item : player.inventory.itemsBag) {
       if (item.isNotNullItem() && item.template.type == 6) {
@@ -1142,7 +1143,7 @@ public class UseItem {
     }
     if (pea != null) {
       int hpKiHoiPhuc = 0;
-      int lvPea = Integer.parseInt(pea.template.name.substring(13));
+      int lvPea = Integer.parseInt(pea.template.name.split("cấp ")[1]);
       for (Item.ItemOption io : pea.itemOptions) {
         if (io.optionTemplate.id == 2) {
           hpKiHoiPhuc = io.param * 1000;
@@ -1158,8 +1159,7 @@ public class UseItem {
       PlayerService.gI().sendInfoHpMp(player);
       Service.gI().sendInfoPlayerEatPea(player);
       if (player.pet != null && player.zone.equals(player.pet.zone) && !player.pet.isDie()) {
-        int statima = 100 * lvPea;
-        player.pet.nPoint.stamina += statima;
+        player.pet.nPoint.stamina += (short) (100 * lvPea);
         if (player.pet.nPoint.stamina > player.pet.nPoint.maxStamina) {
           player.pet.nPoint.stamina = player.pet.nPoint.maxStamina;
         }

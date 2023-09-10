@@ -61,7 +61,7 @@ public class ServerManager {
 
   public void run() {
     isRunning = true;
-    activeCommandLine();
+//    activeCommandLine();
 //    activeGame();
     activeServerSocket();
     //    NapThe.callbackAPI();
