@@ -66,11 +66,11 @@ public class TransactionService implements Runnable {
                     e.printStackTrace();
                   }
                   if (checkLogout1) {
-                    Client.gI().kickSession(pl.getSession());
+                    Client.gI().kickSession(pl.session);
                     break;
                   }
                   if (checkLogout2) {
-                    Client.gI().kickSession(plMap.getSession());
+                    Client.gI().kickSession(plMap.session);
                     break;
                   }
                   pl.iDMark.setLastTimeTrade(System.currentTimeMillis());

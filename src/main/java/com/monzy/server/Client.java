@@ -53,7 +53,7 @@ public class Client implements Runnable {
       this.players_name.put(player.name, player);
     }
     if (!players_userId.containsValue(player)) {
-      this.players_userId.put(player.getSession().userId, player);
+      this.players_userId.put(player.session.userId, player);
     }
     if (!players.contains(player)) {
       this.players.add(player);
@@ -82,7 +82,7 @@ public class Client implements Runnable {
   private void remove(Player player) {
     this.players_id.remove(player.id);
     this.players_name.remove(player.name);
-    this.players_userId.remove(player.getSession().userId);
+    this.players_userId.remove(player.session.userId);
     this.players.remove(player);
     if (!player.beforeDispose) {
       DaiHoiVoThuatService.gI(DaiHoiVoThuat.gI().getDaiHoiNow()).removePlayerWait(player);
@@ -151,7 +151,7 @@ public class Client implements Runnable {
   public void close() {
     Logger.error("BEGIN KICK OUT SESSION.............................." + players.size() + "\n");
     while (!players.isEmpty()) {
-      this.kickSession(players.remove(0).getSession());
+      this.kickSession(players.remove(0).session);
     }
     Logger.error("...........................................SUCCESSFUL\n");
   }

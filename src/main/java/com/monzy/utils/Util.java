@@ -334,10 +334,10 @@ public class Util {
                           p ->
                               !p.isPet
                                   && !p.isNewPet
-                                  && p.getSession().userId == player.getSession().userId)
+                                  && p.session.userId == player.session.userId)
                       .collect(Collectors.toList());
               if (list.size() > 1) {
-                list.forEach(pp -> Client.gI().kickSession(pp.getSession()));
+                list.forEach(pp -> Client.gI().kickSession(pp.session));
                 list.clear();
               }
             })

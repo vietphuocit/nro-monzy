@@ -37,7 +37,7 @@ public class ShopServiceNew {
       openShopType4(player, tagName, player.inventory.itemsBoxCrackBall);
       return;
     } else if (tagName.equals("ITEMS_REWARD")) {
-      player.getSession().initItemsReward();
+      player.session.initItemsReward();
       return;
     }
     try {
@@ -448,7 +448,7 @@ public class ShopServiceNew {
     if (where == 0) {
       item = pl.inventory.itemsBody.get(index);
     } else {
-      if (pl.getSession().version < 220) {
+      if (pl.session.version < 220) {
         index -= (pl.inventory.itemsBody.size() - 7);
       }
       item = pl.inventory.itemsBag.get(index);

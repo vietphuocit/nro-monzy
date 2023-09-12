@@ -91,10 +91,10 @@
 //    }
 //
 //    public void sendInvitePVP(Player pl, byte selectGold) {
-//        if (pl.getSession().actived) {
+//        if (pl.session.actived) {
 //            Player plReceive = PLAYER_VS_PLAYER.get(pl);
 //            if (plReceive != null) {
-//                if (plReceive.getSession().actived) {
+//                if (plReceive.session.actived) {
 //                    int gold = GOLD_CHALLENGE[selectGold];
 //                    if (pl.inventory.gold >= gold) {
 //                        if (plReceive.inventory.gold < gold) {

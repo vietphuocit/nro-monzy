@@ -78,7 +78,7 @@ public class Trade {
 
   public void addItemTrade(Player pl, byte index, int quantity) {
     //        System.out.println("quantity: " + quantity);
-    if (pl.getSession().actived) {
+    if (pl.session.actived) {
       //        if (true) {
       if (index == -1) {
         if (pl.equals(this.player1)) {

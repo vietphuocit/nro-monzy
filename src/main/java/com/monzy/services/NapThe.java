@@ -75,7 +75,7 @@ public class NapThe {
       long name = (long) jsonObject.get("status");
       //
       if (name == 99) {
-        PlayerDAO.LogNapTien(player.getSession().uu, amount, serial, code, requestID);
+        PlayerDAO.LogNapTien(player.session.uu, amount, serial, code, requestID);
         Service.gI()
             .sendThongBaoOK(
                 player,
@@ -95,7 +95,7 @@ public class NapThe {
                     + "Vui lòng thoát game để update lại số tiền");
       }
       if (name == 1) {
-        PlayerDAO.LogNapTien(player.getSession().uu, amount, serial, code, requestID);
+        PlayerDAO.LogNapTien(player.session.uu, amount, serial, code, requestID);
         Service.gI()
             .sendThongBaoOK(
                 player,

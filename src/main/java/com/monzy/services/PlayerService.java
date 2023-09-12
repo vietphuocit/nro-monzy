@@ -101,7 +101,7 @@ public class PlayerService {
     try {
       msg = Service.gI().messageSubCommand((byte) 4);
       try {
-        if (player.getSession().version >= 214) {
+        if (player.session.version >= 214) {
           msg.writer().writeLong(player.inventory.gold);
         } else {
           msg.writer().writeInt((int) player.inventory.gold);
@@ -221,8 +221,8 @@ public class PlayerService {
     try {
       Database.executeUpdate(
           "update account set ban = 1 where id = ? and username = ?",
-          playerBaned.getSession().userId,
-          playerBaned.getSession().uu);
+          playerBaned.session.userId,
+          playerBaned.session.uu);
     } catch (Exception e) {
     }
     Service.gI()

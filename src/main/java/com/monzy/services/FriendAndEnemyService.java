@@ -130,7 +130,7 @@ public class FriendAndEnemyService {
       for (Friend f : player.friends) {
         msg.writer().writeInt(f.id);
         msg.writer().writeShort(f.head);
-        if (player.getSession().version > 214) {
+        if (player.session.version > 214) {
           msg.writer().writeShort(-1);
         }
         msg.writer().writeShort(f.body);
@@ -157,7 +157,7 @@ public class FriendAndEnemyService {
       for (Enemy e : player.enemies) {
         msg.writer().writeInt(e.id);
         msg.writer().writeShort(e.head);
-        if (player.getSession().version > 214) {
+        if (player.session.version > 214) {
           msg.writer().writeShort(-1);
         }
         msg.writer().writeShort(e.body);

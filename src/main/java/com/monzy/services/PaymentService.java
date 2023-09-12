@@ -122,7 +122,7 @@ public class PaymentService implements Runnable {
         Player playerMTV =
             Client.gI().getPlayer(extractPlayerName(transactionHistory.getDescription(), "mtv"));
         if (playerMTV != null && transactionHistory.getAmount() >= 20000) {
-          playerMTV.getSession().actived = true;
+          playerMTV.session.actived = true;
           PlayerDAO.activedUser(playerMTV);
           Service.gI().sendThongBao(playerMTV, "Đã mở thành viên!");
           playerMTV.inventory.ruby += 20000;

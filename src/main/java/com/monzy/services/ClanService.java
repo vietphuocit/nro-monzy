@@ -523,7 +523,7 @@ public class ClanService {
           for (ClanMember cm : clan.getMembers()) {
             msg.writer().writeInt(cm.id);
             msg.writer().writeShort(cm.head);
-            if (player.getSession().version > 220) {
+            if (player.session.version > 220) {
               msg.writer().writeShort(-1);
             }
             msg.writer().writeShort(cm.leg);
@@ -568,7 +568,7 @@ public class ClanService {
         for (ClanMember cm : player.clan.getMembers()) {
           msg.writer().writeInt(cm.id);
           msg.writer().writeShort(cm.head);
-          if (player.getSession().version > 220) {
+          if (player.session.version > 220) {
             msg.writer().writeShort(-1);
           }
           msg.writer().writeShort(cm.leg);

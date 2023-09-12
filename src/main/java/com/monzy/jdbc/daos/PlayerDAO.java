@@ -32,7 +32,7 @@ public class PlayerDAO {
       dataArray.add(0); // event
       String inventory = dataArray.toJSONString();
       dataArray.clear();
-      dataArray.add(39 + gender); // map
+      dataArray.add(21 + gender); // map
       dataArray.add(100); // x
       dataArray.add(384); // y
       String location = dataArray.toJSONString();
@@ -179,7 +179,7 @@ public class PlayerDAO {
       dataArray.add(0); // ẩn danh2
       String itemTimeSC = dataArray.toJSONString();
       dataArray.clear();
-      dataArray.add(0); // id nhiệm vụ
+      dataArray.add(1); // id nhiệm vụ
       dataArray.add(0); // index nhiệm vụ con
       dataArray.add(0); // số lượng đã làm
       String task = dataArray.toJSONString();
@@ -799,11 +799,11 @@ public class PlayerDAO {
               ResultSet.TYPE_SCROLL_INSENSITIVE,
               ResultSet.CONCUR_READ_ONLY);
       ps.setInt(1, num);
-      ps.setInt(2, player.getSession().actived ? 1 : 0);
-      ps.setInt(3, player.getSession().userId);
+      ps.setInt(2, player.session.actived ? 1 : 0);
+      ps.setInt(3, player.session.userId);
       ps.executeUpdate();
       ps.close();
-      player.getSession().vnd -= num;
+      player.session.vnd -= num;
     } catch (Exception e) {
       Logger.logException(PlayerDAO.class, e, "Lỗi update Coin " + player.name);
       return false;
@@ -820,11 +820,11 @@ public class PlayerDAO {
               ResultSet.TYPE_SCROLL_INSENSITIVE,
               ResultSet.CONCUR_READ_ONLY);
       ps.setInt(1, num);
-      ps.setInt(2, player.getSession().actived ? 1 : 0);
-      ps.setInt(3, player.getSession().userId);
+      ps.setInt(2, player.session.actived ? 1 : 0);
+      ps.setInt(3, player.session.userId);
       ps.executeUpdate();
       ps.close();
-      player.getSession().tongnap += num;
+      player.session.tongnap += num;
     } catch (Exception e) {
       Logger.logException(PlayerDAO.class, e, "Lỗi update Tổng nạp " + player.name);
       return false;
@@ -841,11 +841,11 @@ public class PlayerDAO {
               ResultSet.TYPE_SCROLL_INSENSITIVE,
               ResultSet.CONCUR_READ_ONLY);
       ps.setInt(1, num);
-      ps.setInt(2, player.getSession().actived ? 1 : 0);
-      ps.setInt(3, player.getSession().userId);
+      ps.setInt(2, player.session.actived ? 1 : 0);
+      ps.setInt(3, player.session.userId);
       ps.executeUpdate();
       ps.close();
-      player.getSession().vnd += num;
+      player.session.vnd += num;
     } catch (Exception e) {
       Logger.logException(PlayerDAO.class, e, "Lỗi update Coin " + player.name);
       return false;
@@ -861,7 +861,7 @@ public class PlayerDAO {
               "update account set is_gift_box = 0 where id = ?",
               ResultSet.TYPE_SCROLL_INSENSITIVE,
               ResultSet.CONCUR_READ_ONLY);
-      ps.setInt(1, player.getSession().userId);
+      ps.setInt(1, player.session.userId);
       ps.executeUpdate();
       ps.close();
     } catch (Exception e) {
@@ -880,7 +880,7 @@ public class PlayerDAO {
               "select * from account where id = ? limit 1",
               ResultSet.TYPE_SCROLL_INSENSITIVE,
               ResultSet.CONCUR_READ_ONLY);
-      ps.setInt(1, player.getSession().userId);
+      ps.setInt(1, player.session.userId);
       ResultSet rs = ps.executeQuery();
       while (rs.next()) {
         lastTimeLogout = rs.getTimestamp("last_time_logout").getTime();
@@ -936,8 +936,8 @@ public class PlayerDAO {
               "update account set active = ? where id = ?",
               ResultSet.TYPE_SCROLL_INSENSITIVE,
               ResultSet.CONCUR_READ_ONLY);
-      ps.setInt(1, player.getSession().actived ? 1 : 0);
-      ps.setInt(2, player.getSession().userId);
+      ps.setInt(1, player.session.actived ? 1 : 0);
+      ps.setInt(2, player.session.userId);
       ps.executeUpdate();
       ps.close();
       return true;

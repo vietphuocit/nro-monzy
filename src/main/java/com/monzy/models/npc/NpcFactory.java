@@ -333,7 +333,7 @@ public class NpcFactory {
                 {
                   this.npcChat(player, "Chức Năng Đang Được Update!");
                   return;
-                  //                  if (player.getSession().player.nPoint.power < 80_000_000_000L)
+                  //                  if (player.session.player.nPoint.power < 80_000_000_000L)
                   // {
                   //                    return;
                   //                  }
@@ -802,7 +802,7 @@ public class NpcFactory {
             if (player.iDMark.isBaseMenu()) {
               switch (select) {
                 case 0:
-                  if (player.getSession().player.nPoint.power >= 80_000_000_000L) {
+                  if (player.session.player.nPoint.power >= 80_000_000_000L) {
                     ChangeMapService.gI().changeMapBySpaceShip(player, 109, -1, 295);
                   }
                   this.npcChat(player, "Bạn chưa đủ 80 tỷ sức mạnh để vào");
@@ -954,7 +954,7 @@ public class NpcFactory {
                       player,
                       ConstNpc.QUY_DOI,
                       "|7|Số tiền của bạn còn : "
-                          + player.getSession().vnd
+                          + player.session.vnd
                           + "\nTỉ lệ quy đổi là 1-1"
                           + "\nMuốn quy đổi không",
                       "Quy đổi\nHồng ngọc",
@@ -1001,7 +1001,7 @@ public class NpcFactory {
       @Override
       public void confirmMenu(Player player, int select) {
         if (canOpenNpc(player)) {
-          if (!player.getSession().actived) {
+          if (!player.session.actived) {
             this.npcChat(player, "Mở thành viên mới chơi được bạn ơi :)");
             return;
           }
@@ -1448,7 +1448,7 @@ public class NpcFactory {
       public void confirmMenu(Player player, int select) {
         if (canOpenNpc(player)) {
           if (this.mapId == 24 || this.mapId == 25 || this.mapId == 26) {
-            if (player.getSession().player.nPoint.power < 800_000_000L) {
+            if (player.session.player.nPoint.power < 800_000_000L) {
               this.npcChat(player, "Bạn chưa đủ 800tr sức mạnh để vào!");
               return;
             }
@@ -1910,7 +1910,7 @@ public class NpcFactory {
                   NpcService.gI()
                       .createTutorial(player, this.avartar, ConstNpc.HUONG_DAN_MAP_MA_BU);
                 } else if (select == 1) {
-                  //                                    if (!player.getSession().actived) {
+                  //                                    if (!player.session.actived) {
                   //                                        Service.gI().sendThongBao(player, "Vui
                   // lòng kích hoạt tài khoản để sử dụng chức năng này");
                   //                                    } else
@@ -2474,7 +2474,7 @@ public class NpcFactory {
                 NpcService.gI()
                     .createTutorial(player, this.avartar, ConstNpc.HUONG_DAN_BLACK_BALL_WAR);
               } else if (select == 1) {
-                //                                if (!player.getSession().actived) {
+                //                                if (!player.session.actived) {
                 //                                    Service.gI().sendThongBao(player, "Vui lòng
                 // kích hoạt tài khoản để sử dụng chức năng này");
                 //
@@ -2631,7 +2631,7 @@ public class NpcFactory {
               case 14:
                 {
                   if (select == 0) {
-                    if (player.getSession().player.nPoint.power >= 80000000000L
+                    if (player.session.player.nPoint.power >= 80000000000L
                         && player.inventory.gold > COST_HD) {
                       player.inventory.gold -= COST_HD;
                       Service.gI().sendMoney(player);
@@ -3224,7 +3224,7 @@ public class NpcFactory {
         //            if (player.iDMark.getIndexMenu() == 0) { //
         //              switch (select) {
         //                case 0:
-        //                  if (player.getSession().player.nPoint.power >= 10000000000L) {
+        //                  if (player.session.player.nPoint.power >= 10000000000L) {
         //                    ChangeMapService.gI().changeMapBySpaceShip(player, 112, -1, 495);
         //                    Service.gI().changeFlag(player, Util.nextInt(8));
         //                  } else {
@@ -3844,9 +3844,9 @@ public class NpcFactory {
                 //                                    case ConstNpc.CONFIRM_ACTIVE:
                 //                                        switch (select) {
                 //                                            case 0:
-                //                                                if (player.getSession().goldBar >=
+                //                                                if (player.session.goldBar >=
                 // 20) {
-                //                                                    player.getSession().actived =
+                //                                                    player.session.actived =
                 // true;
                 //                                                    if
                 // (PlayerDAO.subGoldBar(player, 20)) {
@@ -3908,7 +3908,7 @@ public class NpcFactory {
                     case 4:
                       Service.gI().sendThongBao(player, "Kik người chơi " + p.name + " thành công");
                       Client.gI().getPlayers().remove(p);
-                      Client.gI().kickSession(p.getSession());
+                      Client.gI().kickSession(p.session);
                       break;
                   }
                 }

@@ -408,9 +408,9 @@ public class Mob {
     // thức ăn
     if (Util.nextInt(0, 100) < 5
         && MapService.gI().isMapCold(this.zone.map)
-        && ((!player.isPet && player.getSession().actived && player.setClothes.setGOD == 5)
+        && ((!player.isPet && player.session.actived && player.setClothes.setGOD == 5)
             || (player.isPet
-                && ((Pet) player).master.getSession().actived
+                && ((Pet) player).master.session.actived
                 && player.setClothes.setGOD == 5))) {
       short randomThucAn = Manager.THUC_AN[Util.nextInt(0, 4)];
       list.add(new ItemMap(zone, randomThucAn, 1, x, player.location.y, player.id));
@@ -472,7 +472,7 @@ public class Mob {
 //    if (Util.isTrue(3, 100)) {
 //      list.add(new ItemMap(zone, 1229, 1, x, player.location.y, player.id));
 //    }
-    //        if (player.isPet && player.getSession().actived && Util.isTrue(15, 100)) {
+    //        if (player.isPet && player.session.actived && Util.isTrue(15, 100)) {
     //            list.add(new ItemMap(zone, 610, 1, x, player.location.y, player.id));
     //        }
     return list;

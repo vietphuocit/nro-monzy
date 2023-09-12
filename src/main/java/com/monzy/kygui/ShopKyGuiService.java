@@ -192,7 +192,7 @@ public class ShopKyGuiService implements Runnable {
         msg.writer().writeInt(itk.goldSell);
         msg.writer().writeInt(itk.rubySell);
         msg.writer().writeByte(0); // buy type
-        if (pl.getSession().version >= 222) {
+        if (pl.session.version >= 222) {
           msg.writer().writeInt(itk.quantity);
         } else {
           msg.writer().writeByte(itk.quantity);
@@ -426,7 +426,7 @@ public class ShopKyGuiService implements Runnable {
       Service.gI().sendThongBao(pl, "Yêu cầu sức mạnh lớn hơn 40 tỷ");
       return;
     }
-    if (!pl.getSession().actived) {
+    if (!pl.session.actived) {
       Service.gI()
           .sendThongBaoFromAdmin(
               pl, "|5|VUI LÒNG KÍCH HOẠT TÀI KHOẢN\n|5|ĐỂ MỞ KHÓA TÍNH NĂNG KÝ GỬI");
@@ -463,7 +463,7 @@ public class ShopKyGuiService implements Runnable {
             } else {
               msg.writer().writeByte(1);
             }
-            if (pl.getSession().version >= 222) {
+            if (pl.session.version >= 222) {
               msg.writer().writeInt(itk.quantity);
             } else {
               msg.writer().writeByte(itk.quantity);
@@ -498,7 +498,7 @@ public class ShopKyGuiService implements Runnable {
             msg.writer().writeInt(itk.goldSell);
             msg.writer().writeInt(itk.rubySell);
             msg.writer().writeByte(0); // buy type
-            if (pl.getSession().version >= 222) {
+            if (pl.session.version >= 222) {
               msg.writer().writeInt(itk.quantity);
             } else {
               msg.writer().writeByte(itk.quantity);

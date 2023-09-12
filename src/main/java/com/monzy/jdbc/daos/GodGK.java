@@ -102,7 +102,7 @@ public class GodGK {
         } else if (rs.getTimestamp("last_time_login").getTime() > session.lastTimeLogout) {
           Player plInGame = Client.gI().getPlayerByUser(session.userId);
           if (plInGame != null) {
-            Client.gI().kickSession(plInGame.getSession());
+            Client.gI().kickSession(plInGame.session);
             Service.gI().sendThongBaoOK(session, "Ai đó đã vô acc bạn :3");
           }
           //                    Service.gI().sendThongBaoOK(session, "Tài khoản đang được đăng nhập
@@ -127,7 +127,7 @@ public class GodGK {
             } else {
               Player plInGame = Client.gI().getPlayerByUser(session.userId);
               if (plInGame != null) {
-                Client.gI().kickSession(plInGame.getSession());
+                Client.gI().kickSession(plInGame.session);
               }
               int plHp;
               int plMp;

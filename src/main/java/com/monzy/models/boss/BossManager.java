@@ -204,7 +204,7 @@ public class BossManager implements Runnable {
         msg.writer().writeInt(i + 1);
         msg.writer().writeInt((int) boss.id);
         msg.writer().writeShort(boss.data[0].getOutfit()[0]);
-        if (player.getSession().version > 214) {
+        if (player.session.version > 214) {
           msg.writer().writeShort(-1);
         }
         msg.writer().writeShort(boss.data[0].getOutfit()[1]);

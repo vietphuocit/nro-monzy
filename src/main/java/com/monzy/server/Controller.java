@@ -66,7 +66,7 @@ public class Controller implements IMessageHandler {
                 byte moneyType = _msg.reader().readByte();
                 int money = _msg.reader().readInt();
                 int quantity;
-                if (player.getSession().version >= 222) {
+                if (player.session.version >= 222) {
                   quantity = _msg.reader().readInt();
                 } else {
                   quantity = _msg.reader().readByte();

@@ -225,10 +225,6 @@ public class Player {
     }
   }
 
-  public MySession getSession() {
-    return this.session;
-  }
-
   // --------------------------------------------------------------------------
   public void setSession(MySession session) {
     this.session = session;
@@ -322,7 +318,7 @@ public class Player {
             isWin = false;
           }
           if (location.lastTimeplayerMove < System.currentTimeMillis() - 30 * 60 * 1000) {
-            Client.gI().kickSession(getSession());
+            Client.gI().kickSession(session);
           }
         } else {
           if (Util.canDoWithTime(iDMark.getLastTimeBan(), 5000)) {
@@ -338,66 +334,67 @@ public class Player {
 
   // Sua id vat pham muon co aura lai
   public byte getAura() {
-    if (this.inventory.itemsBody.isEmpty() || this.inventory.itemsBody.size() < 10) {
-      return -1;
-    }
-    Item item = this.inventory.itemsBody.get(5);
-    if (!item.isNotNullItem()) {
-      return -1;
-    }
-    if (item.template.id == 1121) {
-      return 10; //
-    } else if (item.template.id == 282) {
-      return 1;
-    } else if (item.template.id == 283) {
-      return 2;
-    } else if (item.template.id == 284) {
-      return 3;
-    } else if (item.template.id == 285) {
-      return 4;
-    } else if (item.template.id == 286) {
-      return 5;
-    } else if (item.template.id == 287) {
-      return 6;
-    } else if (item.template.id == 288) {
-      return 7;
-    } else if (item.template.id == 289) {
-      return 8;
-    } else if (item.template.id == 290) {
-      return 9;
-    } else if (item.template.id == 291) {
-      return 10;
-    } else if (item.template.id == 292) {
-      return 11;
-    } else if (item.template.id == 386) {
-      return 12;
-    } else if (item.template.id == 387) {
-      return 6;
-    } else if (item.template.id == 388) {
-      return 7;
-    } else if (item.template.id == 389) {
-      return 8;
-    } else if (item.template.id == 390) {
-      return 9;
-    } else if (item.template.id == 391) {
-      return 10;
-    } else if (item.template.id == 392) {
-      return 11;
-    } else if (item.template.id == 393) {
-      return 12;
-    } else if (item.template.id == 968) {
-      return 20;
-    } else if (item.template.id == 969) {
-      return 22;
-    } else if (item.template.id == 970) {
-      return 23;
-    } else if (item.template.id == 971) {
-      return 24;
-    } else if (item.template.id == 972) {
-      return 25;
-    } else {
-      return -1;
-    }
+    return -1;
+//    if (this.inventory.itemsBody.isEmpty() || this.inventory.itemsBody.size() < 10) {
+//      return -1;
+//    }
+//    Item item = this.inventory.itemsBody.get(5);
+//    if (!item.isNotNullItem()) {
+//      return -1;
+//    }
+//    if (item.template.id == 1121) {
+//      return 10; //
+//    } else if (item.template.id == 282) {
+//      return 1;
+//    } else if (item.template.id == 283) {
+//      return 2;
+//    } else if (item.template.id == 284) {
+//      return 3;
+//    } else if (item.template.id == 285) {
+//      return 4;
+//    } else if (item.template.id == 286) {
+//      return 5;
+//    } else if (item.template.id == 287) {
+//      return 6;
+//    } else if (item.template.id == 288) {
+//      return 7;
+//    } else if (item.template.id == 289) {
+//      return 8;
+//    } else if (item.template.id == 290) {
+//      return 9;
+//    } else if (item.template.id == 291) {
+//      return 10;
+//    } else if (item.template.id == 292) {
+//      return 11;
+//    } else if (item.template.id == 386) {
+//      return 12;
+//    } else if (item.template.id == 387) {
+//      return 6;
+//    } else if (item.template.id == 388) {
+//      return 7;
+//    } else if (item.template.id == 389) {
+//      return 8;
+//    } else if (item.template.id == 390) {
+//      return 9;
+//    } else if (item.template.id == 391) {
+//      return 10;
+//    } else if (item.template.id == 392) {
+//      return 11;
+//    } else if (item.template.id == 393) {
+//      return 12;
+//    } else if (item.template.id == 968) {
+//      return 20;
+//    } else if (item.template.id == 969) {
+//      return 22;
+//    } else if (item.template.id == 970) {
+//      return 23;
+//    } else if (item.template.id == 971) {
+//      return 24;
+//    } else if (item.template.id == 972) {
+//      return 25;
+//    } else {
+//      return -1;
+//    }
   }
 
   // hieu ung theo set

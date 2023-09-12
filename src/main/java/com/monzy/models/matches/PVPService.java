@@ -87,7 +87,7 @@ public class PVPService {
       Service.gI().sendThongBao(pl, "Đối thủ đã rời khỏi map");
       return;
     }
-    //        if (!plMap.getSession().actived) {
+    //        if (!plMap.session.actived) {
     //            Service.gI().sendThongBao(pl, "Đối thủ chưa là thành viên của Arriety");
     //            return;
     //        }

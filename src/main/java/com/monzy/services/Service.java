@@ -64,7 +64,7 @@ public class Service {
         msg.writer().writeInt(i + 1);
         msg.writer().writeInt((int) pl.id);
         msg.writer().writeShort(pl.getHead());
-        if (player.getSession().version > 214) {
+        if (player.session.version > 214) {
           msg.writer().writeShort(-1);
         }
         msg.writer().writeShort(pl.getBody());
@@ -821,7 +821,7 @@ public class Service {
         player.pet.transform();
       }
     }
-    if (player.getSession() != null && player.isAdmin()) {
+    if (player.session != null && player.isAdmin()) {
       if (text.equals("monzy")) {
         NpcService.gI()
             .createMenuConMeo(
@@ -853,7 +853,7 @@ public class Service {
         return;
       }
     }
-    if (player.getSession() != null && player.isMod()) {
+    if (player.session != null && player.isMod()) {
       if (text.equals("monzy")) {
         NpcService.gI()
             .createMenuConMeo(
@@ -867,8 +867,8 @@ public class Service {
       }
     }
     /**
-     * if (player.getSession() != null && player.isAdmin()) { if (text.equals("r")) { new Thread(()
-     * -> { while (true) { Manager.loadPart(); DataGame.updateData(player.getSession()); try {
+     * if (player.session != null && player.isAdmin()) { if (text.equals("r")) { new Thread(()
+     * -> { while (true) { Manager.loadPart(); DataGame.updateData(player.session); try {
      * Thread.sleep(5); } catch (Exception e) { } } }).start(); return; } if
      * (text.equals("logskill")) { Service.gI().sendThongBao(player,
      * player.playerSkill.skillSelect.coolDown + ""); return; } if (text.equals("client")) {
@@ -1121,7 +1121,7 @@ public class Service {
         }
       }
       // ---vang---luong--luongKhoa
-      if (pl.getSession().version >= 214) {
+      if (pl.session.version >= 214) {
         msg.writer().writeLong(pl.inventory.gold);
       } else {
         msg.writer().writeInt((int) pl.inventory.gold);
@@ -1601,7 +1601,7 @@ public class Service {
     Message msg;
     try {
       msg = new Message(6);
-      if (pl.getSession().version >= 214) {
+      if (pl.session.version >= 214) {
         msg.writer().writeLong(pl.inventory.gold);
       } else {
         msg.writer().writeInt((int) pl.inventory.gold);
@@ -1954,16 +1954,16 @@ public class Service {
   }
 
   public void changePassword(Player player, String oldPass, String newPass, String rePass) {
-    if (player.getSession().pp.equals(oldPass)) {
+    if (player.session.pp.equals(oldPass)) {
       if (newPass.length() >= 5) {
         if (newPass.equals(rePass)) {
-          player.getSession().pp = newPass;
+          player.session.pp = newPass;
           try {
             Database.executeUpdate(
                 "update account set password = ? where id = ? and username = ?",
                 rePass,
-                player.getSession().userId,
-                player.getSession().uu);
+                player.session.userId,
+                player.session.uu);
             Service.gI().sendThongBao(player, "Đổi mật khẩu thành công!");
           } catch (Exception ex) {
             Service.gI().sendThongBao(player, "Đổi mật khẩu thất bại!");

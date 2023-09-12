@@ -121,11 +121,11 @@ public class Input {
         case MTV:
           Player playerMTV = Client.gI().getPlayer(text[0]);
           if (playerMTV != null) {
-            if (playerMTV.getSession().actived) {
+            if (playerMTV.session.actived) {
               Service.gI().sendThongBao(player, playerMTV.name + " đã mở thành viên rồi!");
               return;
             }
-            playerMTV.getSession().actived = true;
+            playerMTV.session.actived = true;
             PlayerDAO.activedUser(playerMTV);
             TransactionHistory transactionHistory =
                 new TransactionHistory(
@@ -637,7 +637,7 @@ public class Input {
           int goldTrade = Integer.parseInt(text[0]);
           if (goldTrade <= 0 || goldTrade >= 50000000) {
             Service.gI().sendThongBao(player, "giới hạn");
-          } else if (player.getSession().vnd >= goldTrade * coinGold) {
+          } else if (player.session.vnd >= goldTrade * coinGold) {
             PlayerDAO.subVND(player, goldTrade * coinGold);
             Item thoiVang = ItemService.gI().createNewItem((short) 861, goldTrade); // x3
             InventoryService.gI().addItemBag(player, thoiVang);
@@ -651,14 +651,14 @@ public class Input {
                 .sendThongBao(
                     player,
                     "Số tiền của bạn là "
-                        + player.getSession().vnd
+                        + player.session.vnd
                         + " không đủ để quy "
                         + " đổi "
                         + goldTrade
                         + " Hồng Ngọc "
                         + " "
                         + "bạn cần thêm"
-                        + (player.getSession().vnd - goldTrade));
+                        + (player.session.vnd - goldTrade));
           }
           break;
         case VND_TO_THOI_VANG:
@@ -667,7 +667,7 @@ public class Input {
           int gemTrade = Integer.parseInt(text[0]);
           if (gemTrade <= 0 || gemTrade >= 50000000) {
             Service.gI().sendThongBao(player, "giới hạn");
-          } else if (player.getSession().vnd >= gemTrade * coinGem) {
+          } else if (player.session.vnd >= gemTrade * coinGem) {
             PlayerDAO.subVND(player, gemTrade * coinGem);
             Item thoiVang = ItemService.gI().createNewItem((short) 457, gemTrade * 4); // x4
             InventoryService.gI().addItemBag(player, thoiVang);
@@ -680,14 +680,14 @@ public class Input {
                 .sendThongBao(
                     player,
                     "Số tiền của bạn là "
-                        + player.getSession().vnd
+                        + player.session.vnd
                         + " không đủ để quy "
                         + " đổi "
                         + gemTrade
                         + " Thỏi Vàng"
                         + " "
                         + "bạn cần thêm"
-                        + (player.getSession().vnd - gemTrade));
+                        + (player.session.vnd - gemTrade));
           }
           break;
       }
