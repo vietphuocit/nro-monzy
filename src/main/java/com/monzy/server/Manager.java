@@ -138,9 +138,7 @@ public class Manager {
     {IDS_RADAR}
   };
   // id đồ thần
-  public static final int[] IDS_DO_THAN = {
-    555, 557, 559, 556, 558, 560, 563, 565, 567, 562, 564, 566, 561
-  };
+  public static final int[][] IDS_DO_THAN = {{555, 556, 562, 563, 561}, {557, 558, 564, 565, 561}, {559, 560, 566, 567, 561}};
   // id đồ hủy diệt
   public static final short ID_RADAR_HD = 656;
   public static final short[][] IDS_DO_HUY_DIET = {

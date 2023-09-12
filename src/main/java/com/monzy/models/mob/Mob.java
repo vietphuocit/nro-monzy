@@ -395,8 +395,13 @@ public class Mob {
       }
     }
     // đồ thần linh
-    if (MapService.gI().isMapCold(this.zone.map) && Util.isTrue(0.001f, 100)) {
-      int idItem = Manager.IDS_DO_THAN[Util.nextInt(Manager.IDS_DO_THAN.length)];
+    if (MapService.gI().isMapCold(this.zone.map) && Util.isTrue(0.6f, 100)) {
+      int idItem;
+      if (Util.isTrue(10, 100)) {
+        idItem = Manager.IDS_DO_THAN[Util.nextInt(0, 2)][Util.isTrue(50, 100) ? 0 : 4];
+      } else {
+        idItem = Manager.IDS_DO_THAN[Util.nextInt(0, 2)][Util.nextInt(1, 3)];
+      }
       Item item = ItemService.gI().randomCSDTL(idItem, ItemService.MOB_DROP);
       ItemMap itemMap = new ItemMap(zone, idItem, 1, x, player.location.y, player.id);
       itemMap.options.addAll(item.itemOptions);

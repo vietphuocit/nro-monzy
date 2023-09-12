@@ -13,6 +13,7 @@ import com.monzy.server.ServerNotify;
 import com.monzy.services.*;
 import com.monzy.utils.SkillUtil;
 import com.monzy.utils.Util;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -606,9 +607,9 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
   public void rewardDTL(Player plKill) {
     int randomIdDoThan;
     if (Util.isTrue(10, 100)) {
-      randomIdDoThan = Manager.IDS_DO_THAN[Util.nextInt(9, 12)];
+      randomIdDoThan = Manager.IDS_DO_THAN[Util.nextInt(0, 2)][Util.isTrue(50, 100) ? 0 : 4];
     } else {
-      randomIdDoThan = Manager.IDS_DO_THAN[Util.nextInt(0, 8)];
+      randomIdDoThan = Manager.IDS_DO_THAN[Util.nextInt(0, 2)][Util.nextInt(1, 3)];
     }
     if (Util.isTrue(15, 100)) {
       Item item = ItemService.gI().randomCSDTL(randomIdDoThan, ItemService.BOSS_DROP);
