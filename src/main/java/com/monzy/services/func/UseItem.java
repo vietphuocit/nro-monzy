@@ -209,6 +209,7 @@ public class UseItem {
           Service.gI().sendFlagBag(pl);
           break;
         case 72:
+        case 73:
           {
             InventoryService.gI().itemBagToBody(pl, indexBag);
             Service.gI().sendPetFollow(pl, (short) (item.template.iconID - 1));

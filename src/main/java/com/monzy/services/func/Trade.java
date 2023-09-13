@@ -195,6 +195,8 @@ public class Trade {
       case 31:
       case 32:
       case 34:
+      case 72:
+      case 73:
         return true;
       default:
         return false;

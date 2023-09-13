@@ -307,6 +307,7 @@ public class InventoryService {
       case 23:
       case 24:
       case 72:
+      case 73:
       case 27:
         break;
       default:
@@ -363,6 +364,7 @@ public class InventoryService {
         }
         break;
       case 72:
+      case 73:
         if (!player.isPet) {
           index = 10;
         }
@@ -372,6 +374,10 @@ public class InventoryService {
           index = 11;
         }
         break;
+    }
+    if (index == -1) {
+      Service.gI().sendThongBao(((Pet) player).master, "Không thể sử dụng trang bị");
+      return sItem;
     }
     sItem = player.inventory.itemsBody.get(index);
     player.inventory.itemsBody.set(index, item);
