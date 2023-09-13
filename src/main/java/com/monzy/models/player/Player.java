@@ -326,7 +326,6 @@ public class Player {
           }
         }
       } catch (Exception e) {
-        e.getStackTrace();
         Logger.logException(Player.class, e, "Lỗi tại player: " + this.name);
       }
     }
@@ -836,7 +835,7 @@ public class Player {
         }
       }
     } catch (Exception e) {
-      e.printStackTrace();
+      Logger.logException(Player.class, e, "Lỗi tại player: " + this.name);
     }
   }
 
@@ -859,7 +858,7 @@ public class Player {
         }
       }
     } catch (Exception e) {
-      e.printStackTrace();
+      Logger.logException(Player.class, e, "Lỗi tại player: " + this.name);
     }
   }
 

@@ -3,6 +3,7 @@ package com.monzy.data;
 import com.monzy.models.Template.ItemOptionTemplate;
 import com.monzy.server.Manager;
 import com.monzy.server.io.MySession;
+import com.monzy.utils.Logger;
 import com.network.io.Message;
 
 public class ItemData {
@@ -33,6 +34,7 @@ public class ItemData {
       session.doSendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(ItemData.class, e);
     }
   }
 
@@ -58,7 +60,7 @@ public class ItemData {
       session.doSendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
-      e.printStackTrace();
+      Logger.logException(ItemData.class, e);
     }
   }
 
@@ -87,7 +89,7 @@ public class ItemData {
       session.doSendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
-      e.printStackTrace();
+      Logger.logException(ItemData.class, e);
     }
   }
   // -------------------------------------------------------- end update client

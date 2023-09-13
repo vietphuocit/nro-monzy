@@ -7,6 +7,7 @@ import com.monzy.models.player.Player;
 import com.monzy.server.Client;
 import com.monzy.server.Manager;
 import com.monzy.server.ServerManager;
+import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -94,8 +95,7 @@ public class NgocRongNamecService implements Runnable {
       if (type == (byte) 0) {
         ItemMap itemMap = new ItemMap(zone, i + 353, 1, x, y, -1);
         Service.gI().dropItemMap(zone, itemMap);
-        System.out.println(
-            itemMap.itemTemplate.name + "[" + zone.map.mapId + "-" + zone.zoneId + "]");
+        Logger.info(itemMap.itemTemplate.name + "[" + zone.map.mapId + "-" + zone.zoneId + "]");
       } else {
         ItemMap itemMap = new ItemMap(zone, 362, 1, x, y, -1);
         Service.gI().dropItemMap(zone, itemMap);
@@ -213,6 +213,7 @@ public class NgocRongNamecService implements Runnable {
         }
       }
     } catch (Exception e) {
+      Logger.logException(NgocRongNamecService.class, e);
     }
     return "?";
   }
@@ -252,6 +253,7 @@ public class NgocRongNamecService implements Runnable {
         }
         Thread.sleep(1000);
       } catch (Exception e) {
+        Logger.logException(NgocRongNamecService.class, e);
       }
     }
   }

@@ -8,6 +8,7 @@ import com.monzy.models.npc.NpcManager;
 import com.monzy.models.player.Player;
 import com.monzy.server.Manager;
 import com.monzy.server.ServerNotify;
+import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
 import com.network.io.Message;
 import org.apache.commons.lang3.text.WordUtils;
@@ -100,6 +101,7 @@ public class CombineService {
       player.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(CombineService.class, e);
     }
   }
 
@@ -2213,6 +2215,7 @@ public class CombineService {
       player.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(CombineService.class, e);
     }
   }
 

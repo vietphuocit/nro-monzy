@@ -1,5 +1,6 @@
 package com.network.io;
 
+import com.monzy.utils.Logger;
 import com.network.CommandMessage;
 import com.network.handler.IMessageHandler;
 import com.network.handler.IMessageSendCollect;
@@ -54,7 +55,7 @@ public class Collector implements Runnable {
             } catch (Exception var3) {
             }
             if (this.session != null) {
-                System.out.println("Mất kết nối với session " + this.session.getIP() + "...");
+                Logger.log(Logger.RED, "Mất kết nối với session " + this.session.getIP() + "...");
                 this.session.disconnect();
             }
         }

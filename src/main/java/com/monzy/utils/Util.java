@@ -101,18 +101,26 @@ public class Util {
   }
 
   public static int getDistance(Player pl1, Player pl2) {
+    if (pl1 == null || pl2 == null)
+      return Integer.MAX_VALUE;
     return getDistance(pl1.location.x, pl1.location.y, pl2.location.x, pl2.location.y);
   }
 
   public static int getDistance(Player pl, Npc npc) {
+    if (pl == null || npc == null)
+      return Integer.MAX_VALUE;
     return getDistance(pl.location.x, pl.location.y, npc.cx, npc.cy);
   }
 
   public static int getDistance(Player pl, Mob mob) {
+    if (pl == null || mob == null)
+      return Integer.MAX_VALUE;
     return getDistance(pl.location.x, pl.location.y, mob.location.x, mob.location.y);
   }
 
   public static int getDistance(Mob mob1, Mob mob2) {
+    if (mob1 == null || mob2 == null)
+      return Integer.MAX_VALUE;
     return getDistance(mob1.location.x, mob1.location.y, mob2.location.x, mob2.location.y);
   }
 

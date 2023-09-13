@@ -73,7 +73,7 @@ public class Client implements Runnable {
             new Timestamp(System.currentTimeMillis()),
             session.userId);
       } catch (Exception e) {
-        e.printStackTrace();
+        Logger.logException(Client.class, e);
       }
     }
     ServerManager.gI().disconnect(session);

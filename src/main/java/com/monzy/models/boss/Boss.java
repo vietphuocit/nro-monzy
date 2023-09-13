@@ -11,6 +11,7 @@ import com.monzy.models.skill.Skill;
 import com.monzy.server.Manager;
 import com.monzy.server.ServerNotify;
 import com.monzy.services.*;
+import com.monzy.utils.Logger;
 import com.monzy.utils.SkillUtil;
 import com.monzy.utils.Util;
 
@@ -329,6 +330,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
     if (this.zone.map.mapId == 140
         || MapService.gI().isMapMaBu(this.zone.map.mapId)
         || MapService.gI().isMapBlackBallWar(this.zone.map.mapId)
+        || MapService.gI().isMapDoanhTrai(this.zone.map.mapId)
         || MapService.gI().isMapBanDoKhoBau(this.zone.map.mapId)
         || MapService.gI().isNguHS(this.zone.map.mapId)) return;
     ServerNotify.gI().notify("BOSS " + this.name + " vừa xuất hiện tại " + this.zone.map.mapName);
@@ -412,6 +414,14 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
 
   @Override
   public void die(Player plKill) {
+    if (this.zone.map.mapId == 140
+        || MapService.gI().isMapMaBu(this.zone.map.mapId)
+        || MapService.gI().isMapBlackBallWar(this.zone.map.mapId)
+        || MapService.gI().isMapDoanhTrai(this.zone.map.mapId)
+        || MapService.gI().isMapBanDoKhoBau(this.zone.map.mapId)) {
+      this.changeStatus(BossStatus.DIE);
+      return;
+    }
     if (plKill != null) {
       reward(plKill);
       ServerNotify.gI()
@@ -555,7 +565,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
         && !MapService.gI().isMapBlackBallWar(this.zone.map.mapId)
         && !MapService.gI().isMapBanDoKhoBau(this.zone.map.mapId)
         && !MapService.gI().isNguHS(this.zone.map.mapId)) {
-      System.out.println(
+      Logger.log(
           "BOSS "
               + this.name
               + " : "
@@ -590,7 +600,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
 
   @Override
   public void wakeupAnotherBossWhenDisappear() {
-    System.out.println("Boss " + this.name + " vừa bị tiêu diệt");
+    Logger.log("Boss " + this.name + " vừa bị tiêu diệt");
   }
 
   public boolean rewardItem(Player plKill, int... ids) {

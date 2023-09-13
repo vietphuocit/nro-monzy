@@ -2,9 +2,11 @@ package com.monzy.models.player;
 
 import com.monzy.consts.ConstPlayer;
 import com.monzy.models.mob.Mob;
+import com.monzy.models.npc.specialnpc.MagicTree;
 import com.monzy.models.skill.Skill;
 import com.monzy.server.Manager;
 import com.monzy.services.*;
+import com.monzy.utils.Logger;
 import com.monzy.utils.SkillUtil;
 import com.monzy.utils.TimeUtil;
 import com.monzy.utils.Util;
@@ -85,7 +87,7 @@ public class Pet extends Player {
                 Pet.this.status = Pet.ATTACK;
                 Thread.sleep(2000);
               } catch (Exception e) {
-                e.getStackTrace();
+                Logger.logException(Pet.class, e);
               }
               ChangeMapService.gI()
                   .goToMap(this, MapService.gI().getMapCanJoin(this, master.gender + 21, -1));
@@ -301,7 +303,7 @@ public class Pet extends Player {
       Service.gI().sendMessAllPlayerInMap(master, msg);
       msg.cleanup();
     } catch (Exception e) {
-      e.getStackTrace();
+      Logger.logException(Pet.class, e);
     }
   }
 
@@ -472,7 +474,7 @@ public class Pet extends Player {
           break;
       }
     } catch (Exception e) {
-      //            Logger.logException(Pet.class, e);
+      Logger.logException(Pet.class, e);
     }
   }
 

@@ -1,13 +1,14 @@
 package com.monzy;
 
-import java.util.Date;
+import com.monzy.utils.Logger;
 
 public class Test {
 
-  public static void main(String[] args) throws Exception {
-    long durationInMillis = 1690390800000L;
-    Date date = new Date(durationInMillis);
-
-    System.out.println(date);
+  public static void main(String[] args) {
+    try {
+      Integer.parseInt("a");
+    } catch (Exception e) {
+      Logger.logException(Test.class, e);
+    }
   }
 }

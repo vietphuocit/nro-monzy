@@ -858,7 +858,7 @@ public class ChangeMapService {
                 zoneJoin = map.zones.get(zoneId);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.logException(ChangeMapService.class, e);
         }
         return zoneJoin;
     }

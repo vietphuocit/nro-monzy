@@ -187,8 +187,8 @@ public class SummonDragon {
             try {
               InventoryService.gI()
                   .subQuantityItemsBag(pl, InventoryService.gI().findItemBag(pl, i), 1);
-            } catch (Exception ex) {
-              System.err.println(getClass().getName() + ": " + ex.getMessage());
+            } catch (Exception e) {
+              Logger.logException(SummonDragon.class, e);
             }
           }
           InventoryService.gI().sendItemBags(pl);

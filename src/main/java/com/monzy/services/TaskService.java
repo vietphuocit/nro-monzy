@@ -111,6 +111,7 @@ public class TaskService {
       player.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(TaskService.class, e);
     }
   }
 
@@ -122,6 +123,7 @@ public class TaskService {
       player.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(TaskService.class, e);
     }
   }
 
@@ -737,7 +739,8 @@ public class TaskService {
           try {
             InventoryService.gI()
                 .subQuantityItemsBag(player, InventoryService.gI().findItemBag(player, 73), 10);
-          } catch (Exception ex) {
+          } catch (Exception e) {
+            Logger.logException(TaskService.class, e);
           }
           InventoryService.gI().sendItemBags(player);
           Service.gI().dropItemMapForMe(player, player.zone.getItemMapByTempId(74));
@@ -757,7 +760,8 @@ public class TaskService {
           try {
             InventoryService.gI()
                 .subQuantityItemsBag(player, InventoryService.gI().findItemBag(player, 78), 1);
-          } catch (Exception ex) {
+          } catch (Exception e) {
+            Logger.logException(TaskService.class, e);
           }
           InventoryService.gI().sendItemBags(player);
           Service.gI().sendFlagBag(player);

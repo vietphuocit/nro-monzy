@@ -12,6 +12,7 @@ import com.monzy.models.player.Player;
 import com.monzy.server.Client;
 import com.monzy.server.Manager;
 import com.monzy.services.*;
+import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
 import com.network.io.Message;
 import com.network.session.ISession;
@@ -269,7 +270,7 @@ public class Input {
                       try {
                         Thread.sleep(1000);
                       } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        Logger.logException(Input.class, e);
                       }
                     }
                     int x = diceRoller(true);
@@ -346,7 +347,7 @@ public class Input {
                       try {
                         Thread.sleep(1000);
                       } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        Logger.logException(Input.class, e);
                       }
                     }
                     int x = diceRoller(false);
@@ -431,7 +432,7 @@ public class Input {
                       try {
                         Thread.sleep(1000);
                       } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        Logger.logException(Input.class, e);
                       }
                     }
                     int x = diceRoller(true);
@@ -518,7 +519,7 @@ public class Input {
                       try {
                         Thread.sleep(1000);
                       } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        Logger.logException(Input.class, e);
                       }
                     }
                     int x = diceRoller(false);
@@ -692,7 +693,7 @@ public class Input {
           break;
       }
     } catch (Exception e) {
-      e.getStackTrace();
+      Logger.logException(Input.class, e);
     }
   }
 
@@ -710,7 +711,7 @@ public class Input {
       pl.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
-      e.getStackTrace();
+      Logger.logException(Input.class, e);
     }
   }
 

@@ -1,9 +1,11 @@
 package com.monzy.models.boss.list_boss.dhvt;
 
 import com.monzy.models.boss.BossID;
+import com.monzy.models.boss.BossManager;
 import com.monzy.models.boss.BossesData;
 import com.monzy.models.player.Player;
 import com.monzy.services.EffectSkillService;
+import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
 
 public class ThienXinHang extends BossDHVT {
@@ -24,8 +26,8 @@ public class ThienXinHang extends BossDHVT {
                 lastTimePhanThan = System.currentTimeMillis();
                 phanThan();
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (Exception e) {
+            Logger.logException(ThienXinHang.class, e);
         }
     }
 
@@ -36,7 +38,7 @@ public class ThienXinHang extends BossDHVT {
             new ThienXinHangClone(BossID.THIEN_XIN_HANG_CLONE2, playerAtt);
             new ThienXinHangClone(BossID.THIEN_XIN_HANG_CLONE3, playerAtt);
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.logException(ThienXinHang.class, e);
         }
     }
 

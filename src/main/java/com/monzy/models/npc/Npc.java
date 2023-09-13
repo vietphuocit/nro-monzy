@@ -1,6 +1,7 @@
 package com.monzy.models.npc;
 
 import com.monzy.consts.ConstNpc;
+import com.monzy.jdbc.daos.ShopDAO;
 import com.monzy.models.map.Map;
 import com.monzy.models.map.Zone;
 import com.monzy.models.player.Player;
@@ -59,7 +60,7 @@ public abstract class Npc implements IActionNpc {
       player.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
-      e.printStackTrace();
+      Logger.logException(Npc.class, e);
     }
   }
 
@@ -79,7 +80,7 @@ public abstract class Npc implements IActionNpc {
       player.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
-      e.printStackTrace();
+      Logger.logException(Npc.class, e);
     }
   }
 
@@ -115,7 +116,7 @@ public abstract class Npc implements IActionNpc {
       player.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
-      Logger.logException(Service.class, e);
+      Logger.logException(Npc.class, e);
     }
   }
 
@@ -130,7 +131,7 @@ public abstract class Npc implements IActionNpc {
       }
       msg.cleanup();
     } catch (Exception e) {
-      Logger.logException(Service.class, e);
+      Logger.logException(Npc.class, e);
     }
   }
 

@@ -76,7 +76,7 @@ public class Service {
       player.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
-      e.printStackTrace();
+      Logger.logException(Service.class, e);
     }
   }
 
@@ -90,7 +90,7 @@ public class Service {
       pl.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
-      //            e.printStackTrace();
+      Logger.logException(Service.class, e);
     } finally {
       if (msg != null) {
         msg.cleanup();
@@ -325,7 +325,7 @@ public class Service {
       sendMessAllPlayerInMap(player, msg);
       msg.cleanup();
     } catch (Exception e) {
-      e.printStackTrace();
+      Logger.logException(Service.class, e);
     }
   }
 
@@ -554,7 +554,7 @@ public class Service {
       }
       sendMessAllPlayerInMap(pl, msg);
     } catch (Exception e) {
-      e.printStackTrace();
+      Logger.logException(Service.class, e);
     }
   }
 
@@ -740,10 +740,6 @@ public class Service {
   public void chat(Player player, String text) {
     if (text.equals("sboss")) {
       BossManager.gI().showListBoss(player);
-      return;
-    }
-    if (text.startsWith("xy")) {
-      System.out.println(player.location.x + " - " + player.location.y);
       return;
     }
     if (text.equals("thread")) {

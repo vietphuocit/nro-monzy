@@ -6,6 +6,7 @@ import com.monzy.models.map.Zone;
 import com.monzy.models.mob.Mob;
 import com.monzy.models.player.Player;
 import com.monzy.services.*;
+import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -41,7 +42,7 @@ public class DoanhTraiDocNhan implements Runnable {
       try {
         Thread.sleep(1000);
       } catch (Exception e) {
-        e.printStackTrace();
+        Logger.logException(DoanhTraiDocNhan.class, e);
       }
     }
   }
@@ -103,7 +104,7 @@ public class DoanhTraiDocNhan implements Runnable {
     try {
       new BossDoanhTrai(this, maxHp / 10, maxDame * 40);
     } catch (Exception e) {
-      e.printStackTrace();
+      Logger.logException(DoanhTraiDocNhan.class, e);
     }
   }
 

@@ -120,7 +120,6 @@ public class ImageUtil {
         try {
           imagesInfo[i] = image.getSubimage(x, y, w, h);
         } catch (Exception e) {
-          e.printStackTrace();
           //                    System.out.println("mob: " + mobId);
         }
         // từng bộ phận

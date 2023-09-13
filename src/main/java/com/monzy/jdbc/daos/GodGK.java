@@ -6,6 +6,7 @@ import com.monzy.card.Card;
 import com.monzy.card.OptionCard;
 import com.monzy.consts.ConstPlayer;
 import com.monzy.data.DataGame;
+import com.monzy.data.ItemData;
 import com.monzy.models.clan.Clan;
 import com.monzy.models.clan.ClanMember;
 import com.monzy.models.item.Item;
@@ -52,7 +53,7 @@ public class GodGK {
         }
       }
     } catch (Exception e) {
-      System.err.println(GodGK.class.getName() + ": " + e.getMessage());
+      Logger.logException(GodGK.class, e);
     }
     return ops;
   }
@@ -198,7 +199,7 @@ public class GodGK {
                 }
                 player.zone = MapService.gI().getMapCanJoin(player, mapId, -1);
               } catch (Exception e) {
-                e.printStackTrace();
+                Logger.logException(GodGK.class, e);
               }
               dataArray.clear();
               // data chỉ số
@@ -245,6 +246,7 @@ public class GodGK {
                 } catch (Exception e) {
                   player.rewardBlackBall.quantilyBlackBall[i] =
                       player.rewardBlackBall.timeOutOfDateReward[i] != 0 ? 1 : 0;
+                  Logger.logException(GodGK.class, e);
                 }
                 dataBlackBall.clear();
               }
@@ -696,7 +698,6 @@ public class GodGK {
         al.wrong();
       }
     } catch (Exception e) {
-      e.printStackTrace();
       Logger.error(session.uu);
       player.dispose();
       player = null;
@@ -763,7 +764,7 @@ public class GodGK {
           }
           player.zone = MapService.gI().getMapCanJoin(player, mapId, -1);
         } catch (Exception e) {
-          e.printStackTrace();
+          Logger.logException(GodGK.class, e);
         }
         dataArray.clear();
         // data chỉ số
@@ -1202,7 +1203,6 @@ public class GodGK {
         player.iDMark.setLoadedAllDataPlayer(true);
       }
     } catch (Exception e) {
-      e.printStackTrace();
       player.dispose();
       player = null;
       Logger.logException(GodGK.class, e);

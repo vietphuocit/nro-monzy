@@ -1,6 +1,7 @@
 package com.monzy.card;
 
 import com.monzy.models.player.Player;
+import com.monzy.utils.Logger;
 import com.network.io.Message;
 
 import java.util.ArrayList;
@@ -60,7 +61,7 @@ public class RadarService {
       pl.sendMessage(m);
       m.cleanup();
     } catch (Exception e) {
-      e.getStackTrace();
+      Logger.logException(RadarService.class, e);
     }
   }
 
@@ -74,7 +75,7 @@ public class RadarService {
       pl.sendMessage(message);
       message.cleanup();
     } catch (Exception e) {
-      e.getStackTrace();
+      Logger.logException(RadarService.class, e);
     }
   }
 
@@ -88,7 +89,7 @@ public class RadarService {
       pl.sendMessage(message);
       message.cleanup();
     } catch (Exception e) {
-      e.getStackTrace();
+      Logger.logException(RadarService.class, e);
     }
   }
 
@@ -103,7 +104,7 @@ public class RadarService {
       pl.sendMessage(message);
       message.cleanup();
     } catch (Exception e) {
-      e.getStackTrace();
+      Logger.logException(RadarService.class, e);
     }
   }
 }

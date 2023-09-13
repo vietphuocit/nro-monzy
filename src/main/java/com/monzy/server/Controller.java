@@ -540,7 +540,7 @@ public class Controller implements IMessageHandler {
           break;
       }
     } catch (Exception e) {
-      e.printStackTrace();
+      Logger.logException(Controller.class, e);
     } finally {
       _msg.cleanup();
       _msg.dispose();
@@ -557,7 +557,7 @@ public class Controller implements IMessageHandler {
             if (Manager.LOCAL) {
               break;
             }
-            System.out.println("version: " + msg.readUTF());
+            Logger.info("version: " + msg.readUTF());
             break;
           case 2:
             Service.gI().setClientType(session, msg);

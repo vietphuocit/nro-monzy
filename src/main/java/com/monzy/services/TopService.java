@@ -18,13 +18,12 @@ public class TopService implements Runnable {
           Manager.TOP_NAP = Manager.readTop(Manager.QUERY_TOP_NAP);
           // Cập nhật thời gian thực hiện cuối cùng
           lastTimeUpdate = System.currentTimeMillis();
-          System.err.println("Cập nhật bảng xếp hạng");
         }
         // Tạm dừng 1 giây trước khi kiểm tra lại
         try {
           Thread.sleep(1000);
         } catch (InterruptedException e) {
-          e.printStackTrace();
+          Logger.logException(TopService.class, e);
         }
       } catch (Exception ignored) {
         Logger.error("Lỗi đọc bảng xếp hạng");

@@ -51,9 +51,9 @@ public class ShopServiceNew {
           openShopType3(player, shop);
           break;
       }
-    } catch (Exception ex) {
-      ex.printStackTrace();
-      Service.gI().sendThongBao(player, ex.getMessage());
+    } catch (Exception e) {
+      Logger.logException(ShopServiceNew.class, e);
+      Service.gI().sendThongBao(player, e.getMessage());
     }
   }
 
@@ -268,7 +268,7 @@ public class ShopServiceNew {
       player.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
-      e.printStackTrace();
+      Logger.logException(ShopServiceNew.class, e);
     }
   }
 

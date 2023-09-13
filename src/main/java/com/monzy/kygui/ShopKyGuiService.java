@@ -11,6 +11,7 @@ import com.monzy.services.InventoryService;
 import com.monzy.services.ItemService;
 import com.monzy.services.NpcService;
 import com.monzy.services.Service;
+import com.monzy.utils.Logger;
 import com.network.io.Message;
 
 import java.util.*;
@@ -36,13 +37,12 @@ public class ShopKyGuiService implements Runnable {
         ShopKyGuiManager.gI().save();
         // Cập nhật thời gian thực hiện cuối cùng
         lastTimeUpdate = System.currentTimeMillis();
-        System.err.println("Cập nhật shop kí gửi");
       }
       // Tạm dừng 1 giây trước khi kiểm tra lại
       try {
         Thread.sleep(1000);
       } catch (InterruptedException e) {
-        e.printStackTrace();
+        Logger.logException(ShopKyGuiService.class, e);
       }
     }
   }
@@ -208,7 +208,7 @@ public class ShopKyGuiService implements Runnable {
       }
       pl.sendMessage(msg);
     } catch (Exception e) {
-      e.printStackTrace();
+      Logger.logException(ShopKyGuiService.class, e);
     } finally {
       if (msg != null) {
         msg.cleanup();
@@ -417,7 +417,7 @@ public class ShopKyGuiService implements Runnable {
           break;
       }
     } catch (Exception e) {
-      e.printStackTrace();
+      Logger.logException(ShopKyGuiService.class, e);
     }
   }
 
@@ -516,7 +516,7 @@ public class ShopKyGuiService implements Runnable {
       }
       pl.sendMessage(msg);
     } catch (Exception e) {
-      e.printStackTrace();
+      Logger.logException(ShopKyGuiService.class, e);
     } finally {
       if (msg != null) {
         msg.cleanup();

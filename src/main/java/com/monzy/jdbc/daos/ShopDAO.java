@@ -41,7 +41,8 @@ public class ShopDAO {
         if (ps != null) {
           ps.close();
         }
-      } catch (SQLException ex) {
+      } catch (SQLException e) {
+        Logger.logException(ShopDAO.class, e);
       }
     } catch (Exception e) {
       Logger.logException(ShopDAO.class, e);
@@ -73,7 +74,8 @@ public class ShopDAO {
         if (ps != null) {
           ps.close();
         }
-      } catch (SQLException ex) {
+      } catch (SQLException e) {
+        Logger.logException(ShopDAO.class, e);
       }
     } catch (Exception e) {
       Logger.logException(ShopDAO.class, e);
@@ -107,8 +109,8 @@ public class ShopDAO {
         if (ps != null) {
           ps.close();
         }
-      } catch (SQLException ex) {
-        System.err.println(ex.getMessage());
+      } catch (SQLException e) {
+        Logger.logException(ShopDAO.class, e);
       }
     } catch (Exception e) {
       Logger.logException(ShopDAO.class, e);
@@ -134,7 +136,8 @@ public class ShopDAO {
         if (ps != null) {
           ps.close();
         }
-      } catch (SQLException ex) {
+      } catch (SQLException e) {
+        Logger.logException(ShopDAO.class, e);
       }
     } catch (Exception e) {
       Logger.logException(ShopDAO.class, e);

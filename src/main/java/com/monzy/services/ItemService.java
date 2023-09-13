@@ -8,6 +8,7 @@ import com.monzy.models.map.ItemMap;
 import com.monzy.models.player.Player;
 import com.monzy.models.shop.ItemShop;
 import com.monzy.server.Manager;
+import com.monzy.utils.Logger;
 import com.monzy.utils.TimeUtil;
 import com.monzy.utils.Util;
 
@@ -259,7 +260,7 @@ public class ItemService {
       Service.gI().sendThongBao(player, "Bạn đã nhận được " + item.template.name);
       CombineService.gI().sendEffectOpenItem(player, icon[0], icon[1]);
     } catch (Exception e) {
-      e.printStackTrace();
+      Logger.logException(ItemService.class, e);
     }
   }
 

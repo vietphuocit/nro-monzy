@@ -7,6 +7,7 @@ import com.monzy.models.boss.list_boss.dhvt.*;
 import com.monzy.models.npc.Npc;
 import com.monzy.models.player.Player;
 import com.monzy.services.*;
+import com.monzy.utils.Logger;
 import lombok.Data;
 
 @Data
@@ -130,7 +131,7 @@ public class MartialCongress {
             setBoss(boss);
             setTime(185);
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.logException(MartialCongress.class, e);
         }
 //        if (round > 0 && round < 11) {
 //            bss.joinMap();

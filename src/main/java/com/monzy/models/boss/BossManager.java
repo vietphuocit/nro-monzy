@@ -1,5 +1,6 @@
 package com.monzy.models.boss;
 
+import com.monzy.kygui.ShopKyGuiService;
 import com.monzy.models.boss.list_boss.AnTrom;
 import com.monzy.models.boss.list_boss.Mabu;
 import com.monzy.models.boss.list_boss.android.*;
@@ -22,6 +23,7 @@ import com.monzy.models.boss.list_boss.tdst.TDST1;
 import com.monzy.models.player.Player;
 import com.monzy.server.ServerManager;
 import com.monzy.services.ItemMapService;
+import com.monzy.utils.Logger;
 import com.network.io.Message;
 import java.util.ArrayList;
 import java.util.List;
@@ -237,7 +239,7 @@ public class BossManager implements Runnable {
       player.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
-      e.printStackTrace();
+      Logger.logException(BossManager.class, e);
     }
   }
 
@@ -278,7 +280,7 @@ public class BossManager implements Runnable {
         k.joinMapByZone(player);
       }
     } catch (Exception e) {
-      e.printStackTrace();
+      Logger.logException(BossManager.class, e);
     }
   }
 
@@ -302,7 +304,8 @@ public class BossManager implements Runnable {
           boss.update();
         }
         Thread.sleep(150 - (System.currentTimeMillis() - st));
-      } catch (Exception ignored) {
+      } catch (Exception e) {
+        Logger.logException(BossManager.class, e);
       }
     }
   }

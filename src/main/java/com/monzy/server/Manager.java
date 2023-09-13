@@ -216,7 +216,7 @@ public class Manager {
         tops.add(top);
       }
     } catch (Exception e) {
-      Logger.error("readTop(): " + e.getMessage());
+      Logger.logException(Manager.class, e);
     }
     return tops;
   }
@@ -290,7 +290,7 @@ public class Manager {
       map.initNpc(mapTemp.npcId, mapTemp.npcX, mapTemp.npcY);
       new Thread(map, "Update map " + map.mapName).start();
     }
-    Logger.success("Init map thành công!\n");
+    Logger.info("Init map thành công!");
   }
 
   /** Load database */
@@ -337,7 +337,7 @@ public class Manager {
       }
       dos.flush();
       dos.close();
-      Logger.success("Load part thành công (" + parts.size() + ")\n");
+      Logger.info("Load part thành công (" + parts.size() + ")");
       // load small version
       ps =
           con.prepareStatement(
@@ -415,6 +415,7 @@ public class Manager {
           try {
             cm.powerPoint = Long.parseLong(String.valueOf(dataObject.get("power")));
           } catch (Exception e) {
+            Logger.logException(Manager.class, e);
           }
           clan.addClanMember(cm);
         }
@@ -431,8 +432,8 @@ public class Manager {
       if (rs.first()) {
         Clan.NEXT_ID = rs.getInt("id") + 1;
       }
-      Logger.success(
-          "Load clan thành công (" + CLANS.size() + "), clan next id: " + Clan.NEXT_ID + "\n");
+      Logger.info(
+          "Load clan thành công (" + CLANS.size() + "), clan next id: " + Clan.NEXT_ID);
       ps =
           con.prepareStatement(
               "select * from dhvt_template",
@@ -450,8 +451,8 @@ public class Manager {
         dhvt.min_limit = rs.getInt(7);
         LIST_DHVT.add(dhvt);
       }
-      Logger.success(
-          "Load DHVT thành công (" + LIST_DHVT.size() + "), clan next id: " + Clan.NEXT_ID + "\n");
+      Logger.info(
+          "Load DHVT thành công (" + LIST_DHVT.size() + "), clan next id: " + Clan.NEXT_ID);
       // load skill
       ps =
           con.prepareStatement(
@@ -508,7 +509,7 @@ public class Manager {
           skillTemplate.skillss.add(skill);
         }
       }
-      Logger.success("Load skill thành công (" + NCLASS.size() + ")\n");
+      Logger.info("Load skill thành công (" + NCLASS.size() + ")");
       // load head avatar
       ps =
           con.prepareStatement(
@@ -520,7 +521,7 @@ public class Manager {
         HeadAvatar headAvatar = new HeadAvatar(rs.getInt("head_id"), rs.getInt("avatar_id"));
         HEAD_AVATARS.add(headAvatar);
       }
-      Logger.success("Load head avatar thành công (" + HEAD_AVATARS.size() + ")\n");
+      Logger.info("Load head avatar thành công (" + HEAD_AVATARS.size() + ")");
       // load flag bag
       ps =
           con.prepareStatement(
@@ -542,7 +543,7 @@ public class Manager {
         }
         FLAGS_BAGS.add(flagBag);
       }
-      Logger.success("Load flag bag thành công (" + FLAGS_BAGS.size() + ")\n");
+      Logger.info("Load flag bag thành công (" + FLAGS_BAGS.size() + ")");
       // load intrinsic
       ps =
           con.prepareStatement(
@@ -577,7 +578,7 @@ public class Manager {
         }
         INTRINSICS.add(intrinsic);
       }
-      Logger.success("Load intrinsic thành công (" + INTRINSICS.size() + ")\n");
+      Logger.info("Load intrinsic thành công (" + INTRINSICS.size() + ")");
       // load task
       ps =
           con.prepareStatement(
@@ -606,7 +607,7 @@ public class Manager {
         subTask.mapId = rs.getShort("map");
         task.subTasks.add(subTask);
       }
-      Logger.success("Load task thành công (" + TASKS.size() + ")\n");
+      Logger.info("Load task thành công (" + TASKS.size() + ")");
       // load side task
       ps =
           con.prepareStatement(
@@ -635,7 +636,7 @@ public class Manager {
         sideTask.count[4][1] = Integer.parseInt(mc5[1]);
         SIDE_TASKS_TEMPLATE.add(sideTask);
       }
-      Logger.success("Load side task thành công (" + SIDE_TASKS_TEMPLATE.size() + ")\n");
+      Logger.info("Load side task thành công (" + SIDE_TASKS_TEMPLATE.size() + ")");
       // load item template
       ps =
           con.prepareStatement(
@@ -661,7 +662,7 @@ public class Manager {
         itemTemp.leg = rs.getInt("leg");
         ITEM_TEMPLATES.add(itemTemp);
       }
-      Logger.success("Load map item template thành công (" + ITEM_TEMPLATES.size() + ")\n");
+      Logger.info("Load map item template thành công (" + ITEM_TEMPLATES.size() + ")");
       // load item option template
       ps =
           con.prepareStatement(
@@ -675,11 +676,11 @@ public class Manager {
         optionTemp.name = rs.getString("name");
         ITEM_OPTION_TEMPLATES.add(optionTemp);
       }
-      Logger.success(
-          "Load map item option template thành công (" + ITEM_OPTION_TEMPLATES.size() + ")\n");
+      Logger.info(
+          "Load map item option template thành công (" + ITEM_OPTION_TEMPLATES.size() + ")");
       // load shop
       SHOPS = ShopDAO.getShops(con);
-      Logger.success("Load shop thành công (" + SHOPS.size() + ")\n");
+      Logger.info("Load shop thành công (" + SHOPS.size() + ")");
       // load reward lucky round
       File folder = new File("data/monzy/data_lucky_round_reward");
       for (File fileEntry : folder.listFiles()) {
@@ -713,7 +714,7 @@ public class Manager {
           }
         }
       }
-      Logger.success("Load reward lucky round thành công (" + LUCKY_ROUND_REWARDS.size() + ")\n");
+      Logger.info("Load reward lucky round thành công (" + LUCKY_ROUND_REWARDS.size() + ")");
       // load notify
       folder = new File("data/monzy/notify");
       for (File fileEntry : folder.listFiles()) {
@@ -730,7 +731,7 @@ public class Manager {
           NOTIFY.add(notify.toString());
         }
       }
-      Logger.success("Load notify thành công (" + NOTIFY.size() + ")\n");
+      Logger.info("Load notify thành công (" + NOTIFY.size() + ")");
       // load caption
       ps =
           con.prepareStatement(
@@ -741,7 +742,7 @@ public class Manager {
       while (rs.next()) {
         CAPTIONS.add(rs.getString("name"));
       }
-      Logger.success("Load caption thành công (" + CAPTIONS.size() + ")\n");
+      Logger.info("Load caption thành công (" + CAPTIONS.size() + ")");
       // load image by name
       ps =
           con.prepareStatement(
@@ -752,7 +753,7 @@ public class Manager {
       while (rs.next()) {
         IMAGES_BY_NAME.put(rs.getString("name"), rs.getByte("n_frame"));
       }
-      Logger.success("Load images by name thành công (" + IMAGES_BY_NAME.size() + ")\n");
+      Logger.info("Load images by name thành công (" + IMAGES_BY_NAME.size() + ")");
       // load mob template
       ps =
           con.prepareStatement(
@@ -773,7 +774,7 @@ public class Manager {
         mobTemp.percentTiemNang = rs.getByte("percent_tiem_nang");
         MOB_TEMPLATES.add(mobTemp);
       }
-      Logger.success("Load mob template thành công (" + MOB_TEMPLATES.size() + ")\n");
+      Logger.info("Load mob template thành công (" + MOB_TEMPLATES.size() + ")");
       // load npc template
       ps =
           con.prepareStatement(
@@ -791,7 +792,7 @@ public class Manager {
         npcTemp.avatar = rs.getInt("avatar");
         NPC_TEMPLATES.add(npcTemp);
       }
-      Logger.success("Load npc template thành công (" + NPC_TEMPLATES.size() + ")\n");
+      Logger.info("Load npc template thành công (" + NPC_TEMPLATES.size() + ")");
       // load map template
       ps =
           con.prepareStatement(
@@ -890,7 +891,7 @@ public class Manager {
           dataArray.clear();
           MAP_TEMPLATES[i++] = mapTemplate;
         }
-        Logger.success("Load map template thành công (" + MAP_TEMPLATES.length + ")\n");
+        Logger.info("Load map template thành công (" + MAP_TEMPLATES.length + ")");
         RUBY_REWARDS.add(Util.sendDo(861, 0, new ArrayList<>()));
       }
       ps =
@@ -923,9 +924,6 @@ public class Manager {
             .add(
                 new ItemKyGui(i, itemId, idPl, tab, gold, gem, quantity, isUp, op, isBuy, idPlBuy));
       }
-      Logger.log(
-          Logger.YELLOW_BOLD_BRIGHT,
-          "Finish load item ky gui [" + ShopKyGuiManager.gI().listItem.size() + "]!\n");
       ps =
           con.prepareStatement(
               "select * from radar", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -967,8 +965,8 @@ public class Manager {
         rd.AuraId = rs.getShort("aura_id");
         RadarService.gI().RADAR_TEMPLATE.add(rd);
       }
-      Logger.success(
-          "Load radar template thành công (" + RadarService.gI().RADAR_TEMPLATE.size() + ")\n");
+      Logger.info(
+          "Load radar template thành công (" + RadarService.gI().RADAR_TEMPLATE.size() + ")");
       rs.close();
       ps.close();
     } catch (Exception e) {
@@ -982,12 +980,13 @@ public class Manager {
         if (ps != null) {
           ps.close();
         }
-      } catch (SQLException ex) {
+      } catch (SQLException e) {
+        Logger.logException(Manager.class, e);
       }
     }
     Logger.log(
         Logger.GREEN_BOLD_BRIGHT,
-        "Tổng thời gian load database: " + (System.currentTimeMillis() - st) + "(ms)\n");
+        "Tổng thời gian load database: " + (System.currentTimeMillis() - st) + "(ms)");
   }
 
   public void loadProperties() throws IOException {

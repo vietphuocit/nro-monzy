@@ -55,7 +55,7 @@ public class PaymentService implements Runnable {
         try {
           Thread.sleep(1000);
         } catch (InterruptedException e) {
-          e.printStackTrace();
+          Logger.logException(PaymentService.class, e);
         }
       } catch (Exception e) {
         Logger.error("\nLỗi nạp tự động: " + e.getMessage());

@@ -126,7 +126,7 @@ public class NapThe {
         Service.gI().sendThongBao(player, "Sai seri và mã pin rồi con ơi");
       }
     } catch (Exception e) {
-      e.printStackTrace();
+      Logger.logException(NapThe.class, e);
     }
   }
 
@@ -140,7 +140,7 @@ public class NapThe {
       }
       return sb.toString();
     } catch (Exception e) {
-      e.printStackTrace();
+      Logger.logException(NapThe.class, e);
     }
     return null;
   }

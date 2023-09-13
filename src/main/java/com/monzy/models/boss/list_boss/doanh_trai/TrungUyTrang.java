@@ -1,11 +1,15 @@
 package com.monzy.models.boss.list_boss.doanh_trai;
 
 import com.monzy.consts.ConstPlayer;
-import com.monzy.models.boss.*;
+import com.monzy.models.boss.Boss;
+import com.monzy.models.boss.BossData;
+import com.monzy.models.boss.BossID;
+import com.monzy.models.boss.BossManager;
 import com.monzy.models.map.Zone;
 import com.monzy.models.player.Player;
 import com.monzy.models.skill.Skill;
 import com.monzy.services.SkillService;
+import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
 
 public class TrungUyTrang extends Boss {
@@ -47,8 +51,8 @@ public class TrungUyTrang extends Boss {
             this.playerSkill.skills.get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
         this.moveToPlayer(pl);
         SkillService.gI().useSkill(this, pl, null, null);
-      } catch (Exception ex) {
-        ex.printStackTrace();
+      } catch (Exception e) {
+        Logger.logException(TrungUyTrang.class, e);
       }
     }
   }

@@ -77,26 +77,28 @@ public class Logger {
   }
 
   public static void log(String color, String text) {
-    System.out.print(color + text + RESET);
+    System.out.println(color + text + RESET);
   }
 
-  /** Note: System.out.print */
   public static void success(String text) {
-    System.out.print(GREEN + text + RESET);
+    System.out.println(GREEN + text + RESET);
   }
 
-  /** Note: System.out.print */
   public static void warning(String text) {
-    System.out.print(BLUE + text + RESET);
+    System.out.println(YELLOW + text + RESET);
   }
 
-  /** Note: System.out.print */
   public static void error(String text) {
-    System.out.print(BLUE + text + RESET);
+    System.out.print(RED + text + RESET);
+  }
+
+  public static void info(String text) {
+    System.out.println(BLUE + text + RESET);
   }
 
   public static void logException(Class clazz, Exception ex, String... log) {
     try {
+      log(RED_BOLD,"--------------------------------------------------------");
       if (log != null && log.length > 0) {
         log(PURPLE, log[0] + "\n");
       }
@@ -107,16 +109,16 @@ public class Logger {
       ex.printStackTrace(pw);
       String detail = sw.toString();
       String[] arr = detail.split("\n");
-      Logger.warning("Có lỗi tại class: ");
-      Logger.error(clazz.getName());
-      Logger.warning(" - tại phương thức: ");
-      Logger.error(nameMethod + "\n");
-      Logger.warning("Chi tiết lỗi:\n");
+      error("Có lỗi tại class: ");
+      error(clazz.getName());
+      error(" - tại phương thức: ");
+      error(nameMethod + "\n");
+      error("Chi tiết lỗi:\n");
       for (String str : arr) {
-        Logger.error(str + "\n");
+        error(str + "\n");
       }
-      Logger.log("--------------------------------------------------------\n");
-    } catch (Exception e) {
+      log(RED_BOLD,"--------------------------------------------------------\n");
+    } catch (Exception ignored) {
     }
   }
 }

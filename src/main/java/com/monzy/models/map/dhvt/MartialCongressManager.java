@@ -1,5 +1,6 @@
 package com.monzy.models.map.dhvt;
 
+import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
 
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class MartialCongressManager implements Runnable {
                     try {
                         mc.update();
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        Logger.logException(MartialCongressService.class, e);
                     }
                 }
                 list.removeAll(toRemove);

@@ -128,7 +128,7 @@ public class ClanService {
           break;
       }
     } catch (Exception e) {
-      e.printStackTrace();
+      Logger.logException(ClanService.class, e);
     }
   }
 

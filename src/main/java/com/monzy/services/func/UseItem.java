@@ -101,9 +101,6 @@ public class UseItem {
       byte type = _msg.reader().readByte();
       int where = _msg.reader().readByte();
       int index = _msg.reader().readByte();
-      System.out.println("type: " + type);
-      System.out.println("where: " + where);
-      System.out.println("index: " + index);
     } catch (Exception e) {
       Logger.logException(UseItem.class, e);
     }
@@ -1020,7 +1017,7 @@ public class UseItem {
         CombineService.gI().sendEffectOpenItem(player, icon[0], icon[1]);
       }
     } catch (Exception e) {
-      e.printStackTrace();
+      Logger.logException(UseItem.class, e);
     }
   }
 
@@ -1232,7 +1229,7 @@ public class UseItem {
         Service.gI().sendThongBao(pl, "Bạn đã nhận được " + LT.template.name);
       }
     } catch (Exception e) {
-      e.printStackTrace();
+      Logger.logException(UseItem.class, e);
     }
   }
 
@@ -1295,7 +1292,7 @@ public class UseItem {
         Service.gI().sendThongBao(pl, "Bạn đã nhận được " + LT.template.name);
       }
     } catch (Exception e) {
-      e.printStackTrace();
+      Logger.logException(UseItem.class, e);
     }
   }
 
@@ -1358,7 +1355,7 @@ public class UseItem {
         Service.gI().sendThongBao(pl, "Bạn đã nhận được " + LT.template.name);
       }
     } catch (Exception e) {
-      e.printStackTrace();
+      Logger.logException(UseItem.class, e);
     }
   }
 
@@ -1421,7 +1418,7 @@ public class UseItem {
         Service.gI().sendThongBao(pl, "Bạn đã nhận được " + LT.template.name);
       }
     } catch (Exception e) {
-      e.printStackTrace();
+      Logger.logException(UseItem.class, e);
     }
   }
 
@@ -1484,7 +1481,7 @@ public class UseItem {
         Service.gI().sendThongBao(pl, "Bạn đã nhận được " + LT.template.name);
       }
     } catch (Exception e) {
-      e.printStackTrace();
+      Logger.logException(UseItem.class, e);
     }
   }
 
@@ -1547,7 +1544,7 @@ public class UseItem {
         Service.gI().sendThongBao(pl, "Bạn đã nhận được " + LT.template.name);
       }
     } catch (Exception e) {
-      e.printStackTrace();
+      Logger.logException(UseItem.class, e);
     }
   }
 

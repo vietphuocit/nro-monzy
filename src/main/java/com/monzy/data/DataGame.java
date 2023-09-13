@@ -1,5 +1,6 @@
 package com.monzy.data;
 
+import com.database.Log;
 import com.monzy.models.Template.*;
 import com.monzy.models.skill.NClass;
 import com.monzy.models.skill.Skill;
@@ -79,12 +80,13 @@ public class DataGame {
       session.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(DataGame.class, e);
     }
   }
 
   // vcData
   public static void updateData(MySession session) {
-    System.out.println("update data");
+    Logger.info("update data");
     byte[] dart = FileIO.readFile("data/monzy/update_data/dart");
     byte[] arrow = FileIO.readFile("data/monzy/update_data/arrow");
     byte[] effect = FileIO.readFile("data/monzy/update_data/effect");
@@ -110,6 +112,7 @@ public class DataGame {
       session.doSendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(DataGame.class, e);
     }
   }
 
@@ -149,7 +152,7 @@ public class DataGame {
 
   // vcSkill
   public static void updateSkill(MySession session) {
-    System.out.println("update skill");
+    Logger.info("update skill");
     Message msg;
     try {
       msg = new Message(-28);
@@ -248,6 +251,7 @@ public class DataGame {
       session.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(DataGame.class, e);
     }
   }
 
@@ -273,6 +277,7 @@ public class DataGame {
       session.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(DataGame.class, e);
     }
   }
 

@@ -63,7 +63,7 @@ public class TransactionService implements Runnable {
                     checkLogout1 = PlayerDAO.checkLogout(con, pl);
                     checkLogout2 = PlayerDAO.checkLogout(con, plMap);
                   } catch (Exception e) {
-                    e.printStackTrace();
+                    Logger.logException(TransactionService.class, e);
                   }
                   if (checkLogout1) {
                     Client.gI().kickSession(pl.session);
@@ -141,8 +141,7 @@ public class TransactionService implements Runnable {
           break;
       }
     } catch (Exception e) {
-      e.printStackTrace();
-      Logger.logException(this.getClass(), e);
+      Logger.logException(TransactionService.class, e);
     }
   }
 

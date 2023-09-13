@@ -6,6 +6,8 @@
 package com.monzy.kygui;
 
 import com.database.Database;
+import com.monzy.jdbc.daos.ShopDAO;
+import com.monzy.utils.Logger;
 import org.json.simple.JSONValue;
 
 import java.sql.Connection;
@@ -51,6 +53,7 @@ public class ShopKyGuiManager {
         }
       }
     } catch (Exception e) {
+      Logger.logException(ShopKyGuiManager.class, e);
     }
   }
 }

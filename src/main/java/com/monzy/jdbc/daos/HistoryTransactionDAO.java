@@ -3,6 +3,7 @@ package com.monzy.jdbc.daos;
 import com.database.Database;
 import com.monzy.models.item.Item;
 import com.monzy.models.player.Player;
+import com.monzy.utils.Logger;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -105,8 +106,8 @@ public class HistoryTransactionDAO {
           afterTran1,
           afterTran2,
           new Timestamp(System.currentTimeMillis()));
-    } catch (Exception ex) {
-      ex.printStackTrace();
+    } catch (Exception e) {
+      Logger.logException(HistoryTransactionDAO.class, e);
     }
   }
 

@@ -782,8 +782,7 @@ public class PlayerDAO {
             "Total time save player "
                 + player.name
                 + " thành công! "
-                + (System.currentTimeMillis() - st)
-                + "\n");
+                + (System.currentTimeMillis() - st));
       } catch (Exception e) {
         Logger.logException(PlayerDAO.class, e, "Lỗi save player " + player.name);
       }
@@ -925,7 +924,7 @@ public class PlayerDAO {
       // UPDATE NRSD
       conn.close();
     } catch (SQLException e) {
-      e.printStackTrace();
+      Logger.logException(GodGK.class, e);
     }
   }
 

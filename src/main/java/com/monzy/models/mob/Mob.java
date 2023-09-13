@@ -13,6 +13,7 @@ import com.monzy.server.Maintenance;
 import com.monzy.server.Manager;
 import com.monzy.server.ServerNotify;
 import com.monzy.services.*;
+import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
 import com.network.io.Message;
 
@@ -356,7 +357,7 @@ public class Mob {
         msg.writer().writeInt((int) itemMap.playerId); // id nhan nat
       }
     } catch (Exception e) {
-      e.printStackTrace();
+      Logger.logException(Mob.class, e);
     }
     return itemReward;
   }

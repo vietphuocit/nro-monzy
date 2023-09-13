@@ -6,6 +6,7 @@ import com.monzy.models.player.Player;
 import com.monzy.services.ChangeMapService;
 import com.monzy.services.MapService;
 import com.monzy.services.Service;
+import com.monzy.utils.Logger;
 import com.network.io.Message;
 
 public class MartialCongressService {
@@ -40,7 +41,7 @@ public class MartialCongressService {
                 Thread.sleep(delay);
                 runnable.run();
             } catch (Exception e) {
-                System.err.println(e);
+                Logger.logException(MartialCongressService.class, e);
             }
         }).start();
     }

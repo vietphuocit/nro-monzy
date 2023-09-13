@@ -10,12 +10,13 @@ import com.monzy.server.Manager;
 import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
 import com.network.io.Message;
+
 import java.io.DataInputStream;
 import java.io.FileInputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.monzy.services.ChangeMapService.NON_SPACE_SHIP;
 
 public class MapService {
 
@@ -78,7 +79,7 @@ public class MapService {
     int[][] tileMap = null;
     try {
       DataInputStream dis =
-          new DataInputStream(new FileInputStream("data/monzy/map/tile_map_data/" + mapId));
+          new DataInputStream(Files.newInputStream(Paths.get("data/monzy/map/tile_map_data/" + mapId)));
       dis.readByte();
       int w = dis.readByte();
       int h = dis.readByte();
@@ -89,7 +90,7 @@ public class MapService {
         }
       }
       dis.close();
-    } catch (Exception e) {
+    } catch (Exception ignored) {
     }
     return tileMap;
   }
@@ -205,6 +206,7 @@ public class MapService {
         zone = map.zones.get(Util.nextInt(0, map.zones.size() - 1));
       }
     } catch (Exception e) {
+      Logger.logException(MapService.class, e);
     }
     return zone;
   }

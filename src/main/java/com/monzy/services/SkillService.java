@@ -424,7 +424,7 @@ public class SkillService {
       player.sendMessage(message);
       message.cleanup();
     } catch (Exception e) {
-      e.printStackTrace();
+      Logger.logException(SkillService.class, e);
     } finally {
       if (message != null) {
         message.cleanup();

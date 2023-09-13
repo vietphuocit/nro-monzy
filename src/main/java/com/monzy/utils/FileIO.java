@@ -34,7 +34,6 @@ public class FileIO {
       openFileInput.close();
       return byteArrayOutputStream;
     } catch (IOException e) {
-      e.printStackTrace();
       return null;
     }
   }

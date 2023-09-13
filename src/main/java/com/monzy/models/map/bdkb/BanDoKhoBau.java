@@ -1,11 +1,13 @@
 package com.monzy.models.map.bdkb;
 
+import com.monzy.models.boss.list_boss.dhvt.ThienXinHang;
 import com.monzy.models.clan.Clan;
 import com.monzy.models.map.TrapMap;
 import com.monzy.models.map.Zone;
 import com.monzy.models.mob.Mob;
 import com.monzy.models.player.Player;
 import com.monzy.services.*;
+import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +43,7 @@ public class BanDoKhoBau implements Runnable {
       try {
         Thread.sleep(1000);
       } catch (Exception e) {
-        e.printStackTrace();
+        Logger.logException(BanDoKhoBau.class, e);
       }
     }
   }

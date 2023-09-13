@@ -166,7 +166,7 @@ public class MySession extends Session {
                   + this.player.name
                   + ": "
                   + (System.currentTimeMillis() - st)
-                  + " ms\n");
+                  + " ms");
           //                    Service.gI().sendThongBaoOK(this, "Ngọc rồng sao đen sẽ mở lúc 21h
           // hôm nay");
         }

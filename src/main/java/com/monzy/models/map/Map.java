@@ -15,7 +15,9 @@ import com.monzy.models.npc.NpcFactory;
 import com.monzy.models.player.Player;
 import com.monzy.server.Manager;
 import com.monzy.services.Service;
+import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,7 +75,8 @@ public class Map implements Runnable {
     try {
       this.mapHeight = tileMap.length * SIZE;
       this.mapWidth = tileMap[0].length * SIZE;
-    } catch (Exception ignored) {
+    } catch (Exception e) {
+      Logger.logException(Map.class, e);
     }
     this.initZone(zones, maxPlayer);
     this.initItem();
@@ -138,12 +141,8 @@ public class Map implements Runnable {
         if (waitTime > 0) {
           Thread.sleep(waitTime);
         }
-      } catch (InterruptedException e) {
-        // Xử lý ngoại lệ khi thread bị gián đoạn
-        // ...
       } catch (Exception e) {
-        // Xử lý ngoại lệ (exception) khác
-        // ...
+        Logger.logException(Map.class, e);
       }
     }
   }

@@ -135,7 +135,7 @@ public class NpcFactory {
                     try {
                       honLinhThu = InventoryService.gI().findItemBag(player, 2029);
                     } catch (Exception e) {
-                      e.getStackTrace();
+                      Logger.logException(NpcFactory.class, e);
                     }
                     if (honLinhThu == null || honLinhThu.quantity < 99) {
                       this.npcChat(player, "Bạn không đủ 99 Hồn Linh thú");
@@ -275,7 +275,7 @@ public class NpcFactory {
             try {
               new NhanBan(Util.createIdBossClone((int) player.id), bossDataClone, player.zone);
             } catch (Exception e) {
-              e.printStackTrace();
+              Logger.logException(NpcFactory.class, e);
             }
             // trừ vàng khi gọi boss
             player.inventory.gold -= 200_000_000;
@@ -1841,8 +1841,8 @@ public class NpcFactory {
                       "Từ chối");
                 }
               }
-            } catch (Exception ex) {
-              Logger.error("Lỗi mở menu osin");
+            } catch (Exception e) {
+              Logger.logException(NpcFactory.class, e);
             }
           } else if (this.mapId >= 114 && this.mapId < 120 && this.mapId != 116) {
             if (player.fightMabu.pointMabu >= player.fightMabu.POINT_MAX) {

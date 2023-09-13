@@ -71,7 +71,7 @@ public class MonzyServer implements IMonzyServer {
         if (this.serverClose != null) {
             this.serverClose.serverClose();
         }
-        System.out.println("Server Girlkun đã đóng!");
+        System.out.println("Server Monzy đã đóng!");
         return this;
     }
 

@@ -14,7 +14,6 @@ import com.monzy.server.io.MyKeyHandler;
 import com.monzy.server.io.MySession;
 import com.monzy.services.*;
 import com.monzy.utils.Logger;
-import com.monzy.utils.TimeUtil;
 import com.monzy.utils.Util;
 import com.network.example.MessageSendCollect;
 import com.network.server.ISessionAcceptHandler;
@@ -43,10 +42,7 @@ public class ServerManager {
   }
 
   public static void main(String[] args) {
-    System.out.println(TimeUtil.getTimeNow("dd/MM/yyyy HH:mm:ss"));
     TimeZone.setDefault(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
-    timeStart = TimeUtil.getTimeNow("dd/MM/yyyy HH:mm:ss");
-    System.out.println(timeStart);
     ServerManager.gI().run();
   }
 
@@ -107,7 +103,7 @@ public class ServerManager {
         .setTypeSessioClone(MySession.class)
         .setDoSomeThingWhenClose(
             () -> {
-              System.out.println("server close");
+              Logger.info("SERVER CLOSE");
               System.exit(0);
             })
         .start(PORT);

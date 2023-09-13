@@ -9,6 +9,7 @@ import com.monzy.models.player.Player;
 import com.monzy.services.EffectSkillService;
 import com.monzy.services.PlayerService;
 import com.monzy.services.SkillService;
+import com.monzy.utils.Logger;
 import com.monzy.utils.SkillUtil;
 import com.monzy.utils.Util;
 
@@ -94,7 +95,7 @@ public class ThienXinHangClone extends BossDHVT {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.logException(ThienXinHangClone.class, e);
         }
     }
 

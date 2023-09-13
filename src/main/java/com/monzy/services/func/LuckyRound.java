@@ -4,6 +4,7 @@ import com.monzy.models.item.Item;
 import com.monzy.models.player.Player;
 import com.monzy.services.RewardService;
 import com.monzy.services.Service;
+import com.monzy.utils.Logger;
 import com.network.io.Message;
 
 import java.util.List;
@@ -44,6 +45,7 @@ public class LuckyRound {
       pl.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(LuckyRound.class, e);
     }
   }
 
@@ -111,6 +113,7 @@ public class LuckyRound {
       player.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(LuckyRound.class, e);
     }
   }
 
