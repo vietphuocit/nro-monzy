@@ -442,8 +442,7 @@ public class Controller implements IMessageHandler {
                 UseItem.gI().choseMapCapsule(player, _msg.reader().readByte());
                 break;
               case ConstMap.CHANGE_BLACK_BALL:
-                //                                Service.gI().sendThongBao(player, "Đang bảo
-                // trì...");
+                //Service.gI().sendThongBao(player, "Đang bảo trì...");
                 BlackBallWar.gI().changeMap(player, _msg.reader().readByte());
                 break;
             }
@@ -540,7 +539,7 @@ public class Controller implements IMessageHandler {
           break;
       }
     } catch (Exception e) {
-      Logger.logException(Controller.class, e);
+      Logger.logException(Controller.class, e, "_msg: " + _msg);
     } finally {
       _msg.cleanup();
       _msg.dispose();
