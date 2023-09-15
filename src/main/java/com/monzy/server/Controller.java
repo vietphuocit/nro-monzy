@@ -50,11 +50,6 @@ public class Controller implements IMessageHandler {
     try {
       player = _session.player;
       byte cmd = _msg.command;
-      //            if (cmd != -29 && cmd != -107 && cmd != 29 && cmd != -30 && cmd != 74 && cmd !=
-      // -16 && cmd != -101 && cmd != 126 && cmd != -74 && cmd != 21 && cmd != -15 && cmd != -103) {
-      //                System.out.println(cmd);
-      //            }
-      //            System.out.println("***************************CMD receive: " + cmd);
       switch (cmd) {
         case -100: // ký gửi
           {
@@ -302,7 +297,8 @@ public class Controller implements IMessageHandler {
               _msg.reader().readByte();
               toX = _msg.reader().readShort();
               toY = _msg.reader().readShort();
-            } catch (Exception ignored) {
+            } catch (Exception e) {
+
             }
             PlayerService.gI().playerMove(player, toX, toY);
           }
@@ -535,11 +531,11 @@ public class Controller implements IMessageHandler {
             PlayerService.gI().hoiSinh(player);
           }
         default:
-          //                    Util.log("CMD: " + cmd);
+          Logger.error("cmd: " + cmd + "\n");
           break;
       }
     } catch (Exception e) {
-      Logger.logException(Controller.class, e, "_msg: " + _msg);
+      // Bỏ qua
     } finally {
       _msg.cleanup();
       _msg.dispose();
@@ -630,6 +626,7 @@ public class Controller implements IMessageHandler {
             short point = _msg.reader().readShort();
             if (player != null && player.nPoint != null) {
               player.nPoint.increasePoint(type, point);
+              System.out.println(type + " - " + point);
             }
             break;
           case 64:
@@ -758,7 +755,7 @@ public class Controller implements IMessageHandler {
                       .sendPetFollow(
                           player, (short) (player.inventory.itemsBody.get(10).template.iconID - 1));
                 } catch (Exception e) {
-                  e.getStackTrace();
+                  Logger.logException(Controller.class, e);
                 }
               })
           .start();

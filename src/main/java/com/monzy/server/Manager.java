@@ -221,25 +221,6 @@ public class Manager {
     return tops;
   }
 
-  /**
-   * public static void loadPart() { JSONArray dataArray; PreparedStatement ps; ResultSet rs; try
-   * (Connection con = Database.getConnection()) { //load part ps = con.prepareStatement("select *
-   * from part", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY); rs =
-   * ps.executeQuery(); List<Part> parts = new ArrayList<>(); while (rs.next()) { Part part = new
-   * Part(); part.id = rs.getShort("id"); part.type = rs.getByte("type"); dataArray = (JSONArray)
-   * JSONValue.parse(rs.getString("data").replaceAll("\\\"", "")); for (int j = 0; j <
-   * dataArray.size(); j++) { JSONArray pd = (JSONArray)
-   * JSONValue.parse(String.valueOf(dataArray.get(j))); part.partDetails.add(new
-   * PartDetail(Short.parseShort(String.valueOf(pd.get(0))), *
-   * Byte.parseByte(String.valueOf(pd.get(1))), * Byte.parseByte(String.valueOf(pd.get(2)))));
-   * pd.clear(); } parts.add(part); dataArray.clear(); } DataOutputStream dos = new
-   * DataOutputStream(new FileOutputStream("data/monzy/update_data/part"));
-   * dos.writeShort(parts.size()); for (Part part : parts) { dos.writeByte(part.type); for
-   * (PartDetail partDetail : part.partDetails) { dos.writeShort(partDetail.iconId);
-   * dos.writeByte(partDetail.dx); dos.writeByte(partDetail.dy); } } dos.flush(); dos.close();
-   * Logger.success("Load part thành công (" + parts.size() + ")\n"); } catch (Exception e) {
-   * e.printStackTrace(); } }
-   */
   public static void addClan(Clan clan) {
     CLANS.add(clan);
   }

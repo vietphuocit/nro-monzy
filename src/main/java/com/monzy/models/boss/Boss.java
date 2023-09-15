@@ -61,6 +61,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
   protected Player playerTarget;
   protected Boss parentBoss;
   protected long lastTimeAttack;
+  private int[] mapZone;
 
   public Boss(int id, BossData... data) throws Exception {
     this.id = id;
@@ -406,19 +407,15 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
             this.playerSkill.skills.get(Util.nextInt(0, this.playerSkill.skills.size() - 1));
         this.moveToPlayer(pl);
         SkillService.gI().useSkill(this, pl, null, null);
-      } catch (Exception ex) {
-        ex.printStackTrace();
+      } catch (Exception e) {
+        Logger.logException(Boss.class, e);
       }
     }
   }
 
   @Override
   public void die(Player plKill) {
-    if (this.zone.map.mapId == 140
-        || MapService.gI().isMapMaBu(this.zone.map.mapId)
-        || MapService.gI().isMapBlackBallWar(this.zone.map.mapId)
-        || MapService.gI().isMapDoanhTrai(this.zone.map.mapId)
-        || MapService.gI().isMapBanDoKhoBau(this.zone.map.mapId)) {
+    if (this.isPersonalBoss()) {
       this.changeStatus(BossStatus.DIE);
       return;
     }
@@ -434,12 +431,12 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
   public void reward(Player plKill) {
     TaskService.gI().checkDoneTaskKillBoss(plKill, this);
     // event
-    if (Util.isTrue(20, 100)) {
-      Service.gI()
-          .dropItemMap(
-              this.zone,
-              new ItemMap(this.zone, 697, 1, plKill.location.x, plKill.location.y, plKill.id));
-    }
+//    if (Util.isTrue(20, 100)) {
+//      Service.gI()
+//          .dropItemMap(
+//              this.zone,
+//              new ItemMap(this.zone, 697, 1, plKill.location.x, plKill.location.y, plKill.id));
+//    }
   }
 
   @Override
@@ -660,5 +657,15 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
       return Skill.RANGE_ATTACK_CHIEU_DAM;
     }
     return 752002;
+  }
+
+  public boolean isPersonalBoss() {
+    if(this.data[0].getTypeAppear() == TypeAppear.CALL_BY_ANOTHER) {
+      return false;
+    }
+    return MapService.gI().isMapDoanhTrai(this.data[0].getMapJoin()[0])
+        || MapService.gI().isMapBanDoKhoBau(this.data[0].getMapJoin()[0])
+        || MapService.gI().isMapBlackBallWar(this.data[0].getMapJoin()[0])
+        || 140 == this.zone.map.mapId;
   }
 }

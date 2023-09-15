@@ -8,7 +8,6 @@ import com.monzy.utils.SkillUtil;
 import com.network.io.Message;
 
 import java.util.List;
-import java.util.logging.Level;
 
 public class EffectSkillService {
 
@@ -261,8 +260,7 @@ public class EffectSkillService {
     try {
       Thread.sleep(2000);
     } catch (InterruptedException ex) {
-      java.util.logging.Logger.getLogger(EffectSkillService.class.getName())
-          .log(Level.SEVERE, null, ex);
+      // Bỏ qua
     }
     int timeMonkey = SkillUtil.getTimeMonkey(player.playerSkill.skillSelect.point);
     if (player.setClothes.cadic == 5) {

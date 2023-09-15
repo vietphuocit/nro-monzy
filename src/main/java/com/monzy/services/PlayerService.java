@@ -34,6 +34,7 @@ public class PlayerService {
         player.sendMessage(msg);
         msg.cleanup();
       } catch (Exception e) {
+        Logger.logException(PlayerService.class, e);
       }
     }
   }
@@ -214,6 +215,7 @@ public class PlayerService {
       Service.gI().sendMessAllPlayerInMap(player.zone, msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(PlayerService.class, e);
     }
   }
 
@@ -224,6 +226,7 @@ public class PlayerService {
           playerBaned.session.userId,
           playerBaned.session.uu);
     } catch (Exception e) {
+      Logger.logException(PlayerService.class, e);
     }
     Service.gI()
         .sendThongBao(

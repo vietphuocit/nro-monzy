@@ -3,6 +3,7 @@ package com.monzy.services;
 import com.monzy.models.Template.FlagBag;
 import com.monzy.models.player.Player;
 import com.monzy.server.Manager;
+import com.monzy.utils.Logger;
 import com.network.io.Message;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class FlagBagService {
         player.sendMessage(msg);
         msg.cleanup();
       } catch (Exception e) {
+        Logger.logException(FlagBagService.class, e);
       }
     }
   }
@@ -50,6 +52,7 @@ public class FlagBagService {
         player.sendMessage(msg);
         msg.cleanup();
       } catch (Exception e) {
+        Logger.logException(FlagBagService.class, e);
       }
     }
   }
@@ -70,6 +73,7 @@ public class FlagBagService {
       pl.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(FlagBagService.class, e);
     }
   }
 

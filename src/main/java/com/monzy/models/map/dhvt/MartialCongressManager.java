@@ -1,5 +1,6 @@
 package com.monzy.models.map.dhvt;
 
+import com.monzy.models.map.Zone;
 import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
 
@@ -31,7 +32,8 @@ public class MartialCongressManager implements Runnable {
                 if (timeUpdate < delay) {
                     Thread.sleep(delay - timeUpdate);
                 }
-            } catch (Exception ignored) {
+            } catch (Exception e) {
+                Logger.logException(MartialCongressManager.class, e);
             }
         }
     }
@@ -44,7 +46,7 @@ public class MartialCongressManager implements Runnable {
                     try {
                         mc.update();
                     } catch (Exception e) {
-                        Logger.logException(MartialCongressService.class, e);
+                        Logger.logException(MartialCongressManager.class, e);
                     }
                 }
                 list.removeAll(toRemove);

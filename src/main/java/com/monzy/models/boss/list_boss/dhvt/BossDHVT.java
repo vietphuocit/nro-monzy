@@ -60,8 +60,8 @@ public abstract class BossDHVT extends Boss {
                     this.leaveMap();
                 }
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (Exception e) {
+            Logger.logException(BossDHVT.class, e);
         }
     }
 
@@ -105,13 +105,9 @@ public abstract class BossDHVT extends Boss {
                     }
                     break;
             }
-//            }
         } catch (Exception e) {
             Logger.logException(BossDHVT.class, e);
         }
-    }
-
-    protected void notifyPlayeKill(Player player) {
     }
 
     @Override

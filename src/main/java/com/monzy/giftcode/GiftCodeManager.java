@@ -81,7 +81,7 @@ public class GiftCodeManager {
         listGiftCode.add(giftcode);
       }
     } catch (Exception e) {
-      Logger.error(this.getClass().getName() + ": " + e.getMessage());
+      Logger.logException(GiftCodeManager.class, e);
     }
   }
 
@@ -127,7 +127,7 @@ public class GiftCodeManager {
         Database.executeUpdate(query, giftCode.countLeft, players.toJSONString(), giftCode.code);
       }
     } catch (Exception e) {
-      Logger.logException(GiftCodeManager.class, e, "Lỗi save giftcode");
+      Logger.logException(GiftCodeManager.class, e);
     }
   }
 }

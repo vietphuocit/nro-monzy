@@ -104,9 +104,9 @@ public class Input {
             PlayerDAO.addTongNap(playerNap, vnd);
             // event
             //                        playerNap.event += vnd / 1000;
-            Item traiDua = new Item((short) 694);
-            traiDua.quantity = vnd / 1000;
-            InventoryService.gI().addItemBag(playerNap, traiDua);
+//            Item traiDua = new Item((short) 694);
+//            traiDua.quantity = vnd / 1000;
+//            InventoryService.gI().addItemBag(playerNap, traiDua);
             Item veTangNgoc = new Item((short) 718);
             veTangNgoc.quantity = vnd / 100000;
             InventoryService.gI().addItemBag(playerNap, veTangNgoc);
@@ -270,7 +270,7 @@ public class Input {
                       try {
                         Thread.sleep(1000);
                       } catch (InterruptedException e) {
-                        Logger.logException(Input.class, e);
+                        // Bỏ qua
                       }
                     }
                     int x = diceRoller(true);
@@ -347,7 +347,7 @@ public class Input {
                       try {
                         Thread.sleep(1000);
                       } catch (InterruptedException e) {
-                        Logger.logException(Input.class, e);
+                        // Bỏ qua
                       }
                     }
                     int x = diceRoller(false);
@@ -432,7 +432,7 @@ public class Input {
                       try {
                         Thread.sleep(1000);
                       } catch (InterruptedException e) {
-                        Logger.logException(Input.class, e);
+                        // Bỏ qua
                       }
                     }
                     int x = diceRoller(true);
@@ -519,7 +519,7 @@ public class Input {
                       try {
                         Thread.sleep(1000);
                       } catch (InterruptedException e) {
-                        Logger.logException(Input.class, e);
+                        // Bỏ qua
                       }
                     }
                     int x = diceRoller(false);

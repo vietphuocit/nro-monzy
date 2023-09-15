@@ -1,6 +1,8 @@
 package com.monzy.models.matches;
 
+import com.monzy.models.map.nguhanhson.nguhs;
 import com.monzy.server.ServerManager;
+import com.monzy.utils.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +34,7 @@ public class GiaiNgoaiHang implements Runnable {
       try {
         Thread.sleep(1000);
       } catch (Exception e) {
+        Logger.logException(GiaiNgoaiHang.class, e);
       }
     }
   }

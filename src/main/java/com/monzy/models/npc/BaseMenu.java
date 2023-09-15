@@ -1,6 +1,8 @@
 package com.monzy.models.npc;
 
+import com.monzy.models.mob.MobMe;
 import com.monzy.models.player.Player;
+import com.monzy.utils.Logger;
 import com.network.io.Message;
 
 public class BaseMenu {
@@ -22,6 +24,7 @@ public class BaseMenu {
       player.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(BaseMenu.class, e);
     }
   }
 }

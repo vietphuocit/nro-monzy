@@ -113,8 +113,8 @@ public class SummonDragon {
                     }
                   }
                   Thread.sleep(1000);
-                } catch (Exception e) {
-                  Logger.logException(SummonDragon.class, e);
+                } catch (InterruptedException e) {
+                  // Bỏ qua
                 }
               }
             });
@@ -270,7 +270,7 @@ public class SummonDragon {
       }
       Service.gI().sendMessAllPlayer(msg);
     } catch (Exception e) {
-      e.getStackTrace();
+      Logger.logException(SummonDragon.class, e);
     }
   }
 
@@ -324,7 +324,7 @@ public class SummonDragon {
       Service.gI().sendMessAllPlayerIgnoreMe(playerSummonShenron, msg);
       msg.cleanup();
     } catch (Exception e) {
-      e.getStackTrace();
+      Logger.logException(SummonDragon.class, e);
     }
   }
 

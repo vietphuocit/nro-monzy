@@ -2,6 +2,7 @@ package com.monzy.models.boss.list_boss.dhvt;
 
 import com.monzy.consts.ConstPlayer;
 import com.monzy.consts.ConstRatio;
+import com.monzy.models.boss.BossManager;
 import com.monzy.models.boss.BossStatus;
 import com.monzy.models.boss.BossesData;
 import com.monzy.models.map.dhvt.MartialCongressService;
@@ -52,8 +53,8 @@ public class ThienXinHangClone extends BossDHVT {
             } else {
                 this.leaveMap();
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (Exception e) {
+            Logger.logException(ThienXinHangClone.class, e);
         }
     }
 

@@ -66,6 +66,7 @@ public class MabuEgg {
             .changeMapInYard(this.player, this.player.gender * 7, -1, Util.nextInt(300, 500));
         player.mabuEgg = null;
       } catch (Exception e) {
+        Logger.logException(MabuEgg.class, e);
       }
     } else {
       Service.gI().sendThongBao(player, "Yêu cầu phải có đệ tử");
@@ -79,6 +80,7 @@ public class MabuEgg {
       player.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(MabuEgg.class, e);
     }
     this.player.mabuEgg = null;
   }

@@ -2232,6 +2232,7 @@ public class CombineService {
       player.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(CombineService.class, e);
     }
   }
 
@@ -2248,6 +2249,7 @@ public class CombineService {
       player.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(CombineService.class, e);
     }
   }
 
@@ -2272,6 +2274,7 @@ public class CombineService {
       player.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(CombineService.class, e);
     }
   }
 
@@ -2289,7 +2292,8 @@ public class CombineService {
       msg.writer().writeShort(icon);
       player.sendMessage(msg);
       msg.cleanup();
-    } catch (Exception ignored) {
+    } catch (Exception e) {
+      Logger.logException(CombineService.class, e);
     }
   }
 

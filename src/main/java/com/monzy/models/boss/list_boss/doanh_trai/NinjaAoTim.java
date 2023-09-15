@@ -2,9 +2,11 @@ package com.monzy.models.boss.list_boss.doanh_trai;
 
 import com.monzy.consts.ConstPlayer;
 import com.monzy.models.boss.*;
+import com.monzy.models.boss.list_boss.dhvt.ThienXinHangClone;
 import com.monzy.models.map.Zone;
 import com.monzy.models.player.Player;
 import com.monzy.models.skill.Skill;
+import com.monzy.utils.Logger;
 
 public class NinjaAoTim extends Boss {
 
@@ -38,6 +40,7 @@ public class NinjaAoTim extends Boss {
         new NinjaAoTimClone(BossID.NINJA_AO_TIM_CLONE_4, zone, this.nPoint.dame / 2, this.nPoint.hp);
         this.isCallClone = true;
       } catch (Exception e) {
+        Logger.logException(NinjaAoTim.class, e);
       }
     }
     return super.injured(plAtt, damage, piercing, isMobAttack);

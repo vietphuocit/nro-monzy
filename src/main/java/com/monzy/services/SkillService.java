@@ -104,6 +104,7 @@ public class SkillService {
       afterUseSkill(player, player.playerSkill.skillSelect.template.id);
       player.skillSpecial.setSkillSpecial(dir, dx, dy, x, y);
     } catch (Exception e) {
+      Logger.logException(SkillService.class, e);
     }
   }
 
@@ -217,6 +218,7 @@ public class SkillService {
         }
       }
     } catch (Exception e) {
+      Logger.logException(SkillService.class, e);
     }
   }
 
@@ -228,7 +230,8 @@ public class SkillService {
       message.writer().writeByte(0);
       message.writer().writeShort(skill.currLevel);
       player.sendMessage(message);
-    } catch (final Exception ex) {
+    } catch (Exception e) {
+      Logger.logException(SkillService.class, e);
     } finally {
       if (message != null) {
         message.cleanup();
@@ -255,6 +258,7 @@ public class SkillService {
       Service.gI().sendMessAllPlayerInMap(player, message);
       message.cleanup();
     } catch (Exception e) {
+      Logger.logException(SkillService.class, e);
     } finally {
       if (message != null) {
         message.cleanup();
@@ -280,6 +284,7 @@ public class SkillService {
       Service.gI().sendMessAllPlayerInMap(player, message);
       message.cleanup();
     } catch (Exception e) {
+      Logger.logException(SkillService.class, e);
     } finally {
       if (message != null) {
         message.cleanup();
@@ -305,6 +310,7 @@ public class SkillService {
       Service.gI().sendMessAllPlayerInMap(player, message);
       message.cleanup();
     } catch (Exception e) {
+      Logger.logException(SkillService.class, e);
     } finally {
       if (message != null) {
         message.cleanup();
@@ -335,7 +341,8 @@ public class SkillService {
       message.writer().writeByte(0);
       Service.gI().sendMessAllPlayerInMap(player, message);
       message.cleanup();
-    } catch (final Exception ex) {
+    } catch (Exception e) {
+      Logger.logException(SkillService.class, e);
     } finally {
       if (message != null) {
         message.cleanup();
@@ -366,7 +373,8 @@ public class SkillService {
       message.writer().writeByte(0);
       Service.gI().sendMessAllPlayerInMap(player, message);
       message.cleanup();
-    } catch (final Exception ex) {
+    } catch (Exception e) {
+      Logger.logException(SkillService.class, e);
     } finally {
       if (message != null) {
         message.cleanup();
@@ -404,7 +412,8 @@ public class SkillService {
       message.writer().writeByte(0);
       Service.gI().sendMessAllPlayerInMap(player, message);
       message.cleanup();
-    } catch (final Exception ex) {
+    } catch (Exception e) {
+      Logger.logException(SkillService.class, e);
     } finally {
       if (message != null) {
         message.cleanup();
@@ -1002,6 +1011,7 @@ public class SkillService {
       Service.gI().sendMessAllPlayerInMap(player, msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(SkillService.class, e);
     }
   }
 
@@ -1017,6 +1027,7 @@ public class SkillService {
       Service.gI().sendMessAllPlayerInMap(player, msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(SkillService.class, e);
     }
   }
 
@@ -1201,6 +1212,7 @@ public class SkillService {
       Service.gI().sendMessAllPlayerInMap(plAtt, msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(SkillService.class, e);
     }
   }
 

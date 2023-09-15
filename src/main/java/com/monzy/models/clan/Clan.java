@@ -1,6 +1,7 @@
 package com.monzy.models.clan;
 
 import com.database.Database;
+import com.monzy.models.boss.list_boss.doanh_trai.NinjaAoTim;
 import com.monzy.models.map.bdkb.BanDoKhoBau;
 import com.monzy.models.map.doanhtraidocnhan.DoanhTraiDocNhan;
 import com.monzy.models.player.Player;
@@ -133,6 +134,7 @@ public class Clan {
       }
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(Clan.class, e);
     }
   }
 
@@ -297,8 +299,10 @@ public class Clan {
       Logger.logException(Clan.class, e, "Có lỗi khi insert clan vào db");
     } finally {
       try {
-        ps.close();
+	      assert ps != null;
+	      ps.close();
       } catch (Exception e) {
+        // Bỏ qua
       }
     }
   }
@@ -345,8 +349,10 @@ public class Clan {
       Logger.logException(Clan.class, e, "Có lỗi khi insert clan vào db");
     } finally {
       try {
-        ps.close();
+	      assert ps != null;
+	      ps.close();
       } catch (Exception e) {
+        // Bỏ qua
       }
     }
   }

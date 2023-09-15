@@ -1,7 +1,9 @@
 package com.monzy.models.skill;
 
 import com.monzy.models.player.Player;
+import com.monzy.models.shop.ShopServiceNew;
 import com.monzy.services.Service;
+import com.monzy.utils.Logger;
 import com.network.io.Message;
 
 import java.util.ArrayList;
@@ -50,6 +52,7 @@ public class PlayerSkill {
       player.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(PlayerSkill.class, e);
     }
   }
 

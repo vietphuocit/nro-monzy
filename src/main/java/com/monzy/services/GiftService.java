@@ -3,7 +3,6 @@ package com.monzy.services;
 import com.monzy.giftcode.GiftCode;
 import com.monzy.giftcode.GiftCodeManager;
 import com.monzy.models.player.Player;
-import com.monzy.utils.Logger;
 
 public class GiftService implements Runnable {
 
@@ -47,7 +46,7 @@ public class GiftService implements Runnable {
       try {
         Thread.sleep(1000);
       } catch (InterruptedException e) {
-        Logger.logException(GiftService.class, e);
+        // Bỏ qua
       }
     }
   }

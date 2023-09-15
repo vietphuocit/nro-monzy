@@ -57,6 +57,7 @@ public class MartialCongressService {
             pl.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
+            Logger.logException(MartialCongressService.class, e);
         }
     }
 
@@ -69,6 +70,7 @@ public class MartialCongressService {
             player.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
+            Logger.logException(MartialCongressService.class, e);
         }
     }
 

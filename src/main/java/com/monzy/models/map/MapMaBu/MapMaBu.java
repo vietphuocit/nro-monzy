@@ -4,6 +4,7 @@ import com.monzy.models.player.Player;
 import com.monzy.services.ChangeMapService;
 import com.monzy.services.MapService;
 import com.monzy.services.Service;
+import com.monzy.utils.Logger;
 import com.monzy.utils.TimeUtil;
 import com.monzy.utils.Util;
 
@@ -55,7 +56,8 @@ public class MapMaBu {
                     + ":"
                     + SECOND_CLOSE_MAP_MABU,
                 "dd/MM/yyyy HH:mm:ss");
-      } catch (Exception ignored) {
+      } catch (Exception e) {
+        Logger.logException(MapMaBu.class, e);
       }
     }
   }
@@ -98,14 +100,15 @@ public class MapMaBu {
   }
 
   public void update(Player player) {
-    if (player.zone == null || !MapService.gI().isMapBlackBallWar(player.zone.map.mapId)) {
-      try {
-        long now = System.currentTimeMillis();
-        if (now < TIME_OPEN_MABU || now > TIME_CLOSE_MABU) {
-          ketthucmabu(player);
-        }
-      } catch (Exception ignored) {
-      }
-    }
+//    if (player.zone == null || !MapService.gI().isMapBlackBallWar(player.zone.map.mapId)) {
+//      try {
+//        long now = System.currentTimeMillis();
+//        if (now < TIME_OPEN_MABU || now > TIME_CLOSE_MABU) {
+//          ketthucmabu(player);
+//        }
+//      } catch (Exception e) {
+//        Logger.logException(MapMaBu.class, e);
+//      }
+//    }
   }
 }

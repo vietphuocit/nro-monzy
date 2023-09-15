@@ -117,6 +117,7 @@ public class ChatGlobalService implements Runnable {
       Service.gI().sendMessAllPlayer(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(ChatGlobalService.class, e);
     }
   }
 

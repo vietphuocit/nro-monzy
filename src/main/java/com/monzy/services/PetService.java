@@ -4,6 +4,7 @@ import com.monzy.consts.ConstPlayer;
 import com.monzy.models.player.NewPet;
 import com.monzy.models.player.Pet;
 import com.monzy.models.player.Player;
+import com.monzy.utils.Logger;
 import com.monzy.utils.SkillUtil;
 import com.monzy.utils.Util;
 
@@ -68,7 +69,7 @@ public class PetService {
                 Thread.sleep(1000);
                 Service.gI().chatJustForMe(player, player.pet, "Xin hãy thu nhận làm đệ tử");
               } catch (Exception e) {
-                e.getStackTrace();
+                Logger.logException(PetService.class, e);
               }
             })
         .start();
@@ -85,7 +86,7 @@ public class PetService {
                 Thread.sleep(1000);
                 Service.gI().chatJustForMe(player, player.pet, "Xin hãy thu nhận làm đệ tử");
               } catch (Exception e) {
-                e.getStackTrace();
+                Logger.logException(PetService.class, e);
               }
             })
         .start();
@@ -102,7 +103,7 @@ public class PetService {
                 Thread.sleep(1000);
                 Service.gI().chatJustForMe(player, player.pet, "Oa oa oa...");
               } catch (Exception e) {
-                e.getStackTrace();
+                Logger.logException(PetService.class, e);
               }
             })
         .start();
@@ -119,7 +120,7 @@ public class PetService {
                 Thread.sleep(1000);
                 Service.gI().chatJustForMe(player, player.pet, "Oa oa oa...");
               } catch (Exception e) {
-                e.getStackTrace();
+                Logger.logException(PetService.class, e);
               }
             })
         .start();
@@ -138,7 +139,7 @@ public class PetService {
                     .chatJustForMe(
                         player, player.pet, "Thần hủy diệt hiện thân tất cả quỳ xuống...");
               } catch (Exception e) {
-                e.getStackTrace();
+                Logger.logException(PetService.class, e);
               }
             })
         .start();
@@ -157,7 +158,7 @@ public class PetService {
                     .chatJustForMe(
                         player, player.pet, "Thần hủy diệt hiện thân tất cả quỳ xuống...");
               } catch (Exception e) {
-                e.getStackTrace();
+                Logger.logException(PetService.class, e);
               }
             })
         .start();
@@ -175,7 +176,7 @@ public class PetService {
                 Service.gI()
                     .chatJustForMe(player, player.pet, "Sư Phụ SooMe hiện thân tụi m quỳ xuống...");
               } catch (Exception e) {
-                e.getStackTrace();
+                Logger.logException(PetService.class, e);
               }
             })
         .start();
@@ -193,7 +194,7 @@ public class PetService {
                 Service.gI()
                     .chatJustForMe(player, player.pet, "Sư Phụ SooMe hiện thân tụi m quỳ xuống...");
               } catch (Exception e) {
-                e.getStackTrace();
+                Logger.logException(PetService.class, e);
               }
             })
         .start();
@@ -311,10 +312,12 @@ public class PetService {
                       .chatJustForMe(
                           player, player.pet, "Cảm ơn sư phụ đã đặt cho con tên " + name);
                 } catch (Exception e) {
+                  Logger.logException(PetService.class, e);
                 }
               })
           .start();
-    } catch (Exception ex) {
+    } catch (Exception e) {
+      Logger.logException(PetService.class, e);
     }
   }
 

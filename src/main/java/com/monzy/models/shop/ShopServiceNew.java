@@ -481,6 +481,7 @@ public class ShopServiceNew {
         pl.sendMessage(msg);
         msg.cleanup();
       } catch (Exception e) {
+        Logger.logException(ShopServiceNew.class, e);
       }
     }
   }

@@ -273,7 +273,7 @@ public class NpcFactory {
                     new String[] {"|-1|Hãy đợi đó T.T"}, // text chat 3
                     0);
             try {
-              new NhanBan(Util.createIdBossClone((int) player.id), bossDataClone, player.zone);
+              new NhanBan(Util.createIdBossClone((int) player.id), bossDataClone, player.zone, player);
             } catch (Exception e) {
               Logger.logException(NpcFactory.class, e);
             }
@@ -2281,37 +2281,27 @@ public class NpcFactory {
                   this.createOtherMenu(
                       player,
                       ConstNpc.OPEN_POWER_MYSEFT,
-                      "Ta sẽ truyền năng lượng giúp con mở giới hạn sức mạnh của bản thân lên "
-                          + Util.numberToMoney(player.nPoint.getPowerNextLimit()),
-                      "Nâng\ngiới hạn\nsức mạnh",
-                      "Nâng ngay\n 1000 \nhồng ngọc",
-                      "Đóng");
+                      "Ta sẽ truyền năng lượng giúp con mở giới hạn sức mạnh của bản thân lên " + Util.numberToMoney(player.nPoint.getPowerNextLimit()),
+                      "Nâng\ngiới hạn\nsức mạnh", "Nâng ngay", "Đóng");
                   return;
                 }
                 this.createOtherMenu(
                     player, ConstNpc.IGNORE_MENU, "Sức mạnh của con đã đạt tới giới hạn", "Đóng");
                 return;
               case 1:
-                if (player.pet != null) {
-                  if (player.pet.nPoint.limitPower < NPoint.MAX_LIMIT) {
-                    this.createOtherMenu(
-                        player,
-                        ConstNpc.OPEN_POWER_PET,
-                        "Ta sẽ truyền năng lượng giúp con mở giới hạn sức mạnh của đệ tử lên "
-                            + Util.numberToMoney(player.pet.nPoint.getPowerNextLimit()),
-                        "Nâng ngay\n 1000 \nhồng ngọc",
-                        "Đóng");
-                    return;
-                  }
-                  this.createOtherMenu(
-                      player,
-                      ConstNpc.IGNORE_MENU,
-                      "Sức mạnh của đệ con đã đạt tới giới hạn",
-                      "Đóng");
+                if (player.pet == null) {
+                  Service.gI().sendThongBao(player, "Không thể thực hiện");
                   return;
                 }
-                Service.gI().sendThongBao(player, "Không thể thực hiện");
-                // giới hạn đệ tử
+                if (player.pet.nPoint.limitPower < NPoint.MAX_LIMIT) {
+                  this.createOtherMenu(player, ConstNpc.OPEN_POWER_PET,
+                      "Ta sẽ truyền năng lượng giúp con mở giới hạn sức mạnh của đệ tử lên " + Util.numberToMoney(player.pet.nPoint.getPowerNextLimit()),
+                      "Nâng ngay", "Đóng");
+                  return;
+                }
+                this.createOtherMenu(player, ConstNpc.IGNORE_MENU,
+                    "Sức mạnh của đệ con đã đạt tới giới hạn",
+                    "Đóng");
                 return;
             }
           }
@@ -2321,45 +2311,27 @@ public class NpcFactory {
                 OpenPowerService.gI().openPowerBasic(player);
                 break;
               case 1:
-                if ((player.nPoint.limitPower == 7 || player.nPoint.limitPower == 8)
-                    && player.nPoint.power < player.nPoint.getPowerLimit()) {
-                  Service.gI().sendThongBao(player, "Sức mạnh của bạn chưa đạt yêu cầu");
-                  return;
-                }
                 if (player.inventory.ruby < 1000) {
-                  Service.gI()
-                      .sendThongBao(
-                          player,
-                          "Bạn không đủ hồng ngọc để mở, còn thiếu "
-                              + (1000 - player.inventory.ruby)
-                              + " hồng ngọc");
+                  Service.gI().sendThongBao(player, "Bạn không đủ hồng ngọc để mở");
                   return;
                 }
-                OpenPowerService.gI().openPowerSpeed(player);
-                player.inventory.ruby -= 1000;
-                Service.gI().sendMoney(player);
-                break;
+                if (OpenPowerService.gI().openPowerSpeed(player)) {
+                  player.inventory.ruby -= 1000;
+                  Service.gI().sendMoney(player);
+                }
+                return;
             }
           }
           if (player.iDMark.getIndexMenu() == ConstNpc.OPEN_POWER_PET) {
             if (select == 0) {
-              if ((player.pet.nPoint.limitPower == 7 || player.pet.nPoint.limitPower == 8)
-                  && player.pet.nPoint.power < player.pet.nPoint.getPowerLimit()) {
-                Service.gI().sendThongBao(player, "Sức mạnh của đệ tử chưa đạt yêu cầu");
-                return;
-              }
               if (player.inventory.ruby < 1000) {
-                Service.gI()
-                    .sendThongBao(
-                        player,
-                        "Bạn không đủ vàng để mở, còn thiếu "
-                            + (1000 - player.inventory.ruby)
-                            + " hồng ngọc");
+                Service.gI().sendThongBao(player, "Bạn không đủ hồng ngọc để mở");
                 return;
               }
-              OpenPowerService.gI().openPowerSpeed(player.pet);
-              player.inventory.ruby -= 1000;
-              Service.gI().sendMoney(player);
+              if (OpenPowerService.gI().openPowerSpeed(player.pet)) {
+                player.inventory.ruby -= 1000;
+                Service.gI().sendMoney(player);
+              }
             }
           }
         }
@@ -2455,8 +2427,8 @@ public class NpcFactory {
                       "Từ chối");
                 }
               }
-            } catch (Exception ex) {
-              Logger.error("Lỗi mở menu rồng Omega");
+            } catch (Exception e) {
+              Logger.logException(NpcFactory.class, e);
             }
           }
         }
@@ -2988,8 +2960,8 @@ public class NpcFactory {
                   "Học dịch\nchuyển",
                   "Đóng");
             }
-          } catch (Exception ex) {
-            ex.printStackTrace();
+          } catch (Exception e) {
+            Logger.logException(NpcFactory.class, e);
           }
         }
       }
@@ -3011,7 +2983,7 @@ public class NpcFactory {
               }
             }
           } catch (Exception e) {
-            e.getStackTrace();
+            Logger.logException(NpcFactory.class, e);
           }
         }
       }

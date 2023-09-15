@@ -155,6 +155,7 @@ public class TransactionService implements Runnable {
       plReceive.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(TransactionService.class, e);
     }
   }
 

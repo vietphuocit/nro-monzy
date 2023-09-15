@@ -3,6 +3,7 @@ package com.monzy.models.mob;
 import com.monzy.models.map.Zone;
 import com.monzy.models.player.Player;
 import com.monzy.services.Service;
+import com.monzy.utils.Logger;
 import com.monzy.utils.SkillUtil;
 import com.monzy.utils.Util;
 import com.network.io.Message;
@@ -72,6 +73,7 @@ public final class MobMe extends Mob {
         }
       }
     } catch (Exception e) {
+      Logger.logException(MobMe.class, e);
     }
   }
 
@@ -87,6 +89,7 @@ public final class MobMe extends Mob {
       Service.gI().sendMessAllPlayerInMap(this.zone, msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(MobMe.class, e);
     }
   }
 
@@ -107,6 +110,7 @@ public final class MobMe extends Mob {
       Service.gI().sendMessAllPlayerInMap(this.zone, msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(MobMe.class, e);
     }
   }
 
@@ -119,6 +123,7 @@ public final class MobMe extends Mob {
       Service.gI().sendMessAllPlayerInMap(this.zone, msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(MobMe.class, e);
     }
   }
 

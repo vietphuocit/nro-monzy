@@ -12,7 +12,6 @@ import com.monzy.models.matches.TYPE_LOSE_PVP;
 import com.monzy.models.mob.Mob;
 import com.monzy.models.player.Player;
 import com.monzy.server.Manager;
-import com.monzy.services.func.UseItem;
 import com.monzy.utils.Logger;
 import com.monzy.utils.TimeUtil;
 import com.monzy.utils.Util;
@@ -89,7 +88,7 @@ public class ChangeMapService {
             pl.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
-            Logger.logException(UseItem.class, e);
+            Logger.logException(ChangeMapService.class, e);
         }
     }
 
@@ -136,7 +135,7 @@ public class ChangeMapService {
             player.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
-            e.getStackTrace();
+            Logger.logException(ChangeMapService.class, e);
         }
     }
 
@@ -425,7 +424,7 @@ public class ChangeMapService {
                 msg.cleanup();
             }
         } catch (Exception e) {
-            e.getStackTrace();
+            Logger.logException(ChangeMapService.class, e);
         }
     }
 
@@ -464,7 +463,7 @@ public class ChangeMapService {
                 }
             }
         } catch (Exception e) {
-            e.getStackTrace();
+            Logger.logException(ChangeMapService.class, e);
         }
         try {
             List<Player> players = player.zone.getHumanoids();
@@ -533,7 +532,7 @@ public class ChangeMapService {
                 }
             }
         } catch (Exception e) {
-            e.getStackTrace();
+            Logger.logException(ChangeMapService.class, e);
         }
     }
 
@@ -556,7 +555,7 @@ public class ChangeMapService {
             }
             msg.cleanup();
         } catch (Exception e) {
-            e.getStackTrace();
+            Logger.logException(ChangeMapService.class, e);
         }
     }
 
@@ -596,7 +595,7 @@ public class ChangeMapService {
                     msg.cleanup();
                     player.zone = null;
                 } catch (Exception e) {
-                    Logger.logException(MapService.class, e);
+                    Logger.logException(ChangeMapService.class, e);
                 }
             }
         }
@@ -637,7 +636,7 @@ public class ChangeMapService {
             player.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
-            e.getStackTrace();
+            Logger.logException(ChangeMapService.class, e);
         }
     }
 

@@ -76,7 +76,7 @@ public class Map implements Runnable {
       this.mapHeight = tileMap.length * SIZE;
       this.mapWidth = tileMap[0].length * SIZE;
     } catch (Exception e) {
-      Logger.logException(Map.class, e);
+      Logger.logException(Map.class, e, "Lỗi init Map: " + mapId);
     }
     this.initZone(zones, maxPlayer);
     this.initItem();

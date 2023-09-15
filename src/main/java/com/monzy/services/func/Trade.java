@@ -72,7 +72,8 @@ public class Trade {
       msg.cleanup();
       Service.gI().hideWaitDialog(player1);
       Service.gI().hideWaitDialog(player2);
-    } catch (Exception ignored) {
+    } catch (Exception e) {
+      Logger.logException(Trade.class, e);
     }
   }
 
@@ -155,7 +156,7 @@ public class Trade {
       msg.cleanup();
       Service.gI().sendThongBao(pl, "Không thể giao dịch vật phẩm này");
     } catch (Exception e) {
-      e.getStackTrace();
+      Logger.logException(Trade.class, e);
     }
   }
 
@@ -168,7 +169,7 @@ public class Trade {
       pl.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
-      e.getStackTrace();
+      Logger.logException(Trade.class, e);
     }
   }
 
@@ -220,7 +221,7 @@ public class Trade {
       player2.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
-      e.getStackTrace();
+      Logger.logException(Trade.class, e);
     }
   }
 

@@ -425,6 +425,26 @@ public class UseItem {
               }
             case 570:
               openWoodChest(pl, item);
+            case 1135: {
+              if (InventoryService.gI().getCountEmptyBag(pl) == 0) {
+                Service.gI().sendThongBao(pl, "Hành trang không đủ chỗ trống");
+              } else {
+                InventoryService.gI().subQuantityItemsBag(pl, item, 1);
+                Item skinHit =
+                    ItemService.gI().createNewItem((short) 884);
+                skinHit.itemOptions.add(new Item.ItemOption(5,
+                    Util.isTrue(95, 100) ? Util.nextInt(50, 90) : Util.nextInt(91, 100)));
+                skinHit.itemOptions.add(new Item.ItemOption(77, 10));
+                skinHit.itemOptions.add(new Item.ItemOption(103, 10));
+                InventoryService.gI().addItemBag(pl, skinHit);
+                InventoryService.gI().sendItemBags(pl);
+                Service.gI()
+                    .sendThongBao(
+                        pl,
+                        "Chúc mừng bạn nhận được Linh thú " + skinHit.template.name);
+              }
+              break;
+            }
           }
           break;
       }

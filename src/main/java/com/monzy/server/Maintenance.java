@@ -37,8 +37,8 @@ public class Maintenance extends Thread {
                   + " giây nữa, vui lòng thoát game để tránh mất vật phẩm");
       try {
         Thread.sleep(1000);
-      } catch (Exception e) {
-        e.getStackTrace();
+      } catch (InterruptedException e) {
+        // Bỏ qua
       }
     }
     Logger.error("BEGIN MAINTENANCE...............................\n");

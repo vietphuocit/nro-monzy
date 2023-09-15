@@ -21,8 +21,8 @@ public class ServerLogSavePlayer implements Runnable {
           new BufferedWriter(
               new FileWriter("log/log_save_player" + System.currentTimeMillis() + ".sql", true));
       new Thread(this, "Log file save player").start();
-    } catch (IOException ex) {
-      Logger.getLogger(ServerLogSavePlayer.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IOException e) {
+      Logger.getLogger(ServerLogSavePlayer.class.getName()).log(Level.SEVERE, null, e);
     }
   }
 
@@ -41,12 +41,14 @@ public class ServerLogSavePlayer implements Runnable {
         try {
           bw.write(text.substring(text.indexOf(":") + 2) + "\n");
           bw.flush();
-        } catch (IOException ex) {
+        } catch (IOException e) {
+          Logger.getLogger(ServerLogSavePlayer.class.getName()).log(Level.SEVERE, null, e);
         }
       }
       try {
         Thread.sleep(100);
-      } catch (InterruptedException ex) {
+      } catch (InterruptedException e) {
+        // Bỏ qua
       }
     }
   }

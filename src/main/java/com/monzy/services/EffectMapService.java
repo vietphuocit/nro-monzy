@@ -2,6 +2,7 @@ package com.monzy.services;
 
 import com.monzy.models.map.Zone;
 import com.monzy.models.player.Player;
+import com.monzy.utils.Logger;
 import com.network.io.Message;
 
 public class EffectMapService {
@@ -31,6 +32,7 @@ public class EffectMapService {
       player.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(EffectMapService.class, e);
     }
   }
 
@@ -48,6 +50,7 @@ public class EffectMapService {
       Service.gI().sendMessAllPlayerInMap(zone, msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(EffectMapService.class, e);
     }
   }
 }

@@ -74,7 +74,7 @@ public class EffectSkin {
           }
         }
       } catch (Exception e) {
-        e.getStackTrace();
+        Logger.logException(EffectSkin.class, e);
       }
       for (int j : cts) {
         if (j != 0) {
@@ -152,7 +152,7 @@ public class EffectSkin {
         }
       }
     } catch (Exception e) {
-      Logger.error("");
+      Logger.logException(EffectSkin.class, e);
     }
   }
 
@@ -185,7 +185,7 @@ public class EffectSkin {
         }
       }
     } catch (Exception e) {
-      Logger.error("");
+      Logger.logException(EffectSkin.class, e);
     }
   }
 

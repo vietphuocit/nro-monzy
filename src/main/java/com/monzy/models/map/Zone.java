@@ -333,7 +333,7 @@ public class Zone {
         }
       }
     } catch (Exception e) {
-      Logger.logException(MapService.class, e);
+      Logger.logException(Zone.class, e);
     }
   }
 
@@ -355,7 +355,7 @@ public class Zone {
         }
       }
     } catch (Exception e) {
-      Logger.logException(MapService.class, e);
+      Logger.logException(Zone.class, e);
     }
   }
 
@@ -377,7 +377,7 @@ public class Zone {
         }
       }
     } catch (Exception e) {
-      Logger.logException(MapService.class, e);
+      Logger.logException(Zone.class, e);
     }
   }
 
@@ -422,7 +422,7 @@ public class Zone {
       plReceive.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
-      //            Logger.logException(MapService.class, e);
+      Logger.logException(Zone.class, e);
     }
     Service.gI().sendFlagPlayerToMe(plReceive, plInfo);
     if (!plInfo.isBoss && !plInfo.isPet && !plInfo.isNewPet) {
@@ -439,7 +439,7 @@ public class Zone {
         msg.cleanup();
       }
     } catch (Exception e) {
-      e.getStackTrace();
+      Logger.logException(Zone.class, e);
     }
   }
 
@@ -533,7 +533,7 @@ public class Zone {
       pl.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
-      Logger.logException(Service.class, e);
+      Logger.logException(Zone.class, e);
     }
   }
 

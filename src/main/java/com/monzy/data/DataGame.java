@@ -306,6 +306,7 @@ public class DataGame {
       session.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(DataGame.class, e);
     }
   }
 
@@ -320,6 +321,7 @@ public class DataGame {
       session.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(DataGame.class, e);
     }
   }
 
@@ -335,6 +337,7 @@ public class DataGame {
       session.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(DataGame.class, e);
     }
   }
 
@@ -354,6 +357,7 @@ public class DataGame {
       session.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(DataGame.class, e);
     }
   }
 
@@ -365,6 +369,7 @@ public class DataGame {
       session.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(DataGame.class, e);
     }
   }
 
@@ -385,6 +390,7 @@ public class DataGame {
         }
       }
     } catch (Exception e) {
+      Logger.logException(DataGame.class, e);
     }
   }
 
@@ -449,6 +455,7 @@ public class DataGame {
         msg.writer().writeShort(ha.avatarId);
       }
     } catch (Exception e) {
+      Logger.logException(DataGame.class, e);
     }
   }
 
@@ -465,6 +472,7 @@ public class DataGame {
       session.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(DataGame.class, e);
     }
   }
 
@@ -478,6 +486,7 @@ public class DataGame {
       session.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(DataGame.class, e);
     }
   }
 
@@ -490,6 +499,7 @@ public class DataGame {
       session.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(DataGame.class, e);
     }
   }
 
@@ -528,6 +538,7 @@ public class DataGame {
       session.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(DataGame.class, e);
     }
   }
   /**

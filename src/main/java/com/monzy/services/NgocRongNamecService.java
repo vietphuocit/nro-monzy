@@ -253,7 +253,7 @@ public class NgocRongNamecService implements Runnable {
         }
         Thread.sleep(1000);
       } catch (Exception e) {
-        Logger.logException(NgocRongNamecService.class, e);
+        // Bỏ qua
       }
     }
   }

@@ -62,6 +62,7 @@ public class BillEgg {
             .changeMapInYard(this.player, this.player.gender * 7, -1, Util.nextInt(300, 500));
         player.billEgg = null;
       } catch (Exception e) {
+        Logger.logException(BillEgg.class, e);
       }
     } else {
       Service.gI().sendThongBao(player, "Yêu cầu phải có đệ tử");
@@ -75,6 +76,7 @@ public class BillEgg {
       player.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(BillEgg.class, e);
     }
     this.player.billEgg = null;
   }

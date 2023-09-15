@@ -130,14 +130,10 @@ public class ShopDAO {
         itemShop.options.add(new Item.ItemOption(rs.getInt("option_id"), rs.getInt("param")));
       }
       try {
-        if (rs != null) {
-          rs.close();
-        }
-        if (ps != null) {
-          ps.close();
-        }
+	      rs.close();
+	      ps.close();
       } catch (SQLException e) {
-        Logger.logException(ShopDAO.class, e);
+        // Bỏ qua
       }
     } catch (Exception e) {
       Logger.logException(ShopDAO.class, e);

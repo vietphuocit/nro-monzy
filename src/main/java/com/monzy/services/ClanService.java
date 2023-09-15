@@ -147,6 +147,7 @@ public class ClanService {
           break;
       }
     } catch (Exception e) {
+      Logger.logException(ClanService.class, e);
     }
   }
 
@@ -186,6 +187,7 @@ public class ClanService {
           }
         }
       } catch (Exception e) {
+        Logger.logException(ClanService.class, e);
       }
     }
   }
@@ -203,6 +205,7 @@ public class ClanService {
           break;
       }
     } catch (Exception e) {
+      Logger.logException(ClanService.class, e);
     }
   }
 
@@ -225,6 +228,7 @@ public class ClanService {
           break;
       }
     } catch (Exception e) {
+      Logger.logException(ClanService.class, e);
     }
   }
 
@@ -240,6 +244,7 @@ public class ClanService {
           break;
       }
     } catch (Exception e) {
+      Logger.logException(ClanService.class, e);
     }
   }
   // --------------------------------------------------------------------------
@@ -257,6 +262,7 @@ public class ClanService {
         pl.sendMessage(msg);
         msg.cleanup();
       } catch (Exception e) {
+        Logger.logException(ClanService.class, e);
       }
     }
   }
@@ -281,8 +287,8 @@ public class ClanService {
       } else {
         Service.gI().sendThongBao(player, "Không thể thực hiện");
       }
-    } catch (Exception ex) {
-      Service.gI().sendThongBao(player, ex.getMessage());
+    } catch (Exception e) {
+      Service.gI().sendThongBao(player, e.getMessage());
     }
   }
 
@@ -423,8 +429,8 @@ public class ClanService {
       } else {
         Service.gI().sendThongBao(player, "Không thể thực hiện");
       }
-    } catch (Exception ex) {
-      Service.gI().sendThongBao(player, ex.getMessage());
+    } catch (Exception e) {
+      Service.gI().sendThongBao(player, e.getMessage());
     }
   }
 
@@ -508,6 +514,7 @@ public class ClanService {
       player.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(ClanService.class, e);
     }
   }
 
@@ -609,8 +616,7 @@ public class ClanService {
       player.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
-      Logger.logException(
-          ClanService.class, e, "Lỗi send my clan " + player.clan.name + " - " + player.clan.id + " - player" + player.name);
+      // Bỏ qua
     }
   }
 
@@ -627,6 +633,7 @@ public class ClanService {
       Service.gI().sendMessAllPlayerInMap(player, msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(ClanService.class, e);
     }
   }
 
@@ -813,11 +820,11 @@ public class ClanService {
       ps.close();
     } catch (Exception ex) {
       removeClanPlayer(plId);
-      return;
     } finally {
       try {
         ps.close();
       } catch (Exception e) {
+        // Bỏ qua
       }
     }
   }

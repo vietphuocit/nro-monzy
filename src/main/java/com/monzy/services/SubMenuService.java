@@ -3,6 +3,7 @@ package com.monzy.services;
 import com.monzy.consts.ConstNpc;
 import com.monzy.models.player.Player;
 import com.monzy.server.Client;
+import com.monzy.utils.Logger;
 import com.network.io.Message;
 
 public class SubMenuService {
@@ -70,7 +71,7 @@ public class SubMenuService {
       player.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
-      com.monzy.utils.Logger.logException(SubMenuService.class, e);
+      Logger.logException(SubMenuService.class, e);
     }
   }
 

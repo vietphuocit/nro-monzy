@@ -2,19 +2,18 @@ package com.monzy.server;
 
 import com.database.Database;
 import com.monzy.jdbc.daos.PlayerDAO;
+import com.monzy.models.item.Item;
 import com.monzy.models.map.ItemMap;
 import com.monzy.models.matches.pvp.DaiHoiVoThuat;
 import com.monzy.models.matches.pvp.DaiHoiVoThuatService;
 import com.monzy.models.player.Player;
 import com.monzy.server.io.MySession;
-import com.monzy.services.ChangeMapService;
-import com.monzy.services.NgocRongNamecService;
-import com.monzy.services.Service;
-import com.monzy.services.TransactionService;
+import com.monzy.services.*;
 import com.monzy.services.func.SummonDragon;
 import com.monzy.utils.Logger;
 import com.network.server.MonzySessionManager;
 import com.network.session.ISession;
+import lombok.Getter;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -28,6 +27,7 @@ public class Client implements Runnable {
   private final Map<Long, Player> players_id = new HashMap<>();
   private final Map<Integer, Player> players_userId = new HashMap<>();
   private final Map<String, Player> players_name = new HashMap<>();
+  @Getter
   private final List<Player> players = new ArrayList<>();
 
   private Client() {
@@ -39,10 +39,6 @@ public class Client implements Runnable {
       i = new Client();
     }
     return i;
-  }
-
-  public List<Player> getPlayers() {
-    return this.players;
   }
 
   public void put(Player player) {
@@ -102,16 +98,12 @@ public class Client implements Runnable {
       if (player.clan != null) {
         player.clan.removeMemberOnline(null, player);
       }
-      //            if (player.itemTime != null && player.itemTime.isUseTDLT) {
-      //                Item tdlt = null;
-      //                try {
-      //                    tdlt = InventoryService.gI().findItemBag(player, 521);
-      //                } catch (Exception ex) {
-      //                }
-      //                if (tdlt != null) {
-      //                    ItemTimeService.gI().turnOffTDLT(player, tdlt);
-      //                }
-      //            }
+      if (player.itemTime != null && player.itemTime.isUseTDLT) {
+        Item tdlt = InventoryService.gI().findItemBag(player, 521);
+        if (tdlt != null) {
+          ItemTimeService.gI().turnOffTDLT(player, tdlt);
+        }
+      }
       if (SummonDragon.gI().playerSummonShenron != null
           && SummonDragon.gI().playerSummonShenron.id == player.id) {
         SummonDragon.gI().isPlayerDisconnect = true;
@@ -156,20 +148,6 @@ public class Client implements Runnable {
     Logger.error("...........................................SUCCESSFUL\n");
   }
 
-  public void cloneMySessionNotConnect() {
-    Logger.error("BEGIN KICK OUT MySession Not Connect...............................\n");
-    Logger.error("COUNT: " + MonzySessionManager.gI().getSessions().size());
-    if (!MonzySessionManager.gI().getSessions().isEmpty()) {
-      for (int j = 0; j < MonzySessionManager.gI().getSessions().size(); j++) {
-        MySession m = (MySession) MonzySessionManager.gI().getSessions().get(j);
-        if (m.player == null) {
-          this.kickSession((MySession) MonzySessionManager.gI().getSessions().remove(j));
-        }
-      }
-    }
-    Logger.error("..........................................................SUCCESSFUL\n");
-  }
-
   private void update() {
     for (ISession s : MonzySessionManager.gI().getSessions()) {
       MySession session = (MySession) s;
@@ -189,19 +167,10 @@ public class Client implements Runnable {
         long st = System.currentTimeMillis();
         update();
         Thread.sleep(800 - (System.currentTimeMillis() - st));
-      } catch (Exception e) {
-        e.getStackTrace();
+      } catch (InterruptedException e) {
+        // Bỏ qua
       }
     }
   }
 
-  public void show(Player player) {
-    String txt = "";
-    txt += "sessions: " + MonzySessionManager.gI().getSessions().size() + "\n";
-    txt += "players_id: " + players_id.size() + "\n";
-    txt += "players_userId: " + players_userId.size() + "\n";
-    txt += "players_name: " + players_name.size() + "\n";
-    txt += "players: " + players.size() + "\n";
-    Service.gI().sendThongBao(player, txt);
-  }
 }

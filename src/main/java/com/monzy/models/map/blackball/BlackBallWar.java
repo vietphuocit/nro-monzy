@@ -95,6 +95,7 @@ public class BlackBallWar {
                     + SECOND_CLOSE,
                 "dd/MM/yyyy HH:mm:ss");
       } catch (Exception e) {
+        Logger.logException(BlackBallWar.class, e);
       }
     }
   }
@@ -157,7 +158,8 @@ public class BlackBallWar {
           kickOutOfMap(player);
         }
       }
-    } catch (Exception ex) {
+    } catch (Exception e) {
+      Logger.logException(BlackBallWar.class, e);
     }
   }
 
@@ -221,7 +223,8 @@ public class BlackBallWar {
         Service.gI().sendThongBao(player, "Đại chiến ngọc rồng đen chưa mở");
         Service.gI().hideWaitDialog(player);
       }
-    } catch (Exception ex) {
+    } catch (Exception e) {
+      Logger.logException(BlackBallWar.class, e);
     }
   }
 
@@ -286,7 +289,7 @@ public class BlackBallWar {
           return false;
         }
       }
-    } catch (Exception ex) {
+    } catch (Exception e) {
       return false;
     }
   }

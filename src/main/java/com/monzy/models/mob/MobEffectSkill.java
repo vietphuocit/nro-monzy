@@ -1,6 +1,8 @@
 package com.monzy.models.mob;
 
+import com.monzy.models.map.nguhanhson.nguhs;
 import com.monzy.services.Service;
+import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
 import com.network.io.Message;
 
@@ -67,6 +69,7 @@ public class MobEffectSkill {
       Service.gI().sendMessAllPlayerInMap(mob.zone, msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(MobEffectSkill.class, e);
     }
   }
 
@@ -88,6 +91,7 @@ public class MobEffectSkill {
       Service.gI().sendMessAllPlayerInMap(mob.zone, msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(MobEffectSkill.class, e);
     }
   }
 
@@ -109,6 +113,7 @@ public class MobEffectSkill {
       Service.gI().sendMessAllPlayerInMap(mob.zone, msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(MobEffectSkill.class, e);
     }
   }
 
@@ -130,6 +135,7 @@ public class MobEffectSkill {
       Service.gI().sendMessAllPlayerInMap(mob.zone, msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(MobEffectSkill.class, e);
     }
   }
 
@@ -143,6 +149,7 @@ public class MobEffectSkill {
       Service.gI().sendMessAllPlayerInMap(mob.zone, msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(MobEffectSkill.class, e);
     }
   }
 

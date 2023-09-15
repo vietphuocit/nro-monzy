@@ -2,6 +2,7 @@ package com.monzy.models.matches;
 
 import com.monzy.consts.ConstNpc;
 import com.monzy.models.map.Zone;
+import com.monzy.models.map.nguhanhson.nguhs;
 import com.monzy.models.matches.pvp.ThachDau;
 import com.monzy.models.matches.pvp.TraThu;
 import com.monzy.models.player.Player;
@@ -9,6 +10,7 @@ import com.monzy.server.Client;
 import com.monzy.services.ChangeMapService;
 import com.monzy.services.NpcService;
 import com.monzy.services.Service;
+import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
 import com.network.io.Message;
 
@@ -52,7 +54,8 @@ public class PVPService {
           acceptPVP(player);
           break;
       }
-    } catch (IOException ex) {
+    } catch (IOException e) {
+      Logger.logException(PVPService.class, e);
     }
   }
 
@@ -121,6 +124,7 @@ public class PVPService {
       plMap.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(PVPService.class, e);
     }
   }
 

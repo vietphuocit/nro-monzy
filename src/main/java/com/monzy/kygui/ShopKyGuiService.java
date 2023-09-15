@@ -42,7 +42,7 @@ public class ShopKyGuiService implements Runnable {
       try {
         Thread.sleep(1000);
       } catch (InterruptedException e) {
-        Logger.logException(ShopKyGuiService.class, e);
+        // Bỏ qua
       }
     }
   }

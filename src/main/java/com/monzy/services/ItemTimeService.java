@@ -1,7 +1,5 @@
 package com.monzy.services;
 
-import static com.monzy.models.item.ItemTime.*;
-
 import com.monzy.consts.ConstPlayer;
 import com.monzy.models.item.Item;
 import com.monzy.models.map.bdkb.BanDoKhoBauService;
@@ -10,6 +8,8 @@ import com.monzy.models.player.Fusion;
 import com.monzy.models.player.Player;
 import com.monzy.utils.Logger;
 import com.network.io.Message;
+
+import static com.monzy.models.item.ItemTime.*;
 
 public class ItemTimeService {
 
@@ -231,6 +231,7 @@ public class ItemTimeService {
       player.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(ItemTimeService.class, e);
     }
   }
 
@@ -243,6 +244,7 @@ public class ItemTimeService {
       player.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(ItemTimeService.class, e);
     }
   }
 

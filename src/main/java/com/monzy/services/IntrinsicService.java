@@ -4,6 +4,7 @@ import com.monzy.consts.ConstNpc;
 import com.monzy.models.intrinsic.Intrinsic;
 import com.monzy.models.player.Player;
 import com.monzy.server.Manager;
+import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
 import com.network.io.Message;
 
@@ -51,6 +52,7 @@ public class IntrinsicService {
       player.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(IntrinsicService.class, e);
     }
   }
 
@@ -70,6 +72,7 @@ public class IntrinsicService {
       player.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(IntrinsicService.class, e);
     }
   }
 

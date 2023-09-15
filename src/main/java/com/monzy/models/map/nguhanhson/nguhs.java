@@ -4,6 +4,7 @@ import com.monzy.models.player.Player;
 import com.monzy.services.ChangeMapService;
 import com.monzy.services.MapService;
 import com.monzy.services.Service;
+import com.monzy.utils.Logger;
 import com.monzy.utils.TimeUtil;
 
 import java.util.List;
@@ -53,7 +54,8 @@ public class nguhs {
                     + ":"
                     + SECOND_CLOSE_MAP_NHS,
                 "dd/MM/yyyy HH:mm:ss");
-      } catch (Exception ignored) {
+      } catch (Exception e) {
+        Logger.logException(nguhs.class, e);
       }
     }
   }
@@ -102,7 +104,8 @@ public class nguhs {
           && MapService.gI().isNguHS(player.zone.map.mapId)) {
         ketthucnguhs(player);
       }
-    } catch (Exception ex) {
+    } catch (Exception e) {
+      Logger.logException(nguhs.class, e);
     }
   }
 }

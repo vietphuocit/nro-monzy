@@ -1,7 +1,9 @@
 package com.monzy.models.matches.pvp;
 
+import com.monzy.models.map.nguhanhson.nguhs;
 import com.monzy.models.player.Player;
 import com.monzy.server.Manager;
+import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
 
 import java.util.ArrayList;
@@ -80,6 +82,7 @@ public class DaiHoiVoThuat implements Runnable {
         DaiHoiVoThuatService.gI(getDaiHoiNow()).Update();
         Thread.sleep(1000);
       } catch (Exception e) {
+        Logger.logException(DaiHoiVoThuat.class, e);
       }
     }
   }

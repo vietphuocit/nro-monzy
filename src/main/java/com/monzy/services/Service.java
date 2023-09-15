@@ -639,6 +639,7 @@ public class Service {
       }
       rs.dispose();
     } catch (Exception e) {
+      Logger.logException(Service.class, e);
     }
   }
 
@@ -671,6 +672,7 @@ public class Service {
       sendMessAnotherNotMeInMap(pl, msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(Service.class, e);
     }
   }
 
@@ -685,6 +687,7 @@ public class Service {
       sendMessAnotherNotMeInMap(pl, msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(Service.class, e);
     }
   }
 
@@ -696,6 +699,7 @@ public class Service {
       session.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(Service.class, e);
     }
   }
 
@@ -710,6 +714,7 @@ public class Service {
       player.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(Service.class, e);
     }
   }
 
@@ -720,6 +725,7 @@ public class Service {
       player.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(Service.class, e);
     }
   }
 
@@ -734,6 +740,7 @@ public class Service {
       } catch (Exception e) {
       }
     } catch (Exception e) {
+      Logger.logException(Service.class, e);
     }
   }
 
@@ -975,6 +982,7 @@ public class Service {
       me.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(Service.class, e);
     }
   }
 
@@ -986,6 +994,7 @@ public class Service {
       msg.writer().writeByte(pl.type);
       pl.sendMessage(msg);
     } catch (Exception e) {
+      Logger.logException(Service.class, e);
     } finally {
       if (msg != null) {
         msg.cleanup();
@@ -1087,6 +1096,7 @@ public class Service {
       //   isShenronAppear = true;
       Service.gI().sendMessAllPlayerInMap(pl, msg);
     } catch (Exception e) {
+      Logger.logException(Service.class, e);
     }
   }
 
@@ -1516,6 +1526,7 @@ public class Service {
       sendMessAllPlayerInMap(pl, msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(Service.class, e);
     }
   }
 
@@ -1542,6 +1553,7 @@ public class Service {
       session.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(Service.class, e);
     }
   }
 
@@ -1553,6 +1565,7 @@ public class Service {
       this.sendMessAllPlayer(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(Service.class, e);
     }
   }
 
@@ -1581,6 +1594,7 @@ public class Service {
       pl.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(Service.class, e);
     }
   }
 
@@ -1607,6 +1621,7 @@ public class Service {
       pl.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(Service.class, e);
     }
   }
 
@@ -1619,6 +1634,7 @@ public class Service {
       sendMessAllPlayerIgnoreMe(player, msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(Service.class, e);
     }
   }
 
@@ -1649,6 +1665,7 @@ public class Service {
       pl.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(Service.class, e);
     }
   }
 
@@ -1699,6 +1716,7 @@ public class Service {
       me.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(Service.class, e);
     }
   }
 
@@ -1745,6 +1763,7 @@ public class Service {
       PlayerService.gI().sendInfoHpMpMoney(pl);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(Service.class, e);
     }
   }
 
@@ -1764,6 +1783,7 @@ public class Service {
       pl.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(Service.class, e);
     }
   }
 
@@ -1779,6 +1799,7 @@ public class Service {
       sendMessAllPlayerInMap(zone, msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(Service.class, e);
     }
   }
 
@@ -1896,6 +1917,7 @@ public class Service {
       sendMessAllPlayerInMap(player, msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(Service.class, e);
     }
   }
 
@@ -1927,6 +1949,7 @@ public class Service {
       pl.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(Service.class, e);
     }
   }
 
@@ -1946,6 +1969,7 @@ public class Service {
       plReceive.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(Service.class, e);
     }
   }
 
@@ -1961,9 +1985,9 @@ public class Service {
                 player.session.userId,
                 player.session.uu);
             Service.gI().sendThongBao(player, "Đổi mật khẩu thành công!");
-          } catch (Exception ex) {
+          } catch (Exception e) {
             Service.gI().sendThongBao(player, "Đổi mật khẩu thất bại!");
-            Logger.logException(Service.class, ex);
+            Logger.logException(Service.class, e);
           }
         } else {
           Service.gI().sendThongBao(player, "Mật khẩu nhập lại không đúng!");
@@ -1983,6 +2007,7 @@ public class Service {
       session.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(Service.class, e);
     }
   }
 
@@ -2003,6 +2028,7 @@ public class Service {
       session.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(Service.class, e);
     }
   }
 
@@ -2014,6 +2040,7 @@ public class Service {
       player.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(Service.class, e);
     }
   }
 
@@ -2037,6 +2064,7 @@ public class Service {
       session.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      // Bỏ qua
     }
   }
 
@@ -2054,6 +2082,7 @@ public class Service {
       player.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(Service.class, e);
     }
   }
 
@@ -2071,6 +2100,7 @@ public class Service {
       session.version = Integer.parseInt(arrPlatform[1].replaceAll("\\.", ""));
       //            System.out.println(platform);
     } catch (Exception e) {
+      Logger.logException(Service.class, e);
     } finally {
       msg.cleanup();
     }
@@ -2091,7 +2121,8 @@ public class Service {
       msg.writer().writeInt(-2);
       msg.writer().writeShort(200);
       sendMessAllPlayerInMap(map, msg);
-    } catch (Exception exception) {
+    } catch (Exception e) {
+      Logger.logException(Service.class, e);
     } finally {
       if (msg != null) {
         msg.cleanup();

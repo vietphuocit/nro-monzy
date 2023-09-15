@@ -85,6 +85,7 @@ public class Mob {
       Service.gI().sendMessAllPlayerInMap(mob.zone, msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(Mob.class, e);
     }
   }
 
@@ -167,6 +168,7 @@ public class Mob {
         Service.gI().sendMessAllPlayerInMap(zone, msg);
         msg.cleanup();
       } catch (Exception e) {
+        // Bỏ qua
       }
     }
 
@@ -241,7 +243,7 @@ public class Mob {
         }
       }
     } catch (Exception e) {
-
+      Logger.logException(Mob.class, e);
     }
     return plAttack;
   }
@@ -267,6 +269,7 @@ public class Mob {
         player.sendMessage(msg);
         msg.cleanup();
       } catch (Exception e) {
+        Logger.logException(Mob.class, e);
       }
     }
   }
@@ -281,6 +284,7 @@ public class Mob {
       Service.gI().sendMessAnotherNotMeInMap(player, msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(Mob.class, e);
     }
   }
 
@@ -301,6 +305,7 @@ public class Mob {
       Service.gI().sendMessAllPlayerInMap(this.zone, msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(Mob.class, e);
     }
   }
 
@@ -317,6 +322,7 @@ public class Mob {
       msg.cleanup();
       hutItem(plKill, items);
     } catch (Exception e) {
+      Logger.logException(Mob.class, e);
     }
   }
 
@@ -412,7 +418,7 @@ public class Mob {
               player.name + " đã đánh rơi " + item.template.name + " ở " + zone.map.mapName);
     }
     // thức ăn
-    if (Util.nextInt(0, 100) < 5
+    if (Util.isTrue(2, 100)
         && MapService.gI().isMapCold(this.zone.map)
         && ((!player.isPet && player.session.actived && player.setClothes.setGOD == 5)
             || (player.isPet
@@ -424,9 +430,7 @@ public class Mob {
     // cskb
     if (player.itemTime.isUseMayDo
         && MapService.gI().isMapFuture(this.zone.map.mapId)
-        && Util.isTrue(20, 100)
-        && this.tempId > 57
-        && this.tempId < 66) {
+        && Util.isTrue(10, 100)) {
       list.add(new ItemMap(zone, 380, 1, x, player.location.y, player.id));
     }
     //
@@ -455,14 +459,14 @@ public class Mob {
 //    if (MapService.gI().isMapDoanhTrai(player.zone.map.mapId) && Util.isTrue(50, 100)) {
 //      list.add(new ItemMap(zone, dnc, Util.nextInt(30, 40), x, player.location.y, player.id));
 //    } else
-    if (Util.isTrue(5, 100)) {
+    if (Util.isTrue(2, 100)) {
       list.add(new ItemMap(zone, dnc, 1, x, player.location.y, player.id));
-    } else if (Util.isTrue(5, 100)) {
+    } else if (Util.isTrue(2, 100)) {
       ItemMap itemSPL = new ItemMap(zone, spl, 1, x, player.location.y, player.id);
       short idOption = (short) (95 + spl - 441);
       itemSPL.options.add(new Item.ItemOption(idOption, 5));
       list.add(itemSPL);
-    } else if (Util.isTrue(5, 100)) {
+    } else if (Util.isTrue(2, 100)) {
       list.add(new ItemMap(zone, ngocRong, 1, x, player.location.y, player.id));
     }
     // event
@@ -522,6 +526,7 @@ public class Mob {
       Service.gI().sendMessAllPlayerInMap(this.zone, msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(Mob.class, e);
     }
   }
 }

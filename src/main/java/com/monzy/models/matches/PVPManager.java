@@ -1,7 +1,9 @@
 package com.monzy.models.matches;
 
+import com.monzy.models.map.nguhanhson.nguhs;
 import com.monzy.models.player.Player;
 import com.monzy.server.ServerManager;
+import com.monzy.utils.Logger;
 
 import java.util.ArrayList;
 
@@ -53,6 +55,7 @@ public class PVPManager implements Runnable {
         }
         Thread.sleep(1000 - (System.currentTimeMillis() - st));
       } catch (Exception e) {
+        Logger.logException(PVPManager.class, e);
       }
     }
   }

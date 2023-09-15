@@ -10,8 +10,6 @@ import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
 import com.network.io.Message;
 
-import java.io.IOException;
-
 public class FriendAndEnemyService {
 
   private static final byte OPEN_LIST = 0;
@@ -42,7 +40,8 @@ public class FriendAndEnemyService {
           removeFriend(player, msg.reader().readInt());
           break;
       }
-    } catch (IOException ex) {
+    } catch (Exception e) {
+      Logger.logException(FriendAndEnemyService.class, e);
     }
   }
 
@@ -76,7 +75,8 @@ public class FriendAndEnemyService {
           removeEnemy(player, msg.reader().readInt());
           break;
       }
-    } catch (IOException ex) {
+    } catch (Exception e) {
+      Logger.logException(FriendAndEnemyService.class, e);
     }
   }
 
@@ -92,6 +92,7 @@ public class FriendAndEnemyService {
           f.leg = pl.getLeg();
           f.bag = (byte) pl.getFlagBag();
         } catch (Exception e) {
+          Logger.logException(FriendAndEnemyService.class, e);
         }
         f.online = true;
       } else {
@@ -101,21 +102,22 @@ public class FriendAndEnemyService {
   }
 
   private void reloadEnemy(Player player) {
-    for (Enemy e : player.enemies) {
+    for (Enemy enemy : player.enemies) {
       Player pl = null;
-      if ((pl = Client.gI().getPlayerByUser(e.id)) != null
-          || (pl = Client.gI().getPlayer(e.name)) != null) {
+      if ((pl = Client.gI().getPlayerByUser(enemy.id)) != null
+          || (pl = Client.gI().getPlayer(enemy.name)) != null) {
         try {
-          e.power = pl.nPoint.power;
-          e.head = pl.getHead();
-          e.body = pl.getBody();
-          e.leg = pl.getLeg();
-          e.bag = (byte) pl.getFlagBag();
-        } catch (Exception ex) {
+          enemy.power = pl.nPoint.power;
+          enemy.head = pl.getHead();
+          enemy.body = pl.getBody();
+          enemy.leg = pl.getLeg();
+          enemy.bag = (byte) pl.getFlagBag();
+        } catch (Exception e) {
+          Logger.logException(FriendAndEnemyService.class, e);
         }
-        e.online = true;
+        enemy.online = true;
       } else {
-        e.online = false;
+        enemy.online = false;
       }
     }
   }
@@ -218,6 +220,7 @@ public class FriendAndEnemyService {
           player.sendMessage(msg);
           msg.cleanup();
         } catch (Exception e) {
+          Logger.logException(FriendAndEnemyService.class, e);
         }
         player.friends.remove(i);
         break;
@@ -246,6 +249,7 @@ public class FriendAndEnemyService {
           Service.gI().chatPrivate(player, pl, text);
         }
       } catch (Exception e) {
+        Logger.logException(FriendAndEnemyService.class, e);
       }
     }
   }
@@ -294,7 +298,8 @@ public class FriendAndEnemyService {
           Service.gI().sendThongBao(player, "Yêu cầu trang bị có khả năng dịch chuyển tức thời");
         }
       }
-    } catch (IOException ex) {
+    } catch (Exception e) {
+      Logger.logException(FriendAndEnemyService.class, e);
     }
   }
 

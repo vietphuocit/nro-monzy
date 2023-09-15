@@ -9,6 +9,7 @@ import com.monzy.models.npc.specialnpc.MabuEgg;
 import com.monzy.models.player.Inventory;
 import com.monzy.models.player.Pet;
 import com.monzy.models.player.Player;
+import com.monzy.utils.Logger;
 import com.network.io.Message;
 
 import java.util.ArrayList;
@@ -73,6 +74,7 @@ public class InventoryService {
         }
       }
     } catch (Exception e) {
+      Logger.logException(InventoryService.class, e);
     }
     return null;
   }
@@ -576,6 +578,7 @@ public class InventoryService {
       player.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(InventoryService.class, e);
     }
   }
 
@@ -605,6 +608,7 @@ public class InventoryService {
       player.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(InventoryService.class, e);
     }
     Service.gI().sendCaiTrang(player);
     Service.gI().sendFlagBag(player);
@@ -632,6 +636,7 @@ public class InventoryService {
       player.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(InventoryService.class, e);
     }
     this.openBox(player);
   }
@@ -644,6 +649,7 @@ public class InventoryService {
       player.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(InventoryService.class, e);
     }
   }
 
@@ -665,6 +671,7 @@ public class InventoryService {
           min = 60 * 24 * 30;
         }
       } catch (Exception e) {
+        Logger.logException(InventoryService.class, e);
       }
       player.charms.addTimeCharms(item.template.id, min);
       return true;

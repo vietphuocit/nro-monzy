@@ -81,6 +81,7 @@ public class MySession extends Session {
         this.itemsReward.add(item);
       }
     } catch (Exception e) {
+      Logger.logException(MySession.class, e);
     }
   }
 
@@ -102,6 +103,7 @@ public class MySession extends Session {
       msg.cleanup();
       sentKey = true;
     } catch (Exception e) {
+      Logger.logException(MySession.class, e);
     }
   }
 
@@ -167,13 +169,12 @@ public class MySession extends Session {
                   + ": "
                   + (System.currentTimeMillis() - st)
                   + " ms");
-          //                    Service.gI().sendThongBaoOK(this, "Ngọc rồng sao đen sẽ mở lúc 21h
-          // hôm nay");
         }
       } catch (Exception e) {
         if (player != null) {
           player.dispose();
         }
+        Logger.logException(MySession.class, e);
       }
     }
   }

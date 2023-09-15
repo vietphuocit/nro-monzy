@@ -2,9 +2,7 @@ package com.monzy.models.player;
 
 import com.monzy.consts.ConstPlayer;
 import com.monzy.models.mob.Mob;
-import com.monzy.models.npc.specialnpc.MagicTree;
 import com.monzy.models.skill.Skill;
-import com.monzy.server.Manager;
 import com.monzy.services.*;
 import com.monzy.utils.Logger;
 import com.monzy.utils.SkillUtil;
@@ -637,9 +635,9 @@ public class Pet extends Player {
   }
 
   private void increasePoint() {
-    if (this.nPoint != null && Util.canDoWithTime(lastTimeIncreasePoint, 1)) {
-      byte type = (byte) Util.nextInt(0, 2);
-      short point = (short) Util.nextInt(1, Manager.RATE_EXP);
+    if (this.nPoint != null && Util.canDoWithTime(lastTimeIncreasePoint, 100)) {
+      byte type = (byte) Util.nextInt(0, 3);
+      short point = (short) (type == 3 ? 1 : Util.nextInt(1, 10));
       this.nPoint.increasePoint(type, point);
       lastTimeIncreasePoint = System.currentTimeMillis();
     }

@@ -90,7 +90,8 @@ public class MapService {
         }
       }
       dis.close();
-    } catch (Exception ignored) {
+    } catch (Exception e) {
+      // Bỏ qua
     }
     return tileMap;
   }

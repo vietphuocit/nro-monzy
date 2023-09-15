@@ -888,7 +888,8 @@ public class PlayerDAO {
       try {
         rs.close();
         ps.close();
-      } catch (Exception ignored) {
+      } catch (Exception e) {
+        // Bỏ qua
       }
     } catch (Exception e) {
       return false;

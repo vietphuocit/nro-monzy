@@ -23,7 +23,7 @@ public class TopService implements Runnable {
         try {
           Thread.sleep(1000);
         } catch (InterruptedException e) {
-          Logger.logException(TopService.class, e);
+          // Bỏ qua
         }
       } catch (Exception ignored) {
         Logger.error("Lỗi đọc bảng xếp hạng");

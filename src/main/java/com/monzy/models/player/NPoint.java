@@ -1019,9 +1019,11 @@ public class NPoint {
 
   public long calSucManhTiemNang(long tiemNang) {
     if (power < getPowerLimit()) {
+      int tlTNSM = 0;
       for (Integer tl : this.tlTNSM) {
-        tiemNang += (tiemNang * tl / 100);
+        tlTNSM += tl;
       }
+      tiemNang += (tiemNang * tlTNSM / 100);
       if (this.player.cFlag != 0) {
         if (this.player.cFlag == 8) {
           tiemNang += (tiemNang * 10 / 100);
@@ -1041,29 +1043,30 @@ public class NPoint {
         tiemNang += tn * 3;
       }
       if (this.intrinsic != null && this.intrinsic.id == 24) {
-        tiemNang += (tiemNang * this.intrinsic.param1 / 100);
+        tiemNang += tiemNang * this.intrinsic.param1 / 100;
       }
       if (this.player.isPet) {
         if (((Pet) this.player).master.charms.tdDeTu > System.currentTimeMillis()) {
           tiemNang += tn * 2;
         }
       }
-      if (MapService.gI().isNguHS(this.player.zone.map.mapId)) {
-        tiemNang *= 10;
-      }
       tiemNang = calSubTNSM(tiemNang);
       if (tiemNang <= 0) {
         tiemNang = 1;
       }
     } else {
-      tiemNang = 10;
+      tiemNang = 0;
     }
     return tiemNang;
   }
 
   public long calSubTNSM(long tiemNang) {
-    if (limitPower == 8) tiemNang -= tiemNang * 0.7;
-    if (limitPower == 9) tiemNang -= tiemNang * 0.9;
+    switch (this.limitPower) {
+      case 8:
+        return tiemNang % 10000;
+      case 9:
+        return tiemNang % 2000;
+    }
     return tiemNang;
   }
 
@@ -1128,9 +1131,9 @@ public class NPoint {
       case 7:
         return 80999999999L;
       case 8:
-        return 2000999999999L;
+        return 120999999999L;
       case 9:
-        return 2500999999999L;
+        return 180999999999L;
       default:
         return 0;
     }

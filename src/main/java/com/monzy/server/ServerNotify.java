@@ -2,6 +2,7 @@ package com.monzy.server;
 
 import com.monzy.models.player.Player;
 import com.monzy.services.Service;
+import com.monzy.utils.Logger;
 import com.network.io.Message;
 
 import java.util.ArrayList;
@@ -44,11 +45,13 @@ public class ServerNotify extends Thread {
         //                    sendThongBaoBenDuoi("Nro MONZY!");
         //                    this.lastTimeGK = System.currentTimeMillis();
         //                }
-      } catch (Exception ignored) {
+      } catch (Exception e) {
+        Logger.logException(ServerNotify.class, e);
       }
       try {
         Thread.sleep(1000);
-      } catch (InterruptedException ignored) {
+      } catch (Exception e) {
+        // Bỏ qua
       }
     }
   }
@@ -61,6 +64,7 @@ public class ServerNotify extends Thread {
       Service.gI().sendMessAllPlayer(msg);
       msg.cleanup();
     } catch (Exception e) {
+      Logger.logException(ServerNotify.class, e);
     }
   }
 
@@ -81,7 +85,8 @@ public class ServerNotify extends Thread {
       }
       player.sendMessage(msg);
       msg.cleanup();
-    } catch (Exception ignored) {
+    } catch (Exception e) {
+      Logger.logException(ServerNotify.class, e);
     }
   }
 }

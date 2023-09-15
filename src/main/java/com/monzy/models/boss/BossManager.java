@@ -1,6 +1,5 @@
 package com.monzy.models.boss;
 
-import com.monzy.kygui.ShopKyGuiService;
 import com.monzy.models.boss.list_boss.AnTrom;
 import com.monzy.models.boss.list_boss.Mabu;
 import com.monzy.models.boss.list_boss.android.*;
@@ -25,13 +24,17 @@ import com.monzy.server.ServerManager;
 import com.monzy.services.ItemMapService;
 import com.monzy.utils.Logger;
 import com.network.io.Message;
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BossManager implements Runnable {
 
   public static final byte ratioReward = 2;
   private static BossManager I;
+  @Getter
   private final List<Boss> bosses;
   private boolean loadedBoss;
 
@@ -84,12 +87,12 @@ public class BossManager implements Runnable {
       this.createBoss(BossID.ZAMASU);
       this.createBoss(BossID.ZAMASU);
       this.createBoss(BossID.BILL);
-      this.createBoss(BossID.MABU);
+//      this.createBoss(BossID.MABU);
       this.createBoss(BossID.FIDE_GOLD);
       this.createBoss(BossID.FIDE_GOLD);
       this.createBoss(BossID.FIDE_GOLD);
-    } catch (Exception ex) {
-      ex.printStackTrace();
+    } catch (Exception e) {
+      Logger.logException(BossManager.class, e);
     }
     this.loadedBoss = true;
     new Thread(BossManager.I, "Update boss").start();
@@ -197,12 +200,15 @@ public class BossManager implements Runnable {
   public void showListBoss(Player player) {
     Message msg;
     try {
+      List<Boss> bossList =
+          bosses.stream().filter(boss -> !boss.isPersonalBoss()).collect(Collectors.toList());
+
       msg = new Message(-96);
       msg.writer().writeByte(0);
       msg.writer().writeUTF("Boss");
-      msg.writer().writeByte((new Long(bosses.size())).byteValue());
-      for (int i = 0; i < bosses.size(); i++) {
-        Boss boss = this.bosses.get(i);
+      msg.writer().writeByte(bossList.size());
+      for (int i = 0; i < bossList.size(); i++) {
+        Boss boss = bossList.get(i);
         msg.writer().writeInt(i + 1);
         msg.writer().writeInt((int) boss.id);
         msg.writer().writeShort(boss.data[0].getOutfit()[0]);
@@ -291,10 +297,6 @@ public class BossManager implements Runnable {
         .orElse(null);
   }
 
-  public List<Boss> getBosses() {
-    return bosses;
-  }
-
   @Override
   public void run() {
     while (ServerManager.isRunning) {
@@ -304,8 +306,8 @@ public class BossManager implements Runnable {
           boss.update();
         }
         Thread.sleep(150 - (System.currentTimeMillis() - st));
-      } catch (Exception e) {
-        Logger.logException(BossManager.class, e);
+      } catch (InterruptedException e) {
+        // Bỏ qua
       }
     }
   }
