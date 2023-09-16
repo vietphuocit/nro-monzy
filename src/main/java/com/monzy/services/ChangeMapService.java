@@ -468,7 +468,7 @@ public class ChangeMapService {
         try {
             List<Player> players = player.zone.getHumanoids();
             for (Player pl : players) {
-                if (!player.equals(pl)) {
+                if (!player.equals(pl) && pl != null) {
                     if (pl.effectSkill.isShielding) {
                         msg = new Message(-124);
                         msg.writer().writeByte(1);
@@ -532,7 +532,7 @@ public class ChangeMapService {
                 }
             }
         } catch (Exception e) {
-            Logger.logException(ChangeMapService.class, e);
+            // Bỏ qua
         }
     }
 

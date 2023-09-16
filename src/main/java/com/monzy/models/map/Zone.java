@@ -422,7 +422,7 @@ public class Zone {
       plReceive.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
-      Logger.logException(Zone.class, e);
+      // bỏ qua
     }
     Service.gI().sendFlagPlayerToMe(plReceive, plInfo);
     if (!plInfo.isBoss && !plInfo.isPet && !plInfo.isNewPet) {
@@ -439,7 +439,7 @@ public class Zone {
         msg.cleanup();
       }
     } catch (Exception e) {
-      Logger.logException(Zone.class, e);
+      // Bỏ qua
     }
   }
 

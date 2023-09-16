@@ -616,7 +616,7 @@ public class ClanService {
       player.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
-      // Bỏ qua
+      Logger.logException(ClanService.class, e);
     }
   }
 
