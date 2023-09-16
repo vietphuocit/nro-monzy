@@ -85,11 +85,11 @@ public class SkillService {
     try {
       byte st = message.reader().readByte();
       byte skillId = message.reader().readByte();
-      Short dx = message.reader().readShort();
-      Short dy = message.reader().readShort();
+      short dx = message.reader().readShort();
+      short dy = message.reader().readShort();
       byte dir = message.reader().readByte();
-      Short x = message.reader().readShort();
-      Short y = message.reader().readShort();
+      short x = message.reader().readShort();
+      short y = message.reader().readShort();
       switch (skillId) {
         case Skill.SUPER_KAME:
           sendEffSkillSpecialID24(player, dir);
@@ -514,36 +514,25 @@ public class SkillService {
       case Skill.QUA_CAU_KENH_KHI:
         if (!player.playerSkill.prepareQCKK) {
           // bắt đầu tụ quả cầu
-          player.playerSkill.prepareQCKK = !player.playerSkill.prepareQCKK;
+          player.playerSkill.prepareQCKK = true;
           player.playerSkill.lastTimePrepareQCKK = System.currentTimeMillis();
           sendPlayerPrepareSkill(player, 4000);
         } else {
           // ném cầu
-          player.playerSkill.prepareQCKK = !player.playerSkill.prepareQCKK;
-          mobs = new ArrayList<>();
+          player.playerSkill.prepareQCKK = false;
           if (plTarget != null) {
             playerAttackPlayer(player, plTarget, false);
-            for (Mob mob : player.zone.mobs) {
-              if (!mob.isDie()
-                  && Util.getDistance(plTarget, mob)
-                      <= SkillUtil.getRangeQCKK(player.playerSkill.skillSelect.point)) {
-                mobs.add(mob);
-              }
-            }
           }
           if (mobTarget != null) {
             playerAttackMob(player, mobTarget, false, true);
-            for (Mob mob : player.zone.mobs) {
-              if (!mob.equals(mobTarget)
-                  && !mob.isDie()
-                  && Util.getDistance(mob, mobTarget)
-                      <= SkillUtil.getRangeQCKK(player.playerSkill.skillSelect.point)) {
-                mobs.add(mob);
-              }
-            }
           }
-          for (Mob mob : mobs) {
-            //                        mob.injured(player, player.point.getDameAttack(), true);
+          for (Mob mob : player.zone.mobs) {
+            if (!mob.equals(mobTarget)
+                && !mob.isDie()
+                && Util.getDistance(mob, mobTarget)
+                <= SkillUtil.getRangeQCKK(player.playerSkill.skillSelect.point)) {
+              mob.injured(player, (int) (player.nPoint.dame * (player.playerSkill.skillSelect.damage / 100f)), true);
+            }
           }
           PlayerService.gI().sendInfoHpMpMoney(player);
           afterUseSkill(player, player.playerSkill.skillSelect.template.id);
@@ -552,18 +541,17 @@ public class SkillService {
       case Skill.MAKANKOSAPPO:
         if (!player.playerSkill.prepareLaze) {
           // bắt đầu nạp laze
-          player.playerSkill.prepareLaze = !player.playerSkill.prepareLaze;
+          player.playerSkill.prepareLaze = true;
           player.playerSkill.lastTimePrepareLaze = System.currentTimeMillis();
           sendPlayerPrepareSkill(player, 3000);
         } else {
           // bắn laze
-          player.playerSkill.prepareLaze = !player.playerSkill.prepareLaze;
+          player.playerSkill.prepareLaze = false;
           if (plTarget != null) {
             playerAttackPlayer(player, plTarget, false);
           }
           if (mobTarget != null) {
             playerAttackMob(player, mobTarget, false, true);
-            //                        mobTarget.attackMob(player, false, true);
           }
           afterUseSkill(player, player.playerSkill.skillSelect.template.id);
         }
@@ -910,27 +898,25 @@ public class SkillService {
     }
   }
 
-  private void hutHPMP(Player player, int dame, boolean attackMob) {
+  public void hutHPMP(Player player, int dame, boolean attackMob) {
     int tiLeHutHp = player.nPoint.getTileHutHp(attackMob);
     int tiLeHutMp = player.nPoint.getTiLeHutMp();
     int hpHoi = 0;
-    hpHoi += ((long) dame * tiLeHutHp / 100);
+    hpHoi += (int) (dame * (tiLeHutHp / 100f));
     int mpHoi = 0;
-    mpHoi += ((long) dame * tiLeHutMp / 100);
+    mpHoi += (int) (dame * (tiLeHutMp / 100f));
     if (hpHoi > 0 || mpHoi > 0) {
       PlayerService.gI().hoiPhuc(player, hpHoi, mpHoi);
     }
   }
 
   private void playerAttackPlayer(Player plAtt, Player plInjure, boolean miss) {
-    System.out.println("dame");
     if (plInjure.effectSkill.anTroi) {
       plAtt.nPoint.isCrit100 = true;
     }
     int dameHit =
         plInjure.injured(plAtt, miss ? 0 : plAtt.nPoint.getDameAttack(false), false, false);
     phanSatThuong(plAtt, plInjure, dameHit);
-    hutHPMP(plAtt, dameHit, false);
     Message msg;
     try {
       msg = new Message(-60);
@@ -981,7 +967,7 @@ public class SkillService {
         dameHit = 0;
       }
       if (plAtt.charms.tdManhMe > System.currentTimeMillis()) {
-        dameHit += ((long) dameHit * 150 / 100);
+        dameHit += (int) (dameHit * 1.5f);
       }
       if (plAtt.isPet) {
         if (plAtt.charms.tdDeTu > System.currentTimeMillis()) {
@@ -991,20 +977,19 @@ public class SkillService {
       if (miss) {
         dameHit = 0;
       }
-      hutHPMP(plAtt, dameHit, true);
       sendPlayerAttackMob(plAtt, mob);
       mob.injured(plAtt, dameHit, dieWhenHpFull);
     }
   }
 
-  private void sendPlayerPrepareSkill(Player player, int affterMiliseconds) {
+  private void sendPlayerPrepareSkill(Player player, int afterMilliseconds) {
     Message msg;
     try {
       msg = new Message(-45);
       msg.writer().writeByte(4);
       msg.writer().writeInt((int) player.id);
       msg.writer().writeShort(player.playerSkill.skillSelect.skillId);
-      msg.writer().writeShort(affterMiliseconds);
+      msg.writer().writeShort(afterMilliseconds);
       Service.gI().sendMessAllPlayerInMap(player, msg);
       msg.cleanup();
     } catch (Exception e) {
@@ -1012,7 +997,7 @@ public class SkillService {
     }
   }
 
-  public void sendPlayerPrepareBom(Player player, int affterMiliseconds) {
+  public void sendPlayerPrepareBom(Player player, int afterMilliseconds) {
     Message msg;
     try {
       msg = new Message(-45);
@@ -1020,7 +1005,7 @@ public class SkillService {
       msg.writer().writeInt((int) player.id);
       //            msg.writer().writeShort(player.playerSkill.skillSelect.skillId);
       msg.writer().writeShort(104);
-      msg.writer().writeShort(affterMiliseconds);
+      msg.writer().writeShort(afterMilliseconds);
       Service.gI().sendMessAllPlayerInMap(player, msg);
       msg.cleanup();
     } catch (Exception e) {
@@ -1053,9 +1038,12 @@ public class SkillService {
   }
 
   public boolean canUseSkillWithCooldown(Player player) {
-    return Util.canDoWithTime(
-        player.playerSkill.skillSelect.lastTimeUseThisSkill,
-        player.playerSkill.skillSelect.coolDown - 50);
+    if (!Util.canDoWithTime(player.playerSkill.skillSelect.lastTimeUseThisSkill,
+        player.playerSkill.skillSelect.coolDown - 50)) {
+      Service.gI().sendTimeSkill(player);
+      return false;
+    }
+    return true;
   }
 
   private void afterUseSkill(Player player, int skillId) {

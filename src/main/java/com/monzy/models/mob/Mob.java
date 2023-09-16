@@ -119,6 +119,7 @@ public class Mob {
         this.sendMobStillAliveAffterAttacked(damage, plAtt != null && plAtt.nPoint.isCrit);
       }
       if (plAtt != null) {
+        SkillService.gI().hutHPMP(plAtt, damage, true);
         Service.gI().addSMTN(plAtt, (byte) 2, getTiemNangForPlayer(plAtt, damage), true);
       }
     }

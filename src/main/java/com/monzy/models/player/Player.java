@@ -655,6 +655,9 @@ public class Player {
         }
         setDie(plAtt);
       }
+      if (plAtt != null) {
+        SkillService.gI().hutHPMP(plAtt, damage, false);
+      }
       return damage;
     } else {
       return 0;

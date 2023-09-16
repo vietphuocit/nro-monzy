@@ -1,6 +1,5 @@
 package com.monzy.models.map.bdkb;
 
-import com.monzy.models.boss.list_boss.dhvt.ThienXinHang;
 import com.monzy.models.clan.Clan;
 import com.monzy.models.map.TrapMap;
 import com.monzy.models.map.Zone;
@@ -9,9 +8,10 @@ import com.monzy.models.player.Player;
 import com.monzy.services.*;
 import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.List;
-import lombok.Data;
 
 @Data
 public class BanDoKhoBau implements Runnable {
@@ -57,12 +57,16 @@ public class BanDoKhoBau implements Runnable {
   }
 
   public void finish() {
-    for (Player player : this.clan.membersInGame) {
-      if (player.isDie()) PlayerService.gI().hoiSinh(player);
-      if (MapService.gI().isMapBanDoKhoBau(player.zone.map.mapId)) {
-        Service.gI().sendThongBao(player, "Hang Kho Báu Đã Sập Bạn Đang Được Đưa Ra Ngoài");
-        ChangeMapService.gI().changeMapBySpaceShip(player, 5, -1, 1038);
+    try {
+      for (Player player : this.clan.membersInGame) {
+        if (MapService.gI().isMapBanDoKhoBau(player.zone.map.mapId)) {
+          if (player.isDie()) PlayerService.gI().hoiSinh(player);
+          Service.gI().sendThongBao(player, "Hang Kho Báu Đã Sập Bạn Đang Được Đưa Ra Ngoài");
+          ChangeMapService.gI().changeMapBySpaceShip(player, 5, -1, 1038);
+        }
       }
+    } catch (Exception e) {
+      return;
     }
     this.level = 0;
     this.clan.banDoKhoBau = null;

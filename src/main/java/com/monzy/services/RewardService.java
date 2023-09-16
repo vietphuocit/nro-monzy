@@ -4,7 +4,6 @@ import com.monzy.models.Template.ItemLuckyRound;
 import com.monzy.models.Template.ItemOptionLuckyRound;
 import com.monzy.models.item.Item;
 import com.monzy.models.map.ItemMap;
-import com.monzy.models.mob.Mob;
 import com.monzy.models.player.Player;
 import com.monzy.server.Manager;
 import com.monzy.utils.Util;
@@ -39,27 +38,24 @@ public class RewardService {
     switch (daNangCap.itemTemplate.id) {
       case 220:
         daNangCap.options.add(new Item.ItemOption(71, 0));
+        return;
       case 221:
         daNangCap.options.add(new Item.ItemOption(70, 0));
+        return;
       case 222:
         daNangCap.options.add(new Item.ItemOption(69, 0));
+        return;
       case 223:
         daNangCap.options.add(new Item.ItemOption(68, 0));
+        return;
       case 224:
         daNangCap.options.add(new Item.ItemOption(67, 0));
-
     }
   }
 
   public void initSaoPhaLe(ItemMap saoPhaLe) {
     short idOption = (short) (95 + saoPhaLe.itemTemplate.id - 441);
     saoPhaLe.options.add(new Item.ItemOption(idOption, 5));
-  }
-
-  // trả về list item quái die
-  public List<ItemMap> getRewardItemsz(Player player, Mob mob, int x, int yEnd) {
-    List<ItemMap> list = new ArrayList<>();
-    return list;
   }
 
   // chỉ số cơ bản: hp, ki, hồi phục, sđ, crit
