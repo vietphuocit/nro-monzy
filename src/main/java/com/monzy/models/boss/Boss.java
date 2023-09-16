@@ -61,7 +61,6 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
   protected Player playerTarget;
   protected Boss parentBoss;
   protected long lastTimeAttack;
-  private int[] mapZone;
 
   public Boss(int id, BossData... data) throws Exception {
     this.id = id;
@@ -327,13 +326,12 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
   }
 
   protected void notifyJoinMap() {
-    if (this.id >= -22 && this.id <= -20) return;
-    if (this.zone.map.mapId == 140
+    if (this.id >= -22 && this.id <= -20
+        || this.zone.map.mapId == 140
         || MapService.gI().isMapMaBu(this.zone.map.mapId)
         || MapService.gI().isMapBlackBallWar(this.zone.map.mapId)
         || MapService.gI().isMapDoanhTrai(this.zone.map.mapId)
-        || MapService.gI().isMapBanDoKhoBau(this.zone.map.mapId)
-        || MapService.gI().isNguHS(this.zone.map.mapId)) return;
+        || MapService.gI().isMapBanDoKhoBau(this.zone.map.mapId)) return;
     ServerNotify.gI().notify("BOSS " + this.name + " vừa xuất hiện tại " + this.zone.map.mapName);
   }
 
@@ -415,7 +413,11 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
 
   @Override
   public void die(Player plKill) {
-    if (this.isPersonalBoss()) {
+    if (this.zone.map.mapId == 140
+        || MapService.gI().isMapMaBu(this.zone.map.mapId)
+        || MapService.gI().isMapBlackBallWar(this.zone.map.mapId)
+        || MapService.gI().isMapDoanhTrai(this.zone.map.mapId)
+        || MapService.gI().isMapBanDoKhoBau(this.zone.map.mapId)) {
       this.changeStatus(BossStatus.DIE);
       return;
     }
@@ -659,13 +661,10 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
     return 752002;
   }
 
-  public boolean isPersonalBoss() {
-    if(this.data[0].getTypeAppear() == TypeAppear.CALL_BY_ANOTHER) {
-      return false;
-    }
-    return MapService.gI().isMapDoanhTrai(this.data[0].getMapJoin()[0])
-        || MapService.gI().isMapBanDoKhoBau(this.data[0].getMapJoin()[0])
-        || MapService.gI().isMapBlackBallWar(this.data[0].getMapJoin()[0])
-        || 140 == this.zone.map.mapId;
+  public boolean isPersonalBoss(int mapId) {
+    return MapService.gI().isMapDoanhTrai(mapId)
+        || MapService.gI().isMapBanDoKhoBau(mapId)
+        || MapService.gI().isMapBlackBallWar(mapId)
+        || 140 == mapId;
   }
 }

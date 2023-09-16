@@ -86,7 +86,7 @@ public class BossManager implements Runnable {
       this.createBoss(BossID.ZAMASU);
       this.createBoss(BossID.ZAMASU);
       this.createBoss(BossID.ZAMASU);
-      this.createBoss(BossID.BILL);
+//      this.createBoss(BossID.BILL);
 //      this.createBoss(BossID.MABU);
       this.createBoss(BossID.FIDE_GOLD);
       this.createBoss(BossID.FIDE_GOLD);
@@ -194,14 +194,14 @@ public class BossManager implements Runnable {
   }
 
   public boolean existBossOnPlayer(Player player) {
-    return player.zone.getBosses().size() > 0;
+    return !player.zone.getBosses().isEmpty();
   }
 
   public void showListBoss(Player player) {
     Message msg;
     try {
       List<Boss> bossList =
-          bosses.stream().filter(boss -> !boss.isPersonalBoss()).collect(Collectors.toList());
+          bosses.stream().filter(boss -> !boss.isPersonalBoss(boss.data[0].getMapJoin()[0])).collect(Collectors.toList());
 
       msg = new Message(-96);
       msg.writer().writeByte(0);
