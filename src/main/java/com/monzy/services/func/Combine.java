@@ -5,7 +5,7 @@ import com.monzy.models.item.Item;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Conbine {
+public class Combine {
 
   public long lastTimeCombine;
   public List<Item> itemsCombine;
@@ -17,7 +17,7 @@ public class Conbine {
   public short countDaBaoVe;
   public int rubyCombine;
 
-  public Conbine() {
+  public Combine() {
     this.itemsCombine = new ArrayList<>();
   }
 

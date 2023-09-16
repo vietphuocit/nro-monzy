@@ -163,7 +163,7 @@ public class NpcFactory {
                   break;
               }
             } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_START_COMBINE) {
-              switch (player.conbine.typeCombine) {
+              switch (player.combine.typeCombine) {
                 case CombineService.NANG_CHIEN_LINH:
                 case CombineService.DOI_CHI_SO_AN_CHIEN_LINH:
                   if (select == 0) {
@@ -1092,7 +1092,7 @@ public class NpcFactory {
               }
             }
             if (player.iDMark.getIndexMenu() == ConstNpc.MENU_START_COMBINE) {
-              switch (player.conbine.typeCombine) {
+              switch (player.combine.typeCombine) {
                 case CombineService.EP_SAO_TRANG_BI:
                 case CombineService.PHA_LE_HOA_TRANG_BI:
                   if (select == 0) {
@@ -1169,7 +1169,7 @@ public class NpcFactory {
               }
             }
             if (player.iDMark.getIndexMenu() == ConstNpc.MENU_START_COMBINE) {
-              switch (player.conbine.typeCombine) {
+              switch (player.combine.typeCombine) {
                 case CombineService.NANG_CAP_VAT_PHAM:
                 case CombineService.NANG_CAP_BONG_TAI:
                 case CombineService.MO_CHI_SO_BONG_TAI:

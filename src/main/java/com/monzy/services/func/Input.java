@@ -15,7 +15,7 @@ import com.monzy.services.*;
 import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
 import com.network.io.Message;
-import com.network.session.ISession;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -212,36 +212,32 @@ public class Input {
           }
           break;
         case CHANGE_NAME_BY_ITEM:
-          {
-            if (Objects.requireNonNull(
-                    Database.executeQuery("select * from player where name = ?", text[0]))
-                .next()) {
-              Service.gI().sendThongBao(player, "Tên nhân vật đã tồn tại");
-              createFormChangeNameByItem(player);
-              break;
-            }
-            if (!text[0].matches("^[a-z]+$")) {
-              Service.gI().sendThongBao(player, "Tên nhân vật chỉ được chứa kí tự chữ cái thường.");
-              createFormChangeNameByItem(player);
-              break;
-            }
-            Item theDoiTen = InventoryService.gI().findItem(player.inventory.itemsBag, 2006);
-            if (theDoiTen == null) {
-              Service.gI().sendThongBao(player, "Không tìm thấy thẻ đổi tên");
-              break;
-            }
-            InventoryService.gI().subQuantityItemsBag(player, theDoiTen, 1);
-            player.name = text[0];
-            Database.executeUpdate(
-                "update player set name = ? where id = ?", player.name, player.id);
-            Service.gI().player(player);
-            Service.gI().sendCaiTrang(player);
-            Service.gI().sendFlagBag(player);
-            Zone zone = player.zone;
-            ChangeMapService.gI().changeMap(player, zone, player.location.x, player.location.y);
-            Service.gI()
-                .sendThongBao(player, "Chúc mừng bạn đã có cái tên mới đẹp đẽ hơn tên ban đầu");
+          Item theDoiTen = InventoryService.gI().findItem(player.inventory.itemsBag, 2006);
+          if (theDoiTen == null) {
+            Service.gI().sendThongBaoOK(player.session, "Không tìm thấy thẻ đổi tên");
+            return;
           }
+          if (text[0].length() > 10) {
+            Service.gI().sendThongBaoOK(player.session, "Tên nhân vật tối đa 10 ký tự");
+            return;
+          }
+          if (Objects.requireNonNull(Database.executeQuery("select * from player where name = ?", text[0])).next()) {
+            Service.gI().sendThongBaoOK(player.session, "Tên nhân vật đã tồn tại");
+            return;
+          }
+          if (!text[0].matches("^[a-z0-9]+$")) {
+            Service.gI().sendThongBaoOK(player.session, "Tên nhân vật chỉ được chứa kí tự chữ cái thường.");
+            return;
+          }
+          InventoryService.gI().subQuantityItemsBag(player, theDoiTen, 1);
+          player.name = text[0];
+          Database.executeUpdate("update player set name = ? where id = ?", player.name, player.id);
+          Service.gI().player(player);
+          Service.gI().sendCaiTrang(player);
+          Service.gI().sendFlagBag(player);
+          Zone zone = player.zone;
+          ChangeMapService.gI().changeMap(player, zone, player.location.x, player.location.y);
+          Service.gI().sendThongBao(player, "Chúc mừng bạn đã có cái tên mới đẹp đẽ hơn tên ban đầu");
           break;
         case TAIHN:
           int taiHongNgoc = Integer.parseInt(text[0]);
@@ -715,23 +711,6 @@ public class Input {
     }
   }
 
-  public void createForm(ISession session, int typeInput, String title, SubInput... subInputs) {
-    Message msg;
-    try {
-      msg = new Message(-125);
-      msg.writer().writeUTF(title);
-      msg.writer().writeByte(subInputs.length);
-      for (SubInput si : subInputs) {
-        msg.writer().writeUTF(si.name);
-        msg.writer().writeByte(si.typeInput);
-      }
-      session.sendMessage(msg);
-      msg.cleanup();
-    } catch (Exception e) {
-      e.getStackTrace();
-    }
-  }
-
   public void createFormChangePassword(Player pl) {
     createForm(
         pl,
@@ -740,16 +719,6 @@ public class Input {
         new SubInput("Nhập mật khẩu đã quên", PASSWORD),
         new SubInput("Mật khẩu mới", PASSWORD),
         new SubInput("Nhập lại mật khẩu mới", PASSWORD));
-  }
-
-  public void createFormGiveItem(Player pl) {
-    createForm(
-        pl,
-        GIVE_IT,
-        "Tặng vật phẩm",
-        new SubInput("Tên", ANY),
-        new SubInput("Id Item", ANY),
-        new SubInput("Số lượng", ANY));
   }
 
   public void createFormNapForAdmin(Player pl) {
@@ -789,12 +758,6 @@ public class Input {
     createForm(pl, XIUTV, "Chọn số thỏi vàng đặt xỉu", new SubInput("Số thỏi vàng", ANY));
   }
 
-  public void createFormNapThe(Player pl, String loaiThe, String menhGia) {
-    LOAI_THE = loaiThe;
-    MENH_GIA = menhGia;
-    createForm(pl, NAP_THE, "Nạp thẻ", new SubInput("Số Seri", ANY), new SubInput("Mã thẻ", ANY));
-  }
-
   public void createFormQDHN(Player pl) {
     createForm(
         pl,
@@ -825,11 +788,6 @@ public class Input {
 
   public void createFormChooseLevelBDKB(Player pl) {
     createForm(pl, CHOOSE_LEVEL_BDKB, "Chọn cấp độ", new SubInput("Cấp độ (1-110)", NUMERIC));
-  }
-
-  public void createFormTradeRuongDongVang(Player pl) {
-    createForm(
-        pl, DOI_RUONG_DONG_VANG, "Nhập Số Lượng Muốn Đổi", new SubInput("Số Lượng", NUMERIC));
   }
 
   public int diceRoller(boolean selected, int... oldDiceRoller) {

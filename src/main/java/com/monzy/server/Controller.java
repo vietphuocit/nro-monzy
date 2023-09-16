@@ -5,7 +5,6 @@ import com.database.result.MonzyResultSet;
 import com.monzy.card.Card;
 import com.monzy.card.RadarCard;
 import com.monzy.card.RadarService;
-import com.monzy.consts.ConstIgnoreName;
 import com.monzy.consts.ConstMap;
 import com.monzy.consts.ConstNpc;
 import com.monzy.consts.ConstTask;
@@ -25,12 +24,12 @@ import com.monzy.services.func.Input;
 import com.monzy.services.func.LuckyRound;
 import com.monzy.services.func.UseItem;
 import com.monzy.utils.Logger;
-import com.monzy.utils.Util;
 import com.network.handler.IMessageHandler;
 import com.network.io.Message;
 import com.network.session.ISession;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class Controller implements IMessageHandler {
 
@@ -648,39 +647,21 @@ public class Controller implements IMessageHandler {
         String name = msg.reader().readUTF();
         int gender = msg.reader().readByte();
         int hair = msg.reader().readByte();
-        if (name.length() <= 10) {
-          rs = Database.executeQuery("select * from player where name = ?", name);
-          assert rs != null;
-          if (rs.first()) {
-            Service.gI().sendThongBaoOK(session, "Tên nhân vật đã tồn tại");
-          } else {
-            if (Util.haveSpecialCharacter(name)) {
-              Service.gI().sendThongBaoOK(session, "Tên nhân vật không được chứa ký tự đặc biệt");
-            } else {
-              boolean isNotIgnoreName = true;
-              for (String n : ConstIgnoreName.IGNORE_NAME) {
-                if (name.equals(n)) {
-                  Service.gI().sendThongBaoOK(session, "Tên nhân vật đã tồn tại");
-                  isNotIgnoreName = false;
-                  break;
-                }
-              }
-              if (isNotIgnoreName) {
-                created =
-                    PlayerDAO.createNewPlayer(
-                        session.userId, name.toLowerCase(), (byte) gender, hair);
-              }
-            }
-          }
-        } else {
+        if (name.length() > 10) {
           Service.gI().sendThongBaoOK(session, "Tên nhân vật tối đa 10 ký tự");
+          return;
         }
+        if (Objects.requireNonNull(Database.executeQuery("select * from player where name = ?", name)).next()) {
+          Service.gI().sendThongBaoOK(session, "Tên nhân vật đã tồn tại");
+          return;
+        }
+        if (!name.matches("^[a-z0-9]+$")) {
+          Service.gI().sendThongBaoOK(session, "Tên nhân vật chỉ được chứa kí tự chữ cái thường.");
+          return;
+        }
+        created = PlayerDAO.createNewPlayer(session.userId, name.toLowerCase(), (byte) gender, hair);
       } catch (Exception e) {
         Logger.logException(Controller.class, e);
-      } finally {
-        if (rs != null) {
-          rs.dispose();
-        }
       }
       if (created) {
         session.login(session.uu, session.pp);
