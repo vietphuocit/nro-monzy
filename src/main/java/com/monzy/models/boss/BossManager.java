@@ -301,12 +301,11 @@ public class BossManager implements Runnable {
   public void run() {
     while (ServerManager.isRunning) {
       try {
-        long st = System.currentTimeMillis();
         for (Boss boss : this.bosses) {
           boss.update();
         }
-        Thread.sleep(150 - (System.currentTimeMillis() - st));
-      } catch (InterruptedException e) {
+        Thread.sleep(100);
+      } catch (Exception e) {
         // Bỏ qua
       }
     }

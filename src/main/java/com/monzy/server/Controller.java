@@ -530,9 +530,6 @@ public class Controller implements IMessageHandler {
           if (player != null) {
             PlayerService.gI().hoiSinh(player);
           }
-        default:
-          Logger.error("cmd: " + cmd + "\n");
-          break;
       }
     } catch (Exception e) {
       // Bỏ qua

@@ -35,6 +35,27 @@ public class RewardService {
     return RewardService.I;
   }
 
+  public void initDaNangCap(ItemMap daNangCap) {
+    switch (daNangCap.itemTemplate.id) {
+      case 220:
+        daNangCap.options.add(new Item.ItemOption(71, 0));
+      case 221:
+        daNangCap.options.add(new Item.ItemOption(70, 0));
+      case 222:
+        daNangCap.options.add(new Item.ItemOption(69, 0));
+      case 223:
+        daNangCap.options.add(new Item.ItemOption(68, 0));
+      case 224:
+        daNangCap.options.add(new Item.ItemOption(67, 0));
+
+    }
+  }
+
+  public void initSaoPhaLe(ItemMap saoPhaLe) {
+    short idOption = (short) (95 + saoPhaLe.itemTemplate.id - 441);
+    saoPhaLe.options.add(new Item.ItemOption(idOption, 5));
+  }
+
   // trả về list item quái die
   public List<ItemMap> getRewardItemsz(Player player, Mob mob, int x, int yEnd) {
     List<ItemMap> list = new ArrayList<>();

@@ -420,11 +420,11 @@ public class UseItem {
                 break;
               }
             case 718:
-              {
-                Input.gI().createFormSendRuby(pl);
-              }
+              Input.gI().createFormSendRuby(pl);
+              break;
             case 570:
               openWoodChest(pl, item);
+              break;
             case 1135: {
               if (InventoryService.gI().getCountEmptyBag(pl) == 0) {
                 Service.gI().sendThongBao(pl, "Hành trang không đủ chỗ trống");

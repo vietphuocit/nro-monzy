@@ -450,24 +450,22 @@ public class Mob {
     if (Util.isTrue(70, 100)) {
       list.add(new ItemMap(zone, 190, gold, x, player.location.y, player.id));
     }
-    // đá nâng cấp
-    int dnc = Util.nextInt(220, 224);
-    // sao pha lê
-    int spl = Util.nextInt(441, 447);
-    // ngọc rồng
-    int ngocRong = Util.nextInt(17, 20);
-//    if (MapService.gI().isMapDoanhTrai(player.zone.map.mapId) && Util.isTrue(50, 100)) {
-//      list.add(new ItemMap(zone, dnc, Util.nextInt(30, 40), x, player.location.y, player.id));
-//    } else
     if (Util.isTrue(2, 100)) {
-      list.add(new ItemMap(zone, dnc, 1, x, player.location.y, player.id));
+      // đá nâng cấp
+      int idDaNangCap = Util.nextInt(220, 224);
+      ItemMap daNangCap = new ItemMap(zone, idDaNangCap, 1, x, player.location.y, player.id);
+      RewardService.gI().initDaNangCap(daNangCap);
+      list.add(daNangCap);
     } else if (Util.isTrue(2, 100)) {
-      ItemMap itemSPL = new ItemMap(zone, spl, 1, x, player.location.y, player.id);
-      short idOption = (short) (95 + spl - 441);
-      itemSPL.options.add(new Item.ItemOption(idOption, 5));
-      list.add(itemSPL);
+      // sao pha lê
+      int idSaoPhaLe = Util.nextInt(441, 447);
+      ItemMap saoPhaLe = new ItemMap(zone, idSaoPhaLe, 1, x, player.location.y, player.id);
+      RewardService.gI().initSaoPhaLe(saoPhaLe);
+      list.add(saoPhaLe);
     } else if (Util.isTrue(2, 100)) {
-      list.add(new ItemMap(zone, ngocRong, 1, x, player.location.y, player.id));
+      // ngọc rồng
+      int idNgocRong = Util.nextInt(17, 20);
+      list.add(new ItemMap(zone, idNgocRong, 1, x, player.location.y, player.id));
     }
     // event
 //    if (Util.isTrue((player.isUseSkinEvent() ? 5 : 1), 100)
