@@ -103,6 +103,9 @@ public class Zone {
 
   public void addPlayer(Player player) {
     if (player != null) {
+      if (player.isNewPet) {
+        return;
+      }
       if (!this.humanoids.contains(player)) {
         this.humanoids.add(player);
       }
