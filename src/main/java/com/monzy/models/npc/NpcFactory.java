@@ -2602,34 +2602,37 @@ public class NpcFactory {
               case 7:
               case 14:
                 {
-                  if (select == 0) {
-                    if (player.session.player.nPoint.power >= 80000000000L
-                        && player.inventory.gold > COST_HD) {
-                      player.inventory.gold -= COST_HD;
-                      Service.gI().sendMoney(player);
-                      ChangeMapService.gI().changeMapBySpaceShip(player, 201, -1, 54);
-                    } else {
-                      this.npcChat(player, "Bạn chưa đủ điều kiện để vào");
-                    }
-                  }
+                  this.npcChat(player, "Chức Năng Đang Được Update!");
+//                  if (select == 0) {
+//                    if (player.session.player.nPoint.power >= 80000000000L
+//                        && player.inventory.gold > COST_HD) {
+//                      player.inventory.gold -= COST_HD;
+//                      Service.gI().sendMoney(player);
+//                      ChangeMapService.gI().changeMapBySpaceShip(player, 201, -1, 54);
+//                    } else {
+//                      this.npcChat(player, "Bạn chưa đủ điều kiện để vào");
+//                    }
+//                  }
                   break;
                 }
               case 201:
                 {
-                  if (select == 0) {
-                    ChangeMapService.gI().changeMapBySpaceShip(player, 7 * player.gender, -1, 450);
-                  }
+                  this.npcChat(player, "Chức Năng Đang Được Update!");
+//                  if (select == 0) {
+//                    ChangeMapService.gI().changeMapBySpaceShip(player, 7 * player.gender, -1, 450);
+//                  }
                   break;
                 }
               case 48:
                 {
-                  if (select == 0) {
-                    NpcService.gI()
-                        .createTutorial(player, this.avartar, ConstNpc.HUONG_DAN_DOI_SKH_VIP);
-                  }
-                  if (select == 1) {
-                    CombineService.gI().openTabCombine(player, CombineService.NANG_CAP_SKH_VIP);
-                  }
+                  this.npcChat(player, "Chức Năng Đang Được Update!");
+//                  if (select == 0) {
+//                    NpcService.gI()
+//                        .createTutorial(player, this.avartar, ConstNpc.HUONG_DAN_DOI_SKH_VIP);
+//                  }
+//                  if (select == 1) {
+//                    CombineService.gI().openTabCombine(player, CombineService.NANG_CAP_SKH_VIP);
+//                  }
                 }
             }
           } else if (player.iDMark.getIndexMenu() == ConstNpc.MENU_NANG_CAP_SKH_VIP) {
