@@ -303,7 +303,7 @@ public class BossesData {
           new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
           new String[] {}, // text chat 2
           new String[] {}, // text chat 3
-          REST_15_M);
+          REST_30_M);
 
   public static final BossData SO_3 =
       new BossData(
@@ -449,7 +449,7 @@ public class BossesData {
           new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
           new String[] {}, // text chat 2
           new String[] {}, // text chat 3
-          REST_15_M // second rest
+          REST_30_M // second rest
           );
 
   public static final BossData FIDE_DAI_CA_2 =
@@ -507,7 +507,7 @@ public class BossesData {
           new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
           new String[] {}, // text chat 2
           new String[] {}, // text chat 3
-          REST_15_M,
+          REST_30_M,
           new int[] {BossID.ANDROID_13, BossID.ANDROID_15});
   public static final BossData ANDROID_15 =
       new BossData(
@@ -562,7 +562,7 @@ public class BossesData {
           new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
           new String[] {}, // text chat 2
           new String[] {}, // text chat 3
-          REST_15_M,
+          REST_30_M,
           new int[] {BossID.PIC, BossID.POC});
   /** Boss Android 19, 20 */
   public static final BossData ANDROID_19 =
@@ -591,7 +591,7 @@ public class BossesData {
           new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
           new String[] {}, // text chat 2
           new String[] {}, // text chat 3
-          REST_15_M, // second rest
+          REST_30_M, // second rest
           new int[] {BossID.ANDROID_19});
 
   /** Boss Xên bọ hung */
@@ -608,7 +608,7 @@ public class BossesData {
           new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
           new String[] {}, // text chat 2
           new String[] {}, // text chat 3
-          REST_15_M);
+          REST_30_M);
 
   public static final BossData XEN_BO_HUNG_2 =
       new BossData(
@@ -653,7 +653,7 @@ public class BossesData {
           new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
           new String[] {}, // text chat 2
           new String[] {}, // text chat 3
-          REST_15_M, // second rest
+          REST_30_M, // second rest
           new int[] {BossID.XEN_CON_1, BossID.XEN_CON_2, BossID.XEN_CON_3, BossID.XEN_CON_4});
 
   public static final BossData XEN_CON_1 =
@@ -722,7 +722,7 @@ public class BossesData {
           new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
           new String[] {}, // text chat 2
           new String[] {}, // text chat 3
-          REST_15_M);
+          REST_30_M);
 
   public static final BossData SIEU_BO_HUNG_2 =
       new BossData(
@@ -767,7 +767,7 @@ public class BossesData {
           new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
           new String[] {}, // text chat 2
           new String[] {}, // text chat 3
-          REST_15_M, // second rest
+          REST_30_M, // second rest
           new int[] {BossID.CHAIEN, BossID.DORAEMON, BossID.NOBITA, BossID.XEKO});
 
   public static final BossData CHAIEN =
@@ -877,7 +877,7 @@ public class BossesData {
           new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
           new String[] {}, // text chat 2
           new String[] {}, // text chat 3
-          REST_30_M // second rest
+          REST_15_M // second rest
           );
 
   public static final BossData SUPER_BLACK_GOKU =
@@ -909,7 +909,8 @@ public class BossesData {
           new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
           new String[] {}, // text chat 2
           new String[] {}, // text chat 3
-          REST_30_M);
+          REST_15_M // second rest
+      );
 
   public static final BossData THAN_ZAMASU =
       new BossData(
@@ -975,7 +976,8 @@ public class BossesData {
           new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|Vào đây mà húp"}, // text chat 1
           new String[] {}, // text chat 2
           new String[] {}, // text chat 3
-          REST_30_M);
+          REST_15_M // second rest
+      );
   /** Boss Doanh Trai Doc Nhan */
   public static final BossData TRUNG_UY_TRANG =
       new BossData(
@@ -1782,7 +1784,7 @@ public class BossesData {
   //            "|-1|trạng thái Goldend Meta Cooler sẽ thiêu rụi mày"
   //          }, // text chat 2
   //          new String[] {"|-2|Đêm qua em đẹp lắm!"}, // text chat 3
-  //          REST_15_M // second rest
+  //          REST_30_M // second rest
   //          );
   //  public static final BossData CUMBER =
   //      new BossData(
