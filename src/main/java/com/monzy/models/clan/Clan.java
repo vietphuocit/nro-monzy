@@ -1,7 +1,6 @@
 package com.monzy.models.clan;
 
 import com.database.Database;
-import com.monzy.models.boss.list_boss.doanh_trai.NinjaAoTim;
 import com.monzy.models.map.bdkb.BanDoKhoBau;
 import com.monzy.models.map.doanhtraidocnhan.DoanhTraiDocNhan;
 import com.monzy.models.player.Player;
@@ -12,13 +11,14 @@ import com.monzy.services.Service;
 import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
 import com.network.io.Message;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 public class Clan {
 
@@ -38,11 +38,7 @@ public class Clan {
   public int level;
   public boolean active;
   public int capsuleClan;
-  public long lastTimeOpenDoanhTrai;
-  public boolean haveGoneDoanhTrai;
-  public long timeOpenDoanhTrai;
   public Player playerOpenDoanhTrai;
-//  public DoanhTrai doanhTrai;
   public final List<ClanMember> members;
   public final List<Player> membersInGame;
   public BanDoKhoBau banDoKhoBau;

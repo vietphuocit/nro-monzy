@@ -7,7 +7,6 @@ import com.monzy.card.RadarService;
 import com.monzy.consts.ConstMap;
 import com.monzy.consts.ConstPlayer;
 import com.monzy.data.DataGame;
-import com.monzy.jdbc.daos.ShopDAO;
 import com.monzy.kygui.ItemKyGui;
 import com.monzy.kygui.ShopKyGuiManager;
 import com.monzy.models.Template.*;
@@ -376,6 +375,7 @@ public class Manager {
         clan.capsuleClan = rs.getInt("clan_point");
         clan.level = rs.getByte("level");
         clan.createTime = (int) (rs.getTimestamp("create_time").getTime() / 1000);
+        clan.lastTimeOpenDTDN = rs.getLong("last_time_dt");
         dataArray = (JSONArray) JSONValue.parse(rs.getString("members"));
         for (int i = 0; i < dataArray.size(); i++) {
           dataObject = (JSONObject) JSONValue.parse(String.valueOf(dataArray.get(i)));

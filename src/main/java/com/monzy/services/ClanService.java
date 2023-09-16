@@ -912,7 +912,7 @@ public class ClanService {
               "update clan_sv"
                   + Manager.SERVER
                   + " set slogan = ?, img_id = ?, power_point = ?, max_member = ?, clan_point = ?, "
-                  + "level = ?, members = ? where id = ? limit 1");
+                  + "level = ?, members = ?, last_time_dt = ? where id = ? limit 1");
       for (Clan clan : Manager.CLANS) {
         JSONArray dataArray = new JSONArray();
         JSONObject dataObject = new JSONObject();
@@ -941,7 +941,8 @@ public class ClanService {
         ps.setInt(5, clan.capsuleClan);
         ps.setInt(6, clan.level);
         ps.setString(7, member);
-        ps.setInt(8, clan.id);
+        ps.setLong(8, clan.lastTimeOpenDTDN);
+        ps.setInt(9, clan.id);
         ps.addBatch();
         Logger.error("SAVE CLAN: " + clan.name + " (" + clan.id + ")\n");
       }
@@ -951,8 +952,10 @@ public class ClanService {
       Logger.logException(Clan.class, e, "Có lỗi khi update clan vào db");
     } finally {
       try {
-        ps.close();
+	      assert ps != null;
+	      ps.close();
       } catch (Exception e) {
+        // Bỏ qua
       }
     }
   }

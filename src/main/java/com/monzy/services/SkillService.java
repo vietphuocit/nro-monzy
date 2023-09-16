@@ -867,11 +867,10 @@ public class SkillService {
             }
           }
         }
-        playerAttackPlayer(player, plTarget, false);
         for (Player pl : players) {
           boolean isDie = pl.isDie();
-          int hpHoi = pl.nPoint.hpMax * percentTriThuong / 100;
-          int mpHoi = pl.nPoint.mpMax * percentTriThuong / 100;
+          int hpHoi = (int) (pl.nPoint.hpMax * (percentTriThuong / 100f));
+          int mpHoi = (int) (pl.nPoint.mpMax * (percentTriThuong / 100f));
           pl.nPoint.addHp(hpHoi);
           pl.nPoint.addMp(mpHoi);
           if (isDie) {
@@ -882,7 +881,7 @@ public class SkillService {
             PlayerService.gI().sendInfoHpMp(pl);
           }
         }
-        int hpHoiMe = player.nPoint.hp * percentTriThuong / 100;
+        int hpHoiMe = (int) (player.nPoint.hpMax * (percentTriThuong / 100f));
         player.nPoint.addHp(hpHoiMe);
         PlayerService.gI().sendInfoHp(player);
       }
@@ -927,6 +926,7 @@ public class SkillService {
   }
 
   private void playerAttackPlayer(Player plAtt, Player plInjure, boolean miss) {
+    System.out.println("dame");
     if (plInjure.effectSkill.anTroi) {
       plAtt.nPoint.isCrit100 = true;
     }
@@ -1090,7 +1090,7 @@ public class SkillService {
   }
 
   private void setMpAffterUseSkill(Player player) {
-    if (player.playerSkill.skillSelect != null) {
+    if (player.playerSkill.skillSelect != null || !player.session.isAdmin) {
       switch (player.playerSkill.skillSelect.template.manaUseType) {
         case 0:
           if (player.nPoint.mp >= player.playerSkill.skillSelect.manaUse) {
@@ -1156,9 +1156,12 @@ public class SkillService {
         }
         break;
     }
+    if(player.session.isAdmin) {
+      subTimeParam = 99;
+    }
     int coolDown = player.playerSkill.skillSelect.coolDown;
     player.playerSkill.skillSelect.lastTimeUseThisSkill =
-        System.currentTimeMillis() - (coolDown * subTimeParam / 100);
+        System.currentTimeMillis() - ((long) coolDown * subTimeParam / 100);
     if (subTimeParam != 0) {
       Service.gI().sendTimeSkill(player);
     }
