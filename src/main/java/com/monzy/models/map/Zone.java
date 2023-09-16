@@ -14,18 +14,24 @@ import com.monzy.utils.FileIO;
 import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
 import com.network.io.Message;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Zone {
 
   public static final byte PLAYERS_TIEU_CHUAN_TRONG_MAP = 7;
   public final List<Mob> mobs;
   public final List<ItemMap> items;
+  @Getter
   private final List<Player> humanoids; // player, boss, pet
+  @Getter
   private final List<Player> notBosses; // player, pet
+  @Getter
   private final List<Player> players; // player
+  @Getter
   private final List<Player> bosses; // boss
   public int countItemAppeaerd = 0;
   public Map map;
@@ -93,22 +99,6 @@ public class Zone {
       }
     }
     return true;
-  }
-
-  public List<Player> getNotBosses() {
-    return this.notBosses;
-  }
-
-  public List<Player> getPlayers() {
-    return this.players;
-  }
-
-  public List<Player> getHumanoids() {
-    return this.humanoids;
-  }
-
-  public List<Player> getBosses() {
-    return this.bosses;
   }
 
   public void addPlayer(Player player) {
@@ -547,5 +537,9 @@ public class Zone {
       }
     }
     return null;
+  }
+
+  public List<Player> getPlayerAndPet() {
+    return this.humanoids.stream().filter(player -> player.isPl() || player.isPet).collect(Collectors.toList());
   }
 }

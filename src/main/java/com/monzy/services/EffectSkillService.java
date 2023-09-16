@@ -270,7 +270,7 @@ public class EffectSkillService {
     player.effectSkill.timeMonkey = timeMonkey;
     player.effectSkill.lastTimeUpMonkey = System.currentTimeMillis();
     player.effectSkill.levelMonkey = (byte) player.playerSkill.skillSelect.point;
-    player.nPoint.setHp(player.nPoint.hp * 2);
+    player.nPoint.setHp(player.nPoint.hp * 2L);
   }
 
   public void monkeyDown(Player player) {

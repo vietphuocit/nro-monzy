@@ -622,7 +622,6 @@ public class Controller implements IMessageHandler {
             short point = _msg.reader().readShort();
             if (player != null && player.nPoint != null) {
               player.nPoint.increasePoint(type, point);
-              System.out.println(type + " - " + point);
             }
             break;
           case 64:

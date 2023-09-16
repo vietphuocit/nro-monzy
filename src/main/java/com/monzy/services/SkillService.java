@@ -478,7 +478,7 @@ public class SkillService {
     boolean miss = false;
     switch (player.playerSkill.skillSelect.template.id) {
       case Skill.KAIOKEN: // kaioken
-        float hpUse = player.nPoint.hpMax / 100 * 10;
+        float hpUse = (float) player.nPoint.hpMax * 0.1f;
         if (player.nPoint.hp <= hpUse) {
           break;
         } else {
@@ -511,7 +511,6 @@ public class SkillService {
         }
         afterUseSkill(player, player.playerSkill.skillSelect.template.id);
         break;
-        // ******************************************************************
       case Skill.QUA_CAU_KENH_KHI:
         if (!player.playerSkill.prepareQCKK) {
           // bắt đầu tụ quả cầu
@@ -730,7 +729,6 @@ public class SkillService {
       case Skill.BIEN_KHI:
         EffectSkillService.gI().sendEffectMonkey(player);
         EffectSkillService.gI().setIsMonkey(player);
-        EffectSkillService.gI().sendEffectMonkey(player);
         Service.gI().sendSpeedPlayer(player, 0);
         Service.gI().sendCaiTrang(player);
         Service.gI().sendSpeedPlayer(player, -1);
@@ -757,7 +755,7 @@ public class SkillService {
         int tileHP = SkillUtil.getPercentHPHuytSao(player.playerSkill.skillSelect.point);
         if (player.zone != null) {
           if (!MapService.gI().isMapOffline(player.zone.map.mapId)) {
-            List<Player> playersMap = player.zone.getHumanoids();
+            List<Player> playersMap = player.zone.getPlayerAndPet();
             for (Player pl : playersMap) {
               if (pl.effectSkill.useTroi) {
                 EffectSkillService.gI().removeUseTroi(pl);
@@ -771,7 +769,7 @@ public class SkillService {
                         EffectSkillService.TURN_ON_EFFECT,
                         EffectSkillService.HUYT_SAO_EFFECT);
                 pl.nPoint.calPoint();
-                pl.nPoint.setHp(pl.nPoint.hp + pl.nPoint.hp * tileHP / 100);
+                pl.nPoint.setHp((long) (pl.nPoint.hp + pl.nPoint.hp * (tileHP / 100f)));
                 Service.gI().point(pl);
                 Service.gI().Send_Info_NV(pl);
                 ItemTimeService.gI().sendItemTime(pl, 3781, 30);
@@ -787,7 +785,7 @@ public class SkillService {
                     EffectSkillService.TURN_ON_EFFECT,
                     EffectSkillService.HUYT_SAO_EFFECT);
             player.nPoint.calPoint();
-            player.nPoint.setHp(player.nPoint.hp + player.nPoint.hp * tileHP / 100);
+            player.nPoint.setHp((long) (player.nPoint.hp + player.nPoint.hp * (tileHP / 100f)));
             Service.gI().point(player);
             Service.gI().Send_Info_NV(player);
             ItemTimeService.gI().sendItemTime(player, 3781, 30);
@@ -803,7 +801,7 @@ public class SkillService {
       case Skill.TU_SAT:
         if (!player.playerSkill.prepareTuSat) {
           // gồng tự sát
-          player.playerSkill.prepareTuSat = !player.playerSkill.prepareTuSat;
+          player.playerSkill.prepareTuSat = true;
           player.playerSkill.lastTimePrepareTuSat = System.currentTimeMillis();
           sendPlayerPrepareBom(player, 2000);
         } else {
@@ -817,14 +815,15 @@ public class SkillService {
           player.playerSkill.prepareTuSat = !player.playerSkill.prepareTuSat;
           int rangeBom = SkillUtil.getRangeBom(player.playerSkill.skillSelect.point);
           float dame = player.nPoint.hpMax;
-          for (Mob mob : player.zone.mobs) {
-            mob.injured(player, (int) dame, true);
-            //                        if (Util.getDistance(player, mob) <= rangeBom) { //khoảng cách
-            // có tác dụng bom
-            //                            mob.injured(player, dame, true);
-            //                        }
+          if (player.effectSkill.isMonkey) {
+            dame /= 2;
           }
-          List<Player> playersMap = null;
+          for (Mob mob : player.zone.mobs) {
+            if (Util.getDistance(player, mob) <= rangeBom) {
+              mob.injured(player, (int) dame, true);
+            }
+          }
+          List<Player> playersMap;
           if (player.isBoss) {
             playersMap = player.zone.getNotBosses();
           } else {
@@ -832,7 +831,7 @@ public class SkillService {
           }
           if (!MapService.gI().isMapOffline(player.zone.map.mapId)) {
             for (Player pl : playersMap) {
-              if (!player.equals(pl) && canAttackPlayer(player, pl)) {
+              if (!player.equals(pl) && canAttackPlayer(player, pl) && Util.getDistance(player, pl) <= rangeBom) {
                 pl.injured(player, (int) (pl.isBoss ? dame / 2 : dame), false, false);
                 PlayerService.gI().sendInfoHpMpMoney(pl);
                 Service.gI().Send_Info_NV(pl);
@@ -1090,7 +1089,7 @@ public class SkillService {
   }
 
   private void setMpAffterUseSkill(Player player) {
-    if (player.playerSkill.skillSelect != null || !player.session.isAdmin) {
+    if (player.playerSkill.skillSelect != null) {
       switch (player.playerSkill.skillSelect.template.manaUseType) {
         case 0:
           if (player.nPoint.mp >= player.playerSkill.skillSelect.manaUse) {
@@ -1098,7 +1097,7 @@ public class SkillService {
           }
           break;
         case 1:
-          int mpUse = player.nPoint.mpMax * player.playerSkill.skillSelect.manaUse / 100;
+          int mpUse = (int) (player.nPoint.mpMax * (player.playerSkill.skillSelect.manaUse / 100f));
           if (player.nPoint.mp >= mpUse) {
             player.nPoint.setMp(player.nPoint.mp - mpUse);
           }
@@ -1155,9 +1154,6 @@ public class SkillService {
           subTimeParam = intrinsic.param1;
         }
         break;
-    }
-    if(player.session.isAdmin) {
-      subTimeParam = 99;
     }
     int coolDown = player.playerSkill.skillSelect.coolDown;
     player.playerSkill.skillSelect.lastTimeUseThisSkill =
