@@ -22,7 +22,7 @@ public class OpenPowerService {
       Service.gI().sendThongBao(player, "Sức mạnh của bạn đã đạt tới mức tối đa");
       return false;
     }
-    if (player.itemTime.isOpenPower || !player.nPoint.canOpenPower()) {
+    if (player.itemTime.isOpenPower || player.nPoint.canOpenPower()) {
       Service.gI().sendThongBao(player, "Sức mạnh của bạn không đủ để thực hiện");
       return false;
     }
@@ -38,7 +38,7 @@ public class OpenPowerService {
       Service.gI().sendThongBao(player, "Sức mạnh của " + msg + " đã đạt tới mức tối đa");
       return false;
     }
-    if (!player.nPoint.canOpenPower()) {
+    if (player.nPoint.canOpenPower()) {
       Service.gI().sendThongBao(player, "Sức mạnh của " + msg + " không đủ để thực hiện");
       return false;
     }

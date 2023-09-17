@@ -447,7 +447,7 @@ public class Mob {
 //    }
     // vàng
     int gold = this.level * Util.nextInt(400, 600);
-    gold = Math.min(gold + gold * (player.nPoint.getTlGold() / 100), 30000);
+    gold = Math.min(gold + gold * (player.nPoint.tlGold / 100), 30000);
     if (Util.isTrue(70, 100)) {
       list.add(new ItemMap(zone, 190, gold, x, player.location.y, player.id));
     }
