@@ -929,18 +929,21 @@ public class NPoint {
                 (int) (dameAttack + (dameAttack * 5 / 100)));
         return (int) dameAttack;
       case Skill.MAKANKOSAPPO:
+        this.isCrit = false;
         percentDameSkill = skillSelect.damage;
-        int dameSkill = (int) ((long) this.mpMax * percentDameSkill / 100);
+        int dameSkill = (int) (this.mpMax * (percentDameSkill / 100f));
         if (this.player.setClothes.picolo == 5) {
-          dameSkill *= 1.5;
+          dameSkill = (int) (dameSkill * 1.5f);
         }
         return dameSkill;
       case Skill.QUA_CAU_KENH_KHI:
-        int dame = this.dame * 40;
+        this.isCrit = false;
+        percentDameSkill = skillSelect.damage;
+        int tlDame = (int) (this.player.zone.getPlayers().stream().filter(pl -> Util.getDistance(this.player, pl) < 150).count() * 5);
+        int dame = (int) (this.dame * (1f + (tlDame / 100f)) * (percentDameSkill / 100f));
         if (this.player.setClothes.krilin == 5) {
           dame *= 2;
         }
-        dame = dame + (Util.nextInt(-5, 5) * dame / 100);
         return dame;
     }
     if (intrinsic.id == 18 && this.player.effectSkill.isMonkey) {
@@ -1401,7 +1404,7 @@ public class NPoint {
         if (!player.isDie()
             && !player.effectSkill.isHaveEffectSkill()
             && (hp < hpMax || mp < mpMax)) {
-          PlayerService.gI().hoiPhuc(player, hpMax / 100 * tiLeHoiPhuc, mpMax / 100 * tiLeHoiPhuc);
+          PlayerService.gI().hoiPhuc(player, (int) (hpMax * (tiLeHoiPhuc / 100f)), (int) (mpMax * (tiLeHoiPhuc / 100f)));
           if (player.effectSkill.countCharging % 3 == 0) {
             Service.gI().chat(player, "Phục hồi năng lượng " + getCurrPercentHP() + "%");
           }
