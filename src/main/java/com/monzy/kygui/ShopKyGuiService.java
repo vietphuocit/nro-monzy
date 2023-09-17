@@ -51,13 +51,8 @@ public class ShopKyGuiService implements Runnable {
     List<ItemKyGui> its = new ArrayList<>();
     List<ItemKyGui> listSort = new ArrayList<>();
     List<ItemKyGui> listSort2 = new ArrayList<>();
-    ShopKyGuiManager.gI().listItem.stream()
-        .filter((it) -> (it != null && it.tab == tab && !it.isBuy && it.player_sell != pl.id))
-        .forEachOrdered(its::add);
-    its.stream()
-        .filter(Objects::nonNull)
-        .sorted(Comparator.comparing(i -> i.isUpTop, Comparator.reverseOrder()))
-        .forEach(listSort::add);
+    ShopKyGuiManager.gI().listItem.stream().filter((it) -> (it != null && it.tab == tab && !it.isBuy && it.player_sell != pl.id)).forEachOrdered(its::add);
+    its.stream().filter(Objects::nonNull).sorted(Comparator.comparing(i -> i.isUpTop, Comparator.reverseOrder())).forEach(listSort::add);
     if (max.length == 2) {
       if (listSort.size() > max[1]) {
         for (int i = max[0]; i < max[1]; i++) {
@@ -88,61 +83,56 @@ public class ShopKyGuiService implements Runnable {
   private List<ItemKyGui> getItemKyGui() {
     List<ItemKyGui> its = new ArrayList<>();
     List<ItemKyGui> listSort = new ArrayList<>();
-    ShopKyGuiManager.gI().listItem.stream()
-        .filter((it) -> (it != null && !it.isBuy))
-        .forEachOrdered(its::add);
-    its.stream()
-        .filter(Objects::nonNull)
-        .sorted(Comparator.comparing(i -> i.isUpTop, Comparator.reverseOrder()))
-        .forEach(listSort::add);
+    ShopKyGuiManager.gI().listItem.stream().filter((it) -> (it != null && !it.isBuy)).forEachOrdered(its::add);
+    its.stream().filter(Objects::nonNull).sorted(Comparator.comparing(i -> i.isUpTop, Comparator.reverseOrder())).forEach(listSort::add);
     return listSort;
   }
 
-  public void buyItem(Player pl, int id) {
-    if (pl.nPoint.power < 40000000000L) {
-      Service.gI().sendThongBao(pl, "Yêu cầu sức mạnh lớn hơn 40 tỷ");
-      openShopKyGui(pl);
+  public void buyItem(Player player, int id) {
+    if (player.nPoint.power < 40000000000L) {
+      Service.gI().sendThongBao(player, "Yêu cầu sức mạnh lớn hơn 40 tỷ");
+      openShopKyGui(player);
       return;
     }
     ItemKyGui it = getItemBuy(id);
     if (it == null || it.isBuy) {
-      Service.gI().sendThongBao(pl, "Vật phẩm không tồn tại hoặc đã được bán");
+      Service.gI().sendThongBao(player, "Vật phẩm không tồn tại hoặc đã được bán");
       return;
     }
-    if (it.player_sell == pl.id) {
-      Service.gI().sendThongBao(pl, "Không thể mua vật phẩm bản thân đăng bán");
-      openShopKyGui(pl);
+    if (it.player_sell == player.id) {
+      Service.gI().sendThongBao(player, "Không thể mua vật phẩm bản thân đăng bán");
+      openShopKyGui(player);
       return;
     }
     boolean isBuy = false;
     if (it.goldSell > 0) {
-      if (pl.inventory.gold >= it.goldSell) {
-        pl.inventory.gold -= it.goldSell;
-        isBuy = true;
+      Item thoiVang = InventoryService.gI().findItemBag(player, 457);
+      if (thoiVang == null || thoiVang.quantity < it.goldSell) {
+        Service.gI().sendThongBao(player, "Bạn Không Đủ Thỏi Vàng Để Mua Vật Phẩm");
       } else {
-        Service.gI().sendThongBao(pl, "Bạn Không Đủ Vàng Để Mua Vật Phẩm");
-        isBuy = false;
+        InventoryService.gI().subQuantityItemsBag(player, thoiVang, it.goldSell);
+        isBuy = true;
       }
     } else if (it.rubySell > 0) {
-      if (pl.inventory.ruby >= it.rubySell) {
-        pl.inventory.ruby -= it.rubySell;
+      if (player.inventory.ruby >= it.rubySell) {
+        player.inventory.ruby -= it.rubySell;
         isBuy = true;
       } else {
-        Service.gI().sendThongBao(pl, "Bạn không đủ hồng ngọc để mua vật phẩm này!");
+        Service.gI().sendThongBao(player, "Bạn không đủ hồng ngọc để mua vật phẩm này!");
         isBuy = false;
       }
     }
-    Service.gI().sendMoney(pl);
+    Service.gI().sendMoney(player);
     if (isBuy) {
       Item item = ItemService.gI().createNewItem(it.itemId);
       item.quantity = it.quantity;
       item.itemOptions.addAll(it.options);
       it.isBuy = true;
-      it.player_buy = (int) pl.id;
-      InventoryService.gI().addItemBag(pl, item);
-      InventoryService.gI().sendItemBags(pl);
-      Service.gI().sendThongBao(pl, "Bạn đã nhận được " + item.template.name);
-      openShopKyGui(pl);
+      it.player_buy = (int) player.id;
+      InventoryService.gI().addItemBag(player, item);
+      InventoryService.gI().sendItemBags(player);
+      Service.gI().sendThongBao(player, "Bạn đã nhận được " + item.template.name);
+      openShopKyGui(player);
     }
   }
 
@@ -173,8 +163,7 @@ public class ShopKyGuiService implements Runnable {
       msg = new Message(-100);
       msg.writer().writeByte(index);
       List<ItemKyGui> items = getItemKyGui(pl, index);
-      List<ItemKyGui> itemsSend =
-          getItemKyGui(pl, index, (byte) (page * 20), (byte) (page * 20 + 20));
+      List<ItemKyGui> itemsSend = getItemKyGui(pl, index, (byte) (page * 20), (byte) (page * 20 + 20));
       byte tab = (byte) (items.size() / 20 > 0 ? items.size() / 20 : 1);
       msg.writer().writeByte(tab); // max page
       msg.writer().writeByte(page);
@@ -204,7 +193,7 @@ public class ShopKyGuiService implements Runnable {
           msg.writer().writeShort(it.itemOptions.get(a).param);
         }
         msg.writer().writeByte(0);
-        //                msg.writer().writeByte(0);
+        // msg.writer().writeByte(0);
       }
       pl.sendMessage(msg);
     } catch (Exception e) {
@@ -240,49 +229,52 @@ public class ShopKyGuiService implements Runnable {
             "Từ Chối");
   }
 
-  public void claimOrDel(Player pl, byte action, int id) {
-    ItemKyGui it = getItemBuy(pl, id);
+  public void claimOrDel(Player player, byte action, int id) {
+    ItemKyGui it = getItemBuy(player, id);
     switch (action) {
       case 1: // hủy vật phẩm
         if (it == null || it.isBuy) {
-          Service.gI().sendThongBao(pl, "Vật phẩm không tồn tại hoặc đã được bán");
+          Service.gI().sendThongBao(player, "Vật phẩm không tồn tại hoặc đã được bán");
           return;
         }
-        if (it.player_sell != pl.id) {
-          Service.gI().sendThongBao(pl, "Vật phẩm không thuộc quyền sở hữu");
-          openShopKyGui(pl);
+        if (it.player_sell != player.id) {
+          Service.gI().sendThongBao(player, "Vật phẩm không thuộc quyền sở hữu");
+          openShopKyGui(player);
           return;
         }
         Item item = ItemService.gI().createNewItem(it.itemId);
         item.quantity = it.quantity;
         item.itemOptions.addAll(it.options);
         if (ShopKyGuiManager.gI().listItem.remove(it)) {
-          InventoryService.gI().addItemBag(pl, item);
-          InventoryService.gI().sendItemBags(pl);
-          Service.gI().sendMoney(pl);
-          Service.gI().sendThongBao(pl, "Hủy bán vật phẩm thành công");
-          openShopKyGui(pl);
+          InventoryService.gI().addItemBag(player, item);
+          InventoryService.gI().sendItemBags(player);
+          Service.gI().sendMoney(player);
+          Service.gI().sendThongBao(player, "Hủy bán vật phẩm thành công");
+          openShopKyGui(player);
         }
         break;
       case 2: // nhận tiền
         if (it == null || !it.isBuy) {
-          Service.gI().sendThongBao(pl, "Vật phẩm không tồn tại hoặc chưa được bán");
+          Service.gI().sendThongBao(player, "Vật phẩm không tồn tại hoặc chưa được bán");
           return;
         }
-        if (it.player_sell != pl.id) {
-          Service.gI().sendThongBao(pl, "Vật phẩm không thuộc quyền sở hữu");
-          openShopKyGui(pl);
+        if (it.player_sell != player.id) {
+          Service.gI().sendThongBao(player, "Vật phẩm không thuộc quyền sở hữu");
+          openShopKyGui(player);
           return;
         }
         if (it.goldSell > 0) {
-          pl.inventory.gold += it.goldSell - it.goldSell * 5 / 100;
+          Item thoiVang = ItemService.gI().createNewItem((short) 457);
+          thoiVang.quantity = it.goldSell;
+          InventoryService.gI().addItemBag(player, thoiVang);
+          InventoryService.gI().sendItemBags(player);
         } else if (it.rubySell > 0) {
-          pl.inventory.ruby += it.rubySell - it.rubySell * 5 / 100;
+          player.inventory.ruby += it.rubySell - it.rubySell * 5 / 100;
         }
         if (ShopKyGuiManager.gI().listItem.remove(it)) {
-          Service.gI().sendMoney(pl);
-          Service.gI().sendThongBao(pl, "Bạn đã bán vật phẩm thành công");
-          openShopKyGui(pl);
+          Service.gI().sendMoney(player);
+          Service.gI().sendThongBao(player, "Bạn đã bán vật phẩm thành công");
+          openShopKyGui(player);
         }
         break;
     }
@@ -295,27 +287,25 @@ public class ShopKyGuiService implements Runnable {
         .forEachOrdered(its::add);
     pl.inventory.itemsBag.stream()
         .filter(
-            (it) ->
-                (it.isNotNullItem()
-                    && ((it.template.type < 5 && it.template.type >= 0)
-                        || it.template.type == 12
-                        || it.template.type == 33
-                        || it.template.type == 29)))
+            (it) -> (it.isNotNullItem()
+                && ((it.template.type < 5 && it.template.type >= 0)
+                || it.template.type == 12
+                || it.template.type == 33
+                || it.template.type == 29)))
         .forEachOrdered(
-            (it) ->
-                its.add(
-                    new ItemKyGui(
-                        InventoryService.gI().getIndexBag(pl, it),
-                        it.template.id,
-                        (int) pl.id,
-                        (byte) 4,
-                        -1,
-                        -1,
-                        it.quantity,
-                        (byte) -1,
-                        it.itemOptions,
-                        false,
-                        -1)));
+            (it) -> its.add(
+                new ItemKyGui(
+                    InventoryService.gI().getIndexBag(pl, it),
+                    it.template.id,
+                    (int) pl.id,
+                    (byte) 4,
+                    -1,
+                    -1,
+                    it.quantity,
+                    (byte) -1,
+                    it.itemOptions,
+                    false,
+                    -1)));
     return its;
   }
 
@@ -369,21 +359,8 @@ public class ShopKyGuiService implements Runnable {
       switch (moneyType) {
         case 0: // vàng
           InventoryService.gI().subQuantityItemsBag(pl, pl.inventory.itemsBag.get(id), quantity);
-          ShopKyGuiManager.gI()
-              .listItem
-              .add(
-                  new ItemKyGui(
-                      getMaxId() + 1,
-                      it.template.id,
-                      (int) pl.id,
-                      getTabKiGui(it),
-                      money,
-                      -1,
-                      quantity,
-                      (byte) 0,
-                      it.itemOptions,
-                      false,
-                      -1));
+          ShopKyGuiManager.gI().listItem.add(new ItemKyGui(getMaxId() + 1, it.template.id, (int) pl.id,
+              getTabKiGui(it), money, -1, quantity, (byte) 0, it.itemOptions, false, -1));
           InventoryService.gI().sendItemBags(pl);
           openShopKyGui(pl);
           Service.gI().sendMoney(pl);
@@ -391,21 +368,8 @@ public class ShopKyGuiService implements Runnable {
           break;
         case 1: // hồng ngọc
           InventoryService.gI().subQuantityItemsBag(pl, pl.inventory.itemsBag.get(id), quantity);
-          ShopKyGuiManager.gI()
-              .listItem
-              .add(
-                  new ItemKyGui(
-                      getMaxId() + 1,
-                      it.template.id,
-                      (int) pl.id,
-                      getTabKiGui(it),
-                      -1,
-                      money,
-                      quantity,
-                      (byte) 0,
-                      it.itemOptions,
-                      false,
-                      -1));
+          ShopKyGuiManager.gI().listItem.add(new ItemKyGui(getMaxId() + 1, it.template.id, (int) pl.id,
+              getTabKiGui(it), -1, money, quantity, (byte) 0, it.itemOptions, false, -1));
           InventoryService.gI().sendItemBags(pl);
           openShopKyGui(pl);
           Service.gI().sendMoney(pl);
@@ -421,15 +385,15 @@ public class ShopKyGuiService implements Runnable {
     }
   }
 
-  public void openShopKyGui(Player pl) {
-    if (pl.nPoint.power < 40000000000L) {
-      Service.gI().sendThongBao(pl, "Yêu cầu sức mạnh lớn hơn 40 tỷ");
+  public void openShopKyGui(Player player) {
+    if (player.nPoint.power < 40000000000L) {
+      Service.gI().sendThongBao(player, "Yêu cầu sức mạnh lớn hơn 40 tỷ");
       return;
     }
-    if (!pl.session.actived) {
+    if (!player.session.actived) {
       Service.gI()
           .sendThongBaoFromAdmin(
-              pl, "|5|VUI LÒNG KÍCH HOẠT TÀI KHOẢN\n|5|ĐỂ MỞ KHÓA TÍNH NĂNG KÝ GỬI");
+              player, "|5|VUI LÒNG KÍCH HOẠT TÀI KHOẢN\n|5|ĐỂ MỞ KHÓA TÍNH NĂNG KÝ GỬI");
       return;
     }
     Message msg = null;
@@ -439,47 +403,48 @@ public class ShopKyGuiService implements Runnable {
       msg.writer().writeByte(5);
       for (byte i = 0; i < 5; i++) {
         if (i == 4) {
+          List<ItemKyGui> itemKyGuis = getItemCanKiGui(player);
           msg.writer().writeUTF(ShopKyGuiManager.gI().tabName[i]);
           msg.writer().writeByte(0);
-          msg.writer().writeByte(getItemCanKiGui(pl).size());
-          for (int j = 0; j < getItemCanKiGui(pl).size(); j++) {
-            ItemKyGui itk = getItemCanKiGui(pl).get(j);
-            if (itk == null) continue;
-            Item it = ItemService.gI().createNewItem(itk.itemId);
-            it.itemOptions.clear();
-            if (itk.options.isEmpty()) {
-              it.itemOptions.add(new ItemOption(73, 0));
+          msg.writer().writeByte(itemKyGuis.size());
+          for (ItemKyGui itemKyGui : itemKyGuis) {
+            if (itemKyGui == null)
+              continue;
+            Item item = ItemService.gI().createNewItem(itemKyGui.itemId);
+            item.itemOptions.clear();
+            if (itemKyGui.options.isEmpty()) {
+              item.itemOptions.add(new ItemOption(73, 0));
             } else {
-              it.itemOptions.addAll(itk.options);
+              item.itemOptions.addAll(itemKyGui.options);
             }
-            msg.writer().writeShort(it.template.id);
-            msg.writer().writeShort(itk.id);
-            msg.writer().writeInt(itk.goldSell);
-            msg.writer().writeInt(itk.rubySell);
-            if (getItemBuy(pl, itk.id) == null) {
+            msg.writer().writeShort(item.template.id);
+            msg.writer().writeShort(itemKyGui.id);
+            msg.writer().writeInt(itemKyGui.goldSell);
+            msg.writer().writeInt(itemKyGui.rubySell);
+            if (getItemBuy(player, itemKyGui.id) == null) {
               msg.writer().writeByte(0); // buy type
-            } else if (itk.isBuy) {
+            } else if (itemKyGui.isBuy) {
               msg.writer().writeByte(2);
             } else {
               msg.writer().writeByte(1);
             }
-            if (pl.session.version >= 222) {
-              msg.writer().writeInt(itk.quantity);
+            if (player.session.version >= 222) {
+              msg.writer().writeInt(itemKyGui.quantity);
             } else {
-              msg.writer().writeByte(itk.quantity);
+              msg.writer().writeByte(itemKyGui.quantity);
             }
             msg.writer().writeByte(1); // isMe
-            msg.writer().writeByte(it.itemOptions.size());
-            for (int a = 0; a < it.itemOptions.size(); a++) {
-              msg.writer().writeByte(it.itemOptions.get(a).optionTemplate.id);
-              msg.writer().writeShort(it.itemOptions.get(a).param);
+            msg.writer().writeByte(item.itemOptions.size());
+            for (int a = 0; a < item.itemOptions.size(); a++) {
+              msg.writer().writeByte(item.itemOptions.get(a).optionTemplate.id);
+              msg.writer().writeShort(item.itemOptions.get(a).param);
             }
             msg.writer().writeByte(0);
             msg.writer().writeByte(0);
           }
         } else {
-          List<ItemKyGui> items = getItemKyGui(pl, i);
-          List<ItemKyGui> itemsSend = getItemKyGui(pl, i, (byte) 20);
+          List<ItemKyGui> items = getItemKyGui(player, i);
+          List<ItemKyGui> itemsSend = getItemKyGui(player, i, (byte) 20);
           msg.writer().writeUTF(ShopKyGuiManager.gI().tabName[i]);
           byte tab = (byte) (items.size() / 20 > 0 ? items.size() / 20 : 1);
           msg.writer().writeByte(tab); // max page
@@ -498,12 +463,12 @@ public class ShopKyGuiService implements Runnable {
             msg.writer().writeInt(itk.goldSell);
             msg.writer().writeInt(itk.rubySell);
             msg.writer().writeByte(0); // buy type
-            if (pl.session.version >= 222) {
+            if (player.session.version >= 222) {
               msg.writer().writeInt(itk.quantity);
             } else {
               msg.writer().writeByte(itk.quantity);
             }
-            msg.writer().writeByte(itk.player_sell == pl.id ? 1 : 0); // isMe
+            msg.writer().writeByte(itk.player_sell == player.id ? 1 : 0); // isMe
             msg.writer().writeByte(it.itemOptions.size());
             for (int a = 0; a < it.itemOptions.size(); a++) {
               msg.writer().writeByte(it.itemOptions.get(a).optionTemplate.id);
@@ -514,7 +479,7 @@ public class ShopKyGuiService implements Runnable {
           }
         }
       }
-      pl.sendMessage(msg);
+      player.sendMessage(msg);
     } catch (Exception e) {
       Logger.logException(ShopKyGuiService.class, e);
     } finally {

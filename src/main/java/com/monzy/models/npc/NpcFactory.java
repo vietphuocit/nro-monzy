@@ -198,13 +198,9 @@ public class NpcFactory {
       public void confirmMenu(Player player, int select) {
         if (canOpenNpc(player)) {
           if (player.iDMark.isBaseMenu()) {
-            switch (select) {
-              case 0:
-                this.npcChat(player, "Chức Năng Đang Được Update!");
-                return;
-              case 2:
-                ShopKyGuiService.gI().openShopKyGui(player);
-            }
+	          if (select == 0) {
+		          ShopKyGuiService.gI().openShopKyGui(player);
+	          }
           }
         }
       }
