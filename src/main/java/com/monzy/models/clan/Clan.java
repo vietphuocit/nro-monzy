@@ -17,6 +17,7 @@ import org.json.simple.JSONObject;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -370,9 +371,8 @@ public class Clan {
   }
 
   public boolean hasGoneOpenDoanhTrai() {
-    return false;
-//    LocalDate currentDate = LocalDate.now();
-//    LocalDate lastOpenDate = LocalDate.ofEpochDay(lastTimeOpenDoanhTrai / (24 * 60 * 60 * 1000));
-//    return currentDate.isAfter(lastOpenDate);
+    LocalDate currentDate = LocalDate.now();
+    LocalDate lastOpenDate = LocalDate.ofEpochDay(this.lastTimeOpenDTDN / (24 * 60 * 60 * 1000));
+    return currentDate.isAfter(lastOpenDate);
   }
 }

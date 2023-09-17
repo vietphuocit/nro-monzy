@@ -2017,16 +2017,13 @@ public class NpcFactory {
                 "Hướng\ndẫn\nthêm");
             return;
           }
-          if (player.clan.hasGoneOpenDoanhTrai()) {
+          if (!player.clan.hasGoneOpenDoanhTrai()) {
             createOtherMenu(
                 player,
                 ConstNpc.IGNORE_MENU,
                 "Bang hội của ngươi đã đi trại lúc "
                     + TimeUtil.formatTime(player.clan.lastTimeOpenDTDN, "HH:mm:ss")
-                    + " hôm nay. Người mở\n"
-                    + "("
-                    + player.clan.playerOpenDoanhTrai
-                    + "). Hẹn ngươi quay lại vào ngày mai",
+                    + " hôm nay. Hẹn ngươi quay lại vào ngày mai",
                 "OK",
                 "Hướng\ndẫn\nthêm");
             return;

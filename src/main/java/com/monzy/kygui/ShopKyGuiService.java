@@ -265,7 +265,7 @@ public class ShopKyGuiService implements Runnable {
         }
         if (it.goldSell > 0) {
           Item thoiVang = ItemService.gI().createNewItem((short) 457);
-          thoiVang.quantity = it.goldSell;
+          thoiVang.quantity = (int) Math.ceil(it.goldSell * 0.9f);
           InventoryService.gI().addItemBag(player, thoiVang);
           InventoryService.gI().sendItemBags(player);
         } else if (it.rubySell > 0) {
