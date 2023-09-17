@@ -1,6 +1,5 @@
 package com.monzy.models.map.dhvt;
 
-import com.monzy.models.map.Zone;
 import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
 

@@ -3114,7 +3114,7 @@ public class NpcFactory {
                   NpcService.gI().createTutorial(player, this.avartar, ConstNpc.NPC_DHVT23);
                   break;
                 case 1:
-                  if (InventoryService.gI().findItemWoodChest(player)) {
+                  if (!InventoryService.gI().findItemWoodChest(player)) {
                     if (player.inventory.gold >= goldchallenge) {
                       MartialCongressService.gI().startChallenge(player);
                       player.inventory.gold -= (goldchallenge);
