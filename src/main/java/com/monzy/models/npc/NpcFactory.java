@@ -1764,11 +1764,9 @@ public class NpcFactory {
                 "Ta có thể giúp gì cho ngươi ?",
                 "Đến\nKaio",
                 "Từ chối");
+            return;
           }
-          if (this.mapId == 114) {
-            this.createOtherMenu(
-                player, ConstNpc.IGNORE_MENU, "Ta có thể giúp gì cho ngươi ?", "Từ chối");
-          }
+          this.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Ta có thể giúp gì cho ngươi ?", "Từ chối");
         }
       }
 
@@ -1787,75 +1785,47 @@ public class NpcFactory {
     };
   }
 
-  // chưa fix
   public static Npc osin(int mapId, int status, int cx, int cy, int tempId, int avatar) {
     return new Npc(mapId, status, cx, cy, tempId, avatar) {
       @Override
       public void openBaseMenu(Player player) {
         if (canOpenNpc(player)) {
           if (this.mapId == 50) {
-            this.createOtherMenu(
-                player,
-                ConstNpc.BASE_MENU,
+            this.createOtherMenu(player, ConstNpc.BASE_MENU,
                 "Ta có thể giúp gì cho ngươi ?",
-                "Đến\nKaio",
-                "Đến\nhành tinh\nBill",
-                "Từ chối");
+                "Đến\nKaio", "Đến\nhành tinh\nBill", "Từ chối");
           }
           if (this.mapId == 154) {
-            this.createOtherMenu(
-                player,
-                ConstNpc.BASE_MENU,
+            this.createOtherMenu(player, ConstNpc.BASE_MENU,
                 "Ta có thể giúp gì cho ngươi ?",
-                "Về thánh địa",
-                "Đến\nhành tinh\nngục tù",
-                "Từ chối");
+                "Về thánh địa", "Đến\nhành tinh\nngục tù", "Từ chối");
           }
           if (this.mapId == 155) {
-            this.createOtherMenu(
-                player, ConstNpc.BASE_MENU, "Ta có thể giúp gì cho ngươi ?", "Quay về", "Từ chối");
+            this.createOtherMenu(player, ConstNpc.BASE_MENU,
+                "Ta có thể giúp gì cho ngươi ?",
+                "Quay về", "Từ chối");
           }
           if (this.mapId == 52) {
-            try {
-              MapMaBu.gI().setTimeJoinMapMaBu();
-              if (this.mapId == 52) {
-                long now = System.currentTimeMillis();
-                if (now > MapMaBu.TIME_OPEN_MABU && now < MapMaBu.TIME_CLOSE_MABU) {
-                  this.createOtherMenu(
-                      player,
-                      ConstNpc.MENU_OPEN_MMB,
-                      "Đại chiến Ma Bư đã mở, " + "ngươi có muốn tham gia không?",
-                      "Hướng dẫn\nthêm",
-                      "Tham gia",
-                      "Từ chối");
-                } else {
-                  this.createOtherMenu(
-                      player,
-                      ConstNpc.MENU_NOT_OPEN_MMB,
-                      "Ta có thể giúp gì cho ngươi?",
-                      "Hướng dẫn",
-                      "Từ chối");
-                }
-              }
-            } catch (Exception e) {
-              Logger.logException(NpcFactory.class, e);
+            MapMaBu.gI().setTimeJoinMapMaBu();
+            long now = System.currentTimeMillis();
+            if (now > MapMaBu.TIME_OPEN_MABU && now < MapMaBu.TIME_CLOSE_MABU) {
+              this.createOtherMenu(player, ConstNpc.MENU_OPEN_MMB,
+                  "Đại chiến Ma Bư đã mở, ngươi có muốn tham gia không?",
+                  "Hướng dẫn", "Tham gia", "Từ chối");
+              return;
             }
+            this.createOtherMenu(player, ConstNpc.MENU_NOT_OPEN_MMB,
+                "Ta có thể giúp gì cho ngươi?",
+                "Hướng dẫn", "Từ chối");
           } else if (this.mapId >= 114 && this.mapId < 120 && this.mapId != 116) {
             if (player.fightMabu.pointMabu >= player.fightMabu.POINT_MAX) {
-              this.createOtherMenu(
-                  player,
-                  ConstNpc.GO_UPSTAIRS_MENU,
+              this.createOtherMenu(player, ConstNpc.GO_UPSTAIRS_MENU,
                   "Ta có thể giúp gì cho ngươi ?",
-                  "Lên Tầng!",
-                  "Quay về",
-                  "Từ chối");
+                  "Lên Tầng!", "Quay về", "Từ chối");
             } else {
-              this.createOtherMenu(
-                  player,
-                  ConstNpc.BASE_MENU,
+              this.createOtherMenu(player, ConstNpc.BASE_MENU,
                   "Ta có thể giúp gì cho ngươi ?",
-                  "Quay về",
-                  "Từ chối");
+                  "Quay về", "Từ chối");
             }
           } else if (this.mapId == 120) {
             this.createOtherMenu(
@@ -1903,14 +1873,10 @@ public class NpcFactory {
                 break;
               case ConstNpc.MENU_OPEN_MMB:
                 if (select == 0) {
-                  NpcService.gI()
-                      .createTutorial(player, this.avartar, ConstNpc.HUONG_DAN_MAP_MA_BU);
+                  NpcService.gI().createTutorial(player, this.avartar, ConstNpc.HUONG_DAN_MAP_MA_BU);
                 } else if (select == 1) {
-                  //                                    if (!player.session.actived) {
-                  //                                        Service.gI().sendThongBao(player, "Vui
-                  // lòng kích hoạt tài khoản để sử dụng chức năng này");
-                  //                                    } else
-                  ChangeMapService.gI().changeMap(player, 114, -1, 318, 336);
+                  this.npcChat(player, "Chức Năng Đang Được Update!");
+//                  ChangeMapService.gI().changeMap(player, 114, -1, 318, 336);
                 }
                 break;
               case ConstNpc.MENU_NOT_OPEN_BDW:
@@ -3072,37 +3038,38 @@ public class NpcFactory {
           if (this.mapId == 52) {
             switch (select) {
               case 0:
-                Service.gI().sendPopUpMultiLine(player, tempId, avartar, DaiHoiVoThuat.gI().Info());
+                Service.gI().sendPopUpMultiLine(player, tempId, avartar, DaiHoiVoThuat.gI().info());
                 break;
               case 1:
-                if (DaiHoiVoThuatService.gI(DaiHoiVoThuat.gI().getDaiHoiNow()).CanReg(player)) {
-                  DaiHoiVoThuatService.gI(DaiHoiVoThuat.gI().getDaiHoiNow()).Reg(player);
-                }
+                this.npcChat(player, "Chức Năng Đang Được Update!");
+//                if (DaiHoiVoThuatService.gI(DaiHoiVoThuat.gI().getDaiHoiNow()).CanReg(player)) {
+//                  DaiHoiVoThuatService.gI(DaiHoiVoThuat.gI().getDaiHoiNow()).register(player);
+//                }
                 break;
               case 2:
                 ChangeMapService.gI().changeMapNonSpaceship(player, 129, player.location.x, 360);
                 break;
             }
           } else if (this.mapId == 129) {
-            int goldchallenge = player.goldChallenge;
+            int goldChallenge = player.goldChallenge;
             if (player.levelWoodChest == 0) {
               switch (select) {
                 case 0:
                   NpcService.gI().createTutorial(player, this.avartar, ConstNpc.NPC_DHVT23);
                   break;
                 case 1:
-                  if (!InventoryService.gI().findItemWoodChest(player)) {
-                    if (player.inventory.gold >= goldchallenge) {
-                      MartialCongressService.gI().startChallenge(player);
-                      player.inventory.gold -= (goldchallenge);
-                      PlayerService.gI().sendInfoHpMpMoney(player);
-                      player.goldChallenge += 2000000;
-                    } else {
-                      Service.gI().sendThongBao(player, "Không đủ vàng, còn thiếu " + Util.numberToMoney(goldchallenge - player.inventory.gold) + " vàng");
-                    }
-                  } else {
+                  if (InventoryService.gI().findItemWoodChest(player)) {
                     Service.gI().sendThongBao(player, "Hãy mở rương báu vật trước");
+                    return;
                   }
+                  if (player.inventory.gold < goldChallenge) {
+                    Service.gI().sendThongBao(player, "Không đủ vàng, còn thiếu " + Util.numberToMoney(goldChallenge - player.inventory.gold) + " vàng");
+                    return;
+                  }
+                  MartialCongressService.gI().startChallenge(player);
+                  player.inventory.gold -= (goldChallenge);
+                  PlayerService.gI().sendInfoHpMpMoney(player);
+                  player.goldChallenge += 50_000_000;
                   break;
                 case 2:
                   ChangeMapService.gI().changeMapNonSpaceship(player, 52, player.location.x, 336);
@@ -3114,18 +3081,18 @@ public class NpcFactory {
                   NpcService.gI().createTutorial(player, this.avartar, ConstNpc.NPC_DHVT23);
                   break;
                 case 1:
-                  if (!InventoryService.gI().findItemWoodChest(player)) {
-                    if (player.inventory.gold >= goldchallenge) {
-                      MartialCongressService.gI().startChallenge(player);
-                      player.inventory.gold -= (goldchallenge);
-                      PlayerService.gI().sendInfoHpMpMoney(player);
-                      player.goldChallenge += 2000000;
-                    } else {
-                      Service.gI().sendThongBao(player, "Không đủ vàng, còn thiếu " + Util.numberToMoney(goldchallenge - player.inventory.gold) + " vàng");
-                    }
-                  } else {
+                  if (InventoryService.gI().findItemWoodChest(player)) {
                     Service.gI().sendThongBao(player, "Hãy mở rương báu vật trước");
+                    return;
                   }
+                  if (player.inventory.gold < goldChallenge) {
+                    Service.gI().sendThongBao(player, "Không đủ vàng, còn thiếu " + Util.numberToMoney(goldChallenge - player.inventory.gold) + " vàng");
+                    return;
+                  }
+                  MartialCongressService.gI().startChallenge(player);
+                  player.inventory.gold -= (goldChallenge);
+                  PlayerService.gI().sendInfoHpMpMoney(player);
+                  player.goldChallenge += 50_000_000;
                   break;
                 case 2:
                   if (!player.receivedWoodChest) {

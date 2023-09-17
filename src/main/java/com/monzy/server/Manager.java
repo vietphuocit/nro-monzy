@@ -415,26 +415,24 @@ public class Manager {
         Clan.NEXT_ID = rs.getInt("id") + 1;
       }
       Logger.info(
-          "Load clan thành công (" + CLANS.size() + "), clan next id: " + Clan.NEXT_ID);
+          "Load clan thành công (" + CLANS.size() + ")");
       ps =
           con.prepareStatement(
               "select * from dhvt_template",
               ResultSet.TYPE_SCROLL_INSENSITIVE,
               ResultSet.CONCUR_READ_ONLY);
       rs = ps.executeQuery();
-      if (rs.next()) {
+      while (rs.next()) {
         DaiHoiVoThuat dhvt = new DaiHoiVoThuat();
-        dhvt.NameCup = rs.getString(2);
-        dhvt.Time = rs.getString(3).split("\n");
-        dhvt.gem = rs.getInt(4);
-        dhvt.gold = rs.getInt(5);
-        dhvt.min_start = rs.getInt(6);
-        dhvt.min_start_temp = rs.getInt(6);
-        dhvt.min_limit = rs.getInt(7);
+        dhvt.cup = rs.getString("cup");
+        dhvt.time = rs.getString("time").split("\n");
+        dhvt.gem = rs.getInt("gem");
+        dhvt.gold = rs.getInt("gold");
+        dhvt.min_start = rs.getInt("min_start");
+        dhvt.min_limit = rs.getInt("min_limit");
         LIST_DHVT.add(dhvt);
       }
-      Logger.info(
-          "Load DHVT thành công (" + LIST_DHVT.size() + "), clan next id: " + Clan.NEXT_ID);
+      Logger.info("Load DHVT thành công (" + LIST_DHVT.size() + ")");
       // load skill
       ps =
           con.prepareStatement(

@@ -143,7 +143,7 @@ public class Player {
   public short idAura = -1;
   public int levelWoodChest;
   public boolean receivedWoodChest;
-  public int goldChallenge = 2000000;
+  public int goldChallenge = 50_000_000;
 
   public Player() {
     lastTimeUseOption = System.currentTimeMillis();
