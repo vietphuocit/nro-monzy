@@ -1,12 +1,17 @@
 package com.monzy.models.boss.list_boss.doanh_trai;
 
 import com.monzy.consts.ConstPlayer;
-import com.monzy.models.boss.*;
-import com.monzy.models.boss.list_boss.dhvt.ThienXinHangClone;
+import com.monzy.models.boss.Boss;
+import com.monzy.models.boss.BossData;
+import com.monzy.models.boss.BossID;
+import com.monzy.models.boss.BossManager;
+import com.monzy.models.map.ItemMap;
 import com.monzy.models.map.Zone;
 import com.monzy.models.player.Player;
 import com.monzy.models.skill.Skill;
+import com.monzy.services.Service;
 import com.monzy.utils.Logger;
+import com.monzy.utils.Util;
 
 public class NinjaAoTim extends Boss {
 
@@ -29,6 +34,13 @@ public class NinjaAoTim extends Boss {
             86400));
     this.zoneFinal = zone;
   }
+
+	@Override
+	public void reward(Player plKill) {
+		super.reward(plKill);
+		int idNgocRong = Util.nextInt(17, 20);
+		Service.gI().dropItemMap(this.zone, new ItemMap(this.zone, idNgocRong, 1, plKill.location.x, plKill.location.y, plKill.id));
+	}
 
   @Override
   public int injured(Player plAtt, int damage, boolean piercing, boolean isMobAttack) {

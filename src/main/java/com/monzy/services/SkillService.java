@@ -916,6 +916,7 @@ public class SkillService {
     }
     int dameHit =
         plInjure.injured(plAtt, miss ? 0 : plAtt.nPoint.getDameAttack(false), false, false);
+    hutHPMP(plAtt, dameHit, false);
     phanSatThuong(plAtt, plInjure, dameHit);
     Message msg;
     try {
@@ -978,6 +979,7 @@ public class SkillService {
         dameHit = 0;
       }
       sendPlayerAttackMob(plAtt, mob);
+      hutHPMP(plAtt, dameHit, true);
       mob.injured(plAtt, dameHit, dieWhenHpFull);
     }
   }

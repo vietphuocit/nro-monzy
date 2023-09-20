@@ -450,6 +450,10 @@ public class ClanService {
         Service.gI().sendThongBao(player, "Tên bang hội không được quá 30 ký tự");
         return;
       }
+	    if (!name.matches("^[a-z0-9]+$")) {
+		    Service.gI().sendThongBaoOK(player.session, "Tên bang hội chỉ được chứa kí tự chữ cái thường.");
+		    return;
+	    }
       FlagBag flagBag = FlagBagService.gI().getFlagBag(imgId);
       if (flagBag != null && (flagBag.gold > 0 || flagBag.gem > 0)) {
         if (flagBag.gold > 0) {

@@ -38,8 +38,7 @@ public class ItemService {
   }
 
   public Item createItemNull() {
-    Item item = new Item();
-    return item;
+	  return new Item();
   }
 
   public Item createItemFromItemShop(ItemShop itemShop) {
@@ -372,6 +371,26 @@ public class ItemService {
     } else {
       return Util.nextInt(0, 3);
     }
+  }
+
+  public Item randomDLT(int gender) {
+    int idItem;
+    if (Util.isTrue(10, 100)) {
+      idItem = Manager.IDS_DO_THAN[gender][Util.isTrue(50, 100) ? 0 : 4];
+    } else {
+      idItem = Manager.IDS_DO_THAN[gender][Util.nextInt(1, 3)];
+    }
+    return randomCSDTL(idItem, ItemService.MOB_DROP);
+  }
+
+  public Item randomDHD(int gender) {
+    int idItem;
+    if (Util.isTrue(10, 100)) {
+      idItem = Manager.IDS_DO_HUY_DIET[gender][Util.isTrue(50, 100) ? 0 : 4];
+    } else {
+      idItem = Manager.IDS_DO_HUY_DIET[gender][Util.nextInt(1, 3)];
+    }
+    return randomCSDHD(idItem, gender);
   }
 
   public Item randomCSDTL(int itemId, int typeDrop) {

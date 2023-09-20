@@ -16,40 +16,32 @@ import java.util.List;
 
 public class BlackBallWar {
 
+  public static final int AVAILABLE = 12;
   public static final byte X3 = 3;
   public static final byte X5 = 5;
   public static final byte X7 = 7;
+
   public static final int COST_X3 = 100000000;
   public static final int COST_X5 = 300000000;
   public static final int COST_X7 = 500000000;
+
   public static final byte HOUR_OPEN = 20; // Time Open: 20h
   public static final byte MIN_OPEN = 0;
   public static final byte SECOND_OPEN = 0;
+
   public static final byte HOUR_CAN_PICK_DB = 20; // Time Pick NR: 20h30
   public static final byte MIN_CAN_PICK_DB = 30;
   public static final byte SECOND_CAN_PICK_DB = 0;
+
   public static final byte HOUR_CLOSE = 21; // Time Close: 21h
   public static final byte MIN_CLOSE = 0;
   public static final byte SECOND_CLOSE = 0;
-  //    public static final byte HOUR_OPEN = 20;
-  //    public static final byte MIN_OPEN = 0;
-  //    public static final byte SECOND_OPEN = 0;
-  //
-  //    public static final byte HOUR_CAN_PICK_DB = 1;
-  //    public static final byte MIN_CAN_PICK_DB = 30;
-  //    public static final byte SECOND_CAN_PICK_DB = 0;
-  //
-  //    public static final byte HOUR_CLOSE = 21;
-  //    public static final byte MIN_CLOSE = 0;
-  //    public static final byte SECOND_CLOSE = 0;
-  // *************************************
-  public static final int AVAILABLE = 7;
-  private static final int TIME_CAN_PICK_BLACK_BALL_AFTER_DROP = 5000;
-  private static final int TIME_WIN = 300000; // cam toi thieu 300k mili = 5p
+  public static final int TIME_CAN_PICK_BLACK_BALL_AFTER_DROP = 5000;
+  public static final int TIME_WIN = 300 * 1000; // cam toi thieu 300s = 5p
+  public static long TIME_CAN_PICK_DB;
   public static long TIME_OPEN;
   public static long TIME_CLOSE;
   private static BlackBallWar i;
-  private static long TIME_CAN_PICK_DB;
   private int day = -1;
 
   public static BlackBallWar gI() {
@@ -103,14 +95,7 @@ public class BlackBallWar {
   public synchronized void dropBlackBall(Player player) {
     if (player.iDMark.isHoldBlackBall()) {
       player.iDMark.setHoldBlackBall(false);
-      ItemMap itemMap =
-          new ItemMap(
-              player.zone,
-              player.iDMark.getTempIdBlackBallHold(),
-              1,
-              player.location.x,
-              player.location.y,
-              -1);
+      ItemMap itemMap = new ItemMap(player.zone, player.iDMark.getTempIdBlackBallHold(), 1, player.location.x, player.location.y, -1);
       Service.gI().dropItemMap(itemMap.zone, itemMap);
       player.iDMark.setTempIdBlackBallHold(-1);
       player.zone.lastTimeDropBlackBall = System.currentTimeMillis();
@@ -138,13 +123,7 @@ public class BlackBallWar {
         return;
       } else {
         if (Util.canDoWithTime(player.iDMark.getLastTimeNotifyTimeHoldBlackBall(), 10000)) {
-          Service.gI()
-              .sendThongBao(
-                  player,
-                  "Cố gắng giữ ngọc rồng trong "
-                      + TimeUtil.getSecondLeft(
-                          player.iDMark.getLastTimeHoldBlackBall(), TIME_WIN / 1000)
-                      + " giây nữa, đem chiến thắng về cho bang hội!");
+          Service.gI().sendThongBao(player, "Cố gắng giữ ngọc rồng trong " + TimeUtil.getSecondLeft(player.iDMark.getLastTimeHoldBlackBall(), TIME_WIN / 1000) + " giây nữa, đem chiến thắng về cho bang hội!");
           player.iDMark.setLastTimeNotifyTimeHoldBlackBall(System.currentTimeMillis());
         }
       }
@@ -172,30 +151,15 @@ public class BlackBallWar {
         for (Player pl : players) {
           if (pl != null) {
             pl.rewardBlackBall.reward((byte) star);
-            Service.gI()
-                .sendThongBao(
-                    pl,
-                    "Chúc mừng bang hội của bạn đã "
-                        + "dành chiến thắng ngọc rồng sao đen "
-                        + star
-                        + " sao");
+            Service.gI().sendThongBao(pl, "Chúc mừng bang hội của bạn đã dành chiến thắng ngọc rồng sao đen " + star + " sao");
           }
         }
       } catch (Exception e) {
-        Logger.logException(
-            BlackBallWar.class,
-            e,
-            "Lỗi ban thưởng ngọc rồng đen " + star + " sao cho clan " + player.clan.id);
+        Logger.logException(BlackBallWar.class, e, "Lỗi ban thưởng ngọc rồng đen " + star + " sao cho clan " + player.clan.id);
       }
     } else {
       player.rewardBlackBall.reward((byte) star);
-      Service.gI()
-          .sendThongBao(
-              player,
-              "Chúc mừng bang hội của bạn đã "
-                  + "dành chiến thắng ngọc rồng sao đen "
-                  + star
-                  + " sao");
+      Service.gI().sendThongBao(player, "Chúc mừng bạn đã " + "dành chiến thắng ngọc rồng sao đen " + star + " sao");
     }
     List<Player> playersMap = player.zone.getPlayers();
     for (int i = playersMap.size() - 1; i >= 0; i--) {
@@ -208,8 +172,7 @@ public class BlackBallWar {
     if (player.cFlag == 8) {
       Service.gI().changeFlag(player, Util.nextInt(1, 7));
     }
-    Service.gI()
-        .sendThongBao(player, "Trận đại chiến đã kết thúc, tàu vận chuyển sẽ đưa bạn về nhà");
+    Service.gI().sendThongBao(player, "Trận đại chiến đã kết thúc, tàu vận chuyển sẽ đưa bạn về nhà");
     ChangeMapService.gI().changeMapBySpaceShip(player, player.gender + 21, -1, 250);
   }
 
@@ -217,8 +180,7 @@ public class BlackBallWar {
     try {
       long now = System.currentTimeMillis();
       if (now > TIME_OPEN && now < TIME_CLOSE) {
-        ChangeMapService.gI()
-            .changeMap(player, player.mapBlackBall.get(index).map.mapId, -1, 50, 50);
+        ChangeMapService.gI().changeMap(player, player.mapBlackBall.get(index).map.mapId, -1, 50, 50);
       } else {
         Service.gI().sendThongBao(player, "Đại chiến ngọc rồng đen chưa mở");
         Service.gI().hideWaitDialog(player);
@@ -233,10 +195,7 @@ public class BlackBallWar {
     if (player.clan != null) {
       List<Player> players = player.zone.getPlayers();
       for (Player pl : players) {
-        if (pl.clan != null
-            && !player.equals(pl)
-            && player.clan.equals(pl.clan)
-            && !player.isBoss) {
+        if (pl.clan != null && !player.equals(pl) && player.clan.equals(pl.clan) && !player.isBoss) {
           Service.gI().changeFlag(player, pl.cFlag);
           changed = true;
           break;
@@ -251,20 +210,10 @@ public class BlackBallWar {
   public boolean pickBlackBall(Player player, Item item) {
     try {
       if (System.currentTimeMillis() < TIME_CAN_PICK_DB) {
-        Service.gI()
-            .sendThongBao(
-                player,
-                "Chưa thể nhặt ngọc rồng ngay lúc này, vui lòng đợi "
-                    + TimeUtil.diffDate(
-                        new Date(TIME_CAN_PICK_DB),
-                        new Date(System.currentTimeMillis()),
-                        TimeUtil.SECOND)
-                    + " giây nữa");
+        Service.gI().sendThongBao(player, "Chưa thể nhặt ngọc rồng ngay lúc này, vui lòng đợi " + TimeUtil.diffDate(new Date(TIME_CAN_PICK_DB), new Date(System.currentTimeMillis()), TimeUtil.SECOND) + " giây nữa");
         return false;
       } else if (player.zone.finishBlackBallWar) {
-        Service.gI()
-            .sendThongBao(
-                player, "Đại chiến ngọc rồng sao đen " + "đã kết thúc, vui lòng đợi đến ngày mai");
+        Service.gI().sendThongBao(player, "Đại chiến ngọc rồng sao đen " + "đã kết thúc, vui lòng đợi đến ngày mai");
         return false;
       } else {
         if (Util.canDoWithTime(
@@ -318,12 +267,7 @@ public class BlackBallWar {
       PlayerService.gI().sendInfoHpMp(player);
       Service.gI().point(player);
     } else {
-      Service.gI()
-          .sendThongBao(
-              player,
-              "Không đủ vàng để thực hiện, còn thiếu "
-                  + Util.numberToMoney(cost - player.inventory.gold)
-                  + " vàng");
+      Service.gI().sendThongBao(player, "Không đủ vàng để thực hiện, còn thiếu " + Util.numberToMoney(cost - player.inventory.gold) + " vàng");
     }
   }
 }

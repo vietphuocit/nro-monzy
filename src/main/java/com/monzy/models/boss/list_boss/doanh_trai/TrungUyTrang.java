@@ -5,9 +5,11 @@ import com.monzy.models.boss.Boss;
 import com.monzy.models.boss.BossData;
 import com.monzy.models.boss.BossID;
 import com.monzy.models.boss.BossManager;
+import com.monzy.models.map.ItemMap;
 import com.monzy.models.map.Zone;
 import com.monzy.models.player.Player;
 import com.monzy.models.skill.Skill;
+import com.monzy.services.Service;
 import com.monzy.services.SkillService;
 import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
@@ -72,4 +74,11 @@ public class TrungUyTrang extends Boss {
     BossManager.gI().removeBoss(this);
     this.dispose();
   }
+
+	@Override
+	public void reward(Player plKill) {
+		super.reward(plKill);
+		int idNgocRong = Util.nextInt(17, 20);
+		Service.gI().dropItemMap(this.zone, new ItemMap(this.zone, idNgocRong, 1, plKill.location.x, plKill.location.y, plKill.id));
+	}
 }

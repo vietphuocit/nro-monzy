@@ -201,7 +201,7 @@ public class ChangeMapService {
      * Chuyển map bằng tàu vũ trụ
      */
     public void changeMapBySpaceShip(Player pl, int mapId, int zone, int x) {
-        if (!pl.isAdmin() || !pl.isBoss) {
+	    if (!pl.isBoss) {
             if (prepareForSpaceShipChangeMap(pl)) return;
             changeMap(pl, null, mapId, zone, x, 5, AUTO_SPACE_SHIP);
         }
@@ -361,7 +361,7 @@ public class ChangeMapService {
             }
         }
         if (zoneJoin != null) {
-            if (player.idNRNM != -1 && !Util.canDoWithTime(player.lastTimePickNRNM, 6000)) {
+	        if (player.idNRNM != -1 && !Util.canDoWithTime(player.lastTimePickNRNM, 10000)) {
                 resetPoint(player);
                 Service.gI()
                         .sendThongBao(player, "Ngọc rồng namec quá nặng vui lòng đợi một chút để qua map");

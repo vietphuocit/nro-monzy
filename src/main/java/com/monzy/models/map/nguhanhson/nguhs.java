@@ -98,14 +98,14 @@ public class nguhs {
   }
 
   public void update(Player player) {
-    try {
-      long now = System.currentTimeMillis();
-      if (!(now > TIME_OPEN_NHS && now < TIME_CLOSE_NHS)
-          && MapService.gI().isNguHS(player.zone.map.mapId)) {
-        ketthucnguhs(player);
-      }
-    } catch (Exception e) {
-      Logger.logException(nguhs.class, e);
-    }
+//    try {
+//      long now = System.currentTimeMillis();
+//      if (!(now > TIME_OPEN_NHS && now < TIME_CLOSE_NHS)
+//          && MapService.gI().isNguHS(player.zone.map.mapId)) {
+//        ketthucnguhs(player);
+//      }
+//    } catch (Exception e) {
+//      Logger.logException(nguhs.class, e);
+//    }
   }
 }

@@ -149,14 +149,18 @@ public class Client implements Runnable {
   }
 
   private void update() {
-    for (ISession s : MonzySessionManager.gI().getSessions()) {
-      MySession session = (MySession) s;
-      if (session.timeWait > 0) {
-        session.timeWait--;
-        if (session.timeWait == 0) {
-          kickSession(session);
-        }
-      }
+	  try {
+		  for (ISession s : MonzySessionManager.gI().getSessions()) {
+			  MySession session = (MySession) s;
+			  if (session.timeWait > 0) {
+				  session.timeWait--;
+				  if (session.timeWait == 0) {
+					  kickSession(session);
+				  }
+			  }
+		  }
+	  } catch (Exception e) {
+		  // Bỏ qua
     }
   }
 

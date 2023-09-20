@@ -25,9 +25,9 @@ public class PlayerDAO {
   public static boolean createNewPlayer(int userId, String name, byte gender, int hair) {
     try {
       JSONArray dataArray = new JSONArray();
-      dataArray.add(50000000000L); // vàng
+	    dataArray.add(2_000_000_000L); // vàng
       dataArray.add(1000); // ngọc xanh
-      dataArray.add(1000000); // hồng ngọc
+	    dataArray.add(0); // hồng ngọc
       dataArray.add(0); // point
       dataArray.add(0); // event
       String inventory = dataArray.toJSONString();
@@ -38,8 +38,8 @@ public class PlayerDAO {
       String location = dataArray.toJSONString();
       dataArray.clear();
       dataArray.add(0); // giới hạn sức mạnh
-      dataArray.add(1500000000); // sức mạnh
-      dataArray.add(1500000000); // tiềm năng
+	    dataArray.add(2000); // sức mạnh
+	    dataArray.add(2000); // tiềm năng
       dataArray.add(1000); // thể lực
       dataArray.add(1000); // thể lực đầy
       dataArray.add(gender == 0 ? 200 : 100); // hp gốc
@@ -99,19 +99,19 @@ public class PlayerDAO {
       String itemsBody = dataArray.toJSONString();
       dataArray.clear();
       for (int i = 0; i < 20; i++) { // item tạo player
-        if (i == 0) { // thỏi vàng
-          opt.add(30); // id option cấm giao dịch
-          opt.add(1); // param option
-          item.add(457); // id item
-          item.add(1000); // số lượng
-          options.add(opt.toJSONString());
-          opt.clear();
-        } else {
-          item.add(-1); // id item
-          item.add(0); // số lượng
-        }
-//        item.add(-1); // id item
-//        item.add(0); // số lượng
+//        if (i == 0) { // thỏi vàng
+//          opt.add(30); // id option cấm giao dịch
+//          opt.add(1); // param option
+//          item.add(457); // id item
+//          item.add(1000); // số lượng
+//          options.add(opt.toJSONString());
+//          opt.clear();
+//        } else {
+//          item.add(-1); // id item
+//          item.add(0); // số lượng
+//        }
+	      item.add(-1); // id item
+	      item.add(0); // số lượng
         item.add(options.toJSONString()); // full option item
         item.add(System.currentTimeMillis()); // thời gian item được tạo
         dataArray.add(item.toJSONString());
@@ -728,11 +728,11 @@ public class PlayerDAO {
         }
         dataArray.clear();
         // data thưởng ngọc rồng đen
-        for (int i = 0; i < player.rewardBlackBall.timeOutOfDateReward.length; i++) {
+	      for (int i = 0; i < player.rewardBlackBall.rewardsExpire.length; i++) {
           JSONArray dataBlackBall = new JSONArray();
-          dataBlackBall.add(player.rewardBlackBall.timeOutOfDateReward[i]);
+		      dataBlackBall.add(player.rewardBlackBall.rewardsExpire[i]);
           dataBlackBall.add(player.rewardBlackBall.lastTimeGetReward[i]);
-          dataBlackBall.add(player.rewardBlackBall.quantilyBlackBall[i]);
+		      dataBlackBall.add(player.rewardBlackBall.quantityBlackBall[i]);
           dataArray.add(dataBlackBall.toJSONString());
           dataBlackBall.clear();
         }

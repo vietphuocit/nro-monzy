@@ -251,8 +251,6 @@ public class MapService {
     addListMapCapsule(pl, list, getMapCanJoin(pl, 19, 0));
     addListMapCapsule(pl, list, getMapCanJoin(pl, 79, 0));
     addListMapCapsule(pl, list, getMapCanJoin(pl, 84, 0));
-    addListMapCapsule(pl, list, getMapCanJoin(pl, 102, 0));
-    addListMapCapsule(pl, list, getMapCanJoin(pl, 131, 0));
     return list;
   }
 

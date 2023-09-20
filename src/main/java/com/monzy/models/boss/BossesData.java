@@ -1313,7 +1313,7 @@ public class BossesData {
                     .name("Lêu Lêu")
                     .gender(ConstPlayer.TRAI_DAT)
                     .dame(250000)
-                    .hp(new int[] {1000000000})
+                    .hp(new int[] {100000000})
                     .outfit(new short[] {397, 398, 399, -1, -1, -1})
                     .mapJoin(new int[] {129})
                     .skillTemp(

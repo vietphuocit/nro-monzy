@@ -88,13 +88,9 @@ public class FlagBagService {
 
   public List<FlagBag> getFlagsForChooseClan() {
     if (flagClan.isEmpty()) {
-      int[] flagsId = {
-        0, 8, 7, 6, 5, 4, 3, 2, 1, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 27, 26, 25, 24, 23, 36,
-        32, 33, 34, 35, 19, 22, 21, 20, 29, 37, 38, 69, 70, 71, 77, 78, 79
-        //                    ,56,57,58,59,60,61,62,63,64,65,66,67,68
-      };
-      for (int i = 0; i < flagsId.length; i++) {
-        flagClan.add(getFlagBag(flagsId[i]));
+	    int[] flagsId = {0, 8, 7, 6, 5, 4, 3, 2, 1, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 27, 26, 25, 24, 23, 36, 32, 33, 34, 35, 19, 22, 21, 20, 29};
+	    for (int j : flagsId) {
+		    flagClan.add(getFlagBag(j));
       }
     }
     return flagClan;

@@ -238,16 +238,14 @@ public class PlayerService {
   public void hoiSinh(Player player) {
     if (player.isDie()) {
       if (MapService.gI().isMapBlackBallWar(player.zone.map.mapId)) {
-        if (player.inventory.gold >= COST_GOLD_HOI_SINH_NRSD) {
-          player.inventory.gold -= COST_GOLD_HOI_SINH_NRSD;
+	      if (player.inventory.gold < COST_GOLD_HOI_SINH_NRSD) {
+		      Service.gI().sendThongBao(player, "Không đủ vàng để thực hiện, còn thiếu "
+				      + Util.numberToMoney(COST_GOLD_HOI_SINH_NRSD - player.inventory.gold) + " vàng");
           return;
         }
-        Service.gI()
-            .sendThongBao(
-                player,
-                "Không đủ vàng để thực hiện, còn thiếu "
-                    + Util.numberToMoney(COST_GOLD_HOI_SINH_NRSD - player.inventory.gold)
-                    + " vàng");
+	      player.inventory.gold -= COST_GOLD_HOI_SINH_NRSD;
+	      Service.gI().sendMoney(player);
+	      Service.gI().hsChar(player, player.nPoint.hpMax, player.nPoint.mpMax);
         return;
       }
       //      if (MapService.gI().isMapBanDoKhoBau(player.zone.map.mapId) ||
@@ -256,24 +254,21 @@ public class PlayerService {
       //        return;
       //      }
       if (MapService.gI().isMapPVP(player.zone.map.mapId)) {
-        if (player.inventory.gold >= COST_GOLD_HOI_SINH_PVP) {
-          player.inventory.gold -= COST_GOLD_HOI_SINH_PVP;
+	      if (player.inventory.gold < COST_GOLD_HOI_SINH_PVP) {
+		      Service.gI().sendThongBao(player, "Không đủ vàng để thực hiện, còn thiếu "
+				      + Util.numberToMoney(COST_GOLD_HOI_SINH_PVP - player.inventory.gold) + " vàng");
           return;
         }
-        Service.gI()
-            .sendThongBao(
-                player,
-                "Không đủ vàng để thực hiện, còn thiếu "
-                    + Util.numberToMoney(COST_GOLD_HOI_SINH_PVP - player.inventory.gold)
-                    + " vàng");
+	      player.inventory.gold -= COST_GOLD_HOI_SINH_PVP;
+	      Service.gI().sendMoney(player);
+	      Service.gI().hsChar(player, player.nPoint.hpMax, player.nPoint.mpMax);
         return;
       }
-      if (player.inventory.gem >= COST_GEM_HOI_SINH) {
-        player.inventory.gem -= COST_GEM_HOI_SINH;
-      } else {
+	    if (player.inventory.gem < COST_GEM_HOI_SINH) {
         Service.gI().sendThongBao(player, "Hết ngọc rồi phên");
         return;
       }
+	    player.inventory.gem -= COST_GEM_HOI_SINH;
       Service.gI().sendMoney(player);
       Service.gI().hsChar(player, player.nPoint.hpMax, player.nPoint.mpMax);
     }

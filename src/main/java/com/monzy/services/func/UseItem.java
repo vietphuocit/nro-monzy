@@ -445,6 +445,22 @@ public class UseItem {
               }
               break;
             }
+            case 2046: {
+              Item itemDTL = ItemService.gI().randomDLT(pl.gender);
+              InventoryService.gI().addItemBag(pl, itemDTL);
+              InventoryService.gI().subQuantityItemsBag(pl, InventoryService.gI().findItemBag(pl, 2046), 1);
+              InventoryService.gI().sendItemBags(pl);
+              Service.gI().sendThongBao(pl, "Bạn vừa nhận được " + itemDTL.template.name);
+              break;
+            }
+            case 2047: {
+              Item itemDTL = ItemService.gI().randomDHD(pl.gender);
+              InventoryService.gI().addItemBag(pl, itemDTL);
+              InventoryService.gI().subQuantityItemsBag(pl, InventoryService.gI().findItemBag(pl, 2047), 1);
+              InventoryService.gI().sendItemBags(pl);
+              Service.gI().sendThongBao(pl, "Bạn vừa nhận được " + itemDTL.template.name);
+              break;
+            }
           }
           break;
       }

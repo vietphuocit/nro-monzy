@@ -6,7 +6,6 @@ import com.monzy.card.Card;
 import com.monzy.card.OptionCard;
 import com.monzy.consts.ConstPlayer;
 import com.monzy.data.DataGame;
-import com.monzy.data.ItemData;
 import com.monzy.models.clan.Clan;
 import com.monzy.models.clan.ClanMember;
 import com.monzy.models.item.Item;
@@ -14,7 +13,6 @@ import com.monzy.models.item.ItemTime;
 import com.monzy.models.npc.specialnpc.BillEgg;
 import com.monzy.models.npc.specialnpc.MabuEgg;
 import com.monzy.models.npc.specialnpc.MagicTree;
-import com.monzy.models.player.Player;
 import com.monzy.models.player.*;
 import com.monzy.models.skill.Skill;
 import com.monzy.models.task.TaskMain;
@@ -234,18 +232,18 @@ public class GodGK {
               JSONArray dataBlackBall;
               for (int i = 0; i < dataArray.size(); i++) {
                 dataBlackBall = (JSONArray) JSONValue.parse(String.valueOf(dataArray.get(i)));
-                player.rewardBlackBall.timeOutOfDateReward[i] =
+	              player.rewardBlackBall.rewardsExpire[i] =
                     Long.parseLong(String.valueOf(dataBlackBall.get(0)));
                 player.rewardBlackBall.lastTimeGetReward[i] =
                     Long.parseLong(String.valueOf(dataBlackBall.get(1)));
                 try {
-                  player.rewardBlackBall.quantilyBlackBall[i] =
+	                player.rewardBlackBall.quantityBlackBall[i] =
                       dataBlackBall.get(2) != null
                           ? Integer.parseInt(String.valueOf(dataBlackBall.get(2)))
                           : 0;
                 } catch (Exception e) {
-                  player.rewardBlackBall.quantilyBlackBall[i] =
-                      player.rewardBlackBall.timeOutOfDateReward[i] != 0 ? 1 : 0;
+	                player.rewardBlackBall.quantityBlackBall[i] =
+			                player.rewardBlackBall.rewardsExpire[i] != 0 ? 1 : 0;
                   Logger.logException(GodGK.class, e);
                 }
                 dataBlackBall.clear();
@@ -798,7 +796,7 @@ public class GodGK {
         JSONArray dataBlackBall;
         for (int i = 0; i < dataArray.size(); i++) {
           dataBlackBall = (JSONArray) JSONValue.parse(String.valueOf(dataArray.get(i)));
-          player.rewardBlackBall.timeOutOfDateReward[i] =
+	        player.rewardBlackBall.rewardsExpire[i] =
               Long.parseLong(String.valueOf(dataBlackBall.get(0)));
           player.rewardBlackBall.lastTimeGetReward[i] =
               Long.parseLong(String.valueOf(dataBlackBall.get(1)));

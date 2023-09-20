@@ -1633,7 +1633,7 @@ public class CombineService {
         if (star < MAX_STAR_ITEM) {
           player.inventory.gold -= gold;
           player.inventory.gem -= gem;
-          if (Util.isTrue(player.combine.ratioCombine, (star == 6 || star == 7) ? 2000 : 100)) {
+          if (Util.isTrue(player.combine.ratioCombine, 1000)) {
             if (optionStar == null) {
               item.itemOptions.add(new Item.ItemOption(107, 1));
             } else {
@@ -1752,8 +1752,6 @@ public class CombineService {
         return 300000000;
       case 7:
         return 500000000;
-      case 8:
-        return 1000000000;
     }
     return 0;
   }

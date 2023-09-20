@@ -114,19 +114,8 @@ public class NPoint {
         break;
       }
       if (item.isNotNullItem()) {
-        switch (this.player.fusion.typeFusion) {
-          case ConstPlayer.HOP_THE_PORATA2:
-            idbt = 921;
-            break;
-          case ConstPlayer.HOP_THE_PORATA3:
-            idbt = 1155;
-            break;
-          case ConstPlayer.HOP_THE_PORATA4:
-            idbt = 1156;
-            break;
-          case ConstPlayer.HOP_THE_PORATA5:
-            idbt = 2047;
-            break;
+        if (this.player.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2) {
+          idbt = 921;
         }
         if (item.template.id == idbt) {
           for (Item.ItemOption io : item.itemOptions) {
@@ -161,25 +150,7 @@ public class NPoint {
         }
       }
     }
-    if (this.player.rewardBlackBall.timeOutOfDateReward[1] > System.currentTimeMillis()) {
-      tlHutMp += RewardBlackBall.R2S_1;
-    }
-    if (this.player.rewardBlackBall.timeOutOfDateReward[3] > System.currentTimeMillis()) {
-      tlDameAttMob.add(RewardBlackBall.R4S_2);
-    }
-    if (this.player.rewardBlackBall.timeOutOfDateReward[4] > System.currentTimeMillis()) {
-      tlPST += RewardBlackBall.R5S_1;
-    }
-    if (this.player.rewardBlackBall.timeOutOfDateReward[5] > System.currentTimeMillis()) {
-      tlPST += RewardBlackBall.R6S_1;
-      tlNeDon += RewardBlackBall.R6S_2;
-    }
-    if (this.player.rewardBlackBall.timeOutOfDateReward[6] > System.currentTimeMillis()) {
-      tlHpHoi += RewardBlackBall.R7S_1;
-      tlHutHp += RewardBlackBall.R7S_2;
-    }
-    Card card =
-        player.cards.stream().filter(r -> r != null && r.used == 1).findFirst().orElse(null);
+    Card card = player.cards.stream().filter(r -> r != null && r.used == 1).findFirst().orElse(null);
     if (card != null) {
       OptionCard optionCard = card.optionCards.get(Math.max(0, card.level));
       switch (optionCard.id) {
@@ -198,11 +169,11 @@ public class NPoint {
     for (Item item : this.player.inventory.itemsBody) {
       if (item.isNotNullItem()) {
         switch (item.template.id) {
+          case 883:
+          case 904:
           case 966:
           case 982:
           case 983:
-          case 883:
-          case 904:
             player.setClothes.worldcup++;
         }
         if (item.template.id >= 592 && item.template.id <= 594) {
@@ -357,8 +328,7 @@ public class NPoint {
             this.wearingTrainArmor = false;
             for (Item.ItemOption io : this.player.inventory.trainArmor.itemOptions) {
               if (io.optionTemplate.id == 9 && io.param > 0) {
-                this.tlDame.add(
-                    ItemService.gI().getPercentTrainArmor(this.player.inventory.trainArmor));
+                this.tlDame.add(ItemService.gI().getPercentTrainArmor(this.player.inventory.trainArmor));
                 break;
               }
             }
@@ -384,7 +354,12 @@ public class NPoint {
     settlGold();
   }
 
-  private void setNeDon() {}
+  private void setNeDon() {
+    // ngọc rồng đen 4 sao
+    if (this.player.rewardBlackBall.rewardsExpire[3] > System.currentTimeMillis()) {
+      this.tlNeDon += RewardBlackBall.R4S_1;
+    }
+  }
 
   private void setHpHoi() {
     this.hpHoi = this.hpMax / 100;
@@ -415,9 +390,9 @@ public class NPoint {
     if (this.player.setClothes.worldcup == 2) {
       this.hpMax += (int) (this.hpMax * (10 / 100f));
     }
-    //  ngọc rồng đen 1 sao
-    if (this.player.rewardBlackBall.timeOutOfDateReward[0] > System.currentTimeMillis()) {
-      this.hpMax += (int) (this.hpMax * (RewardBlackBall.R1S_1 / 100f));
+    //  ngọc rồng đen 2 sao
+    if (this.player.rewardBlackBall.rewardsExpire[1] > System.currentTimeMillis()) {
+      this.hpMax += (int) (this.hpMax * (RewardBlackBall.R2S_1 / 100f));
     }
     //  khỉ
     if (this.player.effectSkill.isMonkey) {
@@ -490,8 +465,8 @@ public class NPoint {
     for (Integer tl : this.tlMp) {
       this.mpMax += (int) (this.mpMax * (tl / 100f));
     }
-    // ngọc rồng đen 3 sao
-    if (this.player.rewardBlackBall.timeOutOfDateReward[2] > System.currentTimeMillis()) {
+    // ngọc rồng đen 2 sao
+    if (this.player.rewardBlackBall.rewardsExpire[1] > System.currentTimeMillis()) {
       this.mpMax += (int) (this.mpMax * (RewardBlackBall.R3S_1 / 100f));
     }
     // set worldcup
@@ -572,10 +547,7 @@ public class NPoint {
     if (this.player.isPet
         && ((Pet) this.player).typePet == 2
         && (((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA
-            || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2
-            || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA3
-            || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA4
-            || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA5)) {
+        || ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2)) {
       this.dame += (int) (this.dame * (30 / 100f));
     }
     // thức ăn
@@ -598,8 +570,7 @@ public class NPoint {
       this.dame *= 2;
     }
     // giảm dame
-    this.dame -= (int) (this.mpMax * (this.tlSubSD / 100f));
-    ;
+    this.dame -= (int) (this.dame * (this.tlSubSD / 100f));
     // map cold
     if (this.player.zone != null
         && MapService.gI().isMapCold(this.player.zone.map)
@@ -607,8 +578,8 @@ public class NPoint {
       this.dame /= 2;
     }
     // ngọc rồng đen 1 sao
-    if (this.player.rewardBlackBall.timeOutOfDateReward[0] > System.currentTimeMillis()) {
-      this.dame += (int) (this.dame * (RewardBlackBall.R1S_2 / 100f));
+    if (this.player.rewardBlackBall.rewardsExpire[0] > System.currentTimeMillis()) {
+      this.dame += (int) (this.dame * (RewardBlackBall.R1S_1 / 100f));
     }
     // khỉ
     if (this.player.effectSkill.isMonkey) {
@@ -626,14 +597,18 @@ public class NPoint {
     for (Integer tl : this.tlDef) {
       this.def += (this.def * tl / 100);
     }
+    // ngọc rồng đen 3 sao
+    if (this.player.rewardBlackBall.rewardsExpire[2] > System.currentTimeMillis()) {
+      this.def += RewardBlackBall.R3S_1;
+    }
   }
 
   private void setCrit() {
     this.crit = this.critg;
     this.crit += this.critAdd;
-    // ngọc rồng đen 3 sao
-    if (this.player.rewardBlackBall.timeOutOfDateReward[2] > System.currentTimeMillis()) {
-      this.crit += RewardBlackBall.R3S_2;
+    // ngọc rồng đen 5 sao
+    if (this.player.rewardBlackBall.rewardsExpire[4] > System.currentTimeMillis()) {
+      this.crit += RewardBlackBall.R5S_1;
     }
     // biến khỉ
     if (this.player.effectSkill.isMonkey) {

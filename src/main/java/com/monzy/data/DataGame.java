@@ -1,6 +1,5 @@
 package com.monzy.data;
 
-import com.database.Log;
 import com.monzy.models.Template.*;
 import com.monzy.models.skill.NClass;
 import com.monzy.models.skill.Skill;
@@ -321,7 +320,7 @@ public class DataGame {
       session.sendMessage(msg);
       msg.cleanup();
     } catch (Exception e) {
-      Logger.logException(DataGame.class, e);
+	    // Bỏ qua
     }
   }
 

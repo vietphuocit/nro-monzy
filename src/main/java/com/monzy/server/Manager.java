@@ -142,7 +142,7 @@ public class Manager {
   // id đồ hủy diệt
   public static final short ID_RADAR_HD = 656;
   public static final short[][] IDS_DO_HUY_DIET = {
-    {650, 651, 657, 658}, {652, 653, 659, 660}, {654, 655, 661, 662}
+    {650, 651, 657, 658, 656}, {652, 653, 659, 660, 656}, {654, 655, 661, 662, 656}
   };
   // id đồ thiên sứ
   public static final short[][] IDS_DO_THIEN_SU = {
@@ -252,20 +252,7 @@ public class Manager {
     for (MapTemplate mapTemp : MAP_TEMPLATES) {
       int[][] tileMap = MapService.gI().readTileMap(mapTemp.id);
       int[] tileTop = tileTyleTop[mapTemp.tileId - 1];
-      com.monzy.models.map.Map map =
-          new com.monzy.models.map.Map(
-              mapTemp.id,
-              mapTemp.name,
-              mapTemp.planetId,
-              mapTemp.tileId,
-              mapTemp.bgId,
-              mapTemp.bgType,
-              mapTemp.type,
-              tileMap,
-              tileTop,
-              mapTemp.zones,
-              mapTemp.maxPlayerPerZone,
-              mapTemp.wayPoints);
+      com.monzy.models.map.Map map = new com.monzy.models.map.Map(mapTemp.id, mapTemp.name, mapTemp.planetId, mapTemp.tileId, mapTemp.bgId, mapTemp.bgType, mapTemp.type, tileMap, tileTop, mapTemp.zones, mapTemp.maxPlayerPerZone, mapTemp.wayPoints);
       MAPS.add(map);
       map.initMob(mapTemp.mobTemp, mapTemp.mobLevel, mapTemp.mobHp, mapTemp.mobX, mapTemp.mobY);
       map.initNpc(mapTemp.npcId, mapTemp.npcX, mapTemp.npcY);

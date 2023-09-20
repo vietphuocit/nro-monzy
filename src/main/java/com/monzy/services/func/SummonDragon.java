@@ -2,14 +2,11 @@ package com.monzy.services.func;
 
 import com.monzy.consts.ConstNpc;
 import com.monzy.consts.ConstPlayer;
-import com.monzy.jdbc.daos.GodGK;
-import com.monzy.jdbc.daos.PlayerDAO;
 import com.monzy.models.item.Item;
 import com.monzy.models.item.Item.ItemOption;
 import com.monzy.models.map.Zone;
 import com.monzy.models.player.Inventory;
 import com.monzy.models.player.Player;
-import com.monzy.server.Client;
 import com.monzy.services.*;
 import com.monzy.utils.Logger;
 import com.monzy.utils.Util;
@@ -71,6 +68,7 @@ public class SummonDragon {
       new String[] {
         "Giàu có\n+75\nHồng Ngọc", "Giàu có\n+20 triệu\nVàng", "+2 triệu\nSức mạnh\nvà tiềm năng"
       };
+  public static final String[] SHENRON_NAMEC = new String[]{"20\nThỏi vàng", "5000\nHồng ngọc"};
   // --------------------------------------------------------------------------
   private static SummonDragon instance;
   private final Map<Object, Object> pl_dragonStar;
@@ -243,12 +241,8 @@ public class SummonDragon {
   }
 
   private void sendWhishesNamec(Player pl) {
-    NpcService.gI()
-        .createMenuRongThieng(
-            pl,
-            ConstNpc.NAMEC_1,
-            "Ta sẽ ban cho cả bang ngươi 1 điều ước, ngươi có 5 phút, hãy suy nghĩ thật kỹ trước khi quyết định",
-            "x99 ngọc rồng 3 sao");
+    NpcService.gI().createMenuRongThieng(pl, ConstNpc.NAMEC_1,
+        "Ta sẽ ban cho cả bang ngươi 1 điều ước, ngươi có 5 phút, hãy suy nghĩ thật kỹ trước khi quyết định", SHENRON_NAMEC);
   }
 
   private void activeShenron(Player pl, boolean appear, byte type) {
@@ -598,32 +592,27 @@ public class SummonDragon {
         }
         break;
       case ConstNpc.NAMEC_1:
-        if (select == 0) {
-          if (playerSummonShenron.clan != null) {
-            playerSummonShenron.clan.members.forEach(
-                m -> {
-                  if (Client.gI().getPlayer(m.id) != null) {
-                    Player p = Client.gI().getPlayer(m.id);
-                    Item it = ItemService.gI().createNewItem((short) 16);
-                    it.quantity = 20;
-                    InventoryService.gI().addItemBag(p, it);
-                    InventoryService.gI().sendItemBags(p);
-                  } else {
-                    Player p = GodGK.loadById(m.id);
-                    if (p != null) {
-                      Item it = ItemService.gI().createNewItem((short) 16);
-                      it.quantity = 20;
-                      InventoryService.gI().addItemBag(p, it);
-                      PlayerDAO.updatePlayer(p);
-                    }
-                  }
-                });
-          } else {
-            Item it = ItemService.gI().createNewItem((short) 16);
-            it.quantity = 20;
-            InventoryService.gI().addItemBag(playerSummonShenron, it);
-            InventoryService.gI().sendItemBags(playerSummonShenron);
-          }
+        switch (this.select) {
+          case 0:
+            for (Player player : playerSummonShenron.clan.membersInGame) {
+              if (player != null) {
+                Item thoivang = ItemService.gI().createNewItem((short) 457);
+                thoivang.quantity = 20;
+                InventoryService.gI().addItemBag(player, thoivang);
+                InventoryService.gI().sendItemBags(player);
+                Service.gI().sendThongBao(player, "Bạn vừa nhận được 20 Thỏi vàng từ ngọc rồng Namek");
+              }
+            }
+            break;
+          case 1:
+            for (Player player : playerSummonShenron.clan.membersInGame) {
+              if (player != null) {
+                player.inventory.ruby += 5000;
+                Service.gI().sendMoney(player);
+                Service.gI().sendThongBao(player, "Bạn vừa nhận được 5000 Hồng ngọc từ ngọc rồng Namek");
+              }
+            }
+            break;
         }
         break;
     }
@@ -648,7 +637,7 @@ public class SummonDragon {
         wish = SHENRON_3_STARS_WHISHES[select];
         break;
       case ConstNpc.NAMEC_1:
-        wish = "x20 ngọc rồng 3 sao";
+        wish = SHENRON_NAMEC[select];
         break;
     }
     NpcService.gI()
