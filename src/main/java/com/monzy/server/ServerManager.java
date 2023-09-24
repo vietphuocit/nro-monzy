@@ -1,8 +1,6 @@
 package com.monzy.server;
 
-import com.database.Database;
 import com.monzy.giftcode.GiftCodeManager;
-import com.monzy.jdbc.daos.HistoryTransactionDAO;
 import com.monzy.kygui.ShopKyGuiManager;
 import com.monzy.kygui.ShopKyGuiService;
 import com.monzy.models.boss.BossManager;
@@ -36,7 +34,7 @@ public class ServerManager {
   public static ServerManager gI() {
     if (instance == null) {
       instance = new ServerManager();
-      instance.init();
+      Manager.gI();
     }
     return instance;
   }
@@ -44,18 +42,6 @@ public class ServerManager {
   public static void main(String[] args) {
     TimeZone.setDefault(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
     ServerManager.gI().run();
-  }
-
-  public void init() {
-    Manager.gI();
-    try {
-      if (Manager.LOCAL) return;
-      Database.executeUpdate(
-          "update account set last_time_login = '2000-01-01', last_time_logout = '2001-01-01'");
-    } catch (Exception e) {
-      Logger.log("ServerManager init(): " + e.getMessage());
-    }
-    HistoryTransactionDAO.deleteHistory();
   }
 
   public void run() {

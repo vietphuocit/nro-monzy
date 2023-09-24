@@ -68,7 +68,7 @@ public class Manager {
   public static final String QUERY_TOP_SM =
       "SELECT player.id, CAST( split_str(data_point,',',2) AS UNSIGNED) AS sm\n"
           + "FROM player JOIN account ON player.account_id = account.id\n"
-          + "WHERE account.create_time > TIMESTAMP('2023-7-13 00:00:00')\n"
+          + "WHERE account.is_admin != 1\n"
           + "ORDER BY CAST( split_str(data_point,',',2)  AS UNSIGNED) DESC\n"
           + "LIMIT 20;";
   //    public static final String queryTopSD = "SELECT id, CAST( split_str(data_point,',',8) AS
@@ -83,7 +83,7 @@ public class Manager {
   public static final String QUERY_TOP_NV =
       "SELECT player.id, CAST( split_str(split_str(data_task,',',1),'[',2)  AS UNSIGNED) AS nv\n"
           + "FROM player JOIN account on player.account_id = account.id\n"
-          + "WHERE account.create_time > TIMESTAMP('2023-7-13 00:00:00')\n"
+          + "WHERE account.is_admin != 1\n"
           + "ORDER BY CAST( split_str(split_str(data_task,',',1),'[',2)  AS UNSIGNED) DESC, CAST(split_str(data_task,',',2)  AS UNSIGNED) DESC, CAST( split_str(data_point,',',2) AS UNSIGNED) DESC\n"
           + "LIMIT 20;";
   //    public static final String queryTopSK = "SELECT id, CAST( split_str( data_inventory,',',5)
@@ -193,9 +193,7 @@ public class Manager {
   public static List<TOP> readTop(String query) {
     List<TOP> tops = new ArrayList<>();
     try (Connection con = Database.getConnection()) {
-      PreparedStatement ps =
-          con.prepareStatement(
-              query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+      PreparedStatement ps = con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
       ResultSet rs = ps.executeQuery();
       while (rs.next()) {
         TOP top = TOP.builder().id_player(rs.getInt("id")).build();

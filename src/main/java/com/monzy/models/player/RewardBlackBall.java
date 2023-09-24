@@ -16,7 +16,7 @@ public class RewardBlackBall {
   public static final int R5S_1 = 20;
 	public static final int R6S_1 = 300_000_000;
 	public static final int R7S_1 = 500;
-	public static final int TIME_WAIT = 60 * 60 * 1000; // Đợi 1 tiếng để được nhận quà
+	public static final int TIME_WAIT = 22 * 60 * 60 * 1000; // Đợi 1 tiếng để được nhận quà
 	private static final int TIME_REWARD = 22 * 60 * 60 * 1000; // Tồn tại 22 tiếng
 	public long[] rewardsExpire;
 	public int[] quantityBlackBall;

@@ -204,7 +204,7 @@ public class MapService {
     Zone zone = null;
     try {
       if (map != null) {
-        zone = map.zones.get(Util.nextInt(0, map.zones.size() - 1));
+        zone = map.zones.get(Util.nextInt(1, map.zones.size() - 1));
       }
     } catch (Exception e) {
       Logger.logException(MapService.class, e);

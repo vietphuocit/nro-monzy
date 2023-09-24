@@ -40,6 +40,8 @@ public class PaymentService implements Runnable {
       try {
         // Kiểm tra nếu đã trôi qua 30 giây kể từ lần cuối cùng thực hiện
         if (System.currentTimeMillis() - lastTimeUpdate >= 30 * 1000) {
+          // Cập nhật thời gian thực hiện cuối cùng
+          lastTimeUpdate = System.currentTimeMillis();
           // Momo
           for (Object o : (JSONArray) getListTransactionHistoryMomo()) {
             processTransactionHistory(convertMomo(o));
@@ -48,50 +50,46 @@ public class PaymentService implements Runnable {
           for (Object o : (JSONArray) getListTransactionHistoryMBBank()) {
             processTransactionHistory(convertMBBank(o));
           }
-          // Cập nhật thời gian thực hiện cuối cùng
-          lastTimeUpdate = System.currentTimeMillis();
-        }
-        // Tạm dừng 1 giây trước khi kiểm tra lại
-        try {
-          Thread.sleep(1000);
-        } catch (InterruptedException e) {
-          Logger.logException(PaymentService.class, e);
         }
       } catch (Exception e) {
-        Logger.error("\nLỗi nạp tự động: " + e.getMessage());
+//        Logger.error("\nLỗi nạp tự động: " + e.getMessage());
+        Logger.logException(PaymentService.class, e);
       }
     }
   }
 
   public TransactionHistory convertMomo(Object transaction) {
-    JSONObject json = (JSONObject) transaction;
-    String transactionID = json.get("tranId").toString();
-    int amount = Integer.parseInt(json.get("amount").toString());
-    String description = json.get("comment").toString();
-    String type = (Integer.parseInt(json.get("io").toString()) > 0) ? "IN" : "OUT";
-    return new TransactionHistory(transactionID, amount, description, type);
+    try {
+      JSONObject json = (JSONObject) transaction;
+      String transactionID = json.get("tranId").toString();
+      int amount = Integer.parseInt(json.get("amount").toString());
+      String description = json.get("comment").toString();
+      String type = (Integer.parseInt(json.get("io").toString()) > 0) ? "IN" : "OUT";
+      return new TransactionHistory(transactionID, amount, description, type);
+    } catch (Exception e) {
+      return null;
+    }
   }
 
   public TransactionHistory convertMBBank(Object transaction) {
-    JSONObject json = (JSONObject) transaction;
-    String transactionID = json.get("transactionID").toString();
-    int amount = Integer.parseInt(json.get("amount").toString());
-    String description = json.get("description").toString();
-    String type = json.get("type").toString();
-    return new TransactionHistory(transactionID, amount, description, type);
+    try {
+      JSONObject json = (JSONObject) transaction;
+      String transactionID = json.get("transactionID").toString();
+      int amount = Integer.parseInt(json.get("amount").toString());
+      String description = json.get("description").toString();
+      String type = json.get("type").toString();
+      return new TransactionHistory(transactionID, amount, description, type);
+    } catch (Exception e) {
+      return null;
+    }
   }
 
   public Object getListTransactionHistoryMomo() {
     OkHttpClient client = new OkHttpClient().newBuilder().build();
-    Request request =
-        new Request.Builder()
-            .url("https://api.web2m.com/historyapimomo/" + TOKEN_MOMO)
-            .get()
-            .build();
+    Request request = new Request.Builder().url("https://api.web2m.com/historyapimomo/" + TOKEN_MOMO).get().build();
     try (Response response = client.newCall(request).execute()) {
       String responseString = response.body().string();
-      return ((JSONObject) ((JSONObject) JSONValue.parse(responseString)).get("momoMsg"))
-          .get("tranList");
+      return ((JSONObject) ((JSONObject) JSONValue.parse(responseString)).get("momoMsg")).get("tranList");
     } catch (IOException e) {
       Logger.error("\nLỗi lấy lịch sử giao dịch Momo: " + e.getMessage());
       return null;
@@ -100,12 +98,7 @@ public class PaymentService implements Runnable {
 
   public Object getListTransactionHistoryMBBank() {
     OkHttpClient client = new OkHttpClient().newBuilder().build();
-    Request request =
-        new Request.Builder()
-            .url(
-                "https://api.web2m.com/historyapimbv3/Vietphuocit2019@/0583217667/" + TOKEN_MB_BANK)
-            .get()
-            .build();
+    Request request = new Request.Builder().url("https://api.web2m.com/historyapimbv3/Vietphuocit2019@/0583217667/" + TOKEN_MB_BANK).get().build();
     try (Response response = client.newCall(request).execute()) {
       String responseString = response.body().string();
       return ((JSONObject) JSONValue.parse(responseString)).get("transactions");
@@ -116,6 +109,9 @@ public class PaymentService implements Runnable {
   }
 
   public void processTransactionHistory(TransactionHistory transactionHistory) {
+    if (transactionHistory == null) {
+      return;
+    }
     if (transactionHistory.getType().equals("IN")
         && !isExistTranID(transactionHistory.getTransactionID())) {
       if (transactionHistory.getDescription().contains("mtv")) {

@@ -10,85 +10,85 @@ public class BossesData {
    * in list chat
    */
   private static final int[][] FULL_DRAGON =
-      new int[][] {
-        {Skill.DRAGON, 1},
-        {Skill.DRAGON, 2},
-        {Skill.DRAGON, 3},
-        {Skill.DRAGON, 4},
-        {Skill.DRAGON, 5},
-        {Skill.DRAGON, 6},
-        {Skill.DRAGON, 7}
+      new int[][]{
+          {Skill.DRAGON, 1},
+          {Skill.DRAGON, 2},
+          {Skill.DRAGON, 3},
+          {Skill.DRAGON, 4},
+          {Skill.DRAGON, 5},
+          {Skill.DRAGON, 6},
+          {Skill.DRAGON, 7}
       };
 
   private static final int[][] FULL_DEMON =
-      new int[][] {
-        {Skill.DEMON, 1},
-        {Skill.DEMON, 2},
-        {Skill.DEMON, 3},
-        {Skill.DEMON, 4},
-        {Skill.DEMON, 5},
-        {Skill.DEMON, 6},
-        {Skill.DEMON, 7}
+      new int[][]{
+          {Skill.DEMON, 1},
+          {Skill.DEMON, 2},
+          {Skill.DEMON, 3},
+          {Skill.DEMON, 4},
+          {Skill.DEMON, 5},
+          {Skill.DEMON, 6},
+          {Skill.DEMON, 7}
       };
   private static final int[][] FULL_GALICK =
-      new int[][] {
-        {Skill.GALICK, 1},
-        {Skill.GALICK, 2},
-        {Skill.GALICK, 3},
-        {Skill.GALICK, 4},
-        {Skill.GALICK, 5},
-        {Skill.GALICK, 6},
-        {Skill.GALICK, 7}
+      new int[][]{
+          {Skill.GALICK, 1},
+          {Skill.GALICK, 2},
+          {Skill.GALICK, 3},
+          {Skill.GALICK, 4},
+          {Skill.GALICK, 5},
+          {Skill.GALICK, 6},
+          {Skill.GALICK, 7}
       };
   private static final int[][] FULL_KAMEJOKO =
-      new int[][] {
-        {Skill.KAMEJOKO, 1},
-        {Skill.KAMEJOKO, 2},
-        {Skill.KAMEJOKO, 3},
-        {Skill.KAMEJOKO, 4},
-        {Skill.KAMEJOKO, 5},
-        {Skill.KAMEJOKO, 6},
-        {Skill.KAMEJOKO, 7}
+      new int[][]{
+          {Skill.KAMEJOKO, 1},
+          {Skill.KAMEJOKO, 2},
+          {Skill.KAMEJOKO, 3},
+          {Skill.KAMEJOKO, 4},
+          {Skill.KAMEJOKO, 5},
+          {Skill.KAMEJOKO, 6},
+          {Skill.KAMEJOKO, 7}
       };
   private static final int[][] FULL_MASENKO =
-      new int[][] {
-        {Skill.MASENKO, 1},
-        {Skill.MASENKO, 2},
-        {Skill.MASENKO, 3},
-        {Skill.MASENKO, 4},
-        {Skill.MASENKO, 5},
-        {Skill.MASENKO, 6},
-        {Skill.MASENKO, 7}
+      new int[][]{
+          {Skill.MASENKO, 1},
+          {Skill.MASENKO, 2},
+          {Skill.MASENKO, 3},
+          {Skill.MASENKO, 4},
+          {Skill.MASENKO, 5},
+          {Skill.MASENKO, 6},
+          {Skill.MASENKO, 7}
       };
   private static final int[][] FULL_ANTOMIC =
-      new int[][] {
-        {Skill.ANTOMIC, 1},
-        {Skill.ANTOMIC, 2},
-        {Skill.ANTOMIC, 3},
-        {Skill.ANTOMIC, 4},
-        {Skill.ANTOMIC, 5},
-        {Skill.ANTOMIC, 6},
-        {Skill.ANTOMIC, 7}
+      new int[][]{
+          {Skill.ANTOMIC, 1},
+          {Skill.ANTOMIC, 2},
+          {Skill.ANTOMIC, 3},
+          {Skill.ANTOMIC, 4},
+          {Skill.ANTOMIC, 5},
+          {Skill.ANTOMIC, 6},
+          {Skill.ANTOMIC, 7}
       };
   private static final int[][] FULL_LIENHOAN =
-      new int[][] {
-        {Skill.LIEN_HOAN, 1},
-        {Skill.LIEN_HOAN, 2},
-        {Skill.LIEN_HOAN, 3},
-        {Skill.LIEN_HOAN, 4},
-        {Skill.LIEN_HOAN, 5},
-        {Skill.LIEN_HOAN, 6},
-        {Skill.LIEN_HOAN, 7}
+      new int[][]{
+          {Skill.LIEN_HOAN, 1},
+          {Skill.LIEN_HOAN, 2},
+          {Skill.LIEN_HOAN, 3},
+          {Skill.LIEN_HOAN, 4},
+          {Skill.LIEN_HOAN, 5},
+          {Skill.LIEN_HOAN, 6},
+          {Skill.LIEN_HOAN, 7}
       };
   private static final int[][] FULL_TDHS =
-      new int[][] {
-        {Skill.THAI_DUONG_HA_SAN, 1},
-        {Skill.THAI_DUONG_HA_SAN, 2},
-        {Skill.THAI_DUONG_HA_SAN, 3},
-        {Skill.THAI_DUONG_HA_SAN, 4},
-        {Skill.THAI_DUONG_HA_SAN, 5},
-        {Skill.THAI_DUONG_HA_SAN, 6},
-        {Skill.THAI_DUONG_HA_SAN, 7}
+      new int[][]{
+          {Skill.THAI_DUONG_HA_SAN, 1},
+          {Skill.THAI_DUONG_HA_SAN, 2},
+          {Skill.THAI_DUONG_HA_SAN, 3},
+          {Skill.THAI_DUONG_HA_SAN, 4},
+          {Skill.THAI_DUONG_HA_SAN, 5},
+          {Skill.THAI_DUONG_HA_SAN, 6},
+          {Skill.THAI_DUONG_HA_SAN, 7}
       };
   private static final int REST_1_S = 1;
   private static final int REST_2_S = 2;
@@ -115,800 +115,834 @@ public class BossesData {
   private static final int REST_11_H = 39600;
   private static final int REST_12_H = 43200;
   private static final int REST_24_H = 86400;
-  /** Boss NRSD */
+  /**
+   * Boss NRSD
+   */
   public static final BossData Rong_1Sao =
       new BossData(
           "Rồng Syn 1 Sao", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {204, 205, 206, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{204, 205, 206, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           1000000, // dame
-          new int[] {1000000000}, // hp
-          new int[] {85}, // map join
-          new int[][] {{Skill.LIEN_HOAN, 7, 1000}, {Skill.KAMEJOKO, 7, 1000}}, // skill
-          new String[] {}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{1000000000}, // hp
+          new int[]{85}, // map join
+          new int[][]{{Skill.LIEN_HOAN, 7, 1000}, {Skill.KAMEJOKO, 7, 1000}}, // skill
+          new String[]{}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           REST_24_H // second rest
-          );
+      );
 
   public static final BossData Rong_2Sao =
       new BossData(
           "Rồng Haze 2 Sao", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {219, 220, 221, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{219, 220, 221, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           1000000, // dame
-          new int[] {1000000000}, // hp
-          new int[] {86}, // map join
-          new int[][] {{Skill.LIEN_HOAN, 7, 1000}, {Skill.KAMEJOKO, 7, 1000}}, // skill
-          new String[] {}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{1000000000}, // hp
+          new int[]{86}, // map join
+          new int[][]{{Skill.LIEN_HOAN, 7, 1000}, {Skill.KAMEJOKO, 7, 1000}}, // skill
+          new String[]{}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           REST_24_H // second rest
-          );
+      );
   public static final BossData Rong_3Sao =
       new BossData(
           "Rồng Eis 3 Sao", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {207, 208, 209, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{207, 208, 209, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           1000000, // dame
-          new int[] {1000000000}, // hp
-          new int[] {87}, // map join
-          new int[][] {{Skill.LIEN_HOAN, 7, 1000}, {Skill.KAMEJOKO, 7, 1000}}, // skill
-          new String[] {}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{1000000000}, // hp
+          new int[]{87}, // map join
+          new int[][]{{Skill.LIEN_HOAN, 7, 1000}, {Skill.KAMEJOKO, 7, 1000}}, // skill
+          new String[]{}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           REST_24_H // second rest
-          );
+      );
   public static final BossData Rong_4Sao =
       new BossData(
           "Rồng Nuova 4 Sao", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {210, 211, 212, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{210, 211, 212, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           1000000, // dame
-          new int[] {1000000000}, // hp
-          new int[] {88}, // map join
-          new int[][] {{Skill.LIEN_HOAN, 7, 1000}, {Skill.KAMEJOKO, 7, 1000}}, // skill
-          new String[] {}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{1000000000}, // hp
+          new int[]{88}, // map join
+          new int[][]{{Skill.LIEN_HOAN, 7, 1000}, {Skill.KAMEJOKO, 7, 1000}}, // skill
+          new String[]{}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           REST_24_H // second rest
-          );
+      );
   public static final BossData Rong_5Sao =
       new BossData(
           "Rồng Rage 5 Sao", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {213, 214, 215, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{213, 214, 215, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           1000000, // dame
-          new int[] {1000000000}, // hp
-          new int[] {89}, // map join
-          new int[][] {{Skill.LIEN_HOAN, 7, 1000}, {Skill.KAMEJOKO, 7, 1000}}, // skill
-          new String[] {}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{1000000000}, // hp
+          new int[]{89}, // map join
+          new int[][]{{Skill.LIEN_HOAN, 7, 1000}, {Skill.KAMEJOKO, 7, 1000}}, // skill
+          new String[]{}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           REST_24_H // second rest
-          );
+      );
   public static final BossData Rong_6Sao =
       new BossData(
           "Rồng Oceanus 6 Sao", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {222, 223, 224, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{222, 223, 224, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           1000000, // dame
-          new int[] {1000000000}, // hp
-          new int[] {90}, // map join
-          new int[][] {{Skill.LIEN_HOAN, 7, 1000}, {Skill.KAMEJOKO, 7, 1000}}, // skill
-          new String[] {}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{1000000000}, // hp
+          new int[]{90}, // map join
+          new int[][]{{Skill.LIEN_HOAN, 7, 1000}, {Skill.KAMEJOKO, 7, 1000}}, // skill
+          new String[]{}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           REST_24_H // second rest
-          );
+      );
   public static final BossData Rong_7Sao =
       new BossData(
           "Rồng Naturon 7 Sao", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {216, 217, 218, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{216, 217, 218, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           1000000, // dame
-          new int[] {1000000000}, // hp
-          new int[] {91}, // map join
-          new int[][] {{Skill.LIEN_HOAN, 7, 1000}, {Skill.KAMEJOKO, 7, 1000}}, // skill
-          new String[] {}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{1000000000}, // hp
+          new int[]{91}, // map join
+          new int[][]{{Skill.LIEN_HOAN, 7, 1000}, {Skill.KAMEJOKO, 7, 1000}}, // skill
+          new String[]{}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           REST_24_H // second rest
-          );
-  /** Boss Ăn trộm */
+      );
+  /**
+   * Boss Ăn trộm
+   */
   public static final BossData AN_TROM =
       new BossData(
           "Ăn trộm", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {201, 202, 203, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{201, 202, 203, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           1, // dame
-          new int[] {100}, // hp
-          new int[] {84}, // map join
-          new int[][] {},
+          new int[]{100}, // hp
+          new int[]{84}, // map join
+          new int[][]{},
           // skill
-          new String[] {}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new String[]{}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           REST_15_M);
-  /** Boss Ma bư */
+  /**
+   * Boss Ma bư
+   */
   public static final BossData MABU =
       new BossData(
           "Mabư",
           ConstPlayer.TRAI_DAT,
-          new short[] {297, 298, 299, -1, -1, -1},
+          new short[]{297, 298, 299, -1, -1, -1},
           500000,
-          new int[] {2000000000},
-          new int[] {52},
-          new int[][] {
-            {Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}, {Skill.SOCOLA, 7, 1000}
+          new int[]{2000000000},
+          new int[]{52},
+          new int[][]{
+              {Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}, {Skill.SOCOLA, 7, 1000}
           },
-          new String[] {"|-2|Ma nhân Bư đã xuất hiện rồi"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {"|-1|Nhớ mặt tao đấy", "|-1|Tobe continue.."}, // text chat 3
+          new String[]{"|-2|Ma nhân Bư đã xuất hiện rồi"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{"|-1|Nhớ mặt tao đấy", "|-1|Tobe continue.."}, // text chat 3
           REST_15_M);
-  /** Boss nappa */
+  /**
+   * Boss nappa
+   */
   public static final BossData KUKU =
       new BossData(
           "Kuku", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {159, 160, 161, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{159, 160, 161, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           20000, // dame
-          new int[] {5000000}, // hp
-          new int[] {68, 69, 70, 71, 72, 64, 65, 66, 67}, // map join
-          new int[][] {{Skill.GALICK, 7, 1000}, {Skill.ANTOMIC, 7, 10000}},
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{5000000}, // hp
+          new int[]{68, 69, 70, 71, 72, 64, 65, 66, 67}, // map join
+          new int[][]{{Skill.GALICK, 7, 1000}, {Skill.ANTOMIC, 7, 10000}},
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           REST_15_M // second rest
-          );
+      );
 
   public static final BossData MAP_DAU_DINH =
       new BossData(
           "Mập Đầu Đinh", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {165, 166, 167, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{165, 166, 167, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           30000, // dame
-          new int[] {7000000}, // hp
-          new int[] {68, 69, 70, 71, 72, 64, 65, 66, 67}, // map join
-          new int[][] {{Skill.GALICK, 7, 1000}, {Skill.ANTOMIC, 7, 10000}},
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{7000000}, // hp
+          new int[]{68, 69, 70, 71, 72, 64, 65, 66, 67}, // map join
+          new int[][]{{Skill.GALICK, 7, 1000}, {Skill.ANTOMIC, 7, 10000}},
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           REST_15_M // second rest
-          );
+      );
   public static final BossData RAMBO =
       new BossData(
           "Rambo", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {162, 163, 164, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{162, 163, 164, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           40000, // dame
-          new int[] {10000000}, // hp
-          new int[] {68, 69, 70, 71, 72, 64, 65, 66, 67}, // map join
-          new int[][] {{Skill.GALICK, 7, 1000}, {Skill.ANTOMIC, 7, 10000}},
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{10000000}, // hp
+          new int[]{68, 69, 70, 71, 72, 64, 65, 66, 67}, // map join
+          new int[][]{{Skill.GALICK, 7, 1000}, {Skill.ANTOMIC, 7, 10000}},
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           REST_15_M // second rest
-          );
-  /** Boss tiểu đội sát thủ */
+      );
+  /**
+   * Boss tiểu đội sát thủ
+   */
   public static final BossData SO_4 =
       new BossData(
           "Số 4 Guldo", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {168, 169, 170, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{168, 169, 170, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           100000, // dame
-          new int[] {10000000}, // hp
-          new int[] {79, 82, 83}, // map join
-          new int[][] {{Skill.GALICK, 7, 1000}, {Skill.ANTOMIC, 7, 1000}},
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{10000000}, // hp
+          new int[]{79, 82, 83}, // map join
+          new int[][]{{Skill.GALICK, 7, 1000}, {Skill.ANTOMIC, 7, 1000}},
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           REST_30_M);
 
   public static final BossData SO_3 =
       new BossData(
           "Số 3 Recome", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {174, 175, 176, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{174, 175, 176, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           110000, // dame
-          new int[] {12000000}, // hp
-          new int[] {79, 82, 83}, // map join
-          new int[][] {{Skill.GALICK, 7, 1000}, {Skill.ANTOMIC, 7, 1000}}, // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{12000000}, // hp
+          new int[]{79, 82, 83}, // map join
+          new int[][]{{Skill.GALICK, 7, 1000}, {Skill.ANTOMIC, 7, 1000}}, // skill
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           TypeAppear.APPEAR_WITH_ANOTHER // type appear
-          );
+      );
   public static final BossData SO_2 =
       new BossData(
           "Số 2 Jeice", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {171, 172, 173, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{171, 172, 173, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           120000, // dame
-          new int[] {14000000}, // hp
-          new int[] {79, 82, 83}, // map join
-          new int[][] {{Skill.GALICK, 7, 1000}, {Skill.ANTOMIC, 7, 1000}}, // skill//skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{14000000}, // hp
+          new int[]{79, 82, 83}, // map join
+          new int[][]{{Skill.GALICK, 7, 1000}, {Skill.ANTOMIC, 7, 1000}}, // skill//skill
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           TypeAppear.APPEAR_WITH_ANOTHER // type appear
-          );
+      );
   public static final BossData SO_1 =
       new BossData(
           "Số 1 Burter", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {177, 178, 179, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{177, 178, 179, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           130000, // dame
-          new int[] {16000000}, // hp
-          new int[] {79, 82, 83}, // map join
-          new int[][] {{Skill.GALICK, 7, 1000}, {Skill.ANTOMIC, 7, 1000}}, // skill//skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{16000000}, // hp
+          new int[]{79, 82, 83}, // map join
+          new int[][]{{Skill.GALICK, 7, 1000}, {Skill.ANTOMIC, 7, 1000}}, // skill//skill
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           TypeAppear.APPEAR_WITH_ANOTHER // type appear
-          );
+      );
   public static final BossData TIEU_DOI_TRUONG =
       new BossData(
           "Tiểu đội trưởng Ginyu", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {180, 181, 182, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{180, 181, 182, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           140000, // dame
-          new int[] {20000000}, // hp
-          new int[] {79, 82, 83}, // map join
-          new int[][] {
-            {Skill.SOCOLA, 7, 1000}, {Skill.GALICK, 7, 1000}, {Skill.ANTOMIC, 7, 1000}
+          new int[]{20000000}, // hp
+          new int[]{79, 82, 83}, // map join
+          new int[][]{
+              {Skill.SOCOLA, 7, 1000}, {Skill.GALICK, 7, 1000}, {Skill.ANTOMIC, 7, 1000}
           }, // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           TypeAppear.APPEAR_WITH_ANOTHER // type appear
-          );
-  /** Boss tiểu đội sát thủ NAMEC */
+      );
+  /**
+   * Boss tiểu đội sát thủ NAMEC
+   */
   public static final BossData SO_4_1 =
       new BossData(
           "Số 4 Guldo", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {168, 169, 170, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{168, 169, 170, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           100000, // dame
-          new int[] {10000000}, // hp
-          new int[] {31, 32, 33, 34, 9, 10, 11, 12, 13}, // map join
-          new int[][] {{Skill.GALICK, 7, 1000}, {Skill.ANTOMIC, 7, 1000}},
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{10000000}, // hp
+          new int[]{31, 32, 33, 34, 9, 10, 11, 12, 13}, // map join
+          new int[][]{{Skill.GALICK, 7, 1000}, {Skill.ANTOMIC, 7, 1000}},
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           REST_15_M);
 
   public static final BossData SO_3_1 =
       new BossData(
           "Số 3 Recome", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {174, 175, 176, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{174, 175, 176, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           110000, // dame
-          new int[] {12000000}, // hp
-          new int[] {31, 32, 33, 34, 9, 10, 11, 12, 13}, // map join
-          new int[][] {{Skill.GALICK, 7, 1000}, {Skill.ANTOMIC, 7, 1000}}, // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{12000000}, // hp
+          new int[]{31, 32, 33, 34, 9, 10, 11, 12, 13}, // map join
+          new int[][]{{Skill.GALICK, 7, 1000}, {Skill.ANTOMIC, 7, 1000}}, // skill
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           TypeAppear.APPEAR_WITH_ANOTHER // type appear
-          );
+      );
   public static final BossData SO_2_1 =
       new BossData(
           "Số 2 Jeice", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {171, 172, 173, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{171, 172, 173, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           120000, // dame
-          new int[] {14000000}, // hp
-          new int[] {31, 32, 33, 34, 9, 10, 11, 12, 13}, // map join
-          new int[][] {{Skill.GALICK, 7, 1000}, {Skill.ANTOMIC, 7, 1000}}, // skill//skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{14000000}, // hp
+          new int[]{31, 32, 33, 34, 9, 10, 11, 12, 13}, // map join
+          new int[][]{{Skill.GALICK, 7, 1000}, {Skill.ANTOMIC, 7, 1000}}, // skill//skill
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           TypeAppear.APPEAR_WITH_ANOTHER // type appear
-          );
+      );
   public static final BossData SO_1_1 =
       new BossData(
           "Số 1 Burter", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {177, 178, 179, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{177, 178, 179, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           130000, // dame
-          new int[] {16000000}, // hp
-          new int[] {31, 32, 33, 34, 9, 10, 11, 12, 13}, // map join
-          new int[][] {{Skill.GALICK, 7, 1000}, {Skill.ANTOMIC, 7, 1000}}, // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{16000000}, // hp
+          new int[]{31, 32, 33, 34, 9, 10, 11, 12, 13}, // map join
+          new int[][]{{Skill.GALICK, 7, 1000}, {Skill.ANTOMIC, 7, 1000}}, // skill
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           TypeAppear.APPEAR_WITH_ANOTHER // type appear
-          );
+      );
   public static final BossData TIEU_DOI_TRUONG_1 =
       new BossData(
           "Tiểu đội trưởng Ginyu", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {180, 181, 182, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{180, 181, 182, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           140000, // dame
-          new int[] {20000000}, // hp
-          new int[] {31, 32, 33, 34, 9, 10, 11, 12, 13}, // map join
-          new int[][] {
-            {Skill.SOCOLA, 7, 1000}, {Skill.GALICK, 7, 1000}, {Skill.ANTOMIC, 7, 1000}
+          new int[]{20000000}, // hp
+          new int[]{31, 32, 33, 34, 9, 10, 11, 12, 13}, // map join
+          new int[][]{
+              {Skill.SOCOLA, 7, 1000}, {Skill.GALICK, 7, 1000}, {Skill.ANTOMIC, 7, 1000}
           }, // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           TypeAppear.APPEAR_WITH_ANOTHER // type appear
-          );
-  /** Boss Fide đại ca */
+      );
+  /**
+   * Boss Fide đại ca
+   */
   public static final BossData FIDE_DAI_CA_1 =
       new BossData(
           "Fide đại ca 1", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {183, 184, 185, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{183, 184, 185, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           150000, // dame
-          new int[] {10000000}, // hp
-          new int[] {80}, // map join
-          new int[][] {{Skill.GALICK, 7, 1000}, {Skill.ANTOMIC, 7, 1000}}, // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{10000000}, // hp
+          new int[]{80}, // map join
+          new int[][]{{Skill.GALICK, 7, 1000}, {Skill.ANTOMIC, 7, 1000}}, // skill
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           REST_30_M // second rest
-          );
+      );
 
   public static final BossData FIDE_DAI_CA_2 =
       new BossData(
           "Fide đại ca 2", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {186, 187, 188, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{186, 187, 188, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           170000, // dame
-          new int[] {15000000}, // hp
-          new int[] {80}, // map join
-          new int[][] {{Skill.GALICK, 7, 1000}, {Skill.ANTOMIC, 7, 1000}}, // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{15000000}, // hp
+          new int[]{80}, // map join
+          new int[][]{{Skill.GALICK, 7, 1000}, {Skill.ANTOMIC, 7, 1000}}, // skill
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           TypeAppear.ANOTHER_LEVEL // type appear
-          );
+      );
   public static final BossData FIDE_DAI_CA_3 =
       new BossData(
           "Fide đại ca 3", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {189, 190, 191, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{189, 190, 191, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           190000, // dame
-          new int[] {25000000}, // hp
-          new int[] {80}, // map join
-          new int[][] {{Skill.GALICK, 7, 1000}, {Skill.ANTOMIC, 7, 1000}}, // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{25000000}, // hp
+          new int[]{80}, // map join
+          new int[][]{{Skill.GALICK, 7, 1000}, {Skill.ANTOMIC, 7, 1000}}, // skill
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           TypeAppear.ANOTHER_LEVEL // type appear
-          );
-  /** Boss Android 13, 14, 15 */
+      );
+  /**
+   * Boss Android 13, 14, 15
+   */
   public static final BossData ANDROID_13 =
       new BossData(
           "Android 13", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {252, 253, 254, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{252, 253, 254, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           200000, // dame
-          new int[] {20000000}, // hp
-          new int[] {84, 104}, // map join
-          new int[][] {{Skill.KAMEJOKO, 7, 10000}, {Skill.LIEN_HOAN, 7, 1000}}, // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{20000000}, // hp
+          new int[]{84, 104}, // map join
+          new int[][]{{Skill.KAMEJOKO, 7, 10000}, {Skill.LIEN_HOAN, 7, 1000}}, // skill
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           TypeAppear.CALL_BY_ANOTHER);
 
   public static final BossData ANDROID_14 =
       new BossData(
           "Android 14", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {246, 247, 248, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{246, 247, 248, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           200000, // dame
-          new int[] {25000000}, // hp
-          new int[] {84, 104}, // map join
-          new int[][] {{Skill.KAMEJOKO, 7, 10000}, {Skill.LIEN_HOAN, 7, 1000}}, // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{25000000}, // hp
+          new int[]{84, 104}, // map join
+          new int[][]{{Skill.KAMEJOKO, 7, 10000}, {Skill.LIEN_HOAN, 7, 1000}}, // skill
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           REST_30_M,
-          new int[] {BossID.ANDROID_13, BossID.ANDROID_15});
+          new int[]{BossID.ANDROID_13, BossID.ANDROID_15});
   public static final BossData ANDROID_15 =
       new BossData(
           "Android 15", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {261, 262, 263, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{261, 262, 263, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           200000, // dame
-          new int[] {30000000}, // hp
-          new int[] {84, 104}, // map join
-          new int[][] {{Skill.KAMEJOKO, 7, 10000}, {Skill.LIEN_HOAN, 7, 1000}}, // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{30000000}, // hp
+          new int[]{84, 104}, // map join
+          new int[][]{{Skill.KAMEJOKO, 7, 10000}, {Skill.LIEN_HOAN, 7, 1000}}, // skill
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           TypeAppear.APPEAR_WITH_ANOTHER);
-  /** Boss Android PIC, POC, KING KONG */
+  /**
+   * Boss Android PIC, POC, KING KONG
+   */
   public static final BossData PIC =
       new BossData(
           "Số 17 Pic", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {237, 238, 239, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{237, 238, 239, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           200000, // dame
-          new int[] {30000000}, // hp
-          new int[] {97, 98, 99}, // map join
-          new int[][] {{Skill.KAMEJOKO, 7, 10000}, {Skill.LIEN_HOAN, 7, 1000}}, // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{30000000}, // hp
+          new int[]{97, 98, 99}, // map join
+          new int[][]{{Skill.KAMEJOKO, 7, 10000}, {Skill.LIEN_HOAN, 7, 1000}}, // skill
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           TypeAppear.APPEAR_WITH_ANOTHER);
 
   public static final BossData POC =
       new BossData(
           "Số 18 Poc", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {240, 241, 242, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{240, 241, 242, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           200000, // dame
-          new int[] {35000000}, // hp
-          new int[] {97, 98, 99}, // map join
-          new int[][] {{Skill.KAMEJOKO, 7, 10000}, {Skill.LIEN_HOAN, 7, 1000}}, // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{35000000}, // hp
+          new int[]{97, 98, 99}, // map join
+          new int[][]{{Skill.KAMEJOKO, 7, 10000}, {Skill.LIEN_HOAN, 7, 1000}}, // skill
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           TypeAppear.APPEAR_WITH_ANOTHER);
   public static final BossData KING_KONG =
       new BossData(
           "Số 16 King Kong", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {243, 244, 245, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{243, 244, 245, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           200000, // dame
-          new int[] {40000000}, // hp
-          new int[] {97, 98, 99}, // map join
-          new int[][] {{Skill.KAMEJOKO, 7, 10000}, {Skill.LIEN_HOAN, 7, 1000}}, // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{40000000}, // hp
+          new int[]{97, 98, 99}, // map join
+          new int[][]{{Skill.KAMEJOKO, 7, 10000}, {Skill.LIEN_HOAN, 7, 1000}}, // skill
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           REST_30_M,
-          new int[] {BossID.PIC, BossID.POC});
-  /** Boss Android 19, 20 */
+          new int[]{BossID.PIC, BossID.POC});
+  /**
+   * Boss Android 19, 20
+   */
   public static final BossData ANDROID_19 =
       new BossData(
           "Android 19", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {249, 250, 251, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{249, 250, 251, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           200000, // dame
-          new int[] {40000000}, // hp
-          new int[] {96, 94, 93}, // map join
-          new int[][] {{Skill.KAMEJOKO, 7, 10000}, {Skill.LIEN_HOAN, 7, 1000}}, // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{40000000}, // hp
+          new int[]{96, 94, 93}, // map join
+          new int[][]{{Skill.KAMEJOKO, 7, 10000}, {Skill.LIEN_HOAN, 7, 1000}}, // skill
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           TypeAppear.APPEAR_WITH_ANOTHER);
 
   public static final BossData DR_KORE =
       new BossData(
           "Dr.Kôrê", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {255, 256, 257, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{255, 256, 257, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           200000, // dame
-          new int[] {50000000}, // hp
-          new int[] {96, 94, 93}, // map join
-          new int[][] {{Skill.KAMEJOKO, 7, 10000}, {Skill.LIEN_HOAN, 7, 1000}}, // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{50000000}, // hp
+          new int[]{96, 94, 93}, // map join
+          new int[][]{{Skill.KAMEJOKO, 7, 10000}, {Skill.LIEN_HOAN, 7, 1000}}, // skill
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           REST_30_M, // second rest
-          new int[] {BossID.ANDROID_19});
+          new int[]{BossID.ANDROID_19});
 
-  /** Boss Xên bọ hung */
+  /**
+   * Boss Xên bọ hung
+   */
   public static final BossData XEN_BO_HUNG_1 =
       new BossData(
           "Xên bọ hung 1",
           ConstPlayer.TRAI_DAT,
-          new short[] {228, 229, 230, -1, -1, -1},
+          new short[]{228, 229, 230, -1, -1, -1},
           300000,
-          new int[] {100000000},
-          new int[] {100},
-          new int[][] {{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
+          new int[]{100000000},
+          new int[]{100},
+          new int[][]{{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
           // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           REST_30_M);
 
   public static final BossData XEN_BO_HUNG_2 =
       new BossData(
           "Xên bọ hung 2",
           ConstPlayer.TRAI_DAT,
-          new short[] {231, 232, 233, -1, -1, -1},
+          new short[]{231, 232, 233, -1, -1, -1},
           300000,
-          new int[] {100000000},
-          new int[] {100},
-          new int[][] {{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
+          new int[]{100000000},
+          new int[]{100},
+          new int[][]{{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
           // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           TypeAppear.ANOTHER_LEVEL);
   public static final BossData XEN_BO_HUNG_3 =
       new BossData(
           "Xên hoàn thiện",
           ConstPlayer.TRAI_DAT,
-          new short[] {234, 235, 236, -1, -1, -1},
+          new short[]{234, 235, 236, -1, -1, -1},
           350000,
-          new int[] {150000000},
-          new int[] {100},
-          new int[][] {{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
+          new int[]{150000000},
+          new int[]{100},
+          new int[][]{{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
           // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           TypeAppear.ANOTHER_LEVEL);
 
-  /** Boss Xên Con, Siêu bọ hung */
+  /**
+   * Boss Xên Con, Siêu bọ hung
+   */
   public static final BossData XEN_CON =
       new BossData(
           "Xên con", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {264, 265, 266, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
-          300000, // dame
-          new int[] {200000000}, // hp
-          new int[] {103}, // map join
-          new int[][] {{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
+          new short[]{264, 265, 266, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          200000, // dame
+          new int[]{300000000}, // hp
+          new int[]{103}, // map join
+          new int[][]{{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
           // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           REST_30_M, // second rest
-          new int[] {BossID.XEN_CON_1, BossID.XEN_CON_2, BossID.XEN_CON_3, BossID.XEN_CON_4});
+          new int[]{BossID.XEN_CON_1, BossID.XEN_CON_2, BossID.XEN_CON_3, BossID.XEN_CON_4});
 
   public static final BossData XEN_CON_1 =
       new BossData(
           "Xên con 1", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {264, 265, 266, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
-          300000, // dame
-          new int[] {200000000}, // hp
-          new int[] {96, 94, 93}, // map join
-          new int[][] {{Skill.KAMEJOKO, 7, 10000}, {Skill.LIEN_HOAN, 7, 1000}}, // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new short[]{264, 265, 266, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          200000, // dame
+          new int[]{300000000}, // hp
+          new int[]{96, 94, 93}, // map join
+          new int[][]{{Skill.KAMEJOKO, 7, 10000}, {Skill.LIEN_HOAN, 7, 1000}}, // skill
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           TypeAppear.APPEAR_WITH_ANOTHER);
   public static final BossData XEN_CON_2 =
       new BossData(
           "Xên con 2", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {264, 265, 266, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
-          300000, // dame
-          new int[] {200000000}, // hp
-          new int[] {96, 94, 93}, // map join
-          new int[][] {{Skill.KAMEJOKO, 7, 10000}, {Skill.LIEN_HOAN, 7, 1000}}, // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new short[]{264, 265, 266, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          200000, // dame
+          new int[]{300000000}, // hp
+          new int[]{96, 94, 93}, // map join
+          new int[][]{{Skill.KAMEJOKO, 7, 10000}, {Skill.LIEN_HOAN, 7, 1000}}, // skill
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           TypeAppear.APPEAR_WITH_ANOTHER);
   public static final BossData XEN_CON_3 =
       new BossData(
           "Xên con 3", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {264, 265, 266, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
-          300000, // dame
-          new int[] {200000000}, // hp
-          new int[] {96, 94, 93}, // map join
-          new int[][] {{Skill.KAMEJOKO, 7, 10000}, {Skill.LIEN_HOAN, 7, 1000}}, // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new short[]{264, 265, 266, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          200000, // dame
+          new int[]{300000000}, // hp
+          new int[]{96, 94, 93}, // map join
+          new int[][]{{Skill.KAMEJOKO, 7, 10000}, {Skill.LIEN_HOAN, 7, 1000}}, // skill
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           TypeAppear.APPEAR_WITH_ANOTHER);
   public static final BossData XEN_CON_4 =
       new BossData(
           "Xên con 4", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {264, 265, 266, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
-          300000, // dame
-          new int[] {200000000}, // hp
-          new int[] {96, 94, 93}, // map join
-          new int[][] {{Skill.KAMEJOKO, 7, 10000}, {Skill.LIEN_HOAN, 7, 1000}}, // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new short[]{264, 265, 266, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          200000, // dame
+          new int[]{300000000}, // hp
+          new int[]{96, 94, 93}, // map join
+          new int[][]{{Skill.KAMEJOKO, 7, 10000}, {Skill.LIEN_HOAN, 7, 1000}}, // skill
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           TypeAppear.APPEAR_WITH_ANOTHER);
-  /** Boss Siêu bọ hung */
+  /**
+   * Boss Siêu bọ hung
+   */
   public static final BossData SIEU_BO_HUNG_1 =
       new BossData(
           "Siêu bọ hung",
           ConstPlayer.TRAI_DAT,
-          new short[] {234, 235, 236, -1, -1, -1},
+          new short[]{234, 235, 236, -1, -1, -1},
           300000,
-          new int[] {300000000},
-          new int[] {103},
-          new int[][] {{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
+          new int[]{300000000},
+          new int[]{103},
+          new int[][]{{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
           // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           REST_30_M);
 
   public static final BossData SIEU_BO_HUNG_2 =
       new BossData(
           "Siêu bọ hung 2",
           ConstPlayer.TRAI_DAT,
-          new short[] {234, 235, 236, -1, -1, -1},
+          new short[]{234, 235, 236, -1, -1, -1},
           300000,
-          new int[] {400000000},
-          new int[] {103},
-          new int[][] {{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
+          new int[]{400000000},
+          new int[]{103},
+          new int[][]{{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
           // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           TypeAppear.ANOTHER_LEVEL);
   public static final BossData SIEU_BO_HUNG_3 =
       new BossData(
           "Siêu bọ hung 3",
           ConstPlayer.TRAI_DAT,
-          new short[] {234, 235, 236, -1, -1, -1},
+          new short[]{234, 235, 236, -1, -1, -1},
           300000,
-          new int[] {500000000},
-          new int[] {103},
-          new int[][] {{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
+          new int[]{500000000},
+          new int[]{103},
+          new int[][]{{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
           // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           TypeAppear.ANOTHER_LEVEL);
 
-  /** Boss Doraemon */
+  /**
+   * Boss Doraemon
+   */
   public static final BossData XUKA =
       new BossData(
           "Cô Bé Shizuka", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {802, 803, 804, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
-          500000, // dame
-          new int[] {500000000}, // hp
-          new int[] {19}, // map join
-          new int[][] {{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
+          new short[]{802, 803, 804, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          300000, // dame
+          new int[]{500000000}, // hp
+          new int[]{19}, // map join
+          new int[][]{{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
           // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           REST_30_M, // second rest
-          new int[] {BossID.CHAIEN, BossID.DORAEMON, BossID.NOBITA, BossID.XEKO});
+          new int[]{BossID.CHAIEN, BossID.DORAEMON, BossID.NOBITA, BossID.XEKO});
 
   public static final BossData CHAIEN =
       new BossData(
           "Khỉ Đột Chaien", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {847, 848, 849, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
-          500000, // dame
-          new int[] {500000000}, // hp
-          new int[] {19}, // map join
-          new int[][] {{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
+          new short[]{847, 848, 849, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          300000, // dame
+          new int[]{500000000}, // hp
+          new int[]{19}, // map join
+          new int[][]{{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
           // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           TypeAppear.APPEAR_WITH_ANOTHER // type appear
-          );
+      );
 
   public static final BossData DORAEMON =
       new BossData(
           "Mèo Máy Doraemon",
           ConstPlayer.TRAI_DAT,
-          new short[] {790, 791, 792, -1, -1, -1},
-          500000, // dame
-          new int[] {500000000}, // hp
-          new int[] {19},
-          new int[][] {{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
+          new short[]{790, 791, 792, -1, -1, -1},
+          300000, // dame
+          new int[]{500000000}, // hp
+          new int[]{19},
+          new int[][]{{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
           // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           TypeAppear.APPEAR_WITH_ANOTHER // type appear
-          );
+      );
   public static final BossData NOBITA =
       new BossData(
           "Chú Bé Đần Nobita", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {844, 845, 846, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
-          500000, // dame
-          new int[] {500000000}, // hp
-          new int[] {19}, // map join
-          new int[][] {{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
+          new short[]{844, 845, 846, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          300000, // dame
+          new int[]{500000000}, // hp
+          new int[]{19}, // map join
+          new int[][]{{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
           // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           TypeAppear.APPEAR_WITH_ANOTHER // type appear
-          );
+      );
   public static final BossData XEKO =
       new BossData(
           "Mõm Nhọn Suneo", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {850, 851, 852, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
-          500000, // dame
-          new int[] {500000000}, // hp
-          new int[] {19}, // map join
-          new int[][] {{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
+          new short[]{850, 851, 852, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          300000, // dame
+          new int[]{500000000}, // hp
+          new int[]{19}, // map join
+          new int[][]{{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
           // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           TypeAppear.APPEAR_WITH_ANOTHER // type appear
-          );
-  /** Boss Cooler */
+      );
+  /**
+   * Boss Cooler
+   */
   public static final BossData COOLER =
       new BossData(
           "Cooler", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {317, 318, 319, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{317, 318, 319, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           500000, // dame
-          new int[] {2000000000}, // hp
-          new int[] {110}, // map join
-          new int[][] {{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
+          new int[]{2000000000}, // hp
+          new int[]{110}, // map join
+          new int[][]{{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
           // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           REST_30_M,
-          new int[] {BossID.COOLER_2});
+          new int[]{BossID.COOLER_2});
 
   public static final BossData COOLER_2 =
       new BossData(
           "Cooler 2", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {320, 321, 322, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{320, 321, 322, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           500000, // dame
-          new int[] {2000000000}, // hp
-          new int[] {110}, // map join
-          new int[][] {{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
+          new int[]{2000000000}, // hp
+          new int[]{110}, // map join
+          new int[][]{{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
           // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           TypeAppear.APPEAR_WITH_ANOTHER);
 
-  /** BOSS Black */
+  /**
+   * BOSS Black
+   */
   public static final BossData BLACK_GOKU =
       new BossData(
           "Black Goku", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {550, 880, 881, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{550, 880, 881, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           500000, // dame
-          new int[] {2000000000}, // hp
-          new int[] {102, 92, 93, 94, 96, 97, 98, 99, 100}, // map join
-          new int[][] {{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
+          new int[]{2000000000}, // hp
+          new int[]{102, 92, 93, 94, 96, 97, 98, 99, 100}, // map join
+          new int[][]{{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
           // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           REST_15_M // second rest
-          );
+      );
 
   public static final BossData SUPER_BLACK_GOKU =
       new BossData(
           "Super Black Goku", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {553, 880, 881, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{553, 880, 881, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           500000, // dame
-          new int[] {2000000000}, // hp
-          new int[] {102, 92, 93, 94, 96, 97, 98, 99, 100}, // map join
-          new int[][] {{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
+          new int[]{2000000000}, // hp
+          new int[]{102, 92, 93, 94, 96, 97, 98, 99, 100}, // map join
+          new int[][]{{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
           // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           TypeAppear.ANOTHER_LEVEL // type appear
-          );
-  /** Boss Zamasu */
+      );
+  /**
+   * Boss Zamasu
+   */
   public static final BossData ZAMASU =
       new BossData(
           "Zamasu", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {433, 434, 435, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{433, 434, 435, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           500000, // dame
-          new int[] {2000000000}, // hp
-          new int[] {102, 92, 93, 94, 96, 97, 98, 99, 100}, // map join
-          new int[][] {{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
+          new int[]{2000000000}, // hp
+          new int[]{102, 92, 93, 94, 96, 97, 98, 99, 100}, // map join
+          new int[][]{{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
           // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           REST_15_M // second rest
       );
 
@@ -916,420 +950,426 @@ public class BossesData {
       new BossData(
           "Thần Zamasu", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {903, 904, 905, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{903, 904, 905, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           500000, // dame
-          new int[] {2000000000}, // hp
-          new int[] {102, 92, 93, 94, 96, 97, 98, 99, 100}, // map join
-          new int[][] {{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
+          new int[]{2000000000}, // hp
+          new int[]{102, 92, 93, 94, 96, 97, 98, 99, 100}, // map join
+          new int[][]{{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
           // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|COMBAT"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           TypeAppear.ANOTHER_LEVEL // type appear
-          );
-  /** Boss hành tinh Berus */
+      );
+  /**
+   * Boss hành tinh Berus
+   */
   public static final BossData BILL =
       new BossData(
           "Bill", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {508, 509, 510, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{508, 509, 510, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           500000, // dame
-          new int[] {2000000000}, // hp
-          new int[] {201}, // map join
-          new int[][] {{Skill.LIEN_HOAN, 7, 1000}, {Skill.KAMEJOKO, 7, 1000}},
+          new int[]{2000000000}, // hp
+          new int[]{201}, // map join
+          new int[][]{{Skill.LIEN_HOAN, 7, 1000}, {Skill.KAMEJOKO, 7, 1000}},
           // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|Vào đây mà húp"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|Vào đây mà húp"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           REST_30_M, // second rest
-          new int[] {BossID.WISH});
+          new int[]{BossID.WISH});
 
   public static final BossData WISH =
       new BossData(
           "Whis", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {838, 839, 840, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{838, 839, 840, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           500000, // dame
-          new int[] {250}, // hp
-          new int[] {201}, // map join
-          new int[][] {
-            {Skill.LIEN_HOAN, 7, 1000},
-            {Skill.KAMEJOKO, 7, 1000},
-            {Skill.KHIEN_NANG_LUONG, 1, 15000}
+          new int[]{250}, // hp
+          new int[]{201}, // map join
+          new int[][]{
+              {Skill.LIEN_HOAN, 7, 1000},
+              {Skill.KAMEJOKO, 7, 1000},
+              {Skill.KHIEN_NANG_LUONG, 1, 15000}
           },
           // skill
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|Vào đây mà húp"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|Vào đây mà húp"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           TypeAppear.APPEAR_WITH_ANOTHER);
 
-  /** Boss Fide Vang */
+  /**
+   * Boss Fide Vang
+   */
   public static final BossData FIDE_GOLD =
       new BossData(
           "Fide Vàng",
           ConstPlayer.TRAI_DAT,
-          new short[] {502, 503, 504, -1, -1, -1},
+          new short[]{502, 503, 504, -1, -1, -1},
           1000000,
-          new int[] {2000000000},
-          new int[] {6},
-          new int[][] {{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
-          new String[] {"|-1|3", "|-1|2", "|-1|1", "|-1|Vào đây mà húp"}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{2000000000},
+          new int[]{6},
+          new int[][]{{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
+          new String[]{"|-1|3", "|-1|2", "|-1|1", "|-1|Vào đây mà húp"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           REST_15_M // second rest
       );
-  /** Boss Doanh Trai Doc Nhan */
+  /**
+   * Boss Doanh Trai Doc Nhan
+   */
   public static final BossData TRUNG_UY_TRANG =
       new BossData(
           "Trung Uý Trắng", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {141, 142, 143, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{141, 142, 143, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           1,
-          new int[] {2000000000}, // hp
-          new int[] {59}, // map join
-          new int[][] {{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
-          new String[] {}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{2000000000}, // hp
+          new int[]{59}, // map join
+          new int[][]{{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
+          new String[]{}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           REST_24_H);
 
   public static final BossData TRUNG_UY_XANH_LO =
       new BossData(
           "Trung Uý Xanh Lơ", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {135, 136, 137, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{135, 136, 137, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           1, // dame
-          new int[] {2000000000}, // hp
-          new int[] {62}, // map join
-          new int[][] {{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
-          new String[] {}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{2000000000}, // hp
+          new int[]{62}, // map join
+          new int[][]{{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
+          new String[]{}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           REST_24_H);
 
   public static final BossData TRUNG_UY_THEP =
       new BossData(
           "Trung Uý Thép", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {129, 130, 131, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{129, 130, 131, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           1, // dame
-          new int[] {2000000000}, // hp
-          new int[] {55}, // map join
-          new int[][] {{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
-          new String[] {}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{2000000000}, // hp
+          new int[]{55}, // map join
+          new int[][]{{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
+          new String[]{}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           REST_24_H);
 
   public static final BossData NINJA_AO_TIM =
       new BossData(
           "Ninja Áo Tím", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {123, 124, 125, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{123, 124, 125, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           1, // dame
-          new int[] {2000000000}, // hp
-          new int[] {57}, // map join
-          new int[][] {{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
-          new String[] {}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{2000000000}, // hp
+          new int[]{57}, // map join
+          new int[][]{{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
+          new String[]{}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           REST_24_H);
 
   public static final BossData NINJA_AO_TIM_CLONE =
       new BossData(
           "Ninja Áo Tím", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {123, 124, 125, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{123, 124, 125, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           1, // dame
-          new int[] {100000}, // hp
-          new int[] {57}, // map join
-          new int[][] {{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
-          new String[] {}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{100000}, // hp
+          new int[]{57}, // map join
+          new int[][]{{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
+          new String[]{}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           REST_24_H);
 
   public static final BossData ROBOT_VE_SI =
       new BossData(
           "RoBot Vệ Sĩ", // name
           ConstPlayer.TRAI_DAT, // gender
-          new short[] {138, 139, 140, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
+          new short[]{138, 139, 140, -1, -1, -1}, // outfit {head, body, leg, bag, aura, eff}
           1, // dame
-          new int[] {2000000000}, // hp
-          new int[] {57}, // map join
-          new int[][] {{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
-          new String[] {}, // text chat 1
-          new String[] {}, // text chat 2
-          new String[] {}, // text chat 3
+          new int[]{2000000000}, // hp
+          new int[]{57}, // map join
+          new int[][]{{Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}},
+          new String[]{}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{}, // text chat 3
           REST_24_H);
 
-    /**
-     * Boss DHVT 23
-     */
-    public static final BossData SOI_HEC_QUYN =
-            BossData.builder()
-                    .name("Sói Hẹc Quyn")
-                    .gender(ConstPlayer.TRAI_DAT)
-                    .dame(1000)
-                    .hp(new int[] {10000})
-                    .outfit(new short[] {394, 395, 396, -1, -1, -1})
-                    .mapJoin(new int[] {129})
-                    .skillTemp(
-                            new int[][] {
-                                    {Skill.DRAGON, 1, 100},
-                                    {Skill.DRAGON, 2, 200},
-                                    {Skill.DRAGON, 3, 300},
-                                    {Skill.DRAGON, 7, 700},
-                                    {Skill.KAMEJOKO, 1, 1000},
-                                    {Skill.KAMEJOKO, 2, 1200},
-                                    {Skill.KAMEJOKO, 5, 1500},
-                                    {Skill.KAMEJOKO, 7, 1700},
-                                    {Skill.GALICK, 1, 100}
-                            })
-                    .secondsRest(REST_5_S)
-                    .build();
-    public static final BossData O_DO =
-            BossData.builder()
-                    .name("Ở Dơ")
-                    .gender(ConstPlayer.TRAI_DAT)
-                    .dame(3000)
-                    .hp(new int[] {25000})
-                    .outfit(new short[] {400, 401, 402, -1, -1, -1})
-                    .mapJoin(new int[] {129})
-                    .skillTemp(
-                            new int[][] {
-                                    {Skill.DRAGON, 1, 100},
-                                    {Skill.DRAGON, 2, 200},
-                                    {Skill.DRAGON, 3, 300},
-                                    {Skill.DRAGON, 7, 700},
-                                    {Skill.KAMEJOKO, 1, 1000},
-                                    {Skill.KAMEJOKO, 2, 1200},
-                                    {Skill.KAMEJOKO, 5, 1500},
-                                    {Skill.KAMEJOKO, 7, 1700},
-                                    {Skill.GALICK, 1, 100}
-                            })
-                    .secondsRest(REST_5_S)
-                    .build();
-    public static final BossData XINBATO =
-            BossData.builder()
-                    .name("Xinbatô")
-                    .gender(ConstPlayer.TRAI_DAT)
-                    .dame(6000)
-                    .hp(new int[] {50000})
-                    .outfit(new short[] {359, 360, 361, -1, -1, -1})
-                    .mapJoin(new int[] {129})
-                    .skillTemp(
-                            new int[][] {
-                                    {Skill.DRAGON, 1, 100},
-                                    {Skill.DRAGON, 2, 200},
-                                    {Skill.DRAGON, 3, 300},
-                                    {Skill.DRAGON, 7, 700},
-                                    {Skill.KAMEJOKO, 1, 1000},
-                                    {Skill.KAMEJOKO, 2, 1200},
-                                    {Skill.KAMEJOKO, 5, 1500},
-                                    {Skill.KAMEJOKO, 7, 1700},
-                                    {Skill.GALICK, 1, 100}
-                            })
-                    .secondsRest(REST_5_S)
-                    .build();
-    public static final BossData CHA_PA =
-            BossData.builder()
-                    .name("Cha pa")
-                    .gender(ConstPlayer.TRAI_DAT)
-                    .dame(9000)
-                    .hp(new int[] {100000})
-                    .outfit(new short[] {362, 363, 364, -1, -1, -1})
-                    .mapJoin(new int[] {129})
-                    .skillTemp(
-                            new int[][] {
-                                    {Skill.DRAGON, 1, 100},
-                                    {Skill.DRAGON, 2, 200},
-                                    {Skill.DRAGON, 3, 300},
-                                    {Skill.DRAGON, 7, 700},
-                                    {Skill.KAMEJOKO, 1, 1000},
-                                    {Skill.KAMEJOKO, 2, 1200},
-                                    {Skill.KAMEJOKO, 5, 1500},
-                                    {Skill.KAMEJOKO, 7, 1700},
-                                    {Skill.GALICK, 1, 100}
-                            })
-                    .secondsRest(REST_5_S)
-                    .build();
-    public static final BossData PON_PUT =
-            BossData.builder()
-                    .name("Pon put")
-                    .gender(ConstPlayer.TRAI_DAT)
-                    .dame(15000)
-                    .hp(new int[] {250000})
-                    .outfit(new short[] {365, 366, 367, -1, -1, -1})
-                    .mapJoin(new int[] {129})
-                    .skillTemp(
-                            new int[][] {
-                                    {Skill.DRAGON, 1, 100},
-                                    {Skill.DRAGON, 2, 200},
-                                    {Skill.DRAGON, 3, 300},
-                                    {Skill.DRAGON, 7, 700},
-                                    {Skill.KAMEJOKO, 1, 1000},
-                                    {Skill.KAMEJOKO, 2, 1200},
-                                    {Skill.KAMEJOKO, 5, 1500},
-                                    {Skill.KAMEJOKO, 7, 1700},
-                                    {Skill.GALICK, 1, 100}
-                            })
-                    .secondsRest(REST_5_S)
-                    .build();
-    public static final BossData CHAN_XU =
-            BossData.builder()
-                    .name("Chan xư")
-                    .gender(ConstPlayer.TRAI_DAT)
-                    .dame(20000)
-                    .hp(new int[] {500000})
-                    .outfit(new short[] {371, 372, 373, -1, -1, -1})
-                    .mapJoin(new int[] {129})
-                    .skillTemp(
-                            new int[][] {
-                                    {Skill.DRAGON, 1, 100},
-                                    {Skill.DRAGON, 2, 200},
-                                    {Skill.DRAGON, 3, 300},
-                                    {Skill.DRAGON, 7, 700},
-                                    {Skill.KAMEJOKO, 1, 1000},
-                                    {Skill.KAMEJOKO, 2, 1200},
-                                    {Skill.KAMEJOKO, 5, 1500},
-                                    {Skill.KAMEJOKO, 7, 1700},
-                                    {Skill.GALICK, 1, 100}
-                            })
-                    .secondsRest(REST_5_S)
-                    .build();
-    public static final BossData TAU_PAY_PAY =
-            BossData.builder()
-                    .name("Tàu Pảy Pảy")
-                    .gender(ConstPlayer.TRAI_DAT)
-                    .dame(30000)
-                    .hp(new int[] {2000000})
-                    .outfit(new short[] {92, 93, 94, -1, -1, -1})
-                    .mapJoin(new int[] {129})
-                    .skillTemp(
-                            new int[][] {
-                                    {Skill.DRAGON, 1, 100},
-                                    {Skill.DRAGON, 2, 200},
-                                    {Skill.DRAGON, 3, 300},
-                                    {Skill.DRAGON, 7, 700},
-                                    {Skill.KAMEJOKO, 1, 1000},
-                                    {Skill.KAMEJOKO, 2, 1200},
-                                    {Skill.KAMEJOKO, 5, 1500},
-                                    {Skill.KAMEJOKO, 7, 1700},
-                                    {Skill.GALICK, 1, 100}
-                            })
-                    .secondsRest(REST_5_S)
-                    .build();
-    public static final BossData YAMCHA =
-            BossData.builder()
-                    .name("Yamcha")
-                    .gender(ConstPlayer.TRAI_DAT)
-                    .dame(40000)
-                    .hp(new int[] {5000000})
-                    .outfit(new short[] {374, 375, 376, -1, -1, -1})
-                    .mapJoin(new int[] {129})
-                    .skillTemp(
-                            new int[][] {
-                                    {Skill.DRAGON, 1, 100},
-                                    {Skill.DRAGON, 2, 200},
-                                    {Skill.DRAGON, 3, 300},
-                                    {Skill.DRAGON, 7, 700},
-                                    {Skill.KAMEJOKO, 1, 1000},
-                                    {Skill.KAMEJOKO, 2, 1200},
-                                    {Skill.KAMEJOKO, 5, 1500},
-                                    {Skill.KAMEJOKO, 7, 1700},
-                                    {Skill.GALICK, 1, 100}
-                            })
-                    .secondsRest(REST_5_S)
-                    .build();
-    public static final BossData JACKY_CHUN =
-            BossData.builder()
-                    .name("Jacky Chun")
-                    .gender(ConstPlayer.TRAI_DAT)
-                    .dame(50000)
-                    .hp(new int[] {25000000})
-                    .outfit(new short[] {356, 357, 358, -1, -1, -1})
-                    .mapJoin(new int[] {129})
-                    .skillTemp(
-                            new int[][] {
-                                    {Skill.DRAGON, 1, 100},
-                                    {Skill.DRAGON, 2, 200},
-                                    {Skill.DRAGON, 3, 300},
-                                    {Skill.DRAGON, 7, 700},
-                                    {Skill.KAMEJOKO, 1, 1000},
-                                    {Skill.KAMEJOKO, 2, 1200},
-                                    {Skill.KAMEJOKO, 5, 1500},
-                                    {Skill.KAMEJOKO, 7, 1700},
-                                    {Skill.GALICK, 1, 100}
-                            })
-                    .secondsRest(REST_5_S)
-                    .build();
-    public static final BossData THIEN_XIN_HANG =
-            BossData.builder()
-                    .name("Thiên Xin Hăng")
-                    .gender(ConstPlayer.TRAI_DAT)
-                    .dame(100000)
-                    .hp(new int[] {75000000})
-                    .outfit(new short[] {368, 369, 370, -1, -1, -1})
-                    .mapJoin(new int[] {129})
-                    .skillTemp(
-                            new int[][] {
-                                    {Skill.DRAGON, 1, 100},
-                                    {Skill.DRAGON, 2, 200},
-                                    {Skill.DRAGON, 3, 300},
-                                    {Skill.DRAGON, 7, 700},
-                                    {Skill.KAMEJOKO, 1, 1000},
-                                    {Skill.KAMEJOKO, 2, 1200},
-                                    {Skill.KAMEJOKO, 5, 1500},
-                                    {Skill.KAMEJOKO, 7, 1700},
-                                    {Skill.THAI_DUONG_HA_SAN, 1, 30000}
-                            })
-                    .secondsRest(REST_5_S)
-                    .build();
-    public static final BossData THIEN_XIN_HANG_CLONE =
-            BossData.builder()
-                    .name("Thiên Xin Hăng")
-                    .gender(ConstPlayer.TRAI_DAT)
-                    .dame(10000)
-                    .hp(new int[] {100000})
-                    .outfit(new short[] {368, 369, 370, -1, -1, -1})
-                    .mapJoin(new int[] {129})
-                    .skillTemp(
-                            new int[][] {
-                                    {Skill.DRAGON, 1, 100},
-                                    {Skill.DRAGON, 2, 200},
-                                    {Skill.DRAGON, 3, 300},
-                                    {Skill.DRAGON, 7, 700},
-                                    {Skill.KAMEJOKO, 1, 1000},
-                                    {Skill.KAMEJOKO, 2, 1200},
-                                    {Skill.KAMEJOKO, 5, 1500},
-                                    {Skill.KAMEJOKO, 7, 1700},
-                                    //                    {Skill.THAI_DUONG_HA_SAN, 1, 15000}
-                            })
-                    .secondsRest(REST_5_S)
-                    .build();
-    public static final BossData LIU_LIU =
-            BossData.builder()
-                    .name("Lêu Lêu")
-                    .gender(ConstPlayer.TRAI_DAT)
-                    .dame(250000)
-                    .hp(new int[] {100000000})
-                    .outfit(new short[] {397, 398, 399, -1, -1, -1})
-                    .mapJoin(new int[] {129})
-                    .skillTemp(
-                            new int[][] {
-                                    {Skill.DRAGON, 1, 100},
-                                    {Skill.DRAGON, 2, 200},
-                                    {Skill.DRAGON, 3, 300},
-                                    {Skill.DRAGON, 7, 700},
-                                    {Skill.KAMEJOKO, 1, 1000},
-                                    {Skill.KAMEJOKO, 2, 1200},
-                                    {Skill.KAMEJOKO, 5, 1500},
-                                    {Skill.KAMEJOKO, 7, 1700},
-                                    {Skill.GALICK, 1, 100}
-                            })
-                    .secondsRest(REST_5_S)
-                    .build();
+  /**
+   * Boss DHVT 23
+   */
+  public static final BossData SOI_HEC_QUYN =
+      BossData.builder()
+          .name("Sói Hẹc Quyn")
+          .gender(ConstPlayer.TRAI_DAT)
+          .dame(1000)
+          .hp(new int[]{10000})
+          .outfit(new short[]{394, 395, 396, -1, -1, -1})
+          .mapJoin(new int[]{129})
+          .skillTemp(
+              new int[][]{
+                  {Skill.DRAGON, 1, 100},
+                  {Skill.DRAGON, 2, 200},
+                  {Skill.DRAGON, 3, 300},
+                  {Skill.DRAGON, 7, 700},
+                  {Skill.KAMEJOKO, 1, 1000},
+                  {Skill.KAMEJOKO, 2, 1200},
+                  {Skill.KAMEJOKO, 5, 1500},
+                  {Skill.KAMEJOKO, 7, 1700},
+                  {Skill.GALICK, 1, 100}
+              })
+          .secondsRest(REST_5_S)
+          .build();
+  public static final BossData O_DO =
+      BossData.builder()
+          .name("Ở Dơ")
+          .gender(ConstPlayer.TRAI_DAT)
+          .dame(3000)
+          .hp(new int[]{25000})
+          .outfit(new short[]{400, 401, 402, -1, -1, -1})
+          .mapJoin(new int[]{129})
+          .skillTemp(
+              new int[][]{
+                  {Skill.DRAGON, 1, 100},
+                  {Skill.DRAGON, 2, 200},
+                  {Skill.DRAGON, 3, 300},
+                  {Skill.DRAGON, 7, 700},
+                  {Skill.KAMEJOKO, 1, 1000},
+                  {Skill.KAMEJOKO, 2, 1200},
+                  {Skill.KAMEJOKO, 5, 1500},
+                  {Skill.KAMEJOKO, 7, 1700},
+                  {Skill.GALICK, 1, 100}
+              })
+          .secondsRest(REST_5_S)
+          .build();
+  public static final BossData XINBATO =
+      BossData.builder()
+          .name("Xinbatô")
+          .gender(ConstPlayer.TRAI_DAT)
+          .dame(6000)
+          .hp(new int[]{50000})
+          .outfit(new short[]{359, 360, 361, -1, -1, -1})
+          .mapJoin(new int[]{129})
+          .skillTemp(
+              new int[][]{
+                  {Skill.DRAGON, 1, 100},
+                  {Skill.DRAGON, 2, 200},
+                  {Skill.DRAGON, 3, 300},
+                  {Skill.DRAGON, 7, 700},
+                  {Skill.KAMEJOKO, 1, 1000},
+                  {Skill.KAMEJOKO, 2, 1200},
+                  {Skill.KAMEJOKO, 5, 1500},
+                  {Skill.KAMEJOKO, 7, 1700},
+                  {Skill.GALICK, 1, 100}
+              })
+          .secondsRest(REST_5_S)
+          .build();
+  public static final BossData CHA_PA =
+      BossData.builder()
+          .name("Cha pa")
+          .gender(ConstPlayer.TRAI_DAT)
+          .dame(9000)
+          .hp(new int[]{100000})
+          .outfit(new short[]{362, 363, 364, -1, -1, -1})
+          .mapJoin(new int[]{129})
+          .skillTemp(
+              new int[][]{
+                  {Skill.DRAGON, 1, 100},
+                  {Skill.DRAGON, 2, 200},
+                  {Skill.DRAGON, 3, 300},
+                  {Skill.DRAGON, 7, 700},
+                  {Skill.KAMEJOKO, 1, 1000},
+                  {Skill.KAMEJOKO, 2, 1200},
+                  {Skill.KAMEJOKO, 5, 1500},
+                  {Skill.KAMEJOKO, 7, 1700},
+                  {Skill.GALICK, 1, 100}
+              })
+          .secondsRest(REST_5_S)
+          .build();
+  public static final BossData PON_PUT =
+      BossData.builder()
+          .name("Pon put")
+          .gender(ConstPlayer.TRAI_DAT)
+          .dame(15000)
+          .hp(new int[]{250000})
+          .outfit(new short[]{365, 366, 367, -1, -1, -1})
+          .mapJoin(new int[]{129})
+          .skillTemp(
+              new int[][]{
+                  {Skill.DRAGON, 1, 100},
+                  {Skill.DRAGON, 2, 200},
+                  {Skill.DRAGON, 3, 300},
+                  {Skill.DRAGON, 7, 700},
+                  {Skill.KAMEJOKO, 1, 1000},
+                  {Skill.KAMEJOKO, 2, 1200},
+                  {Skill.KAMEJOKO, 5, 1500},
+                  {Skill.KAMEJOKO, 7, 1700},
+                  {Skill.GALICK, 1, 100}
+              })
+          .secondsRest(REST_5_S)
+          .build();
+  public static final BossData CHAN_XU =
+      BossData.builder()
+          .name("Chan xư")
+          .gender(ConstPlayer.TRAI_DAT)
+          .dame(20000)
+          .hp(new int[]{500000})
+          .outfit(new short[]{371, 372, 373, -1, -1, -1})
+          .mapJoin(new int[]{129})
+          .skillTemp(
+              new int[][]{
+                  {Skill.DRAGON, 1, 100},
+                  {Skill.DRAGON, 2, 200},
+                  {Skill.DRAGON, 3, 300},
+                  {Skill.DRAGON, 7, 700},
+                  {Skill.KAMEJOKO, 1, 1000},
+                  {Skill.KAMEJOKO, 2, 1200},
+                  {Skill.KAMEJOKO, 5, 1500},
+                  {Skill.KAMEJOKO, 7, 1700},
+                  {Skill.GALICK, 1, 100}
+              })
+          .secondsRest(REST_5_S)
+          .build();
+  public static final BossData TAU_PAY_PAY =
+      BossData.builder()
+          .name("Tàu Pảy Pảy")
+          .gender(ConstPlayer.TRAI_DAT)
+          .dame(30000)
+          .hp(new int[]{2000000})
+          .outfit(new short[]{92, 93, 94, -1, -1, -1})
+          .mapJoin(new int[]{129})
+          .skillTemp(
+              new int[][]{
+                  {Skill.DRAGON, 1, 100},
+                  {Skill.DRAGON, 2, 200},
+                  {Skill.DRAGON, 3, 300},
+                  {Skill.DRAGON, 7, 700},
+                  {Skill.KAMEJOKO, 1, 1000},
+                  {Skill.KAMEJOKO, 2, 1200},
+                  {Skill.KAMEJOKO, 5, 1500},
+                  {Skill.KAMEJOKO, 7, 1700},
+                  {Skill.GALICK, 1, 100}
+              })
+          .secondsRest(REST_5_S)
+          .build();
+  public static final BossData YAMCHA =
+      BossData.builder()
+          .name("Yamcha")
+          .gender(ConstPlayer.TRAI_DAT)
+          .dame(40000)
+          .hp(new int[]{5000000})
+          .outfit(new short[]{374, 375, 376, -1, -1, -1})
+          .mapJoin(new int[]{129})
+          .skillTemp(
+              new int[][]{
+                  {Skill.DRAGON, 1, 100},
+                  {Skill.DRAGON, 2, 200},
+                  {Skill.DRAGON, 3, 300},
+                  {Skill.DRAGON, 7, 700},
+                  {Skill.KAMEJOKO, 1, 1000},
+                  {Skill.KAMEJOKO, 2, 1200},
+                  {Skill.KAMEJOKO, 5, 1500},
+                  {Skill.KAMEJOKO, 7, 1700},
+                  {Skill.GALICK, 1, 100}
+              })
+          .secondsRest(REST_5_S)
+          .build();
+  public static final BossData JACKY_CHUN =
+      BossData.builder()
+          .name("Jacky Chun")
+          .gender(ConstPlayer.TRAI_DAT)
+          .dame(50000)
+          .hp(new int[]{25000000})
+          .outfit(new short[]{356, 357, 358, -1, -1, -1})
+          .mapJoin(new int[]{129})
+          .skillTemp(
+              new int[][]{
+                  {Skill.DRAGON, 1, 100},
+                  {Skill.DRAGON, 2, 200},
+                  {Skill.DRAGON, 3, 300},
+                  {Skill.DRAGON, 7, 700},
+                  {Skill.KAMEJOKO, 1, 1000},
+                  {Skill.KAMEJOKO, 2, 1200},
+                  {Skill.KAMEJOKO, 5, 1500},
+                  {Skill.KAMEJOKO, 7, 1700},
+                  {Skill.GALICK, 1, 100}
+              })
+          .secondsRest(REST_5_S)
+          .build();
+  public static final BossData THIEN_XIN_HANG =
+      BossData.builder()
+          .name("Thiên Xin Hăng")
+          .gender(ConstPlayer.TRAI_DAT)
+          .dame(100000)
+          .hp(new int[]{75000000})
+          .outfit(new short[]{368, 369, 370, -1, -1, -1})
+          .mapJoin(new int[]{129})
+          .skillTemp(
+              new int[][]{
+                  {Skill.DRAGON, 1, 100},
+                  {Skill.DRAGON, 2, 200},
+                  {Skill.DRAGON, 3, 300},
+                  {Skill.DRAGON, 7, 700},
+                  {Skill.KAMEJOKO, 1, 1000},
+                  {Skill.KAMEJOKO, 2, 1200},
+                  {Skill.KAMEJOKO, 5, 1500},
+                  {Skill.KAMEJOKO, 7, 1700},
+                  {Skill.THAI_DUONG_HA_SAN, 1, 30000}
+              })
+          .secondsRest(REST_5_S)
+          .build();
+  public static final BossData THIEN_XIN_HANG_CLONE =
+      BossData.builder()
+          .name("Thiên Xin Hăng")
+          .gender(ConstPlayer.TRAI_DAT)
+          .dame(10000)
+          .hp(new int[]{100000})
+          .outfit(new short[]{368, 369, 370, -1, -1, -1})
+          .mapJoin(new int[]{129})
+          .skillTemp(
+              new int[][]{
+                  {Skill.DRAGON, 1, 100},
+                  {Skill.DRAGON, 2, 200},
+                  {Skill.DRAGON, 3, 300},
+                  {Skill.DRAGON, 7, 700},
+                  {Skill.KAMEJOKO, 1, 1000},
+                  {Skill.KAMEJOKO, 2, 1200},
+                  {Skill.KAMEJOKO, 5, 1500},
+                  {Skill.KAMEJOKO, 7, 1700},
+                  //                    {Skill.THAI_DUONG_HA_SAN, 1, 15000}
+              })
+          .secondsRest(REST_5_S)
+          .build();
+  public static final BossData LIU_LIU =
+      BossData.builder()
+          .name("Lêu Lêu")
+          .gender(ConstPlayer.TRAI_DAT)
+          .dame(250000)
+          .hp(new int[]{100000000})
+          .outfit(new short[]{397, 398, 399, -1, -1, -1})
+          .mapJoin(new int[]{129})
+          .skillTemp(
+              new int[][]{
+                  {Skill.DRAGON, 1, 100},
+                  {Skill.DRAGON, 2, 200},
+                  {Skill.DRAGON, 3, 300},
+                  {Skill.DRAGON, 7, 700},
+                  {Skill.KAMEJOKO, 1, 1000},
+                  {Skill.KAMEJOKO, 2, 1200},
+                  {Skill.KAMEJOKO, 5, 1500},
+                  {Skill.KAMEJOKO, 7, 1700},
+                  {Skill.GALICK, 1, 100}
+              })
+          .secondsRest(REST_5_S)
+          .build();
   // ****************************    END    *******************************
   //  public static final BossData BROLY_2 =
   //      new BossData(

@@ -26,6 +26,7 @@ public class CombineService {
   // BA HIT MIT DAO KAME
   public static final int EP_SAO_TRANG_BI = 500;
   public static final int PHA_LE_HOA_TRANG_BI = 501;
+  public static final float[][] INFO_PHA_LE_HOA_TRANG_BI = {{50, 200, 10_000_000}, {35, 300, 20_000_000}, {25, 400, 50_000_000}, {20, 1000, 90_000_000}, {10, 1700, 120_000_000}, {5, 2000, 150_000_000}, {1, 1000, 180_000_000}, {0.5f, 1000, 210_000_000}};
   // BA HIT MIT VACH, SIEU THI
   public static final int NANG_CAP_VAT_PHAM = 503;
   public static final int NANG_CAP_BONG_TAI = 504;
@@ -1633,7 +1634,7 @@ public class CombineService {
         if (star < MAX_STAR_ITEM) {
           player.inventory.gold -= gold;
           player.inventory.gem -= gem;
-          if (Util.isTrue(player.combine.ratioCombine, 1000)) {
+          if (Util.isTrue(player.combine.ratioCombine, (int) INFO_PHA_LE_HOA_TRANG_BI[star][1])) {
             if (optionStar == null) {
               item.itemOptions.add(new Item.ItemOption(107, 1));
             } else {
@@ -1735,47 +1736,11 @@ public class CombineService {
   }
 
   private int getGoldPhaLeHoa(int star) {
-    switch (star) {
-      case 0:
-        return 30000000;
-      case 1:
-        return 60000000;
-      case 2:
-        return 90000000;
-      case 3:
-        return 120000000;
-      case 4:
-        return 180000000;
-      case 5:
-        return 250000000;
-      case 6:
-        return 300000000;
-      case 7:
-        return 500000000;
-    }
-    return 0;
+    return (int) INFO_PHA_LE_HOA_TRANG_BI[star][2];
   }
 
   private float getRatioPhaLeHoa(int star) { // tile dap do chi hat mit
-    switch (star) {
-      case 0:
-        return 50f;
-      case 1:
-        return 35f;
-      case 2:
-        return 25f;
-      case 3:
-        return 20f;
-      case 4:
-        return 10f;
-      case 5:
-        return 5f;
-      case 6:
-        return 1f;
-      case 7:
-        return 0.5f;
-    }
-    return 0;
+    return INFO_PHA_LE_HOA_TRANG_BI[star][0];
   }
 
   private float getRatioNangkhi(int lvkhi) { // tile dap do chi hat mit

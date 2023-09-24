@@ -1,1 +1,15 @@
-﻿
+﻿Chuyển khoản Momo: 0367850360 hoặc MB Bank: 0583217667
+
+- Mở thành viên tự động
+Nội dung: mtv ten_nhan_vat
+Ví dụ: mtv monzy
+
+- Nạp tự động
+Nội dung: nap ten_nhan_vat
+Ví dụ: nap monzy
+
+* LƯU Ý:
+1. Mở thành viên với phí 20k VND.
+2. Nạp tối thiểu 10k VND.
+3. Sai nội dung sẽ không thế nạp hoặc mở thành viên.
+4. Sau khi chuyển khoản vui lòng chờ 3-5p.

@@ -402,7 +402,7 @@ public class Mob {
       }
     }
     // đồ thần linh
-    if (MapService.gI().isMapCold(this.zone.map) && Util.isTrue(0.6f, 100)) {
+    if (MapService.gI().isMapCold(this.zone.map) && Util.isTrue(0.002f, 100)) {
       int idItem;
       if (Util.isTrue(10, 100)) {
         idItem = Manager.IDS_DO_THAN[Util.nextInt(0, 2)][Util.isTrue(50, 100) ? 0 : 4];
