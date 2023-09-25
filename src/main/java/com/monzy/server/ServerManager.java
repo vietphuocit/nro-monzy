@@ -56,7 +56,7 @@ public class ServerManager {
     NgocRongNamecService.gI().initNgocRongNamec((byte) 0);
     new Thread(NgocRongNamecService.gI(), "Thread NRNM").start();
     new Thread(new TopService(), "Thread Top").start();
-    //    new Thread(new PaymentService(), "Thread Payment").start();
+    new Thread(new PaymentService(), "Thread Payment").start();
     new Thread(new ShopKyGuiService(), "Thread Shop Ky Gui").start();
     new Thread(new GiftService(), "Thread Gift Code").start();
     new Thread(new MartialCongressManager(), "Thread DHVT 23").start();

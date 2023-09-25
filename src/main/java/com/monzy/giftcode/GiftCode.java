@@ -5,17 +5,15 @@
  */
 package com.monzy.giftcode;
 
-import com.monzy.models.item.Item.ItemOption;
+import com.monzy.models.item.Item;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class GiftCode {
 
-  public HashMap<Integer, Integer> details = new HashMap<>();
+  public ArrayList<Item> details = new ArrayList<>();
   public ArrayList<Integer> idsPlayer = new ArrayList<>();
-  public ArrayList<ItemOption> option = new ArrayList<>();
   String code;
   int countLeft;
   Timestamp dateCreate;

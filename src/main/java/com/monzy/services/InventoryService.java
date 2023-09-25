@@ -2,7 +2,6 @@ package com.monzy.services;
 
 import com.monzy.giftcode.GiftCode;
 import com.monzy.models.item.Item;
-import com.monzy.models.item.Item.ItemOption;
 import com.monzy.models.map.blackball.BlackBallWar;
 import com.monzy.models.npc.specialnpc.BillEgg;
 import com.monzy.models.npc.specialnpc.MabuEgg;
@@ -14,7 +13,6 @@ import com.network.io.Message;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Stream;
 
 public class InventoryService {
@@ -30,33 +28,10 @@ public class InventoryService {
 
   /** Send reward giftcode */
   public void addItemGiftCodeToPlayer(Player p, GiftCode giftcode) {
-    Set<Integer> keySet = giftcode.details.keySet();
     String textGift = "Bạn vừa nhận được:\b";
-    for (Integer key : keySet) {
-      int idItem = key;
-      int quantity = giftcode.details.get(key);
-      Item itemGiftTemplate = ItemService.gI().createNewItem((short) idItem);
-      if (itemGiftTemplate != null) {
-        Item itemGift = new Item((short) idItem);
-        if (itemGift.template.type == 0
-            || itemGift.template.type == 1
-            || itemGift.template.type == 2
-            || itemGift.template.type == 3
-            || itemGift.template.type == 4
-            || itemGift.template.type == 5) {
-          if (itemGift.template.id == 457) {
-            itemGift.itemOptions.add(new ItemOption(30, 0));
-          } else {
-            itemGift.itemOptions = giftcode.option;
-            itemGift.quantity = quantity;
-            addItemBag(p, itemGift);
-          }
-        } else {
-          itemGift.quantity = quantity;
-          addItemBag(p, itemGift);
-        }
-        textGift += "x" + quantity + " " + itemGift.template.name + "\b";
-      }
+    for (Item item : giftcode.details) {
+      textGift += "x" + item.quantity + " " + item.template.name + "\b";
+      InventoryService.gI().addItemBag(p, item);
     }
     sendItemBags(p);
     Service.gI().sendThongBaoOK(p, textGift);

@@ -65,7 +65,9 @@ public class NpcFactory {
                 "Đổi mật khẩu",
                 "Nhận ngọc xanh",
                 "Nhận đệ tử",
-                "GiftCode");
+                "GiftCode",
+                "Hướng dẫn\nnạp tự động",
+                "Hướng dẫn\nmở thành viên");
           }
         }
       }
@@ -97,6 +99,11 @@ public class NpcFactory {
                 return;
               case 3:
                 Input.gI().createFormGiftCode(player);
+              case 4:
+                NpcService.gI().createTutorial(player, this.avartar, ConstNpc.HUONG_DAN_NAP_TU_DONG);
+                break;
+              case 5:
+                NpcService.gI().createTutorial(player, this.avartar, ConstNpc.HUONG_DAN_MO_THANH_VIEN);
             }
           }
         }

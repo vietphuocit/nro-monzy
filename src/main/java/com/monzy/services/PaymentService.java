@@ -52,8 +52,7 @@ public class PaymentService implements Runnable {
           }
         }
       } catch (Exception e) {
-//        Logger.error("\nLỗi nạp tự động: " + e.getMessage());
-        Logger.logException(PaymentService.class, e);
+        Logger.error("\nLỗi nạp tự động: " + e.getMessage());
       }
     }
   }
@@ -91,7 +90,6 @@ public class PaymentService implements Runnable {
       String responseString = response.body().string();
       return ((JSONObject) ((JSONObject) JSONValue.parse(responseString)).get("momoMsg")).get("tranList");
     } catch (IOException e) {
-      Logger.error("\nLỗi lấy lịch sử giao dịch Momo: " + e.getMessage());
       return null;
     }
   }
@@ -103,7 +101,6 @@ public class PaymentService implements Runnable {
       String responseString = response.body().string();
       return ((JSONObject) JSONValue.parse(responseString)).get("transactions");
     } catch (IOException e) {
-      Logger.error("\nLỗi lấy lịch sử giao dịch MBBank: " + e.getMessage());
       return null;
     }
   }
@@ -141,9 +138,7 @@ public class PaymentService implements Runnable {
           veTangNgoc.quantity = vnd / 100000;
           InventoryService.gI().addItemBag(playerNap, veTangNgoc);
           InventoryService.gI().sendItemBags(playerNap);
-          Service.gI()
-              .sendThongBao(
-                  playerNap, "Bạn nhận được " + vnd + " vnd. Đến Santa để kiểm tra số dư!");
+          Service.gI().sendThongBao(playerNap, "Bạn nhận được " + vnd + " vnd. Đến Santa để kiểm tra số dư!");
           insertTranHis(transactionHistory, "nap", playerNap);
         }
       }
@@ -152,11 +147,7 @@ public class PaymentService implements Runnable {
 
   public boolean isExistTranID(String tranId) {
     try (Connection con = Database.getConnection()) {
-      PreparedStatement ps =
-          con.prepareStatement(
-              "select * from tran_his where tran_id = ?",
-              ResultSet.TYPE_SCROLL_INSENSITIVE,
-              ResultSet.CONCUR_READ_ONLY);
+      PreparedStatement ps = con.prepareStatement("select * from tran_his where tran_id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
       ps.setString(1, tranId);
       return ps.executeQuery().next();
     } catch (Exception e) {
@@ -167,11 +158,7 @@ public class PaymentService implements Runnable {
 
   public void insertTranHis(TransactionHistory transactionHistory, String command, Player player) {
     try (Connection con = Database.getConnection()) {
-      PreparedStatement ps =
-          con.prepareStatement(
-              "insert into tran_his(tran_id, description, amount, command, player_id) values(?,?,?,?,?)",
-              ResultSet.TYPE_SCROLL_INSENSITIVE,
-              ResultSet.CONCUR_READ_ONLY);
+      PreparedStatement ps = con.prepareStatement("insert into tran_his(tran_id, description, amount, command, player_id) values(?,?,?,?,?)", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
       ps.setString(1, transactionHistory.getTransactionID());
       ps.setString(2, transactionHistory.getDescription());
       ps.setInt(3, transactionHistory.getAmount());
@@ -186,10 +173,6 @@ public class PaymentService implements Runnable {
 
   private String extractPlayerName(String description, String keyword) {
     int keywordIndex = description.indexOf(keyword);
-    return description
-        .toLowerCase()
-        .replaceAll("[!@#$%^&*(){}\\[\\]|;:\"'<,>.?/]+", " ")
-        .substring(keywordIndex)
-        .split(" ")[1];
+    return description.toLowerCase().replaceAll("[!@#$%^&*(){}\\[\\]|;:\"'<,>.?/]+", " ").substring(keywordIndex).trim().split(" ")[1];
   }
 }

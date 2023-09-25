@@ -4,8 +4,9 @@
 package com.monzy.giftcode;
 
 import com.database.Database;
-import com.monzy.models.item.Item.ItemOption;
+import com.monzy.models.item.Item;
 import com.monzy.models.player.Player;
+import com.monzy.services.ItemService;
 import com.monzy.services.NpcService;
 import com.monzy.utils.Logger;
 import org.json.simple.JSONArray;
@@ -53,9 +54,9 @@ public class GiftCodeManager {
         if (details != null) {
           for (Object o : details) {
             JSONObject detail = (JSONObject) o;
-            giftcode.details.put(
-                Integer.parseInt(detail.get("id").toString()),
-                Integer.parseInt(detail.get("quantity").toString()));
+            short id = Short.parseShort(detail.get("id").toString());
+            int quantity = Integer.parseInt(detail.get("quantity").toString());
+            giftcode.details.add(ItemService.gI().createNewItem(id, quantity));
             detail.clear();
           }
         }
@@ -63,10 +64,14 @@ public class GiftCodeManager {
         if (option != null) {
           for (Object o : option) {
             JSONObject jsonobject = (JSONObject) o;
-            giftcode.option.add(
-                new ItemOption(
-                    Integer.parseInt(jsonobject.get("id").toString()),
-                    Integer.parseInt(jsonobject.get("param").toString())));
+            short idItem = Short.parseShort(jsonobject.get("id_item").toString());
+            int idOption = Integer.parseInt(jsonobject.get("id").toString());
+            int paramOption = Integer.parseInt(jsonobject.get("param").toString());
+            for (Item item : giftcode.details) {
+              if (item.template.id == idItem) {
+                item.itemOptions.add(new Item.ItemOption(idOption, paramOption));
+              }
+            }
             jsonobject.clear();
           }
         }
