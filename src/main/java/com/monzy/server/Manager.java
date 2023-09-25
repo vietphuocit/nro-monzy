@@ -95,7 +95,7 @@ public class Manager {
   // nhs FROM player ORDER BY CAST( NguHanhSonPoint AS UNSIGNED) DESC LIMIT 20;";
   public static final String QUERY_TOP_NAP =
       "SELECT player_id as id, SUM(amount) as tong FROM tran_his\n"
-          + "WHERE command = 'nap' AND create_at between TIMESTAMP('2023-7-13 00:00:00') and TIMESTAMP('2023-7-19 23:59:59')\n"
+          + "WHERE command = 'nap'\n"
           + "GROUP BY player_id\n"
           + "ORDER BY SUM(amount) DESC \n"
           + "limit 10;";
