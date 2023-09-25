@@ -28,6 +28,7 @@ import com.monzy.utils.Util;
 import com.network.io.Message;
 import com.network.session.ISession;
 import com.network.session.Session;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -749,20 +750,6 @@ public class Service {
       BossManager.gI().showListBoss(player);
       return;
     }
-    if (text.equals("thread")) {
-      int activeThreadCount = Thread.activeCount();
-      System.out.println("Số lượng luồng đang chạy: " + activeThreadCount);
-
-      Thread[] threads = new Thread[activeThreadCount];
-      Thread.enumerate(threads);
-
-      System.out.println("Tên của các luồng đang chạy:");
-      for (Thread thread : threads) {
-        if (thread != null) {
-          System.out.println(thread.getName());
-        }
-      }
-    }
     if (text.equals("banv")) {
       long now = System.currentTimeMillis();
       if (now >= lastTimeChatBanv + 10000) {
@@ -838,6 +825,7 @@ public class Service {
                 "Nạp",
                 "Mở\nthành viên",
                 "Tặng\nhồng ngọc",
+                "Tặng\nvật phẩm",
                 "Đóng");
         return;
       }
@@ -850,9 +838,7 @@ public class Service {
         }
         InventoryService.gI().addItemBag(player, item);
         InventoryService.gI().sendItemBags(player);
-        Service.gI()
-            .sendThongBao(
-                player, "GET " + item.template.name + " [" + item.template.id + "] SUCCESS !");
+        Service.gI().sendThongBao(player, "GET " + item.template.name + " [" + item.template.id + "] SUCCESS !");
         return;
       }
     }

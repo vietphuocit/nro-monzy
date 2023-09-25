@@ -52,7 +52,7 @@ public class PaymentService implements Runnable {
           }
         }
       } catch (Exception e) {
-        Logger.error("\nLỗi nạp tự động: " + e.getMessage());
+        Logger.error("Lỗi nạp tự động: " + e.getMessage() + "\n");
       }
     }
   }

@@ -36,6 +36,7 @@ public class Input {
   public static final int NAP = 516;
   public static final int MTV = 517;
   public static final int SEND_RUBY = 518;
+  public static final int SEND_ITEM = 519;
   public static final int TAIHN = 510;
   public static final int XIUHN = 511;
   public static final int TAITV = 512;
@@ -155,7 +156,7 @@ public class Input {
             return;
           }
           Item veTangHongNgoc = InventoryService.gI().findItem(player.inventory.itemsBag, 718);
-          if (veTangHongNgoc == null) {
+          if (veTangHongNgoc == null || player.session.isAdmin) {
             Service.gI().sendThongBao(player, "Không tìm thấy Vé tặng hồng ngọc");
             return;
           }
@@ -170,6 +171,17 @@ public class Input {
                   player, "Đã tặng cho " + playerNHN.name + " " + hongNgoc + " hồng ngọc");
           Service.gI().sendThongBao(playerNHN, "Bạn nhận được " + hongNgoc + " hồng ngọc!");
           break;
+        case SEND_ITEM: {
+          Player receiverItem = Client.gI().getPlayer(text[0]);
+          short idItem = Short.parseShort(text[1]);
+          int quantity = Integer.parseInt(text[2]);
+          Item item = ItemService.gI().createNewItem(idItem, quantity);
+          item.itemOptions.add(new Item.ItemOption(30, 0));
+          InventoryService.gI().addItemBag(receiverItem, item);
+          InventoryService.gI().sendItemBags(receiverItem);
+          Service.gI().sendThongBao(receiverItem, "Bạn nhận được " + quantity + " " + item.template.name);
+          break;
+        }
         case FIND_PLAYER:
           Player pl = Client.gI().getPlayer(text[0]);
           if (pl != null) {
@@ -728,6 +740,13 @@ public class Input {
   public void createFormSendRuby(Player pl) {
     createForm(
         pl, SEND_RUBY, "Gửi hồng ngọc", new SubInput("Tên", ANY), new SubInput("Số lượng", ANY));
+  }
+
+  public void createFormSendItem(Player pl) {
+    createForm(pl, SEND_ITEM, "Gửi vật phẩm",
+        new SubInput("Tên", ANY),
+        new SubInput("ID vật phẩm", ANY),
+        new SubInput("Số lượng", ANY));
   }
 
   public void createFormMTV(Player pl) {

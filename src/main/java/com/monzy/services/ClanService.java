@@ -579,9 +579,7 @@ public class ClanService {
         for (ClanMember cm : player.clan.getMembers()) {
           msg.writer().writeInt(cm.id);
           msg.writer().writeShort(cm.head);
-          if (player.session.version > 220) {
-            msg.writer().writeShort(-1);
-          }
+          msg.writer().writeShort(-1);
           msg.writer().writeShort(cm.leg);
           msg.writer().writeShort(cm.body);
           msg.writer().writeUTF(cm.name);
@@ -600,8 +598,7 @@ public class ClanService {
           msg.writer().writeInt(cmg.id);
           msg.writer().writeInt(cmg.playerId);
           if (cmg.type == 2) {
-            msg.writer()
-                .writeUTF(cmg.playerName + " (" + Util.numberToMoney(cmg.playerPower) + ")");
+            msg.writer().writeUTF(cmg.playerName + " (" + Util.numberToMoney(cmg.playerPower) + ")");
           } else {
             msg.writer().writeUTF(cmg.playerName);
           }

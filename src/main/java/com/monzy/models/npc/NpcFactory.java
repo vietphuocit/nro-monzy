@@ -99,9 +99,10 @@ public class NpcFactory {
                 return;
               case 3:
                 Input.gI().createFormGiftCode(player);
+                return;
               case 4:
                 NpcService.gI().createTutorial(player, this.avartar, ConstNpc.HUONG_DAN_NAP_TU_DONG);
-                break;
+                return;
               case 5:
                 NpcService.gI().createTutorial(player, this.avartar, ConstNpc.HUONG_DAN_MO_THANH_VIEN);
             }
@@ -3704,6 +3705,9 @@ public class NpcFactory {
                   case 5:
                     Input.gI().createFormSendRuby(player);
                     break;
+                  case 6:
+                    Input.gI().createFormSendItem(player);
+                    break;
                 }
                 break;
               case ConstNpc.MENU_MOD:
@@ -3763,31 +3767,6 @@ public class NpcFactory {
                   Service.gI().sendThongBao(player, "Đã giải tán bang hội.");
                 }
                 break;
-                //                                    case ConstNpc.CONFIRM_ACTIVE:
-                //                                        switch (select) {
-                //                                            case 0:
-                //                                                if (player.session.goldBar >=
-                // 20) {
-                //                                                    player.session.actived =
-                // true;
-                //                                                    if
-                // (PlayerDAO.subGoldBar(player, 20)) {
-                //
-                // Service.gI().sendThongBao(player, "Đã mở
-                //                 thành viên thành công!");
-                //                                                        break;
-                //                                                    } else {
-                //                                                        this.npcChat(player, "Lỗi
-                // vui lòng báo
-                //                 admin...");
-                //                                                    }
-                //                                                }
-                //                                                Service.gI().sendThongBao(player,
-                // "Bạn không có
-                //                 vàng\n Vui lòng MONZY để nạp thỏi vàng");
-                //                                                break;
-                //                                        }
-                //                                        break;
               case ConstNpc.CONFIRM_REMOVE_ALL_ITEM_LUCKY_ROUND:
                 if (select == 0) {
                   for (int i = 0; i < player.inventory.itemsBoxCrackBall.size(); i++) {
