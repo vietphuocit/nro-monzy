@@ -392,13 +392,11 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
 
 	@Override
 	public void die(Player plKill) {
-		if (this.zone.map.mapId == 140 || MapService.gI().isMapMaBu(this.zone.map.mapId) || MapService.gI().isMapBlackBallWar(this.zone.map.mapId) || MapService.gI().isMapDoanhTrai(this.zone.map.mapId) || MapService.gI().isMapBanDoKhoBau(this.zone.map.mapId)) {
-			this.changeStatus(BossStatus.DIE);
-			return;
-		}
 		if (plKill != null) {
 			reward(plKill);
-			ServerNotify.gI().notify(plKill.name + " vừa tiêu diệt được " + this.name + ", ghê chưa ghê chưa..");
+			if (this.zone.map.mapId != 140 && !MapService.gI().isMapMaBu(this.zone.map.mapId) && !MapService.gI().isMapBlackBallWar(this.zone.map.mapId) && !MapService.gI().isMapDoanhTrai(this.zone.map.mapId) && !MapService.gI().isMapBanDoKhoBau(this.zone.map.mapId)) {
+				ServerNotify.gI().notify(plKill.name + " vừa tiêu diệt được " + this.name + ", ghê chưa ghê chưa..");
+			}
 		}
 		this.changeStatus(BossStatus.DIE);
 	}

@@ -450,19 +450,19 @@ public class Mob {
     if (Util.isTrue(70, 100)) {
       list.add(new ItemMap(zone, 190, gold, x, player.location.y, player.id));
     }
-    if (Util.isTrue(2, 100)) {
+    if (Util.isTrue(2, 1000)) {
       // đá nâng cấp
       int idDaNangCap = Util.nextInt(220, 224);
       ItemMap daNangCap = new ItemMap(zone, idDaNangCap, 1, x, player.location.y, player.id);
       RewardService.gI().initDaNangCap(daNangCap);
       list.add(daNangCap);
-    } else if (Util.isTrue(2, 100)) {
+    } else if (Util.isTrue(2, 1000)) {
       // sao pha lê
       int idSaoPhaLe = Util.nextInt(441, 447);
       ItemMap saoPhaLe = new ItemMap(zone, idSaoPhaLe, 1, x, player.location.y, player.id);
       RewardService.gI().initSaoPhaLe(saoPhaLe);
       list.add(saoPhaLe);
-    } else if (Util.isTrue(2, 100)) {
+    } else if (Util.isTrue(2, 1000)) {
       // ngọc rồng
       int idNgocRong = Util.nextInt(17, 20);
       list.add(new ItemMap(zone, idNgocRong, 1, x, player.location.y, player.id));

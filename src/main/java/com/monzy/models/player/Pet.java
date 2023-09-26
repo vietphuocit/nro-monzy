@@ -813,9 +813,9 @@ public class Pet extends Player {
 
   public void openSkill2() {
     Skill skill = null;
-    int tiLeKame = 40;
-    int tiLeMasenko = 30;
-    int tiLeAntomic = 30;
+    int tiLeKame = 20;
+    int tiLeMasenko = 40;
+    int tiLeAntomic = 40;
     int rd = Util.nextInt(1, 100);
     if (rd <= tiLeKame) {
       skill = SkillUtil.createSkill(Skill.KAMEJOKO, 1);
@@ -830,9 +830,9 @@ public class Pet extends Player {
 
   public void openSkill3() {
     Skill skill = null;
-    int tiLeTDHS = 30;
-    int tiLeTTNL = 30;
-    int tiLeKOK = 40;
+    int tiLeTDHS = 20;
+    int tiLeTTNL = 20;
+    int tiLeKOK = 60;
     int rd = Util.nextInt(1, 100);
     if (rd <= tiLeTDHS) {
       skill = SkillUtil.createSkill(Skill.THAI_DUONG_HA_SAN, 1);
@@ -846,9 +846,9 @@ public class Pet extends Player {
 
   public void openSkill4() {
     Skill skill = null;
-    int tiLeBienKhi = 30;
-    int tiLeDeTrung = 30;
-    int tiLeKNL = 40;
+    int tiLeBienKhi = 20;
+    int tiLeDeTrung = 20;
+    int tiLeKNL = 60;
     int rd = Util.nextInt(1, 100);
     if (rd <= tiLeBienKhi) {
       skill = SkillUtil.createSkill(Skill.BIEN_KHI, 1);
@@ -862,9 +862,9 @@ public class Pet extends Player {
 
   public void openSkill5() {
     Skill skill = null;
-    int tiLeThoiMien = 10; // khi
-    int tiLeSoCoLa = 70; // detrung
-    int tiLeDCTT = 20; // khienNl
+    int tiLeThoiMien = 20;
+    int tiLeSoCoLa = 60;
+    int tiLeDCTT = 20;
     int rd = Util.nextInt(1, 100);
     if (rd <= tiLeThoiMien) {
       skill = SkillUtil.createSkill(Skill.SOCOLA, 7);

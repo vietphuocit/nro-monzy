@@ -575,6 +575,16 @@ public class UseItem {
 
   private void changePet(Player player, Item item) {
     if (player.pet != null) {
+      boolean isWear = false;
+      for (Item itemWear : player.pet.inventory.itemsBody) {
+        if (itemWear.isNotNullItem()) {
+          isWear = true;
+        }
+      }
+      if (isWear) {
+        Service.gI().sendThongBao(player, "Tháo hết trang bị của đệ tử");
+        return;
+      }
       int gender = player.pet.gender + 1;
       if (gender > 2) {
         gender = 0;
