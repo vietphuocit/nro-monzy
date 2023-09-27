@@ -918,11 +918,12 @@ public class NPoint {
   }
 
   public long calSubTNSM(long tiemNang) {
-    switch (this.limitPower) {
-      case 8:
-        return tiemNang % 10000;
-      case 9:
-        return tiemNang % 2000;
+    if (power >= 180999999999L) {
+      tiemNang /= 2000;
+    } else if (power >= 120999999999L) {
+      tiemNang /= 5000;
+    } else if (power >= 80999999999L) {
+      tiemNang /= 10000;
     }
     return tiemNang;
   }
