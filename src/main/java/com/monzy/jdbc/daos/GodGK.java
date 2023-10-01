@@ -73,7 +73,7 @@ public class GodGK {
         session.lastTimeLogout = rs.getTimestamp("last_time_logout").getTime();
         session.actived = rs.getBoolean("active");
         session.vnd = rs.getInt("vnd");
-        session.vnd = rs.getInt("account.vnd");
+        session.referralCode = rs.getString("referral_code");
         long lastTimeLogin = rs.getTimestamp("last_time_login").getTime();
         int secondsPass1 = (int) ((System.currentTimeMillis() - lastTimeLogin) / 1000);
         long lastTimeLogout = rs.getTimestamp("last_time_logout").getTime();
@@ -132,6 +132,8 @@ public class GodGK {
               int plMp;
               JSONArray dataArray;
               player = new Player();
+              // referral_code
+              player.referralCode = rs.getString("referral_code");
               // base info
               player.id = rs.getInt("id");
               player.name = rs.getString("name");

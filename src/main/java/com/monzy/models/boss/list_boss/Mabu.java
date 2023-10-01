@@ -16,13 +16,15 @@ import com.monzy.services.Service;
 public class Mabu extends Boss {
 
   public Mabu() throws Exception {
-    super(BossID.MABU, BossesData.MABU);
+    super(BossID.MABU, BossesData.MABU, BossesData.SUPER_MABU);
   }
 
   @Override
   public void reward(Player plKill) {
-    InventoryService.gI().addItemBag(plKill, ItemService.gI().createNewItem(((short) 568)));
-    InventoryService.gI().sendItemBags(plKill);
-    Service.gI().sendThongBao(plKill, "Bạn nhận được Trứng Bư!");
+    if (this.name.contains("Super")) {
+      InventoryService.gI().addItemBag(plKill, ItemService.gI().createNewItem(((short) 568)));
+      InventoryService.gI().sendItemBags(plKill);
+      Service.gI().sendThongBao(plKill, "Bạn nhận được Trứng Bư!");
+    }
   }
 }

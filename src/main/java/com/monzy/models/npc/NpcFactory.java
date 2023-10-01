@@ -59,7 +59,15 @@ public class NpcFactory {
       public void openBaseMenu(Player player) {
         if (canOpenNpc(player)) {
           if (!TaskService.gI().checkDoneTaskTalkNpc(player, this)) {
-            this.createOtherMenu(player, ConstNpc.BASE_MENU, "Nạp Lần Đầu Đi Con!", "Đổi mật khẩu", "Nhận ngọc xanh", "Nhận đệ tử", "GiftCode", "Hướng dẫn\nnạp tự động", "Hướng dẫn\nmở thành viên");
+            this.createOtherMenu(player, ConstNpc.BASE_MENU,
+                "Mã giới thiệu của con là: " + player.session.referralCode,
+                "Đổi mật khẩu",
+                "Nhận ngọc xanh",
+                "Nhận đệ tử",
+                "GiftCode",
+                "Hướng dẫn\nnạp tự động",
+                "Hướng dẫn\nmở thành viên",
+                "Nhập mã giới thiệu");
           }
         }
       }
@@ -97,6 +105,14 @@ public class NpcFactory {
                 return;
               case 5:
                 NpcService.gI().createTutorial(player, this.avartar, ConstNpc.HUONG_DAN_MO_THANH_VIEN);
+                return;
+              case 6:
+                if (!player.referralCode.equals("null")) {
+                  Service.gI().sendThongBaoOK(player, "Bạn đã nhập mã giới thiệu: " + player.referralCode);
+                  return;
+                }
+                Input.gI().createFormReferralCode(player);
+
             }
           }
         }

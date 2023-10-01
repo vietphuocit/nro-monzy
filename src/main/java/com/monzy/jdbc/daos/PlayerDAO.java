@@ -17,7 +17,6 @@ import org.json.simple.JSONValue;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Date;
 
 public class PlayerDAO {
@@ -300,10 +299,7 @@ public class PlayerDAO {
       try {
         JSONArray dataArray = new JSONArray();
         // data kim lượng
-        dataArray.add(
-            player.inventory.gold > Inventory.LIMIT_GOLD
-                ? Inventory.LIMIT_GOLD
-                : player.inventory.gold);
+        dataArray.add(Math.min(player.inventory.gold, Inventory.LIMIT_GOLD));
         dataArray.add(player.inventory.gem);
         dataArray.add(player.inventory.ruby);
         dataArray.add(player.inventory.coupon);
@@ -739,14 +735,15 @@ public class PlayerDAO {
         String dataBlackBall = dataArray.toJSONString();
         dataArray.clear();
         String query =
-            " update player set head = ?, have_tennis_space_ship = ?,"
-                + "clan_id_sv"
+            " update player set head = ?, have_tennis_space_ship = ?, clan_id_sv"
                 + Manager.SERVER
                 + " = ?, data_inventory = ?, data_location = ?, data_point = ?, data_magic_tree = ?,"
                 + "items_body = ?, items_bag = ?, items_box = ?, items_box_lucky_round = ?, friends = ?,"
-                + "enemies = ?, data_intrinsic = ?, data_item_time = ?, data_item_time_sieu_cap = ?, data_task = ?, data_mabu_egg = ?, pet = ?,"
-                + "data_black_ball = ?, data_side_task = ?, data_charm = ?, skills = ?,"
-                + " skills_shortcut = ?, pointPvp=?, event=?,data_card=?,bill_data =? where id = ?";
+                + "enemies = ?, data_intrinsic = ?, data_item_time = ?, data_item_time_sieu_cap = ?,"
+                + "data_task = ?, data_mabu_egg = ?, pet = ?,data_black_ball = ?, data_side_task = ?,"
+                + "data_charm = ?, skills = ?, skills_shortcut = ?, pointPvp = ?, event = ?, data_card = ?,"
+                + "bill_data = ?, referral_code = ?"
+                + "where id = ?";
         Database.executeUpdate(
             query,
             player.head,
@@ -777,6 +774,7 @@ public class PlayerDAO {
             player.event,
             JSONValue.toJSONString(player.cards),
             billEgg,
+            player.referralCode,
             player.id);
         Logger.success(
             "Total time save player "
@@ -852,22 +850,12 @@ public class PlayerDAO {
     return true;
   }
 
-  public static boolean setIs_gift_box(Player player) {
-    PreparedStatement ps = null;
-    try (Connection con = Database.getConnection()) {
-      ps =
-          con.prepareStatement(
-              "update account set is_gift_box = 0 where id = ?",
-              ResultSet.TYPE_SCROLL_INSENSITIVE,
-              ResultSet.CONCUR_READ_ONLY);
-      ps.setInt(1, player.session.userId);
-      ps.executeUpdate();
-      ps.close();
+  public static void addVND(String referralCode, int num) {
+    try {
+      Database.executeUpdate("update account set vnd = (vnd + ?) where referral_code = ?", num, referralCode);
     } catch (Exception e) {
-      Logger.logException(PlayerDAO.class, e, "Lỗi update new_reg " + player.name);
-      return false;
+      Logger.logException(PlayerDAO.class, e, "Lỗi add vnd referral code: " + referralCode);
     }
-    return true;
   }
 
   public static boolean checkLogout(Connection con, Player player) {
@@ -895,38 +883,6 @@ public class PlayerDAO {
       return false;
     }
     return lastTimeLogout > lastTimeLogin;
-  }
-
-  public static void LogNapTien(
-      String uid, String menhgia, String seri, String code, String tranid) {
-    String UPDATE_PASS =
-        "INSERT INTO naptien(uid,sotien,seri,code,loaithe,time,noidung,tinhtrang,tranid,magioithieu) VALUES(?,?,?,?,?,?,?,?,?,?)";
-    try {
-      Connection conn = Database.getConnection();
-      PreparedStatement ps = null;
-      // UPDATE NRSD,
-      ps =
-          conn.prepareStatement(
-              UPDATE_PASS, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-      conn.setAutoCommit(false);
-      // NGOC RONG SAO DEN
-      ps.setString(1, uid);
-      ps.setString(2, menhgia);
-      ps.setString(3, seri);
-      ps.setString(4, code);
-      ps.setString(5, "VIETTEL");
-      ps.setString(6, "123123123123");
-      ps.setString(7, "dang nap the");
-      ps.setString(8, "0");
-      ps.setString(9, tranid);
-      ps.setString(10, "0");
-      if (ps.executeUpdate() == 1) {}
-      conn.commit();
-      // UPDATE NRSD
-      conn.close();
-    } catch (SQLException e) {
-      Logger.logException(GodGK.class, e);
-    }
   }
 
   public static boolean activedUser(Player player) {

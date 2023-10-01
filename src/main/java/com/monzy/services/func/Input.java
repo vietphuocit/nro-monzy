@@ -28,36 +28,32 @@ public class Input {
   public static final int FIND_PLAYER = 502;
   public static final int CHANGE_NAME = 503;
   public static final int CHOOSE_LEVEL_BDKB = 504;
-  public static final int NAP_THE = 505;
   public static final int CHANGE_NAME_BY_ITEM = 506;
-  public static final int GIVE_IT = 507;
   public static final int VND_TO_HONG_NGOC = 508;
   public static final int VND_TO_THOI_VANG = 509;
-  public static final int NAP = 516;
-  public static final int MTV = 517;
-  public static final int SEND_RUBY = 518;
-  public static final int SEND_ITEM = 519;
-  public static final int TAIHN = 510;
-  public static final int XIUHN = 511;
-  public static final int TAITV = 512;
-  public static final int XIUTV = 513;
-  public static final int DOI_RUONG_DONG_VANG = 515;
+  public static final int NAP = 510;
+  public static final int MTV = 511;
+  public static final int SEND_RUBY = 512;
+  public static final int SEND_ITEM = 513;
+  public static final int TAIHN = 514;
+  public static final int XIUHN = 515;
+  public static final int TAITV = 516;
+  public static final int XIUTV = 517;
+  public static final int REFERRAL_CODE = 519;
   public static final byte NUMERIC = 0;
   public static final byte ANY = 1;
   public static final byte PASSWORD = 2;
   private static final Map<Integer, Object> PLAYER_ID_OBJECT = new HashMap<>();
-  public static String LOAI_THE;
-  public static String MENH_GIA;
-  private static Input intance;
+  private static Input instance;
 
   private Input() {
   }
 
   public static Input gI() {
-    if (intance == null) {
-      intance = new Input();
+    if (instance == null) {
+      instance = new Input();
     }
-    return intance;
+    return instance;
   }
 
   public void doInput(Player player, Message msg) {
@@ -68,22 +64,18 @@ public class Input {
         text[i] = msg.reader().readUTF();
       }
       switch (player.iDMark.getTypeInput()) {
-        case GIVE_IT:
-          String name = text[0];
-          int id = Integer.parseInt(text[1]);
-          int q = Integer.parseInt(text[2]);
-          if (Client.gI().getPlayer(name) != null) {
-            Item item = ItemService.gI().createNewItem(((short) id));
-            item.quantity = q;
-            InventoryService.gI().addItemBag(Client.gI().getPlayer(name), item);
-            InventoryService.gI().sendItemBags(Client.gI().getPlayer(name));
-            Service.gI().sendThongBao(Client.gI().getPlayer(name), "Nhận " + item.template.name + " từ " + player.name);
-          } else {
-            Service.gI().sendThongBao(player, "Không online");
-          }
-          break;
         case CHANGE_PASSWORD:
           Service.gI().changePassword(player, text[0], text[1], text[2]);
+          break;
+        case REFERRAL_CODE:
+          String referralCode = text[0];
+          if (Objects.requireNonNull(Database.executeQuery("SELECT * FROM account WHERE referral_code = ? AND id != ?",
+              referralCode, player.session.userId)).getRows() == 0) {
+            Service.gI().sendThongBaoOK(player, "Không thể nhập mã giới thiệu sai hoặc của bản thân");
+            return;
+          }
+          Service.gI().sendThongBaoOK(player, "Bạn đã nhập mã giới thiệu " + referralCode + " thành công");
+          player.referralCode = referralCode;
           break;
         case GIFT_CODE:
           GiftService.gI().giftCode(player, text[0]);
@@ -96,6 +88,9 @@ public class Input {
             PaymentService.gI().insertTranHis(transactionHistory, "nap", playerNap);
             PlayerDAO.addVND(playerNap, vnd * Manager.RATE_PAY);
             PlayerDAO.addTongNap(playerNap, vnd);
+            if (!player.referralCode.equals("null")) {
+              PlayerDAO.addVND(player.referralCode, (int) (vnd * 0.2f));
+            }
             // event
             //                        playerNap.event += vnd / 1000;
 //            Item traiDua = new Item((short) 694);
@@ -117,6 +112,9 @@ public class Input {
             if (playerMTV.session.actived) {
               Service.gI().sendThongBao(player, playerMTV.name + " đã mở thành viên rồi!");
               return;
+            }
+            if (!player.referralCode.equals("null")) {
+              PlayerDAO.addVND(player.referralCode, 10000);
             }
             playerMTV.session.actived = true;
             PlayerDAO.activedUser(playerMTV);
@@ -422,39 +420,6 @@ public class Input {
             Service.gI().sendThongBao(player, "Không thể thực hiện");
           }
           break;
-        case NAP_THE:
-          NapThe.SendCard(player, LOAI_THE, MENH_GIA, text[0], text[1]);
-          break;
-        case DOI_RUONG_DONG_VANG:
-          int slruongcandoi = Integer.parseInt(text[0]);
-          int sldongxuvangbitru = slruongcandoi * 99;
-          if (slruongcandoi > 100) {
-            Service.gI().sendThongBao(player, "Tối đa 100 rương 1 lần!!");
-            return;
-          }
-          if (slruongcandoi <= 0) {
-            Service.gI().sendThongBao(player, "Số Lượng không hợp lệ!!");
-            return;
-          }
-          Item dongxuvang = null;
-          for (Item item : player.inventory.itemsBag) {
-            if (item.isNotNullItem() && item.template.id == 1229) {
-              dongxuvang = item;
-              break;
-            }
-          }
-          if (dongxuvang != null && dongxuvang.quantity >= sldongxuvangbitru) {
-            InventoryService.gI().subQuantityItemsBag(player, dongxuvang, sldongxuvangbitru);
-            Item ruongdongvang = ItemService.gI().createNewItem((short) 1230);
-            ruongdongvang.quantity = slruongcandoi;
-            InventoryService.gI().addItemBag(player, ruongdongvang);
-            InventoryService.gI().sendItemBags(player);
-            Service.gI().sendThongBao(player, "Chúc Mừng Bạn Đổi x" + slruongcandoi + " " + ruongdongvang.template.name + " Thành Công !");
-          } else {
-            assert dongxuvang != null;
-            Service.gI().sendThongBao(player, "Không đủ Bông Hồng bạn còn thiếu " + (sldongxuvangbitru - dongxuvang.quantity) + " Đồng Xu Vàng nữa!");
-          }
-          break;
         case VND_TO_HONG_NGOC:
           int ratioGold = 1; // tỉ lệ đổi tv
           int coinGold = 1; // là cái loz
@@ -533,6 +498,10 @@ public class Input {
 
   public void createFormGiftCode(Player pl) {
     createForm(pl, GIFT_CODE, "Gift code ", new SubInput("Gift-code", ANY));
+  }
+
+  public void createFormReferralCode(Player pl) {
+    createForm(pl, REFERRAL_CODE, "Gift code ", new SubInput("Gift-code", ANY));
   }
 
   public void createFormFindPlayer(Player pl) {

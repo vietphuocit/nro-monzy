@@ -144,6 +144,7 @@ public class Player {
   public int levelWoodChest;
   public boolean receivedWoodChest;
   public int goldChallenge = 50_000_000;
+  public String referralCode;
 
   public Player() {
     lastTimeUseOption = System.currentTimeMillis();

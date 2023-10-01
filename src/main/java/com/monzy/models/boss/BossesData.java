@@ -240,18 +240,35 @@ public class BossesData {
   public static final BossData MABU =
       new BossData(
           "Mabư",
-          ConstPlayer.TRAI_DAT,
+          ConstPlayer.XAYDA,
           new short[]{297, 298, 299, -1, -1, -1},
-          500000,
-          new int[]{2000000000},
-          new int[]{52},
+          200000,
+          new int[]{200_000_000},
+          new int[]{5, 6, 12, 13, 19, 20, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38},
           new int[][]{
-              {Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000}, {Skill.SOCOLA, 7, 1000}
+              {Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000},
+              {Skill.SOCOLA, 7, 1000}, {Skill.TAI_TAO_NANG_LUONG, 7, 10000}
           },
           new String[]{"|-2|Ma nhân Bư đã xuất hiện rồi"}, // text chat 1
           new String[]{}, // text chat 2
           new String[]{"|-1|Nhớ mặt tao đấy", "|-1|Tobe continue.."}, // text chat 3
-          REST_15_M);
+          REST_30_M);
+  public static final BossData SUPER_MABU =
+      new BossData(
+          "Super Mabư",
+          ConstPlayer.XAYDA,
+          new short[]{421, 422, 423, -1, -1, -1},
+          300000,
+          new int[]{200_000_000},
+          new int[]{5, 6, 12, 13, 19, 20, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38},
+          new int[][]{
+              {Skill.KAMEJOKO, 7, 1000}, {Skill.LIEN_HOAN, 7, 1000},
+              {Skill.SOCOLA, 7, 1000}, {Skill.TAI_TAO_NANG_LUONG, 7, 10000}
+          },
+          new String[]{"|-2|Super Bư đã xuất hiện rồi"}, // text chat 1
+          new String[]{}, // text chat 2
+          new String[]{"|-1|Nhớ mặt tao đấy", "|-1|Tobe continue.."}, // text chat 3
+          TypeAppear.APPEAR_WITH_ANOTHER);
   /**
    * Boss nappa
    */

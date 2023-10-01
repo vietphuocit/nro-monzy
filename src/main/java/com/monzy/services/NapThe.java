@@ -1,15 +1,9 @@
 package com.monzy.services;
 
-import com.monzy.jdbc.daos.PlayerDAO;
-import com.monzy.models.player.Player;
 import com.monzy.utils.Logger;
-import com.monzy.utils.Util;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
-import okhttp3.*;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -39,94 +33,6 @@ public class NapThe {
       System.out.println("Server started on port 8080");
     } catch (Exception e) {
       Logger.error("callbackAPI: " + e.getMessage() + '\n');
-    }
-  }
-
-  public static final void SendCard(
-      Player player, String telco, String amount, String serial, String code) {
-    String partnerId = "1079293661";
-    String partnerKey = "bc6a0cf61ea9028d34b10ca2b1db7f1e";
-    String api = MD5Hash(partnerKey + code + serial);
-    String requestID = String.valueOf(System.currentTimeMillis() + Util.nextInt(1000, 9999));
-    try {
-      OkHttpClient client = new OkHttpClient().newBuilder().build();
-      RequestBody body =
-          new MultipartBody.Builder()
-              .setType(MultipartBody.FORM)
-              .addFormDataPart("telco", telco)
-              .addFormDataPart("code", code)
-              .addFormDataPart("serial", serial)
-              .addFormDataPart("amount", amount)
-              .addFormDataPart("request_id", requestID)
-              .addFormDataPart("partner_id", partnerId)
-              .addFormDataPart("sign", api)
-              .addFormDataPart("command", "charging")
-              .build();
-      Request request =
-          new Request.Builder()
-              .url("https://thesieure.com/chargingws/v2")
-              .post(body)
-              .addHeader("Content-Type", "application/json")
-              .build();
-      Response response = client.newCall(request).execute();
-      String jsonString = response.body().string();
-      Object obj = JSONValue.parse(jsonString);
-      JSONObject jsonObject = (JSONObject) obj;
-      long name = (long) jsonObject.get("status");
-      //
-      if (name == 99) {
-        PlayerDAO.LogNapTien(player.session.uu, amount, serial, code, requestID);
-        Service.gI()
-            .sendThongBaoOK(
-                player,
-                "Gửi thẻ thành công \n"
-                    + "Seri :"
-                    + serial
-                    + "\n Mã thẻ :"
-                    + code
-                    + "\n Mệnh giá : "
-                    + amount
-                    + "\n"
-                    + "Thời gian : "
-                    + java.time.LocalDate.now()
-                    + " "
-                    + java.time.LocalTime.now()
-                    + "\n"
-                    + "Vui lòng thoát game để update lại số tiền");
-      }
-      if (name == 1) {
-        PlayerDAO.LogNapTien(player.session.uu, amount, serial, code, requestID);
-        Service.gI()
-            .sendThongBaoOK(
-                player,
-                "Gửi thẻ thành công \n"
-                    + "Seri :"
-                    + serial
-                    + "\n Mã thẻ :"
-                    + code
-                    + "\n Mệnh giá : "
-                    + amount
-                    + "\n"
-                    + "Thời gian : "
-                    + java.time.LocalDate.now()
-                    + " "
-                    + java.time.LocalTime.now()
-                    + "\n"
-                    + "Vui lòng thoát game để update lại số tiền");
-      } else if (name == 2) {
-        Service.gI()
-            .sendThongBao(
-                player,
-                "Nạp thành công nhưng sai mệnh giá.\nCon sẽ ko dc cộng tiền lần sau ông khóa mẹ acc con cho chừa nhé");
-      } else if (name == 3) {
-        Service.gI().sendThongBao(player, "Bạn đã nhập sai giá trị, hãy nhập đúng nhóe :3");
-      } else if (name == 4) {
-        Service.gI().sendThongBao(player, "Hệ thống nạp bảo trì rồi con");
-      } else if (name == 100) {
-        Service.gI().sendThongBao(player, "Sai seri và mã pin rồi con ơi");
-      }
-    } catch (Exception e) {
-      Logger.logException(NapThe.class, e);
     }
   }
 

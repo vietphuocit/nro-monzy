@@ -27,9 +27,7 @@ public class MySession extends Session {
   private static final Map<String, AntiLogin> ANTILOGIN = new HashMap<>();
   public Player player;
   public byte timeWait = 100;
-  public boolean connected;
   public boolean sentKey;
-  public byte curR, curW;
   public String ipAddress;
   public boolean isAdmin;
   public boolean isMod;
@@ -40,13 +38,13 @@ public class MySession extends Session {
   public byte zoomLevel;
   public long lastTimeLogout;
   public boolean joinedGame;
-  public long lastTimeReadMessage;
   public boolean actived;
   public int tongnap;
   public List<Item> itemsReward;
   public String dataReward;
   public int version;
   public int vnd;
+  public String referralCode;
 
   public MySession(Socket socket) {
     super(socket);

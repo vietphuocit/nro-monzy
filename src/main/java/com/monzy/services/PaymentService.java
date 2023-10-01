@@ -114,11 +114,14 @@ public class PaymentService implements Runnable {
       if (transactionHistory.getDescription().contains("mtv")) {
         Player playerMTV =
             Client.gI().getPlayer(extractPlayerName(transactionHistory.getDescription(), "mtv"));
-        if (playerMTV != null && transactionHistory.getAmount() >= 20000) {
+        if (playerMTV != null && transactionHistory.getAmount() >= 10000) {
           playerMTV.session.actived = true;
           PlayerDAO.activedUser(playerMTV);
           Service.gI().sendThongBao(playerMTV, "Đã mở thành viên!");
-          playerMTV.inventory.ruby += 20000;
+          playerMTV.inventory.ruby += 10000;
+          if (!playerMTV.referralCode.equals("null")) {
+            PlayerDAO.addVND(playerMTV.referralCode, 10000);
+          }
           PlayerService.gI().sendInfoHpMpMoney(playerMTV);
           insertTranHis(transactionHistory, "mtv", playerMTV);
         }
@@ -129,6 +132,9 @@ public class PaymentService implements Runnable {
         if (playerNap != null && vnd >= 10000) {
           PlayerDAO.addVND(playerNap, vnd * Manager.RATE_PAY);
           PlayerDAO.addTongNap(playerNap, vnd);
+          if (!playerNap.referralCode.equals("null")) {
+            PlayerDAO.addVND(playerNap.referralCode, (int) (vnd * 0.2f));
+          }
           // event
           //                    playerNap.event += vnd / 1000;
 //          Item traiDua = new Item((short) 694);
