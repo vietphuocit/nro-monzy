@@ -643,8 +643,8 @@ public class Manager {
       Logger.info(
           "Load map item option template thành công (" + ITEM_OPTION_TEMPLATES.size() + ")");
       // load shop
-//      SHOPS = ShopDAO.getShops(con);
-//      Logger.info("Load shop thành công (" + SHOPS.size() + ")");
+      SHOPS = ShopDAO.getShops(con);
+      Logger.info("Load shop thành công (" + SHOPS.size() + ")");
       // load reward lucky round
       File folder = new File("data/monzy/data_lucky_round_reward");
       for (File fileEntry : folder.listFiles()) {
