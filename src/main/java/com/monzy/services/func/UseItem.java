@@ -341,27 +341,6 @@ public class UseItem {
             case 1108: // đổi đệ berus
               changePetBerus(pl, item);
               break;
-//            case 1230:
-//              UseItem.gI().useruondongvang(pl);
-//              break;
-//            case 1259:
-//              UseItem.gI().hopquat1nap(pl);
-//              break;
-//            case 1264:
-//              UseItem.gI().hopquat2nap(pl);
-//              break;
-//            case 1265:
-//              UseItem.gI().hopquat3nap(pl);
-//              break;
-//            case 1266:
-//              UseItem.gI().hopquat1SM(pl);
-//              break;
-//            case 1267:
-//              UseItem.gI().hopquat2SM(pl);
-//              break;
-//            case 1268:
-//              UseItem.gI().hopquat3SM(pl);
-//              break;
             case 722: // đổi đệ tử
               changePetPic(pl, item);
               break;
@@ -461,6 +440,80 @@ public class UseItem {
               InventoryService.gI().subQuantityItemsBag(pl, InventoryService.gI().findItemBag(pl, 2047), 1);
               InventoryService.gI().sendItemBags(pl);
               Service.gI().sendThongBao(pl, "Bạn vừa nhận được " + itemDHD.template.name);
+              break;
+            }
+            case 2048:
+            case 2049:
+            case 2050:
+            case 2051: {
+              int top = item.template.id - 2047;
+              Item gayQuyLao = ItemService.gI().createNewItem((short) 1992);
+              gayQuyLao.itemOptions.add(new ItemOption(49, 12));
+              gayQuyLao.itemOptions.add(new ItemOption(77, 12));
+              gayQuyLao.itemOptions.add(new ItemOption(103, 12));
+              gayQuyLao.itemOptions.add(new ItemOption(97, 20));
+              gayQuyLao.itemOptions.add(new ItemOption(30, 0));
+              if (top > 3) {
+                gayQuyLao.itemOptions.add(new ItemOption(93, 90));
+              }
+              InventoryService.gI().addItemBag(pl, gayQuyLao);
+              InventoryService.gI().subQuantityItemsBag(pl, item, 1);
+              InventoryService.gI().sendItemBags(pl);
+              int hongNgoc = top == 1 ? 500000 : top == 2 ? 300000 : top == 3 ? 200000 : 100000;
+              pl.inventory.ruby += hongNgoc;
+              Service.gI().sendMoney(pl);
+              Service.gI().sendThongBao(pl,
+                  "Bạn vừa nhận được " + gayQuyLao.template.name + " và " + hongNgoc + " hồng ngọc");
+              break;
+            }
+            case 2052:
+            case 2053:
+            case 2054:
+            case 2055: {
+              int top = item.template.id - 2051;
+              Item gayNhuY = ItemService.gI().createNewItem((short) 920);
+              gayNhuY.itemOptions.add(new ItemOption(49, 12));
+              gayNhuY.itemOptions.add(new ItemOption(77, 12));
+              gayNhuY.itemOptions.add(new ItemOption(103, 12));
+              gayNhuY.itemOptions.add(new ItemOption(14, 10));
+              gayNhuY.itemOptions.add(new ItemOption(89, 0));
+              gayNhuY.itemOptions.add(new ItemOption(30, 0));
+              if (top > 3) {
+                gayNhuY.itemOptions.add(new ItemOption(93, 90));
+              }
+              int qtyThoiVang = top == 1 ? 2000 : top == 2 ? 1200 : top == 3 ? 800 : 400;
+              Item thoiVang = ItemService.gI().createNewItem((short) 457, qtyThoiVang);
+              InventoryService.gI().addItemBag(pl, gayNhuY);
+              InventoryService.gI().addItemBag(pl, thoiVang);
+              InventoryService.gI().subQuantityItemsBag(pl, item, 1);
+              InventoryService.gI().sendItemBags(pl);
+              Service.gI().sendThongBao(pl,
+                  "Bạn vừa nhận được " + gayNhuY.template.name + " và " + qtyThoiVang + " thỏi vàng");
+              break;
+            }
+            case 2056:
+            case 2057:
+            case 2058:
+            case 2059: {
+              int top = item.template.id - 2055;
+              Item petMinion = ItemService.gI().createNewItem((short) 1416);
+              petMinion.itemOptions.add(new ItemOption(49, 12));
+              petMinion.itemOptions.add(new ItemOption(77, 12));
+              petMinion.itemOptions.add(new ItemOption(103, 12));
+              petMinion.itemOptions.add(new ItemOption(116, 0));
+              petMinion.itemOptions.add(new ItemOption(30, 0));
+              if (top > 3) {
+                petMinion.itemOptions.add(new ItemOption(93, 90));
+              }
+              int qtyRuongThanLinh = top == 1 ? 10 : top == 2 ? 7 : top == 3 ? 5 : 3;
+              Item ruongThanLinh = ItemService.gI().createNewItem((short) 2046, qtyRuongThanLinh);
+              ruongThanLinh.itemOptions.add(new ItemOption(30, 0));
+              InventoryService.gI().addItemBag(pl, petMinion);
+              InventoryService.gI().addItemBag(pl, ruongThanLinh);
+              InventoryService.gI().subQuantityItemsBag(pl, item, 1);
+              InventoryService.gI().sendItemBags(pl);
+              Service.gI().sendThongBao(pl,
+                  "Bạn vừa nhận được " + petMinion.template.name + " và " + qtyRuongThanLinh + " " + ruongThanLinh.template.name);
               break;
             }
           }
